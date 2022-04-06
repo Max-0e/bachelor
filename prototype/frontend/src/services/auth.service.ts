@@ -1,4 +1,4 @@
-import { get, post, put, deletE } from '../utility/http';
+import HttpClient from '../utility/http';
 import { API_URL } from '../config';
 import { ILoginPayload } from '@/intefaces/loginPayload.interface';
 import { IRegisterPayload } from '@/intefaces/registerPayload.interface';
@@ -8,15 +8,15 @@ class AuthService {
 	constructor() {}
 
 	public async register(registerPayload: IRegisterPayload) {
-		return await post(`${API_URL}/auth/register`, registerPayload, {});
+		return await HttpClient.post(`${API_URL}/auth/register`, registerPayload, {});
 	}
 
 	public async authorize() {
-		return await get(`${API_URL}/auth/authorize`, { withCredentials: true });
+		return await HttpClient.get(`${API_URL}/auth/authorize`, { withCredentials: true });
 	}
 
 	public async activate(activationToken: string) {
-		return await post(
+		return await HttpClient.post(
 			`${API_URL}/auth/activate`,
 			{
 				activationToken,
@@ -26,7 +26,7 @@ class AuthService {
 	}
 
 	public async login(loginPayload: ILoginPayload) {
-		return await post(
+		return await HttpClient.post(
 			`${API_URL}/auth/login`,
 			{
 				// scince passport needs the attribute to be named username a convertion is needed here
@@ -38,11 +38,11 @@ class AuthService {
 	}
 
 	public async logout() {
-		return await post(`${API_URL}/auth/logout`, {}, { withCredentials: true });
+		return await HttpClient.post(`${API_URL}/auth/logout`, {}, { withCredentials: true });
 	}
 
 	public async forgotPassword(email: string) {
-		return await post(
+		return await HttpClient.post(
 			`${API_URL}/auth/forgot-password`,
 			{
 				email,
@@ -52,7 +52,7 @@ class AuthService {
 	}
 
 	public async resetPassword(resetPasswordPayload: IResetPasswordPayload) {
-		return await post(`${API_URL}/auth/reset-password/`, resetPasswordPayload, {});
+		return await HttpClient.post(`${API_URL}/auth/reset-password/`, resetPasswordPayload, {});
 	}
 }
 
