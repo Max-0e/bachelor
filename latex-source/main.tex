@@ -1,35 +1,65 @@
 \documentclass[12pt]{article}
-\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage[a4paper,top=20mm,bottom=20mm,right=20mm,left=40mm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 \usepackage[ngerman]{babel}
-\linespread{1.3}
+\renewcommand{\baselinestretch}{1.5}
 \usepackage{blindtext}
 \usepackage{tabularx}
 \usepackage{ragged2e}
+\usepackage{setspace}
+\newcommand\hr{\par\vspace{-.5\ht\strutbox}\noindent\hrulefill\par}
 \usepackage{longtable}
+\usepackage{hyperref}
 
-\usepackage{biblatex}
+\usepackage[
+natbib=true,
+style=numeric,
+sorting=none
+]{biblatex}
 \addbibresource{references.bib}
 
 \usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot{}
+\fancyhead{}
+
 \usepackage{graphicx}
 \graphicspath{{./images}}
 
 \begin{document}
 \pagenumbering{gobble}
-\input{titlepage}
-\newpage
+\input{not-chapters/cover}
+\input{not-chapters/titlepage}
 
+\fancyhead[C]{\thepage}
+\newpage
+\pagestyle{fancy}
 \pagenumbering{roman}
+\input{not-chapters/abstract}
+\newpage
 \tableofcontents
 \newpage
-\input{abbildungsverzeichnis}
+\input{not-chapters/abkuerzungsverzeichnis}
+\newpage
+\input{not-chapters/symbolverzeichnis}
+\newpage
+\input{not-chapters/abbildungsverzeichnis}
+\newpage
+\input{not-chapters/tabellenverzeichnis}
 
+\newpage
 \pagenumbering{arabic}
+
 \section{Einleitung}
 \input{chapters/einleitung}
-\input{literary.tex}
-\input{begriffsverzeichnis}
+
+\newpage
+\input{not-chapters/literary}
+\newpage
+\input{not-chapters/anhang}
+\newpage
+\input{not-chapters/selbstaendigkeitserklaerung}
 
 \end{document}

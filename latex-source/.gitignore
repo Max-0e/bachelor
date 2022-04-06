@@ -4,7 +4,7 @@
 *.bcf
 *.blg
 *.fdb_latexmk
-*fls
+*.fls
 *.log
 *.run.xml
 *.synctex.gz
