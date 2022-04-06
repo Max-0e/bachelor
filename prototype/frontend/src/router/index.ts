@@ -1,48 +1,33 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Home from '@/views/Home.vue';
+import Main from '@/views/Main.vue';
 import Auth from '@/views/Auth.vue';
-import Login from '@/components/Auth/Login.vue';
-import Register from '@/components/Auth/Register.vue';
-import ResetPassword from '@/components/Auth/ResetPassword.vue';
-import ForgotPassword from '@/components/Auth/ForgotPassword.vue';
+import authRoutes from '@/router/auth'
 import Activate from '@/components/Auth/Activate.vue';
+import Projects from '@/components/Projects/Projects.vue';
+import NotFound from '@/views/NotFound.vue';
 import { useAuthStore } from '@/store/auth';
-import { TYPE, useToast } from 'vue-toastification';
+import { useToast } from 'vue-toastification';
 import { useAppStore } from '@/store/app';
 
 const routes: Array<RouteRecordRaw> = [
 	{
-		path: '/',
-		name: 'Home',
-		component: Home,
+		path: '/app',
+		name: 'Main',
+		component: Main,
+		children: [
+			{
+				path: '/projects',
+				name: 'Projects',
+				component: Projects,
+			},
+		]
 	},
 	{
 		path: '/auth',
 		name: 'Auth',
 		component: Auth,
 		meta: { noAuth: true },
-		children: [
-			{
-				path: '/login',
-				name: 'Login',
-				component: Login,
-			},
-			{
-				path: '/register',
-				name: 'Register',
-				component: Register,
-			},
-			{
-				path: '/forgotPassword',
-				name: 'ForgotPassword',
-				component: ForgotPassword,
-			},
-			{
-				path: '/resetPassword/:resetToken',
-				name: 'ResetPassword',
-				component: ResetPassword,
-			},
-		],
+		children: authRoutes
 	},
 	{
 		path: '/activate/:activationToken',
@@ -51,10 +36,15 @@ const routes: Array<RouteRecordRaw> = [
 		meta: { noAuth: true },
 	},
 	{
-		path: '/secretPage',
-		name: 'SecretPage',
-		component: () => import('../views/SecretPage.vue'),
+		path: '/notFound',
+		name: 'NotFound',
+		component: NotFound,
 	},
+	// {
+	// 	path: '/secretPage',
+	// 	name: 'SecretPage',
+	// 	component: () => import('../views/SecretPage.vue'),
+	// },
 ];
 
 const router = createRouter({
@@ -64,8 +54,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	checkToShowToast();
+	if (to.path == '/') next({ name: 'Main' });
+	if (to.matched.length === 0) next({ name: 'NotFound' });
 	if (!to.meta.noAuth && !useAuthStore().loggedIn) next({ name: 'Login' });
-	else if (to.meta.noAuth && useAuthStore().loggedIn) next({ name: 'Home' });
+	else if (to.meta.noAuth && useAuthStore().loggedIn) next({ name: 'Main' });
 	else next();
 });
 

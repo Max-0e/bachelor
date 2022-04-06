@@ -50,7 +50,7 @@ async function login() {
 		.login(loginPayload.value)
 		.then((_) => {
 			useAuthStore().setLoggedIn(true);
-			router.push('/');
+			router.push('/app');
 		})
 		.catch((error) => useToast().error(error.message, { timeout: 5000 }));
 }

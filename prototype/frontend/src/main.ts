@@ -13,8 +13,9 @@ const app = createApp(App);
 app.use(createPinia());
 
 if (storageService.getHasCookie()) {
-	const res = await authService.authorize();
-	if (res.status == 200) useAuthStore().setLoggedIn(true);
+	await authService.authorize()
+	.then(_ => useAuthStore().setLoggedIn(true))
+	.catch(_ => useAuthStore().setLoggedIn(false));
 }
 
 const toastOpions: PluginOptions = {};
