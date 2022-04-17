@@ -3,17 +3,16 @@ import { defineStore } from 'pinia';
 
 export const useProjectStore = defineStore('project', {
 	state: () => ({
-        projects: [
-            {
-                name: "projectOne"
-            },
-            {
-                name: "projectTwo"
-            },
-        ] as IProject[]
+        projects: [] as IProject[],
+		currentProject: {} as IProject,
+		isLoaded: false as boolean
 	}),
 
 	getters: {},
 
-	actions: {},
+	actions: {
+		updateProject(updatedProject: IProject) {
+			this.projects[this.projects.findIndex(project => project._id === updatedProject._id)] = updatedProject;
+		},
+	},
 });

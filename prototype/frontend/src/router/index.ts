@@ -4,10 +4,13 @@ import Auth from '@/views/Auth.vue';
 import authRoutes from '@/router/auth'
 import Activate from '@/components/Auth/Activate.vue';
 import Projects from '@/components/Projects/Projects.vue';
+import ProjectDetails from '@/components/Projects/ProjectDetails.vue';
+import Dashboard from '@/components/Dashboard/Dashboard.vue';
 import NotFound from '@/views/NotFound.vue';
 import { useAuthStore } from '@/store/auth';
 import { useToast } from 'vue-toastification';
 import { useAppStore } from '@/store/app';
+import { projectDetailsResolver, projectsResolver } from './resolver/projects.resolver';
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -16,9 +19,21 @@ const routes: Array<RouteRecordRaw> = [
 		component: Main,
 		children: [
 			{
+				path: '/dashboard',
+				name: 'Dashboard',
+				component: Dashboard
+			},
+			{
 				path: '/projects',
 				name: 'Projects',
 				component: Projects,
+				beforeEnter: projectsResolver
+			},
+			{
+				path: '/projects/:id',
+				name: 'ProjectDetails',
+				component: ProjectDetails,
+				beforeEnter: projectDetailsResolver
 			},
 		]
 	},

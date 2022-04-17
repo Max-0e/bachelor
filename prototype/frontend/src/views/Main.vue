@@ -1,8 +1,11 @@
 <template>
 	<nav class="fixed w-full h-15 top-0 shadow-md flex justify-between">
-		<h1 class="text-3xl my-auto ml-5">Prototype</h1>
-		<div>
-			<router-link to="/projects">Projects</router-link>
+		<div class="flex flex-wrap">
+			<h1 class="text-3xl my-auto ml-5 content-center"><router-link to="/dashboard">Prototype</router-link></h1>
+			<div class="p-5 flex gap-5 items-center">
+				<router-link to="/dashboard">Dashboard</router-link>
+				<router-link to="/projects">Projects</router-link>
+			</div>
 		</div>
 		<AppButton class="m-1" @click="logout()">Logout</AppButton>
 	</nav>

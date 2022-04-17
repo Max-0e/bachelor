@@ -3,7 +3,7 @@
         <div v-if="!!project">
             <div>{{ project.name }}</div>
         </div>
-        <div v-else>
+        <div v-else class="w-full h-full">
             <div class="p-1">
                 <span class="material-icons">add</span>
             </div>
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { IProject } from '@/intefaces/project.interface';
+import { IProject } from '@/intefaces/project.interface'
 
 defineProps({
     project: { type: Object as PropType<IProject> }
