@@ -4,8 +4,8 @@ import cors from 'cors';
 import passport from 'passport';
 
 import { makeRouter } from './router';
-import { connectDb } from './mongodb/connect';
-import { makeSessionStore } from './mongodb/sessionStore';
+import { connectDb } from './mongodbcontext/connect';
+import { makeSessionStore } from './mongodbcontext/sessionStore';
 import { localStrategy } from './passport/localStrategy';
 import { makeSerializeUser } from './passport/serializeUser';
 import { makeDeserializeUser } from './passport/deserializeUser';
