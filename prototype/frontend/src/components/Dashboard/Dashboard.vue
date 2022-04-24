@@ -1,5 +1,8 @@
 <template>
 Dashboard
+<!-- <span class="material-icons animate-spin">
+    data_saver_off
+</span> -->
 </template>
-<scripe setup lang="ts">
-</scripe>
+<script setup lang="ts">
+</script>

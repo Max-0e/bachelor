@@ -4,6 +4,8 @@ import Auth from '@/views/Auth.vue';
 import authRoutes from '@/router/auth'
 import Activate from '@/components/Auth/Activate.vue';
 import Projects from '@/components/Projects/Projects.vue';
+import Profile from '@/components/Profile/Profile.vue'
+import Settings from '@/components/Settings/Settings.vue'
 import ProjectDetails from '@/components/Projects/ProjectDetails.vue';
 import Dashboard from '@/components/Dashboard/Dashboard.vue';
 import NotFound from '@/views/NotFound.vue';
@@ -18,6 +20,21 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'Main',
 		component: Main,
 		children: [
+			{
+				path: '/dashboard',
+				name: 'Dashboard',
+				component: Dashboard
+			},
+			{
+				path: '/profile',
+				name: 'Profile',
+				component: Profile
+			},
+			{
+				path: '/Settings',
+				name: 'Settings',
+				component: Settings
+			},
 			{
 				path: '/dashboard',
 				name: 'Dashboard',

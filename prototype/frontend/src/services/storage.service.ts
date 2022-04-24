@@ -14,6 +14,17 @@ class StorageService {
 		obj.hasCookie = hasCookie;
 		this.writeObject(obj);
 	}
+	// get darkMode from local storage
+	getDarkMode(): boolean {
+		const obj = this.readObject();
+		return obj.darkMode !== undefined ? obj.darkMode : false;
+	}
+	// set darkMode
+	setDarkMode(darkMode: boolean): void {
+		const obj = this.readObject();
+		obj.darkMode = darkMode;
+		this.writeObject(obj);
+	}
 	// readObject -> get object from storage
 	private readObject(): any {
 		const obj = localStorage.getItem(this.objectName);

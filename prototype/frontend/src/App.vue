@@ -1,12 +1,14 @@
 <template>
-	<!-- <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div> -->
+<div :class="useAppStore().darkMode ? 'dark':''">
+<div class="text-gray-600 dark:(text-white bg-dark-200)">
 	<router-view />
+</div>
+</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAppStore } from '@/store/app'
+</script>
 
 <style>
 #app {
@@ -14,7 +16,6 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
-	color: #2c3e50;
 }
 
 #nav {

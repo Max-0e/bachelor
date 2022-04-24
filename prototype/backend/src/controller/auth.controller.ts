@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { UserModel } from '../models/user.model';
+import { UserDocument, UserModel } from '../models/user.model';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,11 +15,11 @@ import { AuthorizationError } from '../error/auth.error';
 
 class AuthController {
 	public async login(req: Request, res: Response): Promise<Response> {
-		return await sendResponse.message(res, 200, 'logged in');
+		return await sendResponse.data(res, 200, userService.mapToDto(req.user as UserDocument));
 	}
 
 	public async authorize(req: Request, res: Response): Promise<Response> {
-		return await sendResponse.message(res, 200, 'authorized');
+		return await sendResponse.data(res, 200, userService.mapToDto(req.user as UserDocument));
 	}
 
 	public async logoutUser(req: Request, res: Response): Promise<Response> {

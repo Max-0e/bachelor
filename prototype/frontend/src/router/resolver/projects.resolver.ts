@@ -13,9 +13,6 @@ export async function projectDetailsResolver(to: any) {
 
 async function resolveProjects() {
     if(!useProjectStore().isLoaded) {
-        await projectService.getProjects().then(projects => {
-            useProjectStore().projects = projects;
-            useProjectStore().isLoaded = true;
-        });
+        await useProjectStore().loadProjects();
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="h-10 bg-gray-300 pb-5 px-5 pt-1 shadow-lg rounded-md">
+    <div class="h-10 bg-gray-300 dark:(bg-dark-50) pb-5 px-5 pt-1 shadow-lg rounded-md">
         <div v-if="!!project">
             <div>{{ project.name }}</div>
         </div>

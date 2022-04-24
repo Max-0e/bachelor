@@ -2,7 +2,7 @@
 	<div class="mx-5 mt-2 mb-5 relative">
 		<input
 			@input="$emit('update:modelValue', ($event.target as HTMLInputElement).value); changeShowSaveAndCancel(true)"
-			class="p-3 pr-12 w-full block focus-visible:(outline-transparent border-b border-gray-600)"
+			class="p-3 pr-12 w-full block transition-all outline-none dark:bg-dark-200 dark:hover:bg-dark-100 focus-visible:(outline-transparent border-b border-gray-600) hover:(bg-gray-100)"
             :value="modelValue"
 			:type="type"
 			:name="name"

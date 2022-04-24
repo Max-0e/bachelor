@@ -1,6 +1,7 @@
 import { UserModel, UserDocument } from '../models/user.model';
 import { NotFoundError } from '../error/not-found.error';
 import { AuthorizationError } from '../error/auth.error';
+import { UserDto } from '@/interfaces/dtos/userDto.interface';
 
 class UserService {
 	public async findUserByUsernameOrEmail(usernameOrEmail: string) {
@@ -63,6 +64,13 @@ class UserService {
 	private checkResetDuration(pwdResetTime: Date) {
 		const now = new Date();
 		return ((now.getTime() - pwdResetTime.getTime()) / 36e5) < 3;
+	}
+	public mapToDto(user: UserDocument): UserDto {
+		return {
+			id: user._id,
+			username: user.username,
+			email: user.email
+		}
 	}
 }
 

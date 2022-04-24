@@ -32,7 +32,6 @@
 import { ref } from 'vue';
 import { ILoginPayload } from '@/intefaces/loginPayload.interface';
 import router from '@/router';
-import authService from '@/services/auth.service';
 import { useAuthStore } from '@/store/auth';
 
 import AppButton from '../shared/AppButton.vue';
@@ -45,13 +44,9 @@ const loginPayload = ref<ILoginPayload>({
 	password: '',
 });
 
-async function login() {
-	await authService
-		.login(loginPayload.value)
-		.then((_) => {
-			useAuthStore().setLoggedIn(true);
-			router.push('/dashboard');
-		})
+function login() {
+	useAuthStore().login(loginPayload.value)
+		.then((_) => router.push('/dashboard'))
 		.catch((error) => useToast().error(error.message, { timeout: 5000 }));
 }
 </script>

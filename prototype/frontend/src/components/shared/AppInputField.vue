@@ -3,7 +3,7 @@
 	<div class="mx-5 mt-2 mb-5 relative rounded-md shadow-md">
 		<input
 			@input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-			class="p-3 pl-7 pr-12 block w-full sm:text-sm rounded-md border-1 border-gray-300 focus:(ring-blue-600 border-blue-600)"
+			class="p-3 pl-7 pr-12 block w-full dark:bg-dark-50 sm:text-sm rounded-md border-1 border-gray-300 focus:(ring-blue-600 border-blue-600)"
 			:type="type"
 			:name="name"
 			:id="id"

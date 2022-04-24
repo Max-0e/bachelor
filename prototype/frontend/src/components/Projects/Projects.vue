@@ -20,7 +20,7 @@
 </div>
 <div class="w-full flex justify-end gap-5">
     <AppButton @click="showCreateProjectModal=false">Cancel</AppButton>
-    <AppButton @click="createProject()">Create</AppButton>
+    <AppButton @click="projectStore.createProject(projectToCreate);showCreateProjectModal=false">Create</AppButton>
 </div>
 </AppModal>
 </template>
@@ -31,20 +31,12 @@ import ProjectCard from '@/components/Projects/Projects-Components/ProjectCard.v
 import AppModal from '@/components/shared/AppModal.vue'
 import AppButton from '@/components/shared/AppButton.vue';
 import AppInputField from '@/components/shared/AppInputField.vue';
-import projectService from '@/services/project.service';
 import { ICreateProject } from '@/intefaces/project.interface';
 import { ref, Ref } from 'vue';
 import router from '@/router';
 
 const showCreateProjectModal = ref(false);
 const projectToCreate: Ref<ICreateProject> = ref({ name: "" });
-
-function createProject() {
-    projectService.createProject(projectToCreate.value).then(project => {
-        useProjectStore().projects.push(project);
-        showCreateProjectModal.value = false;
-    })
-}
 const projectStore = useProjectStore();
 
 </script>
