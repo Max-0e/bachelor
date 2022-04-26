@@ -1,7 +1,9 @@
+import { ITask } from "./task.interface";
+
 export interface IProject {
-	_id: string;
+	id: string;
 	name: string;
-	__v: number;
+	tasks: ITask[];
 }
 
 export interface ICreateProject {

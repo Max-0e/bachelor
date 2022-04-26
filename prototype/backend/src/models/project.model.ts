@@ -1,17 +1,15 @@
 import { Document, Schema, model } from 'mongoose';
-import { IProject } from '../interfaces/project.interface';
+import { IProjectModel } from '../interfaces/project.interface';
 
-const projectSchema = new Schema<IProject>({
+const projectSchema = new Schema<IProjectModel>({
 	name: { type: String, required: true },
-	tasks: 
-		[{
-			//   _id: false, // Entstanden durch den Fehler, dass mongoose automatisch für ein Objekt an dieser Stelle eine _id erstellt hat
-			task: { type: Schema.Types.ObjectId, ref: 'Task' },
-		}],
+	tasks: [
+		{ task: { type: Schema.Types.ObjectId, ref: 'Task' } }
+	],
 });
 
 projectSchema.set('collection', 'projects');
 
-export const ProjectModel = model<IProject>('Project', projectSchema);
+export const ProjectModel = model<IProjectModel>('Project', projectSchema);
 
-export type ProjectDocument = IProject & Document;
+export type ProjectDocument = IProjectModel & Document;

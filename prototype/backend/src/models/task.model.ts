@@ -8,6 +8,6 @@ const taskSchema = new Schema<ITask>({
 
 taskSchema.set('collection', 'tasks');
 
-export const TaskModel = model<ITask>('Project', taskSchema);
+export const TaskModel = model<ITask>('Task', taskSchema);
 
 export type TaskDocument = ITask & Document;

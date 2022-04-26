@@ -1,6 +1,8 @@
 import { ProjectModel, ProjectDocument } from '../models/project.model';
 import { NotFoundError } from '../error/not-found.error';
-import { IProject } from '../interfaces/project.interface';
+import { IProject, IProjectModel } from '../interfaces/project.interface';
+import { IProjectDto } from '@/interfaces/dtos/projectDto.interface';
+import taskService from './task.service';
 
 class UserService {
     public async getProjects() {
@@ -28,6 +30,26 @@ class UserService {
     public async deleteProjectById(id: string) {
         const project = await this.getProjectById(id);
         return project.delete();
+    }
+    
+    public async mapModel (projectModel: ProjectDocument): Promise<IProject>{
+        return await projectModel.populate('task');
+    }
+
+    public async mapModelArray(projectModels: ProjectDocument[]) {
+        return await Promise.all(projectModels.map(projectModel => this.mapModel(projectModel)));
+    }
+
+    public mapToProjectDto(project: IProject): IProjectDto{
+        return {
+            id: project._id,
+            name: project.name,
+            tasks: taskService.mapArrayToDtoArray(project.tasks)
+        }
+    }
+    
+    public mapArrayToProjectDtoArray(projects: IProject[]): IProjectDto[]{
+        return projects.map(project => this.mapToProjectDto(project));
     }
 }
 
