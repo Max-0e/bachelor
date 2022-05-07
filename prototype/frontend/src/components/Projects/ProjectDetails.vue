@@ -16,7 +16,7 @@
 				<AppButton :color="'red'" :iconButton="true" @click="deleteModalOpen = true"> delete </AppButton>
 			</div>
 		</div>
-		<AppTaskList />
+		<AppTaskList :project="currentProject" />
 		<AppYesNoModal
 			:open="deleteModalOpen"
 			@yes="
