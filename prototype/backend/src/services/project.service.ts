@@ -1,10 +1,10 @@
 import { ProjectModel, ProjectDocument } from '../models/project.model';
 import { NotFoundError } from '../error/not-found.error';
-import { IProject, IProjectModel } from '../interfaces/project.interface';
+import { IProject } from '../interfaces/project.interface';
 import { IProjectDto } from '@/interfaces/dtos/projectDto.interface';
 import taskService from './task.service';
 
-class UserService {
+class ProjectService {
     public async getProjects() {
         const projects: ProjectDocument[] = await ProjectModel.find();
         return projects;
@@ -24,7 +24,7 @@ class UserService {
 	public async updateProject(projectId: string, project: IProject) {
         const projectToUpdate = await this.getProjectById(projectId);
         await projectToUpdate.updateOne(project);
-        return await projectToUpdate.save();
+        return await this.getProjectById(projectId);
 	}
 
     public async deleteProjectById(id: string) {
@@ -33,7 +33,7 @@ class UserService {
     }
     
     public async mapModel (projectModel: ProjectDocument): Promise<IProject>{
-        return await projectModel.populate('task');
+        return await projectModel.populate('tasks');
     }
 
     public async mapModelArray(projectModels: ProjectDocument[]) {
@@ -53,4 +53,4 @@ class UserService {
     }
 }
 
-export default new UserService();
+export default new ProjectService();

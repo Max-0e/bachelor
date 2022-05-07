@@ -19,24 +19,24 @@ export const useAuthStore = defineStore('auth', {
 
 	actions: {
 		async checkAuthorization() {
-			if (storageService.getHasCookie()){
-				return authService.authorize()
-					.then(user => {
+			if (storageService.getHasCookie()) {
+				return authService
+					.authorize()
+					.then((user) => {
 						this.setLoggedIn(true);
 						this.user = user;
 					})
-					.catch(_ => this.setLoggedIn(false));
+					.catch((_) => this.setLoggedIn(false));
 			}
 		},
 		async login(loginPayload: ILoginPayload): Promise<void> {
-			return authService.login(loginPayload).then(user => {
+			return authService.login(loginPayload).then((user) => {
 				this.setLoggedIn(true);
 				this.user = user;
-			})
+			});
 		},
 		async logout() {
-			await authService.logout()
-				.then(_ => this.setLoggedIn(false))
+			await authService.logout().then((_) => this.setLoggedIn(false));
 		},
 		setLoggedIn(loggedIn: boolean) {
 			this.loggedIn = loggedIn;

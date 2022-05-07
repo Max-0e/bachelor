@@ -1,13 +1,13 @@
 <template>
-<div :class="useAppStore().darkMode ? 'dark':''">
-<div class="text-gray-600 dark:(text-white bg-dark-200)">
-	<router-view />
-</div>
-</div>
+	<div :class="useAppStore().darkMode ? 'dark' : ''">
+		<div class="text-gray-600 dark:(text-white bg-dark-200)">
+			<router-view />
+		</div>
+	</div>
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/store/app'
+import { useAppStore } from '@/store/app';
 </script>
 
 <style>

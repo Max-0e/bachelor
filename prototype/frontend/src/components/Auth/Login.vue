@@ -45,7 +45,8 @@ const loginPayload = ref<ILoginPayload>({
 });
 
 function login() {
-	useAuthStore().login(loginPayload.value)
+	useAuthStore()
+		.login(loginPayload.value)
 		.then((_) => router.push('/dashboard'))
 		.catch((error) => useToast().error(error.message, { timeout: 5000 }));
 }

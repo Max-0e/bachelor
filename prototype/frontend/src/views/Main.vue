@@ -14,12 +14,10 @@
 					<AppButton :slim="true" color="gray" class="w-full" @click="router.push('/profile')">Profile</AppButton>
 				</div>
 				<div class="w-full text-left px-3 py-0.5">
-					<AppButton :slim="true" 
-					color="gray" class="w-full" @click="router.push('/settings')">Settings</AppButton>
+					<AppButton :slim="true" color="gray" class="w-full" @click="router.push('/settings')">Settings</AppButton>
 				</div>
 				<div class="w-full text-left px-3 py-0.5">
-					<AppButton :slim="true" 
-					color="red" class="w-full" @click="logout()">Logout</AppButton>
+					<AppButton :slim="true" color="red" class="w-full" @click="logout()">Logout</AppButton>
 				</div>
 			</div>
 		</div>
@@ -41,18 +39,20 @@ import AppButton from '@/components/shared/AppButton.vue';
 import AppChip from '@/components/shared/AppChip.vue';
 
 async function logout() {
-	useAuthStore().logout().then((_) => {
-		router.push('/login');
-	});
+	useAuthStore()
+		.logout()
+		.then((_) => {
+			router.push('/login');
+		});
 }
 </script>
 <style scoped>
-.contextMenu{
+.contextMenu {
 	visibility: hidden;
 	transform-origin: 90% 0%;
 	transform: scale(0) rotate(-50deg);
 }
-.hoverForContextMenu:hover .contextMenu{
+.hoverForContextMenu:hover .contextMenu {
 	visibility: visible;
 	transform: none;
 }

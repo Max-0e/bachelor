@@ -10,10 +10,10 @@ export function makeRouter(): Router {
 
 	router.use('/auth', makeAuthRouter());
 	router.use('/projects', isAuth, makeProjectsRouter());
-	router.use('/tasks', makeTasksRouter());
-	router.get('/test', isAuth, (req, res) =>
-		sendResponse.message(res, 200, 'some secret information')
-	);
+	router.use('/tasks', isAuth, makeTasksRouter());
+	// router.get('/test', isAuth, (req, res) =>
+	// 	sendResponse.message(res, 200, 'some secret information')
+	// );
 
 	return router;
 }

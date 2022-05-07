@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Main from '@/views/Main.vue';
 import Auth from '@/views/Auth.vue';
-import authRoutes from '@/router/auth'
+import authRoutes from '@/router/auth';
 import Activate from '@/components/Auth/Activate.vue';
 import Projects from '@/components/Projects/Projects.vue';
-import Profile from '@/components/Profile/Profile.vue'
-import Settings from '@/components/Settings/Settings.vue'
+import Profile from '@/components/Profile/Profile.vue';
+import Settings from '@/components/Settings/Settings.vue';
 import ProjectDetails from '@/components/Projects/ProjectDetails.vue';
 import Dashboard from '@/components/Dashboard/Dashboard.vue';
 import NotFound from '@/views/NotFound.vue';
@@ -23,43 +23,43 @@ const routes: Array<RouteRecordRaw> = [
 			{
 				path: '/dashboard',
 				name: 'Dashboard',
-				component: Dashboard
+				component: Dashboard,
 			},
 			{
 				path: '/profile',
 				name: 'Profile',
-				component: Profile
+				component: Profile,
 			},
 			{
 				path: '/Settings',
 				name: 'Settings',
-				component: Settings
+				component: Settings,
 			},
 			{
 				path: '/dashboard',
 				name: 'Dashboard',
-				component: Dashboard
+				component: Dashboard,
 			},
 			{
 				path: '/projects',
 				name: 'Projects',
 				component: Projects,
-				beforeEnter: projectsResolver
+				beforeEnter: projectsResolver,
 			},
 			{
 				path: '/projects/:id',
 				name: 'ProjectDetails',
 				component: ProjectDetails,
-				beforeEnter: projectDetailsResolver
+				beforeEnter: projectDetailsResolver,
 			},
-		]
+		],
 	},
 	{
 		path: '/auth',
 		name: 'Auth',
 		component: Auth,
 		meta: { noAuth: true },
-		children: authRoutes
+		children: authRoutes,
 	},
 	{
 		path: '/activate/:activationToken',

@@ -5,12 +5,11 @@ import projectService from './project.service';
 import { TaskDto } from '../interfaces/dtos/taskDto.interface';
 import { IProject } from '../interfaces/project.interface';
 
-class UserService {
+class TaskService {
     public async getTasksByProjectId(projectId: string){
-        const project = await projectService.getProjectById(projectId);
-        const projectWithTasks: IProject = await project.populate('tasks');
-        console.log(projectWithTasks);
-        return projectWithTasks.tasks;
+        const projectModel = await projectService.getProjectById(projectId);
+        const project: IProject = await projectService.mapModel(projectModel);
+        return project.tasks;
     }
 	public async getTaskById(taskId: string) {
 		const task: TaskDocument | null = await TaskModel.findOne({ _id: taskId });
@@ -24,7 +23,7 @@ class UserService {
         const newTask = await taskModel.save();
 
         const project = await projectService.getProjectById(projectId);
-        // project.tasks.push(newTask);
+        project.tasks.push(newTask._id);
         await project.save();
         
 		return newTask;
@@ -33,7 +32,7 @@ class UserService {
 	public async updateTask(taskId: string, task: ITask) {
         const taskToUpdate = await this.getTaskById(taskId);
         await taskToUpdate.updateOne(task);
-        return await taskToUpdate.save();
+        return await this.getTaskById(taskId);
 	}
 
     public async deleteTaskById(id: string) {
@@ -54,4 +53,4 @@ class UserService {
     }
 }
 
-export default new UserService();
+export default new TaskService();

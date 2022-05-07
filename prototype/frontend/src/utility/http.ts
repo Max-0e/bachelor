@@ -20,7 +20,6 @@ export type HttpResponse<TBody = any, TError = any> = {
 };
 
 class HttpClient {
-
 	public async get<T>(url: string, options: HttpOptions = {}): Promise<HttpResponse<T>> {
 		return await this.makeHttpResponseFromAxiosPromise(
 			axios.get(url, {
@@ -30,7 +29,7 @@ class HttpClient {
 			})
 		);
 	}
-	
+
 	public async head<T>(url: string, options: HttpOptions = {}): Promise<HttpResponse<T>> {
 		return await this.makeHttpResponseFromAxiosPromise(
 			axios.head(url, {
@@ -40,7 +39,7 @@ class HttpClient {
 			})
 		);
 	}
-	
+
 	public async post<T>(url: string, jsonBody: any, options: HttpOptions = {}): Promise<HttpResponse<T>> {
 		return await this.makeHttpResponseFromAxiosPromise(
 			axios.post(url, jsonBody, {
@@ -50,7 +49,7 @@ class HttpClient {
 			})
 		);
 	}
-	
+
 	public async put<T>(url: string, jsonBody: any, options: HttpOptions = {}): Promise<HttpResponse<T>> {
 		return await this.makeHttpResponseFromAxiosPromise(
 			axios.put(url, jsonBody, {
@@ -60,7 +59,7 @@ class HttpClient {
 			})
 		);
 	}
-	
+
 	public async patch<T>(url: string, jsonBody: any, options: HttpOptions = {}): Promise<HttpResponse<T>> {
 		return await this.makeHttpResponseFromAxiosPromise(
 			axios.patch(url, jsonBody, {
@@ -70,7 +69,7 @@ class HttpClient {
 			})
 		);
 	}
-	
+
 	public async delete<T>(url: string, options: HttpOptions = {}): Promise<HttpResponse<T>> {
 		return await this.makeHttpResponseFromAxiosPromise(
 			axios.delete(url, {
@@ -80,7 +79,7 @@ class HttpClient {
 			})
 		);
 	}
-	
+
 	private async makeHttpResponseFromAxiosPromise<T>(axiosPromise: Promise<AxiosResponse<T>>): Promise<HttpResponse<T>> {
 		try {
 			const response = await axiosPromise;

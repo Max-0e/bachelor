@@ -11,12 +11,12 @@ export const useAppStore = defineStore('app', {
 	getters: {},
 
 	actions: {
-		setDarkModeFromLocalStorage(){
+		setDarkModeFromLocalStorage() {
 			this.darkMode = storageService.getDarkMode();
 		},
 		setDarkMode() {
 			this.darkMode = !this.darkMode;
 			storageService.setDarkMode(this.darkMode);
-		}
+		},
 	},
 });

@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 // import 'windi.css';
-import 'virtual:windi.css'
+import 'virtual:windi.css';
 import 'vue-toastification/dist/index.css';
 import { useAuthStore } from './store/auth';
 import Toast, { PluginOptions } from 'vue-toastification';

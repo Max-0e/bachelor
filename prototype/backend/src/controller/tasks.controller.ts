@@ -10,16 +10,16 @@ class TasksController {
 
 	public async getTaskById(req: Request, res: Response): Promise<Response> {
         const task = await taskService.getTaskById(req.params.taskId);
-		return await sendResponse.data(res, 200, task);
+		return await sendResponse.data(res, 200, taskService.mapToDto(task));
 	}
 
 	public async createTask(req: Request, res: Response): Promise<Response> {
 		const task = await taskService.createTask(req.params.projectId, req.body);
-		return await sendResponse.data(res, 201, task);
+		return await sendResponse.data(res, 201, taskService.mapToDto(task));
 	}
 	public async updateTask(req: Request, res: Response): Promise<Response> {
-		const task = await taskService.updateTask(req.params.taskId, req.body);
-		return await sendResponse.data(res, 203, task);
+		const task = await taskService.updateTask(req.body.id, req.body);
+		return await sendResponse.data(res, 203, taskService.mapToDto(task));
 	}
 
 	public async deleteTask(req: Request, res: Response): Promise<Response> {

@@ -4,7 +4,7 @@ import { IProjectModel } from '../interfaces/project.interface';
 const projectSchema = new Schema<IProjectModel>({
 	name: { type: String, required: true },
 	tasks: [
-		{ task: { type: Schema.Types.ObjectId, ref: 'Task' } }
+		{ type: Schema.Types.ObjectId, ref: 'Task' }
 	],
 });
 

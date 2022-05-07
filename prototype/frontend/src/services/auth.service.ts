@@ -36,7 +36,7 @@ class AuthService {
 				password: loginPayload.password,
 			},
 			{ withCredentials: true }
-		)
+		);
 		return res.body as User;
 	}
 
