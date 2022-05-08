@@ -5,6 +5,7 @@ import projectService from '@/services/project.service';
 import taskService from '@/services/task.service';
 import { defineStore } from 'pinia';
 import { useToast } from 'vue-toastification';
+import { useInitiativeStore } from './initiatives';
 
 export const useProjectStore = defineStore('project', {
 	state: () => ({
@@ -15,6 +16,11 @@ export const useProjectStore = defineStore('project', {
 	getters: {
 		getCurrentProject(state) {
 			return state.projects.find((project) => project.id === router.currentRoute.value.params['id']);
+		},
+		getProjectsFromCurrentInitiative(state) {
+			return state.projects.filter((project) =>
+				useInitiativeStore().getCurrentInitiative?.projects.find((projectId) => projectId === project.id)
+			);
 		},
 	},
 

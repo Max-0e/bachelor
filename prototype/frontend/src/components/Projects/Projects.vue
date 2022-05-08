@@ -1,11 +1,10 @@
 <template>
 	<div class="flex flex-wrap gap-10">
-		<!-- <ProjectCard class="cursor-pointer flex-grow" @click="showCreateProjectModal = true"></ProjectCard> -->
 		<ProjectCard
 			class="cursor-pointer flex-grow"
 			v-for="project in projectStore.projects"
 			:project="project"
-			@click="router.push('/projects/' + project.id)"></ProjectCard>
+			@click="router.push('/projects/' + project.id)" />
 	</div>
 	<AppFloatingActionButton @click="showCreateProjectModal = true" :icon="true">add</AppFloatingActionButton>
 	<AppModal :open="showCreateProjectModal">
@@ -28,6 +27,7 @@
 			<AppButton
 				@click="
 					projectStore.createProject(projectToCreate);
+					clearFormField();
 					showCreateProjectModal = false;
 				"
 				>Create</AppButton
@@ -50,4 +50,8 @@ import router from '@/router';
 const showCreateProjectModal = ref(false);
 const projectToCreate: Ref<ICreateProject> = ref({ name: '' });
 const projectStore = useProjectStore();
+
+function clearFormField() {
+	projectToCreate.value.name = '';
+}
 </script>

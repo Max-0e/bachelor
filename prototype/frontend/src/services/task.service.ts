@@ -2,7 +2,7 @@ import HttpClient from '../utility/http';
 import { API_URL } from '../config';
 import { ICreateTask, ITask } from '@/intefaces/task.interface';
 
-class ProjectService {
+class TaskService {
 	constructor() {}
 
 	public async getTaskByProjectId(projectId: string): Promise<ITask[]> {
@@ -29,4 +29,4 @@ class ProjectService {
 	}
 }
 
-export default new ProjectService();
+export default new TaskService();

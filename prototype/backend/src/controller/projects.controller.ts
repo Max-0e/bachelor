@@ -1,16 +1,16 @@
-import sendResponse from "../utility/sendResponse";
+import sendResponse from '../utility/sendResponse';
 import { NextFunction, Request, Response } from 'express';
-import projectService from "../services/project.service";
+import projectService from '../services/project.service';
 
 class ProjectsController {
 	public async getProjects(req: Request, res: Response): Promise<Response> {
-        const projectModels = await projectService.getProjects();
+		const projectModels = await projectService.getProjects();
 		const projects = await projectService.mapModelArray(projectModels);
 		return await sendResponse.data(res, 200, projectService.mapArrayToProjectDtoArray(projects));
 	}
 
 	public async getProjectById(req: Request, res: Response): Promise<Response> {
-        const projectModel = await projectService.getProjectById(req.params.projectId);
+		const projectModel = await projectService.getProjectById(req.params.projectId);
 		const project = await projectService.mapModel(projectModel);
 		return await sendResponse.data(res, 200, projectService.mapToProjectDto(project));
 	}
@@ -28,8 +28,8 @@ class ProjectsController {
 
 	public async deleteProject(req: Request, res: Response): Promise<Response> {
 		await projectService.deleteProjectById(req.params.projectId);
-		return await sendResponse.message(res, 204, "success");
+		return await sendResponse.message(res, 204, 'success');
 	}
 }
 
-export default new ProjectsController(); 
+export default new ProjectsController();

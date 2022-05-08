@@ -4,6 +4,8 @@ import Auth from '@/views/Auth.vue';
 import authRoutes from '@/router/auth';
 import Activate from '@/components/Auth/Activate.vue';
 import Projects from '@/components/Projects/Projects.vue';
+import Initiatives from '@/components/Initiatives/Initiatives.vue';
+import InitiativeDetails from '@/components/Initiatives/InitiativeDetails.vue';
 import Profile from '@/components/Profile/Profile.vue';
 import Settings from '@/components/Settings/Settings.vue';
 import ProjectDetails from '@/components/Projects/ProjectDetails.vue';
@@ -13,6 +15,7 @@ import { useAuthStore } from '@/store/auth';
 import { useToast } from 'vue-toastification';
 import { useAppStore } from '@/store/app';
 import { projectDetailsResolver, projectsResolver } from './resolver/projects.resolver';
+import { initiativeDetailsResolver, initiativesResolver } from './resolver/initiatives.resolver';
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -51,6 +54,18 @@ const routes: Array<RouteRecordRaw> = [
 				name: 'ProjectDetails',
 				component: ProjectDetails,
 				beforeEnter: projectDetailsResolver,
+			},
+			{
+				path: '/initiatives',
+				name: 'Initiatives',
+				component: Initiatives,
+				beforeEnter: [initiativesResolver, projectsResolver],
+			},
+			{
+				path: '/initiatives/:id',
+				name: 'InitiativeDetails',
+				component: InitiativeDetails,
+				beforeEnter: [initiativesResolver, projectsResolver],
 			},
 		],
 	},

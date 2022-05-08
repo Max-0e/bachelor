@@ -42,4 +42,24 @@ import { useAppStore } from '@/store/app';
 a {
 	text-decoration: none;
 }
+
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: rgb(50, 50, 50);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(10, 10, 10);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(10, 10, 10);
+}
 </style>

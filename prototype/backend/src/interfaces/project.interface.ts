@@ -1,13 +1,13 @@
-import { ITask } from "./task.interface";
+import { ITask } from './task.interface';
 
 export interface IProject {
-    _id: string;
+	_id: string;
 	name: string;
-    tasks: ITask[]
+	tasks: ITask[];
 }
 
 export interface IProjectModel {
-    _id: string;
+	_id: string;
 	name: string;
-    tasks: string[];
+	tasks: string[];
 }

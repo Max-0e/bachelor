@@ -16,7 +16,11 @@ class sendResponse {
 	): Promise<void> {
 		return res.redirect(url, status);
 	}
-	public async error(res: Response, status: number = 500, message: string = 'Internal error'): Promise<Response>{
+	public async error(
+		res: Response,
+		status: number = 500,
+		message: string = 'Internal error'
+	): Promise<Response> {
 		return res.status(status).json({ status, message });
 	}
 }

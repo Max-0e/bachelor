@@ -48,11 +48,7 @@ class AuthController {
 		};
 		await userService.createUser(user);
 		mailerService.sendMail(config);
-		return await sendResponse.message(
-			res,
-			200,
-			'E-Mail for registration was sent successfully.'
-		);
+		return await sendResponse.message(res, 200, 'E-Mail for registration was sent successfully.');
 	}
 
 	public async activateUser(req: Request, res: Response, next: NextFunction): Promise<Response> {
@@ -60,7 +56,8 @@ class AuthController {
 			await userService.activate(req.body.activationToken as string);
 			return await sendResponse.message(res, 200, 'User was successfully activated.');
 		} catch (error) {
-			if (error instanceof NotFoundError) return sendResponse.error(res, error.status, error.message);
+			if (error instanceof NotFoundError)
+				return sendResponse.error(res, error.status, error.message);
 			throw error;
 		}
 	}
@@ -99,8 +96,10 @@ class AuthController {
 			await userService.resetPassword(pwdResetToken, newPwdHash);
 			return await sendResponse.message(res, 200, 'Password successfully reset');
 		} catch (error) {
-			if (error instanceof NotFoundError) return sendResponse.error(res, error.status, error.message);
-			if (error instanceof AuthorizationError) return sendResponse.error(res, error.status, error.message);
+			if (error instanceof NotFoundError)
+				return sendResponse.error(res, error.status, error.message);
+			if (error instanceof AuthorizationError)
+				return sendResponse.error(res, error.status, error.message);
 			throw error;
 		}
 	}

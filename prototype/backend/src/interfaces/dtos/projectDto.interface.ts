@@ -1,7 +1,7 @@
-import { TaskDto } from "./taskDto.interface";
+import { TaskDto } from './taskDto.interface';
 
 export interface IProjectDto {
-    id: string;
+	id: string;
 	name: string;
-    tasks: TaskDto[]
+	tasks: TaskDto[];
 }

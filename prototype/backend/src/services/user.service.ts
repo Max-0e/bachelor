@@ -63,14 +63,14 @@ class UserService {
 
 	private checkResetDuration(pwdResetTime: Date) {
 		const now = new Date();
-		return ((now.getTime() - pwdResetTime.getTime()) / 36e5) < 3;
+		return (now.getTime() - pwdResetTime.getTime()) / 36e5 < 3;
 	}
 	public mapToDto(user: UserDocument): UserDto {
 		return {
 			id: user._id,
 			username: user.username,
-			email: user.email
-		}
+			email: user.email,
+		};
 	}
 }
 

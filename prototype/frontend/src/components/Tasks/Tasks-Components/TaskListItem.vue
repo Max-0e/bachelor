@@ -24,7 +24,9 @@
 		<span class="w-1/3 px-5">
 			<div class="float-right">
 				<AppToolTip text="delete Task" position="left">
-					<AppIcon class="px-2 m-1 hover:bg-light-900 dark:hover:bg-dark-400" @click="deleteModalOpen = true;">delete</AppIcon>
+					<AppIcon class="px-2 m-1 hover:bg-light-900 dark:hover:bg-dark-400" @click="deleteModalOpen = true"
+						>delete</AppIcon
+					>
 				</AppToolTip>
 			</div>
 		</span>

@@ -1,15 +1,15 @@
-import sendResponse from "../utility/sendResponse";
+import sendResponse from '../utility/sendResponse';
 import { NextFunction, Request, Response } from 'express';
-import taskService from "../services/task.service";
+import taskService from '../services/task.service';
 
 class TasksController {
 	public async getTasksByProjectId(req: Request, res: Response): Promise<Response> {
-        const tasks = await taskService.getTasksByProjectId(req.params.projectId);
+		const tasks = await taskService.getTasksByProjectId(req.params.projectId);
 		return await sendResponse.data(res, 200, tasks);
 	}
 
 	public async getTaskById(req: Request, res: Response): Promise<Response> {
-        const task = await taskService.getTaskById(req.params.taskId);
+		const task = await taskService.getTaskById(req.params.taskId);
 		return await sendResponse.data(res, 200, taskService.mapToDto(task));
 	}
 
@@ -24,8 +24,8 @@ class TasksController {
 
 	public async deleteTask(req: Request, res: Response): Promise<Response> {
 		await taskService.deleteTaskById(req.params.taskId);
-		return await sendResponse.message(res, 204, "success");
+		return await sendResponse.message(res, 204, 'success');
 	}
 }
 
-export default new TasksController(); 
+export default new TasksController();

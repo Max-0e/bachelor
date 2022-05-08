@@ -3,9 +3,7 @@ import { IProjectModel } from '../interfaces/project.interface';
 
 const projectSchema = new Schema<IProjectModel>({
 	name: { type: String, required: true },
-	tasks: [
-		{ type: Schema.Types.ObjectId, ref: 'Task' }
-	],
+	tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
 });
 
 projectSchema.set('collection', 'projects');
