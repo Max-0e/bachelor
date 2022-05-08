@@ -9,15 +9,15 @@
 		</div>
 		<div class="flex items-center p-2 hoverForContextMenu">
 			<AppChip>person</AppChip>
-			<div class="contextMenu transition-all absolute top-15 right-1">
-				<div class="w-full text-left px-3 py-0.5">
-					<AppButton :slim="true" color="gray" class="w-full" @click="router.push('/profile')">Profile</AppButton>
+			<div class="contextMenu transition-all absolute top-15 right-1 w-25 z-50">
+				<div class="cursor-pointer w-full px-3 py-1 rounded-t-lg bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100" @click="router.push('/profile')">
+					Profile
 				</div>
-				<div class="w-full text-left px-3 py-0.5">
-					<AppButton :slim="true" color="gray" class="w-full" @click="router.push('/settings')">Settings</AppButton>
+				<div class="cursor-pointer w-full px-3 py-1 bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100" @click="router.push('/settings')">
+					Settings
 				</div>
-				<div class="w-full text-left px-3 py-0.5">
-					<AppButton :slim="true" color="red" class="w-full" @click="logout()">Logout</AppButton>
+				<div class="cursor-pointer text-white w-full px-3 py-1 rounded-b-lg bg-red-500 hover:bg-red-400 dark:bg-red-900 dark:hover:bg-red-700" @click="logout()">
+					Logout
 				</div>
 			</div>
 		</div>

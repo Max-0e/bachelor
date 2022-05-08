@@ -37,7 +37,9 @@
 		</span>
 	</div>
 	<div class="border border-dark-100 w-full rounded-md flex justify-around items-center p-2 m-2" v-else>
-		<AppIcon @click="createNewTask = true"> add </AppIcon>
+		<AppToolTip text="create new Task">
+			<AppIcon class="hover:bg-light-900 dark:hover:bg-dark-400" @click="createNewTask = true"> add </AppIcon>
+		</AppToolTip>
 	</div>
 </template>
 <script setup lang="ts">
@@ -50,6 +52,7 @@ import { useProjectStore } from '@/store/project';
 import { PropType, Ref, ref } from 'vue';
 import { ICreateTask } from '@/intefaces/task.interface';
 import { IProject } from '@/intefaces/project.interface';
+import AppToolTip from '../shared/AppToolTip.vue';
 
 const projectStore = useProjectStore();
 

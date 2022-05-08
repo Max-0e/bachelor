@@ -14,6 +14,7 @@
 		<span class="w-1/3 text-left px-5">
 			<input
 				type="checkbox"
+				class="cursor-pointer"
 				:checked="task.done"
 				@change="
 					task.done = !task.done;
@@ -21,7 +22,11 @@
 				" />
 		</span>
 		<span class="w-1/3 px-5">
-			<AppIcon @click="deleteModalOpen = true;" class="px-2 m-1 float-right">delete</AppIcon>
+			<div class="float-right">
+				<AppToolTip text="delete Task" position="left">
+					<AppIcon class="px-2 m-1 hover:bg-light-900 dark:hover:bg-dark-400" @click="deleteModalOpen = true;">delete</AppIcon>
+				</AppToolTip>
+			</div>
 		</span>
 	</div>
 	<AppYesNoModal
@@ -35,9 +40,10 @@
 	</AppYesNoModal>
 </template>
 <script setup lang="ts">
-import AppInlineInputField from '../../shared/AppInlineInputField.vue';
-import AppYesNoModal from '../../shared/AppYesNoModal.vue';
-import AppIcon from '../../shared/AppIcon.vue';
+import AppInlineInputField from '@/components/shared/AppInlineInputField.vue';
+import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
+import AppIcon from '@/components/shared/AppIcon.vue';
+import AppToolTip from '@/components/shared/AppToolTip.vue';
 
 import { useProjectStore } from '@/store/project';
 import { PropType, ref } from 'vue';

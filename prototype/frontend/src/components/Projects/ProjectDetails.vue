@@ -13,7 +13,7 @@
 					@save="projectStore.updateProject(currentProject)" />
 			</div>
 			<div>
-				<AppButton :color="'red'" :iconButton="true" @click="deleteModalOpen = true"> delete </AppButton>
+				<AppButton :color="'red'" :iconButton="true" tooltip="delete project" tooltipPosition="left" @click="deleteModalOpen = true"> delete </AppButton>
 			</div>
 		</div>
 		<AppTaskList :project="currentProject" />
