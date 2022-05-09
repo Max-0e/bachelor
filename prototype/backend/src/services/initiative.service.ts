@@ -45,7 +45,7 @@ class InitiativeService {
 
 		if (!initiativeToUpdate.projects.includes(projectId))
 			throw new ValidationError('project is not part of initiative');
-
+		// TODO is there another way?
 		initiativeToUpdate.projects = initiativeToUpdate.projects.filter(
 			(projectIdFromDocument) => !projectIdFromDocument.toString().includes(projectId)
 		);

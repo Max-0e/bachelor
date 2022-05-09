@@ -29,8 +29,20 @@ class ProjectService {
 
 	public async deleteProjectById(id: string) {
 		const project = await this.getProjectById(id);
-		// TODO: Delet Tasks
+		project.tasks.forEach(async taskId => await taskService.deleteTaskById(taskId));
 		return project.delete();
+	}
+
+	public async removeTaskFromProject(taskId: string) {
+		const project = await ProjectModel.findOne({ tasks: taskId });
+		if(!!project) {
+			// TODO is there another way?
+			project.tasks = project.tasks.filter(
+				(taskIdFromDocument) => !taskIdFromDocument.toString().includes(taskId)
+			);
+			await project.save();
+			return await this.getProjectById(project?.id);
+		}
 	}
 
 	public async mapModel(projectModel: ProjectDocument): Promise<IProject> {

@@ -37,7 +37,7 @@ class TaskService {
 
 	public async deleteTaskById(id: string) {
 		const task = await this.getTaskById(id);
-		// TODO: remove Task from Project
+		projectService.removeTaskFromProject(id);
 		return task.delete();
 	}
 
