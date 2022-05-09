@@ -1,13 +1,13 @@
 <template>
 	<nav class="w-full relative h-15 top-0 shadow-md flex justify-between dark:(bg-dark-700)">
 		<div class="flex flex-wrap">
-			<h1 class="text-3xl my-auto ml-5 content-center"><router-link :to="{name: 'Dashboard'}">Prototype</router-link></h1>
-			<div class="p-5 flex gap-5 items-center">
-				<router-link :to="{name: 'Dashboard'}">Dashboard</router-link>
-				<span class="cursor-default">|</span>
-				<router-link :to="{name: 'Objectives'}">Objectives</router-link>
-				<router-link :to="{name: 'Initiatives'}">Initiatives</router-link>
-				<router-link :to="{name: 'Projects'}">Projects</router-link>
+			<h1 class="text-3xl my-auto ml-5 content-center">Prototype</h1>
+			<div class="ml-5 flex items-center">
+				<router-link :to="{name: 'Dashboard'}" class="transition-all rounded-md px-2">Dashboard</router-link>
+				<span class="cursor-default px-1">|</span>
+				<router-link :to="{name: 'Objectives'}" class="transition-all rounded-md px-2">Objectives</router-link>
+				<router-link :to="{name: 'Initiatives'}" class="transition-all rounded-md px-2">Initiatives</router-link>
+				<router-link :to="{name: 'Projects'}" class="transition-all rounded-md px-2">Projects</router-link>
 			</div>
 		</div>
 		<div class="flex relative items-center p-2 hoverForContextMenu">
@@ -69,7 +69,7 @@ async function logout() {
 	height: calc(100vh - 5.75rem);
 }
 
-/* .router-link-active{
-	background-color:brown;
-} */
+.router-link-active{
+	background-color:gray;
+}
 </style>

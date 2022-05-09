@@ -1,18 +1,17 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import Projects from '@/components/Projects/Projects.vue';
-import Initiatives from '@/components/Initiatives/Initiatives.vue';
-import InitiativeDetails from '@/components/Initiatives/InitiativeDetails.vue';
-import Objectives from '@/components/Objectives/Objectives.vue';
-import ObjectivesDetails from '@/components/Objectives/ObjectiveDetails.vue';
 import Profile from '@/components/Profile/Profile.vue';
 import Settings from '@/components/Settings/Settings.vue';
-import ProjectDetails from '@/components/Projects/ProjectDetails.vue';
 import Dashboard from '@/components/Dashboard/Dashboard.vue';
+
+import RouterNesting from '@/components/shared/RouterNesting.vue';
 
 import { projectDetailsResolver, projectsResolver } from './resolver/projects.resolver';
 import { initiativeDetailsResolver, initiativesResolver } from './resolver/initiatives.resolver';
 import { objectivesResolver } from './resolver/objectives.resolver';
+import objectivesRoutes from './MainChildrenRoutes/objectives';
+import projectsRoutes from './MainChildrenRoutes/projects';
+import initiativesRoutes from './MainChildrenRoutes/initiatives';
 
 const mainRoutes: Array<RouteRecordRaw> = [
     {
@@ -31,45 +30,22 @@ const mainRoutes: Array<RouteRecordRaw> = [
         component: Settings,
     },
     {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: Dashboard,
-    },
-    {
         path: 'projects',
-        name: 'Projects',
-        component: Projects,
+        component: RouterNesting,
         beforeEnter: projectsResolver,
-    },
-    {
-        path: 'projects/:id',
-        name: 'ProjectDetails',
-        component: ProjectDetails,
-        beforeEnter: projectDetailsResolver,
+        children: projectsRoutes
     },
     {
         path: 'initiatives',
-        name: 'Initiatives',
-        component: Initiatives,
+        component: RouterNesting,
         beforeEnter: [initiativesResolver, projectsResolver],
-    },
-    {
-        path: 'initiatives/:id',
-        name: 'InitiativeDetails',
-        component: InitiativeDetails,
-        beforeEnter: [initiativesResolver, projectsResolver],
+        children: initiativesRoutes
     },
     {
         path: 'objectives',
-        name: 'Objectives',
-        component: Objectives,
-        beforeEnter: [initiativesResolver, projectsResolver, objectivesResolver],
-    },
-    {
-        path: 'objectives/:id',
-        name: 'ObjectivesDetails',
-        component: ObjectivesDetails,
-        beforeEnter: [initiativesResolver, projectsResolver, objectivesResolver],
+        component: RouterNesting,
+        beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
+        children: objectivesRoutes
     },
 ];
 
