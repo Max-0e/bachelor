@@ -21,7 +21,7 @@
 		<AppButton @click="resetPassword()">Reset Password</AppButton>
 	</div>
 	<div>
-		<router-link to="/login">Back To Login</router-link>
+		<router-link to="login">Back To Login</router-link>
 	</div>
 </template>
 <script setup lang="ts">
@@ -48,7 +48,7 @@ async function resetPassword() {
 				toastType: ToastType.SUCCESS,
 				toastContent: 'Your Password was successfully reset.',
 			};
-			router.push('/login');
+			router.push('login');
 		})
 		.catch((e) => {
 			return;

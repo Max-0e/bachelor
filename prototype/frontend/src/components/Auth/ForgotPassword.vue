@@ -12,7 +12,7 @@
 		<AppButton @click="requestResetLink()">Send Reset Link</AppButton>
 	</div>
 	<div>
-		<router-link to="/login">Back To Login</router-link>
+		<router-link to="login">Back To Login</router-link>
 	</div>
 </template>
 <script setup lang="ts">
@@ -34,7 +34,7 @@ async function requestResetLink() {
 				toastType: ToastType.SUCCESS,
 				toastContent: 'The user with the given E-Mail-Address received his reset Link if he exists.',
 			};
-			router.push('/login');
+			router.push('login');
 		})
 		.catch((e) => {
 			return;

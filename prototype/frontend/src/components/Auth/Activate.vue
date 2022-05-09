@@ -16,14 +16,14 @@ async function activate() {
 				toastType: ToastType.SUCCESS,
 				toastContent: 'Successfully activated your Account. You can now log in.',
 			};
-			router.push('/login');
+			router.push('login');
 		})
 		.catch((e) => {
 			useAppStore().showToastOnRouting = {
 				toastType: ToastType.ERROR,
 				toastContent: 'Activation Unsuccessful',
 			};
-			router.push('/login');
+			router.push('login');
 		});
 }
 </script>

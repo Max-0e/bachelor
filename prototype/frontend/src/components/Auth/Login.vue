@@ -21,10 +21,10 @@
 		<AppButton @click="login()">Login</AppButton>
 	</div>
 	<div>
-		<router-link to="/register">Register</router-link>
+		<router-link to="register">Register</router-link>
 	</div>
 	<div>
-		<router-link to="/forgotPassword">Forgot Password?</router-link>
+		<router-link to="forgotPassword">Forgot Password?</router-link>
 	</div>
 </template>
 
@@ -47,7 +47,7 @@ const loginPayload = ref<ILoginPayload>({
 function login() {
 	useAuthStore()
 		.login(loginPayload.value)
-		.then((_) => router.push('/dashboard'))
+		.then((_) => router.push('dashboard'))
 		.catch((error) => useToast().error(error.message, { timeout: 5000 }));
 }
 </script>

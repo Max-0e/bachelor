@@ -6,22 +6,22 @@ import ForgotPassword from '@/components/Auth/ForgotPassword.vue';
 
 const authRoutes: Array<RouteRecordRaw> = [
 	{
-		path: '/login',
+		path: 'login',
 		name: 'Login',
 		component: Login,
 	},
 	{
-		path: '/register',
+		path: 'register',
 		name: 'Register',
 		component: Register,
 	},
 	{
-		path: '/forgotPassword',
+		path: 'forgotPassword',
 		name: 'ForgotPassword',
 		component: ForgotPassword,
 	},
 	{
-		path: '/resetPassword/:resetToken',
+		path: 'resetPassword/:resetToken',
 		name: 'ResetPassword',
 		component: ResetPassword,
 	},

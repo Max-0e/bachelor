@@ -39,7 +39,7 @@
 		<AppButton @click="register()">Register</AppButton>
 	</div>
 
-	<router-link to="/login">Login</router-link>
+	<router-link to="login">Login</router-link>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -69,7 +69,7 @@ async function register() {
 				toastType: ToastType.SUCCESS,
 				toastContent: 'Registration Successfull. Please confirm your E-Mail-Adress',
 			};
-			router.push('/login');
+			router.push('login');
 		})
 		.catch((e) => (showError.value = true));
 }
