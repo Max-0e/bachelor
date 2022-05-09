@@ -4,7 +4,7 @@
 			class="cursor-pointer flex-grow"
 			v-for="objective in objectiveStore.objectives"
 			:objective="objective"
-			@click="router.push('/objectives/' + objective.id)">
+			@click="router.push('/app/objectives/' + objective.id)">
 		</ObjectiveCard>
 	</div>
 	<AppFloatingActionButton @click="showCreateObjectiveModal = true" :icon="true">add</AppFloatingActionButton>

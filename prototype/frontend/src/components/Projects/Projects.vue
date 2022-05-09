@@ -4,7 +4,7 @@
 			class="cursor-pointer flex-grow"
 			v-for="project in projectStore.projects"
 			:project="project"
-			@click="router.push('/projects/' + project.id)" />
+			@click="router.push('/app/projects/' + project.id)" />
 	</div>
 	<AppFloatingActionButton @click="showCreateProjectModal = true" :icon="true">add</AppFloatingActionButton>
 	<AppModal :open="showCreateProjectModal">

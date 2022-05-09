@@ -4,7 +4,7 @@
 			class="cursor-pointer flex-grow"
 			v-for="initiative in initiativeStore.initiatives"
 			:initiative="initiative"
-			@click="router.push('/initiatives/' + initiative.id)">
+			@click="router.push('/app/initiatives/' + initiative.id)">
 		</InitiativeCard>
 	</div>
 	<AppFloatingActionButton @click="showCreateInitiativeModal = true" :icon="true">add</AppFloatingActionButton>
