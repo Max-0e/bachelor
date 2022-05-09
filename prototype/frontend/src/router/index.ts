@@ -6,6 +6,8 @@ import Activate from '@/components/Auth/Activate.vue';
 import Projects from '@/components/Projects/Projects.vue';
 import Initiatives from '@/components/Initiatives/Initiatives.vue';
 import InitiativeDetails from '@/components/Initiatives/InitiativeDetails.vue';
+import Objectives from '@/components/Objectives/Objectives.vue';
+import ObjectivesDetails from '@/components/Objectives/ObjectiveDetails.vue';
 import Profile from '@/components/Profile/Profile.vue';
 import Settings from '@/components/Settings/Settings.vue';
 import ProjectDetails from '@/components/Projects/ProjectDetails.vue';
@@ -16,6 +18,7 @@ import { useToast } from 'vue-toastification';
 import { useAppStore } from '@/store/app';
 import { projectDetailsResolver, projectsResolver } from './resolver/projects.resolver';
 import { initiativeDetailsResolver, initiativesResolver } from './resolver/initiatives.resolver';
+import { objectivesResolver } from './resolver/objectives.resolver';
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -66,6 +69,18 @@ const routes: Array<RouteRecordRaw> = [
 				name: 'InitiativeDetails',
 				component: InitiativeDetails,
 				beforeEnter: [initiativesResolver, projectsResolver],
+			},
+			{
+				path: '/objectives',
+				name: 'Objectives',
+				component: Objectives,
+				beforeEnter: [initiativesResolver, projectsResolver, objectivesResolver],
+			},
+			{
+				path: '/objectives/:id',
+				name: 'ObjectivesDetails',
+				component: ObjectivesDetails,
+				beforeEnter: [initiativesResolver, projectsResolver, objectivesResolver],
 			},
 		],
 	},

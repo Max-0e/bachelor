@@ -5,6 +5,7 @@ import { makeAuthRouter } from './auth.router';
 import { makeProjectsRouter } from './projects.router';
 import { makeTasksRouter } from './tasks.router';
 import { makeInitiativesRouter } from './initiatives.router';
+import { makeObjectivesRouter } from './objectives.router';
 
 export function makeRouter(): Router {
 	const router = Router();
@@ -13,6 +14,7 @@ export function makeRouter(): Router {
 	router.use('/projects', isAuth, makeProjectsRouter());
 	router.use('/tasks', isAuth, makeTasksRouter());
 	router.use('/initiatives', isAuth, makeInitiativesRouter());
+	router.use('/objectives', isAuth, makeObjectivesRouter());
 	// router.get('/test', isAuth, (req, res) =>
 	// 	sendResponse.message(res, 200, 'some secret information')
 	// );

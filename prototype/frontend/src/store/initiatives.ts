@@ -4,6 +4,7 @@ import router from '@/router';
 import initiativeService from '@/services/initiative.service';
 import { defineStore } from 'pinia';
 import { useToast } from 'vue-toastification';
+import { useObjectiveStore } from './objectives';
 import { useProjectStore } from './project';
 
 export const useInitiativeStore = defineStore('initiative', {
@@ -15,6 +16,11 @@ export const useInitiativeStore = defineStore('initiative', {
 	getters: {
 		getCurrentInitiative(state) {
 			return state.initiatives.find((initiative) => initiative.id === router.currentRoute.value.params['id']);
+		},
+		getInitiativesFromCurrentObjective(state) {
+			return state.initiatives.filter((initiative) =>
+				useObjectiveStore().getCurrentObjective?.initiatives.find((initiativeId) => initiativeId === initiative.id)
+			);
 		},
 	},
 

@@ -5,6 +5,7 @@
 			<div class="p-5 flex gap-5 items-center">
 				<router-link to="/dashboard">Dashboard</router-link>
 				<span class="cursor-default">|</span>
+				<router-link to="/objectives">Objectives</router-link>
 				<router-link to="/initiatives">Initiatives</router-link>
 				<router-link to="/projects">Projects</router-link>
 			</div>
