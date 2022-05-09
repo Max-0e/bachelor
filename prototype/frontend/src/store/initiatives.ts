@@ -101,7 +101,7 @@ export const useInitiativeStore = defineStore('initiative', {
 				return;
 			}
 			this.deleteInitiative(currentInitiative);
-			router.push({name: 'Initiatives'});
+			router.push({name: 'Initiative'});
 		},
 	},
 });
