@@ -93,7 +93,7 @@ export const useObjectiveStore = defineStore('objective', {
 				return;
 			}
 			this.deleteObjective(currentObjective);
-			router.push('/objectives');
+			router.push({name: 'Objectives'});
 		},
 	},
 });

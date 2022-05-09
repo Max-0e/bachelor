@@ -62,7 +62,7 @@ export const useProjectStore = defineStore('project', {
 				return;
 			}
 			this.deleteProject(currentProject);
-			router.push('/projects');
+			router.push({name: 'Projects'});
 		},
 		createTask(project: IProject, taskToCreate: ICreateTask) {
 			taskService.createTask(project.id, taskToCreate).then((task) => {
