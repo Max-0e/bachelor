@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
 		path: '/app',
 		name: 'Main',
 		component: Main,
-		children: mainRoutes
+		children: mainRoutes,
 	},
 	{
 		path: '/auth',

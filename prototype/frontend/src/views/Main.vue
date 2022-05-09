@@ -3,11 +3,11 @@
 		<div class="flex flex-wrap">
 			<h1 class="text-3xl my-auto ml-5 content-center">Prototype</h1>
 			<div class="ml-5 flex items-center">
-				<router-link :to="{name: 'Dashboard'}" class="transition-all rounded-md px-2">Dashboard</router-link>
+				<router-link :to="{ name: 'Dashboard' }" class="transition-all rounded-md px-2">Dashboard</router-link>
 				<span class="cursor-default px-1">|</span>
-				<router-link :to="{name: 'Objectives'}" class="transition-all rounded-md px-2">Objectives</router-link>
-				<router-link :to="{name: 'Initiatives'}" class="transition-all rounded-md px-2">Initiatives</router-link>
-				<router-link :to="{name: 'Projects'}" class="transition-all rounded-md px-2">Projects</router-link>
+				<router-link :to="{ name: 'Objectives' }" class="transition-all rounded-md px-2">Objectives</router-link>
+				<router-link :to="{ name: 'Initiatives' }" class="transition-all rounded-md px-2">Initiatives</router-link>
+				<router-link :to="{ name: 'Projects' }" class="transition-all rounded-md px-2">Projects</router-link>
 			</div>
 		</div>
 		<div class="flex relative items-center p-2 hoverForContextMenu">
@@ -15,12 +15,12 @@
 			<div class="contextMenu transition-all absolute top-15 right-1 w-25 z-50">
 				<div
 					class="cursor-pointer w-full px-3 py-1 rounded-t-lg bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
-					@click="router.push({name: 'Profile'})">
+					@click="router.push({ name: 'Profile' })">
 					Profile
 				</div>
 				<div
 					class="cursor-pointer w-full px-3 py-1 bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
-					@click="router.push({name: 'Settings'})">
+					@click="router.push({ name: 'Settings' })">
 					Settings
 				</div>
 				<div
@@ -69,7 +69,7 @@ async function logout() {
 	height: calc(100vh - 5.75rem);
 }
 
-.router-link-active{
-	background-color:gray;
+.router-link-active {
+	background-color: gray;
 }
 </style>

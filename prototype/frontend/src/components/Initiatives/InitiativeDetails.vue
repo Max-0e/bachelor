@@ -43,7 +43,7 @@
 		<div class="text-left ml-10 mt-10 text-xl font-bold">Projects</div>
 		<div class="flex flex-wrap gap-10 p-5 m-5 border border-gray-300 dark:border-dark-50 rounded-lg">
 			<div class="flex-grow flex" v-for="project in projectStore.getProjectsFromCurrentInitiative">
-				<ProjectCard class="cursor-pointer w-9/10" :project="project" @click="router.push('/projects/' + project.id)" />
+				<ProjectCard class="cursor-pointer w-9/10" :project="project" @click="router.push('/app/projects/' + project.id)" />
 				<div class="w-1/10 px-2">
 					<div
 						class="cursor-pointer w-full h-full flex justify-center shadow-md items-center rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-dark-400 dark:hover:bg-dark-600"

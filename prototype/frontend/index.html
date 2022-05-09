@@ -12,4 +12,17 @@
     <script type="module" src="/src/main.ts"></script>
   </body>
   <div class="ring-red-600 ring-blue-600 ring-gray-600 border-red-500 border-blue-500 bg-blue-400 bg-red-400 border-gray-500 bg-gray-400 bg-blue-900 bg-red-900 bg-gray-900 invisible"></div>
+  <style>
+    .ripple {
+      background-position: center;
+      transition: background 0.4s;
+    }
+    .ripple:hover {
+      background: rgb(200, 200, 200, 0.1) radial-gradient(circle, transparent 1%, rgb(200, 200, 200, 0.1) 1%) center/15000%;
+    }
+    .ripple:active {
+      background-size: 100%;
+      transition: background 0s;
+    }
+  </style>
 </html>

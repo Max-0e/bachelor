@@ -23,7 +23,10 @@
 				</AppButton>
 			</div>
 		</div>
-		<AppTaskList :project="currentProject" />
+		<AlternativeTaskList :project="currentProject"/>
+		<AppCollapsible class="p-5" triggerText="TaskList">
+			<AppTaskList :project="currentProject" />
+		</AppCollapsible>
 		<AppYesNoModal
 			:open="deleteModalOpen"
 			@yes="
@@ -43,6 +46,8 @@ import AppButton from '../shared/AppButton.vue';
 import AppInlineInputField from '../shared/AppInlineInputField.vue';
 import AppYesNoModal from '../shared/AppYesNoModal.vue';
 import AppTaskList from '../Tasks/TaskList.vue';
+import AlternativeTaskList from '../Tasks/AlternativeTaskList.vue';
+import AppCollapsible from '../shared/AppCollapsible.vue';
 
 const deleteModalOpen = ref(false);
 
