@@ -58,7 +58,7 @@
 						removeProjectModalOpen = false;
 					"
 					@cancel="removeProjectModalOpen = false">
-					Delete Initiative "{{ currentInitiative.name }}"?
+					Remove Project "{{ project.name }}" from Initiative "{{ currentInitiative.name }}"?
 				</AppYesNoModal>
 			</div>
 		</div>

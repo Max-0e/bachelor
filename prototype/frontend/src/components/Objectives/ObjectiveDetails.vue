@@ -61,7 +61,7 @@
 						removeInitiativeModalOpen = false;
 					"
 					@cancel="removeInitiativeModalOpen = false">
-					Delete Objective "{{ currentObjective.name }}"?
+					Remove Initiative "{{ initiative.name }}" fom Objective "{{ currentObjective.name }}"?
 				</AppYesNoModal>
 			</div>
 		</div>
