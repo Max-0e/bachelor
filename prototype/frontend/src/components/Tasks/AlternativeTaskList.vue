@@ -47,7 +47,7 @@
     <AppYesNoModal
 		:open="deleteModalOpen"
 		@yes="
-			projectStore.deleteTask(project, taskToDelete!);
+			projectStore.deleteTask(project, taskToDelete);
 			deleteModalOpen = false;
 		"
 		@cancel="deleteModalOpen = false">
@@ -59,14 +59,14 @@
 import { IProject } from '@/intefaces/project.interface';
 import { ITask, Status } from '@/intefaces/task.interface';
 import { useProjectStore } from '@/store/project';
-import { PropType, ref } from 'vue';
+import { PropType, Ref, ref } from 'vue';
 import AlternativeTaskListItem from './Tasks-Components/AlternativeTaskListItem.vue';
 
 import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
 
 const projectStore = useProjectStore();
 
-const taskToDelete = ref({name: ""});
+const taskToDelete: Ref<ITask> = ref({id:'', name: '', status: Status.done});
 const deleteModalOpen = ref(false);
 
 const markTargetOpen = ref(false);

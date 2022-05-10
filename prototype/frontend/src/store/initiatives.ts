@@ -1,5 +1,6 @@
 import { ICreateInitiative, IInitiative } from '@/intefaces/initiative.interface';
 import { IProject } from '@/intefaces/project.interface';
+import { Status } from '@/intefaces/task.interface';
 import router from '@/router';
 import initiativeService from '@/services/initiative.service';
 import { defineStore } from 'pinia';
@@ -32,12 +33,12 @@ export const useInitiativeStore = defineStore('initiative', {
 		},
 		getMetrics(projects: IProject[]) {
 			const projectProgressArray = projects.map((project) =>
-				Math.round((project.tasks.filter((task) => task.done).length / project.tasks.length) * 100)
+				Math.round((project.tasks.filter((task) => task.status === Status.done).length / project.tasks.length) * 100)
 			);
 			const averageProjectProgress = calculateTotal(projectProgressArray) / projectProgressArray.length;
 
 			const totalDoneTasks = calculateTotal(
-				projects.map((project) => project.tasks.filter((task) => task.done).length)
+				projects.map((project) => project.tasks.filter((task) => task.status === Status.done).length)
 			);
 			const totalTasksInInitiative = calculateTotal(projects.map((project) => project.tasks.length));
 

@@ -25,11 +25,18 @@
 				label="Task-Name" />
 		</span>
 		<span class="w-1/3 text-left">
-			<select class="bg-dark-400 w-1/2" v-model="taskToCreate.status">
+			<AppDropDownMenu v-model="taskToCreate.status" :options="
+			[
+				{name: Status[Status.open], value: Status.open},
+				{name: Status[Status.inProgress], value: Status.inProgress},
+				{name: Status[Status.done], value: Status.done}
+			]"
+			></AppDropDownMenu>
+			<!-- <select class="bg-dark-400 w-1/2" v-model="taskToCreate.status">
 				<option :value="Status.open">{{Status[Status.open]}}</option>
 				<option :value="Status.inProgress">{{Status[Status.inProgress]}}</option>
 				<option :value="Status.done">{{Status[Status.done]}}</option>
-			</select>
+			</select> -->
 		</span>
 		<span class="w-1/3">
 			<AppButton :iconButton="true" :color="'red'" :slim="true" class="px-2 m-1 float-right" @click="setDefaults()"
@@ -57,6 +64,7 @@ import { PropType, Ref, ref } from 'vue';
 import { ICreateTask, Status } from '@/intefaces/task.interface';
 import { IProject } from '@/intefaces/project.interface';
 import AppToolTip from '../shared/AppToolTip.vue';
+import AppDropDownMenu from '../shared/AppDropDownMenu.vue';
 
 const projectStore = useProjectStore();
 

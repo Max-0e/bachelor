@@ -68,19 +68,17 @@
 			<div class="font-bold text-xl w-full text-left">Add Project to Initiative</div>
 			<div class="w-full">
 				<form>
-					<div>
-						<select class="bg-dark-400 w-1/2" name="project" id="project" v-model="selectedProject">
-							<option
-								:value="project"
-								v-for="project in projectStore.projects.filter(
-									(projectFromState) => !projectStore.getProjectsFromCurrentInitiative.includes(projectFromState)
-								)">
-								{{ project.name }}
-							</option>
-						</select>
-					</div>
+						<AppDropDownMenu
+						v-model="selectedProject"
+						:options="
+							projectStore.projects
+							.filter((projectFromState) => !projectStore.getProjectsFromCurrentInitiative.includes(projectFromState))
+							.map(project => ({name: project.name, value: project}))
+						"
+						/>
 				</form>
 			</div>
+			<ProjectCard v-if="selectedProject != null" :project="selectedProject"></ProjectCard>
 			<div class="w-full flex justify-end gap-5">
 				<AppButton color="red" @click="showAddProjectToInitiativeModal = false">Cancel</AppButton>
 				<AppButton @click="addProjectToInitiative()">Add</AppButton>
@@ -98,6 +96,7 @@ import ProjectCard from '@/components/Projects/Projects-Components/ProjectCard.v
 import AppModal from '@/components/shared/AppModal.vue';
 import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
 import AppButton from '@/components/shared/AppButton.vue';
+import AppDropDownMenu from '@/components/shared/AppDropDownMenu.vue';
 import AppFloatingActionButton from '@/components/shared/AppFloatingActionButton.vue';
 import AppInlineInputField from '@/components/shared/AppInlineInputField.vue';
 import { useInitiativeStore } from '@/store/initiatives';

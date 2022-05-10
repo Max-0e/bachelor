@@ -74,16 +74,14 @@
 			<div class="w-full">
 				<form>
 					<div>
-						<select class="bg-dark-400 w-1/2" name="initiative" id="initiative" v-model="selectedInitiative">
-							<option
-								:value="initiative"
-								v-for="initiative in initiativeStore.initiatives.filter(
-									(initiativeFromState) =>
-										!initiativeStore.getInitiativesFromCurrentObjective.includes(initiativeFromState)
-								)">
-								{{ initiative.name }}
-							</option>
-						</select>
+						<AppDropDownMenu
+						v-model="selectedInitiative"
+						:options="
+							initiativeStore.initiatives
+							.filter((initiativeFromState) => !initiativeStore.getInitiativesFromCurrentObjective.includes(initiativeFromState))
+							.map(initiative => ({name: initiative.name, value: initiative}))
+						"
+						/>
 					</div>
 				</form>
 			</div>
@@ -102,6 +100,7 @@ import { ref } from 'vue';
 
 import InitiativeCard from '@/components/Initiatives/Initiatives-Components/InitiativeCard.vue';
 import AppModal from '@/components/shared/AppModal.vue';
+import AppDropDownMenu from '@/components/shared/AppDropDownMenu.vue';
 import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
 import AppButton from '@/components/shared/AppButton.vue';
 import AppFloatingActionButton from '@/components/shared/AppFloatingActionButton.vue';

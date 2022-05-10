@@ -12,14 +12,13 @@
 				@save="projectStore.updateTask(project, task)" />
 		</span>
 		<span class="w-1/3 text-left px-5">
-			<input
-				type="checkbox"
-				class="cursor-pointer"
-				:checked="task.done"
-				@change="
-					task.done = !task.done;
-					projectStore.updateTask(project, task);
-				" />
+			<AppDropDownMenu v-model="task.status" :options="
+			[
+				{name: Status[Status.open], value: Status.open},
+				{name: Status[Status.inProgress], value: Status.inProgress},
+				{name: Status[Status.done], value: Status.done}
+			]"
+			></AppDropDownMenu>
 		</span>
 		<span class="w-1/3 px-5">
 			<div class="float-right">
@@ -43,13 +42,14 @@
 </template>
 <script setup lang="ts">
 import AppInlineInputField from '@/components/shared/AppInlineInputField.vue';
+import AppDropDownMenu from '@/components/shared/AppDropDownMenu.vue';
 import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
 import AppIcon from '@/components/shared/AppIcon.vue';
 import AppToolTip from '@/components/shared/AppToolTip.vue';
 
 import { useProjectStore } from '@/store/project';
 import { PropType, ref } from 'vue';
-import { ITask } from '@/intefaces/task.interface';
+import { ITask, Status} from '@/intefaces/task.interface';
 import { IProject } from '@/intefaces/project.interface';
 
 const projectStore = useProjectStore();

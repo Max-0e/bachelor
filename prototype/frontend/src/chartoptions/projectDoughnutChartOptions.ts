@@ -20,16 +20,16 @@ export const projectDoughnutChartOptions: ChartOptions<'doughnut'> = ({
     },
 });
 
-export function getProjectChartData (data: Ref<number[]>){
-    return computed<ChartData<'doughnut'>>(() => (
+export function getProjectChartData (data: number[]): ChartData<'doughnut'>{
+    return(
         {
             labels: ['open', 'in Progress', 'done'],
             datasets: [
                 {
-                    data: data.value,
+                    data: data,
                     backgroundColor: ['#333333', '#0079AF', '#339933'],
                 },
             ],
         }
-    ));
+    );
 }

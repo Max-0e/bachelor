@@ -4,15 +4,21 @@
 		:class="progress === 100 ? 'border border-green-500' : ''">
 		<div class="text-2xl">{{ project.name }}</div>
 		<div>Tasks: {{ project.tasks.length }}</div>
-		<div>Progress: {{ progress }}%</div>
+		<div>Progress: {{ Math.round((project.tasks.filter((task) => task.status === Status.done).length / project.tasks.length) * 100) }}%</div>
 		<div class="h-100 w-100 mx-auto">
-			<DoughnutChart :chartData="chartData" :options="projectDoughnutChartOptions" />
+			<DoughnutChart :chartData="getProjectChartData(
+				[
+					project.tasks.filter((task) => task.status === Status.open).length,
+					project.tasks.filter((task) => task.status === Status.inProgress).length,
+					project.tasks.filter((task) => task.status === Status.done).length
+				]
+			)" :options="projectDoughnutChartOptions" />
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { PropType, ref } from 'vue';
+import { PropType, ref, toRef, toRefs } from 'vue';
 import { IProject } from '@/intefaces/project.interface';
 import { Status } from '@/intefaces/task.interface';
 
@@ -24,16 +30,13 @@ const props = defineProps({
 	project: { type: Object as PropType<IProject>, required: true },
 });
 
-const openTasksLength = props.project.tasks.filter((task) => task.status === Status.open).length;
-const inProgressTasksLength = props.project.tasks.filter((task) => task.status === Status.inProgress).length;
-const doneTasksLength = props.project.tasks.filter((task) => task.status === Status.done).length;
+const refProps = toRefs(props);
 
-const dataForChart = ref([openTasksLength, inProgressTasksLength, doneTasksLength])
+const openTasksLength = refProps.project.value.tasks.filter((task) => task.status === Status.open).length;
+const inProgressTasksLength = refProps.project.value.tasks.filter((task) => task.status === Status.inProgress).length;
+const doneTasksLength = refProps.project.value.tasks.filter((task) => task.status === Status.done).length;
 
-const chartData = getProjectChartData(dataForChart)
-
-
-const progress = Math.round(
-	(props.project.tasks.filter((task) => task.status === Status.done).length / props.project.tasks.length) * 100
-);
+const progress = ref(Math.round(
+	(refProps.project.value.tasks.filter((task) => task.status === Status.done).length / refProps.project.value.tasks.length) * 100
+));
 </script>
