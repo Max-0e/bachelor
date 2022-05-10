@@ -4,6 +4,7 @@ import { IInitiative } from '../interfaces/initiative.interface';
 import projectService from './project.service';
 import { IInitiativeDto } from '../interfaces/dtos/initiativeDto.interface';
 import { ValidationError } from '../error/validation.error';
+import objectiveService from './objective.service';
 
 class InitiativeService {
 	public async getInitiatives() {
@@ -18,6 +19,15 @@ class InitiativeService {
 		if (!initiative) throw new NotFoundError('This Initiative does not exists.');
 
 		return initiative;
+	}
+
+	public async getInitiativesContainingProject(projectId: string) {
+		const initiatives: InitiativeDocument[] | null = await InitiativeModel.find({
+			projects: projectId,
+		});
+		if (!initiatives) throw new NotFoundError('This Project is not part of any Initiative.');
+
+		return initiatives;
 	}
 
 	public async createInitiative(initiative: IInitiative) {
@@ -63,6 +73,14 @@ class InitiativeService {
 
 	public async deleteInitiativeById(id: string) {
 		const initiative = await this.getInitiativeById(id);
+		try {
+			const objectivesToRemoveInitiativeFrom = await objectiveService.getObjectivesContainingInitiative(id);
+			for (const objective of objectivesToRemoveInitiativeFrom ) {
+				await objectiveService.removeInitiativeFromObjective(objective._id, id);
+			}
+		} catch (error: any) {
+			if (error.status !== 404) throw error;
+		}
 		return initiative.delete();
 	}
 

@@ -45,7 +45,7 @@ class TaskService {
 		return {
 			id: task._id,
 			name: task.name,
-			done: task.done,
+			status: task.status,
 		};
 	}
 

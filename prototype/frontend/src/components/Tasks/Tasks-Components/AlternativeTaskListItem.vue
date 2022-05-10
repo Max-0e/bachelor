@@ -1,5 +1,5 @@
 <template>
-	<div class="w-full rounded-md flex justify-between items-center p-1 m-1" :class="task.done ? 'bg-green-300 dark:bg-green-600' : 'bg-dark-200'">
+	<div class="w-full rounded-md flex justify-between items-center p-1 m-1" :class="task.status === Status.done ? 'bg-green-300 dark:bg-green-600' : task.status === Status.inProgress ? 'bg-blue-800' : 'bg-dark-200'">
 		<span class="w-1/2 text-left px-5">
 			<AppInlineInputField
 				v-model="task.name"
@@ -30,7 +30,7 @@ import AppToolTip from '@/components/shared/AppToolTip.vue';
 
 import { useProjectStore } from '@/store/project';
 import { PropType, ref } from 'vue';
-import { ITask } from '@/intefaces/task.interface';
+import { ITask, Status } from '@/intefaces/task.interface';
 import { IProject } from '@/intefaces/project.interface';
 
 const projectStore = useProjectStore();

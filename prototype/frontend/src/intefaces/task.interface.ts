@@ -1,10 +1,16 @@
 export interface ITask {
 	id: string;
 	name: string;
-	done: boolean;
+	status: Status;
 }
 
 export interface ICreateTask {
 	name: string;
-	done: boolean;
+	status: Status;
+}
+
+export enum Status {
+	open,
+	inProgress,
+	done
 }

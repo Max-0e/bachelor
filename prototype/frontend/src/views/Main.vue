@@ -50,7 +50,7 @@ async function logout() {
 	useAuthStore()
 		.logout()
 		.then((_) => {
-			router.push('login');
+			router.push({name: 'Login'});
 		});
 }
 </script>

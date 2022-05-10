@@ -1,9 +1,9 @@
-import { ITask } from '@/interfaces/task.interface';
+import { ITask, Status } from '@/interfaces/task.interface';
 import { Document, Schema, model } from 'mongoose';
 
 export const taskSchema = new Schema<ITask>({
 	name: { type: String, required: true },
-	done: { type: Boolean, required: true },
+	status: { type: Number, required: true },
 });
 
 taskSchema.set('collection', 'tasks');

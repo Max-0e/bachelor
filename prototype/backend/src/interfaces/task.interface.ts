@@ -1,5 +1,11 @@
 export interface ITask {
 	_id: string;
 	name: string;
-	done: boolean;
+	status: Status;
+}
+
+export enum Status {
+	open,
+	inProgress,
+	done
 }

@@ -3,6 +3,7 @@ import { NotFoundError } from '../error/not-found.error';
 import { IProject } from '../interfaces/project.interface';
 import { IProjectDto } from '@/interfaces/dtos/projectDto.interface';
 import taskService from './task.service';
+import initiativeService from './initiative.service';
 
 class ProjectService {
 	public async getProjects() {
@@ -30,6 +31,14 @@ class ProjectService {
 	public async deleteProjectById(id: string) {
 		const project = await this.getProjectById(id);
 		project.tasks.forEach(async taskId => await taskService.deleteTaskById(taskId));
+		try {
+			const initiativesToRemoveProjectFrom = await initiativeService.getInitiativesContainingProject(id);
+			for (const initiative of initiativesToRemoveProjectFrom ) {
+				await initiativeService.removeProjectFromInitiative(initiative._id, id);
+			}
+		} catch (error: any) {
+			if (error.status !== 404) throw error;
+		}
 		return project.delete();
 	}
 

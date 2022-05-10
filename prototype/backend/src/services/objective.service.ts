@@ -20,6 +20,15 @@ class ObjectiveService {
 		return objective;
 	}
 
+	public async getObjectivesContainingInitiative(initiativeId: string) {
+		const objectives: ObjectiveDocument[] | null = await ObjectiveModel.find({
+			initiatives: initiativeId,
+		});
+		if (!objectives) throw new NotFoundError('This Initiative is not part of any Objective.');
+
+		return objectives;
+	}
+
 	public async createObjective(objective: IObjective) {
 		const objectiveModel = new ObjectiveModel({ ...objective });
 		const newObjective = await objectiveModel.save();

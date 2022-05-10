@@ -9,6 +9,9 @@ import { useAuthStore } from './store/auth';
 import Toast, { PluginOptions } from 'vue-toastification';
 import { useAppStore } from './store/app';
 
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
 const app = createApp(App);
 app.use(createPinia());
 
