@@ -70,6 +70,7 @@
 				<form>
 						<AppDropDownMenu
 						v-model="selectedProject"
+						selectText="select Project"
 						:options="
 							projectStore.projects
 							.filter((projectFromState) => !projectStore.getProjectsFromCurrentInitiative.includes(projectFromState))

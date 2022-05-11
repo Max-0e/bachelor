@@ -12,7 +12,11 @@
 				@save="projectStore.updateTask(project, task)" />
 		</span>
 		<span class="w-1/3 text-left px-5">
-			<AppDropDownMenu v-model="task.status" :options="
+			<AppDropDownMenu v-model="task.status"
+			selectText="select Status"
+			@update:model-value="projectStore.updateTask(project, task)"
+			:defaultValueName="Status[task.status]"
+			:options="
 			[
 				{name: Status[Status.open], value: Status.open},
 				{name: Status[Status.inProgress], value: Status.inProgress},

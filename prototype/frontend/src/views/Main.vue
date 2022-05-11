@@ -10,23 +10,30 @@
 				<router-link :to="{ name: 'Projects' }" class="transition-all rounded-md px-2">Projects</router-link>
 			</div>
 		</div>
-		<div class="flex relative items-center p-2 hoverForContextMenu">
-			<AppChip>person</AppChip>
-			<div class="contextMenu transition-all absolute top-15 right-1 w-25 z-50">
-				<div
-					class="cursor-pointer w-full px-3 py-1 rounded-t-lg bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
-					@click="router.push({ name: 'Profile' })">
-					Profile
-				</div>
-				<div
-					class="cursor-pointer w-full px-3 py-1 bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
-					@click="router.push({ name: 'Settings' })">
-					Settings
-				</div>
-				<div
-					class="cursor-pointer text-white w-full px-3 py-1 rounded-b-lg bg-red-500 hover:bg-red-400 dark:bg-red-900 dark:hover:bg-red-700"
-					@click="logout()">
-					Logout
+		<div class="flex">
+			<div class="flex justify-center items-center">
+				<AppIcon @click="refreshData()" :class="{'animate-spin': refreshing}">
+					sync
+				</AppIcon>
+			</div>
+			<div class="flex relative items-center p-2 hoverForContextMenu">
+				<AppChip>person</AppChip>
+				<div class="contextMenu transition-all absolute top-15 right-1 w-25 z-50">
+					<div
+						class="cursor-pointer w-full px-3 py-1 rounded-t-lg bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
+						@click="router.push({ name: 'Profile' })">
+						Profile
+					</div>
+					<div
+						class="cursor-pointer w-full px-3 py-1 bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
+						@click="router.push({ name: 'Settings' })">
+						Settings
+					</div>
+					<div
+						class="cursor-pointer text-white w-full px-3 py-1 rounded-b-lg bg-red-500 hover:bg-red-400 dark:bg-red-900 dark:hover:bg-red-700"
+						@click="logout()">
+						Logout
+					</div>
 				</div>
 			</div>
 		</div>
@@ -45,6 +52,14 @@
 import router from '@/router';
 import { useAuthStore } from '@/store/auth';
 import AppChip from '@/components/shared/AppChip.vue';
+import AppIcon from '@/components/shared/AppIcon.vue';
+import { ref } from 'vue';
+import { useInitiativeStore } from '@/store/initiatives';
+import { useProjectStore } from '@/store/project';
+import { useObjectiveStore } from '@/store/objectives';
+import { useToast } from 'vue-toastification';
+
+const refreshing = ref(false);
 
 async function logout() {
 	useAuthStore()
@@ -52,6 +67,21 @@ async function logout() {
 		.then((_) => {
 			router.push({name: 'Login'});
 		});
+}
+
+async function refreshData() {
+	refreshing.value = true;
+	if (useInitiativeStore().isLoaded) {
+		await useInitiativeStore().loadInitiatives();
+	}
+	if (useProjectStore().isLoaded) {
+		await useProjectStore().loadProjects();
+	}
+	if (useObjectiveStore().isLoaded) {
+		await useObjectiveStore().loadObjectives();
+	}
+	useToast().info('you are up to date', { timeout: 1500 })
+	refreshing.value = false
 }
 </script>
 <style scoped>

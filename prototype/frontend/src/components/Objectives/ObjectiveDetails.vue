@@ -76,6 +76,7 @@
 					<div>
 						<AppDropDownMenu
 						v-model="selectedInitiative"
+						selectText="select Initiative"
 						:options="
 							initiativeStore.initiatives
 							.filter((initiativeFromState) => !initiativeStore.getInitiativesFromCurrentObjective.includes(initiativeFromState))

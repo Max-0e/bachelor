@@ -25,7 +25,9 @@
 				label="Task-Name" />
 		</span>
 		<span class="w-1/3 text-left">
-			<AppDropDownMenu v-model="taskToCreate.status" :options="
+			<AppDropDownMenu v-model="taskToCreate.status" 
+			selectText="select Status"
+			:options="
 			[
 				{name: Status[Status.open], value: Status.open},
 				{name: Status[Status.inProgress], value: Status.inProgress},

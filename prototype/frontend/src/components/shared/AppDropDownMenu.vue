@@ -19,16 +19,26 @@
 </div>
 </template>
 <script setup lang="ts">
-import { PropType, ref } from 'vue';
+import { onMounted, PropType, ref } from 'vue';
 import AppIcon from './AppIcon.vue';
+
+const props = defineProps({
+    selectText: {type: String, required: true},
+    defaultValueName: String,
+    options: {type: Object as PropType<{name: string, value: any}[]>}
+});
 
 const expanded = ref(false);
 
-const selectedOption = ref({name: 'select Option', value: null});
+const selectedOption = ref({name: props.selectText, value: null});
 
-defineProps({
-    options: {type: Object as PropType<{name: string, value: any}[]>}
-});
+onMounted(() => {
+    if (!!props.defaultValueName && !!props.options) {
+        const defaultOption = props.options.find(option => option.name === props.defaultValueName);
+        if (!!defaultOption) selectedOption.value = defaultOption;
+    }
+})
+
 
 const emit = defineEmits(['update:modelValue']);
 
