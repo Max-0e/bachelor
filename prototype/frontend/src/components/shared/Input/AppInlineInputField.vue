@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import AppLabel from '../shared/AppLabel.vue';
+import AppLabel from '../AppLabel.vue';
 
 const props = defineProps({
 	label: String,

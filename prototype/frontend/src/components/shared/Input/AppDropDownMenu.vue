@@ -20,7 +20,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted, PropType, ref } from 'vue';
-import AppIcon from './AppIcon.vue';
+import AppIcon from '../AppIcon.vue';
 
 const props = defineProps({
     selectText: {type: String, required: true},

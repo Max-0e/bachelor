@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import AppLabel from '../shared/AppLabel.vue';
+import AppLabel from '../AppLabel.vue';
 
 defineProps({
 	label: String,
