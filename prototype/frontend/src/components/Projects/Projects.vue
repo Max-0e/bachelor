@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-wrap gap-10">
+	<div class="flex flex-wrap gap-5">
 		<ProjectCard
 			class="cursor-pointer flex-grow"
 			v-for="project in projectStore.projects"

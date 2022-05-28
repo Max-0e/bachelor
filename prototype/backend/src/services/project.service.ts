@@ -28,6 +28,18 @@ class ProjectService {
 	}
 
 	/**
+	 * gets Project by given Task Id
+	 * @param taskId 
+	 * @returns the Projectdocument
+	 */
+	public async getProjectByTaskId(taskId: string) {
+		const project: ProjectDocument | null = await ProjectModel.findOne({ tasks: taskId });
+		if (!project) throw new NotFoundError('This Project does not exists.');
+
+		return project;
+	}
+
+	/**
 	 * Create a ProjectDocument
 	 * @param project 
 	 * @returns the created ProjectDocument
@@ -74,7 +86,7 @@ class ProjectService {
 	 * @returns the updated Project
 	 */
 	public async removeTaskFromProject(taskId: string) {
-		const project = await ProjectModel.findOne({ tasks: taskId });
+		const project = await this.getProjectByTaskId(taskId);
 		if(!!project) {
 			// TODO is there another way?
 			project.tasks = project.tasks.filter(

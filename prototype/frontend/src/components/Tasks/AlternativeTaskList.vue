@@ -10,7 +10,7 @@
 					<AlternativeTaskListItem :task="task" :project="project"  @onOpenDeleteTaskModal="task => openDeleteTaskModal(task)"/>
 			</DraggableItem>
 		</DropZone>
-		<DropZone class="w-1/3" @onDrop="onDrop($event, Status.inProgress)">
+		<DropZone :disable="project.tasks.filter((task) => task.status === Status.inProgress).length === project.wipLimit" class="w-1/3" @onDrop="onDrop($event, Status.inProgress)">
 			<DraggableItem @dragstart="" :data="task.id" v-for="task in project.tasks.filter((task) => task.status === Status.inProgress)">
 					<AlternativeTaskListItem :task="task" :project="project"  @onOpenDeleteTaskModal="task => openDeleteTaskModal(task)"/>
 			</DraggableItem>
