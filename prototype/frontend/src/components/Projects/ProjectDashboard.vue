@@ -12,22 +12,16 @@
 					label="Project-Name"
 					@save="projectStore.updateProject(currentProject!)" />
 			</div>
-			<div>
-				<AppButton
-					:color="'red'"
-					:iconButton="true"
-					tooltip="delete project"
-					tooltipPosition="left"
-					@click="deleteModalOpen = true">
-					delete
-				</AppButton>
-			</div>
+		</div>
+		<div>
+			Tasks (done): {{metrics.doneTasksLength}}<br>
+			Progress: {{metrics.progress}}%
 		</div>
 		<DoughnutChart :chartData="getProjectChartData(
 				[
-					currentProject.tasks.filter((task) => task.status === Status.open).length,
-					currentProject.tasks.filter((task) => task.status === Status.inProgress).length,
-					currentProject.tasks.filter((task) => task.status === Status.done).length
+					metrics.openTasksLength,
+					metrics.inProgressTasksLength,
+					metrics.doneTasksLength
 				]
 			)" :options="projectDoughnutChartOptions" />
 		<div class="p-5">
@@ -38,24 +32,13 @@
 				<AppTaskList :project="currentProject" />
 			</AppCollapsible>
 		</div>
-		<AppYesNoModal
-			:open="deleteModalOpen"
-			@yes="
-				projectStore.deleteCurrentProject();
-				deleteModalOpen = false;
-			"
-			@cancel="deleteModalOpen = false">
-			Delete Project "{{ currentProject.name }}"?
-		</AppYesNoModal>
 	</div>
 	<div v-else>Something went Wrong...</div>
 </template>
 <script setup lang="ts">
 import { useProjectStore } from '@/store/project';
 import { ref } from 'vue';
-import AppButton from '../shared/AppButton.vue';
 import AppInlineInputField from '../shared/AppInlineInputField.vue';
-import AppYesNoModal from '../shared/AppYesNoModal.vue';
 import AppTaskList from '../Tasks/TaskList.vue';
 import AlternativeTaskList from '../Tasks/AlternativeTaskList.vue';
 import AppCollapsible from '../shared/AppCollapsible.vue';
@@ -63,11 +46,10 @@ import AppCollapsible from '../shared/AppCollapsible.vue';
 import { DoughnutChart } from 'vue-chart-3';
 
 import { projectDoughnutChartOptions, getProjectChartData } from '@/chartoptions/projectDoughnutChartOptions'
-import { Status } from '@/intefaces/task.interface';
-
-const deleteModalOpen = ref(false);
 
 const projectStore = useProjectStore();
 
 const currentProject = ref(projectStore.getCurrentProject);
+
+const metrics = projectStore.computeMetrics(currentProject);
 </script>

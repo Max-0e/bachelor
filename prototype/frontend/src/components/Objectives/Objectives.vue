@@ -11,7 +11,12 @@
 	<AppModal :open="showCreateObjectiveModal">
 		<div class="font-bold text-xl w-full text-left">Create new Objective</div>
 		<div class="w-full">
-			<form>
+			<form
+			@keydown.enter="
+				objectiveStore.createObjective(objectiveToCreate);
+				objectiveToCreate.name = '';
+				showCreateObjectiveModal = false;
+			">
 				<div>
 					<AppInputField
 						v-model="objectiveToCreate.name"

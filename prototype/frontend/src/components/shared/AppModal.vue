@@ -1,6 +1,6 @@
 <template>
 	<div
-		:class="open ? 'bg-opacity-30' : 'invisible bg-opacity-0'"
+		:class="open ? 'bg-opacity-60' : 'invisible bg-opacity-0'"
 		class="transition-all bg-black absolute w-full h-full top-0 left-0 z-10 flex justify-center items-center">
 		<div
 			:class="open ? '' : 'invisible modaloffset'"

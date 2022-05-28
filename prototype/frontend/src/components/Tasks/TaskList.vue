@@ -34,11 +34,6 @@
 				{name: Status[Status.done], value: Status.done}
 			]"
 			></AppDropDownMenu>
-			<!-- <select class="bg-dark-400 w-1/2" v-model="taskToCreate.status">
-				<option :value="Status.open">{{Status[Status.open]}}</option>
-				<option :value="Status.inProgress">{{Status[Status.inProgress]}}</option>
-				<option :value="Status.done">{{Status[Status.done]}}</option>
-			</select> -->
 		</span>
 		<span class="w-1/3">
 			<AppButton :iconButton="true" :color="'red'" :slim="true" class="px-2 m-1 float-right" @click="setDefaults()"
@@ -77,9 +72,8 @@ const taskToCreate: Ref<ICreateTask> = ref({ name: defaultTaskValue.name, status
 const createNewTask = ref(false);
 
 function createTask() {
-	console.log(taskToCreate.value);
 	if (taskToCreate.value.name === defaultTaskValue.name) return;
-	projectStore.createTask(projectStore.getCurrentProject!, taskToCreate.value);
+	projectStore.createTask(projectStore.getCurrentProject, taskToCreate.value);
 	setDefaults();
 }
 

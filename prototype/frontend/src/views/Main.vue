@@ -1,5 +1,5 @@
 <template>
-	<nav class="w-full relative h-15 top-0 shadow-md flex justify-between dark:(bg-dark-700)">
+	<nav class="w-full relative h-15 top-0 shadow-md flex justify-between z-99 dark:(bg-dark-700)">
 		<div class="flex flex-wrap">
 			<h1 class="text-3xl my-auto ml-5 content-center">Prototype</h1>
 			<div class="ml-5 flex items-center">
@@ -18,7 +18,7 @@
 			</div>
 			<div class="flex relative items-center p-2 hoverForContextMenu">
 				<AppChip>person</AppChip>
-				<div class="contextMenu transition-all absolute top-15 right-1 w-25 z-50">
+				<div class="contextMenu transition-all absolute top-15 right-3 w-25 z-50">
 					<div
 						class="cursor-pointer w-full px-3 py-1 rounded-t-lg bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
 						@click="router.push({ name: 'Profile' })">
@@ -39,7 +39,9 @@
 		</div>
 	</nav>
 	<div class="w-full p-5 content-container overflow-scroll overflow-x-hidden">
-		<router-view />
+		<Transition>
+			<router-view />
+		</Transition>
 	</div>
 	<footer class="w-full relative h-8 p-1 flex justify-between shadow-md bg-gray-100 dark:(bg-dark-100)">
 		<div class="flex justify-evenly">

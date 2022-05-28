@@ -5,13 +5,13 @@ import storageService from '@/services/storage.service';
 import { defineStore } from 'pinia';
 
 interface IAuthState {
-	user: User | undefined;
+	user: User | null;
 	loggedIn: boolean;
 }
 
 export const useAuthStore = defineStore('auth', {
 	state: (): IAuthState => ({
-		user: undefined,
+		user: null,
 		loggedIn: false,
 	}),
 

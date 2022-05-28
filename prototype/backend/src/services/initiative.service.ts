@@ -5,6 +5,7 @@ import projectService from './project.service';
 import { IInitiativeDto } from '../interfaces/dtos/initiativeDto.interface';
 import { ValidationError } from '../error/validation.error';
 import objectiveService from './objective.service';
+import { ConflictError } from '../error/conflict.error';
 
 class InitiativeService {
 	public async getInitiatives() {
@@ -41,6 +42,8 @@ class InitiativeService {
 		const initiativeToUpdate = await this.getInitiativeById(initiativeId);
 		// validate ProjectId
 		await projectService.getProjectById(projectId);
+
+		if (initiativeToUpdate.projects.includes(projectId)) throw new ConflictError('Project already in Initiative.');
 
 		initiativeToUpdate.projects.push(projectId);
 		await initiativeToUpdate.save();

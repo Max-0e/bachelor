@@ -3,6 +3,7 @@ import { IProjectModel } from '../interfaces/project.interface';
 
 const projectSchema = new Schema<IProjectModel>({
 	name: { type: String, required: true },
+	wipLimit: { type: Number, required: true },
 	tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
 });
 

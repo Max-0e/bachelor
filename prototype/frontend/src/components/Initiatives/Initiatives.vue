@@ -11,7 +11,12 @@
 	<AppModal :open="showCreateInitiativeModal">
 		<div class="font-bold text-xl w-full text-left">Create new Initiative</div>
 		<div class="w-full">
-			<form>
+			<form
+			@keydown.enter="
+				initiativeStore.createInitiative(initiativeToCreate);
+				initiativeToCreate.name = '';
+				showCreateInitiativeModal = false;
+			">
 				<div>
 					<AppInputField
 						v-model="initiativeToCreate.name"

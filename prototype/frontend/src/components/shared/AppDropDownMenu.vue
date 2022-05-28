@@ -1,5 +1,5 @@
 <template>
-<div class="relative">
+<div class="relative" @focusout="expanded = false" tabindex="0">
     <div class="p-1 w-full bg-dark-50 rounded-lg cursor-pointer" @click="expanded = !expanded">
         <div class="flex pl-4 items-center justify-between">
             <span class="pr-5">

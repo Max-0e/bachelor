@@ -102,6 +102,7 @@ import AppFloatingActionButton from '@/components/shared/AppFloatingActionButton
 import AppInlineInputField from '@/components/shared/AppInlineInputField.vue';
 import { useInitiativeStore } from '@/store/initiatives';
 import AppIcon from '../shared/AppIcon.vue';
+import { computed } from '@vue/reactivity';
 
 const projectStore = useProjectStore();
 const initiativeStore = useInitiativeStore();
@@ -114,16 +115,17 @@ const selectedProject = ref(null);
 
 const currentInitiative = ref(initiativeStore.getCurrentInitiative);
 
-const metrics = ref(useInitiativeStore().getMetrics(projectStore.getProjectsFromCurrentInitiative));
+const metrics = computed (() => useInitiativeStore().getMetrics(projectStore.getProjectsFromCurrentInitiative));
 
 function updateInitiative() {
 	if (!!currentInitiative.value) initiativeStore.updateInitiative(currentInitiative.value);
 }
 
 function addProjectToInitiative() {
-	if (!!currentInitiative.value && !!selectedProject.value) {
+	if (!!selectedProject.value) {
 		initiativeStore.addProjectToInitiative(currentInitiative.value, selectedProject.value);
 		showAddProjectToInitiativeModal.value = false;
+		selectedProject.value = null;
 	} else {
 		// TODO do some stuff here;
 	}

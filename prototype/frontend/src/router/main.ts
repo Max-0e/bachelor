@@ -5,6 +5,7 @@ import Settings from '@/components/Settings/Settings.vue';
 import Dashboard from '@/components/Dashboard/Dashboard.vue';
 
 import RouterNesting from '@/components/shared/RouterNesting.vue';
+import ProjectLayout from '@/components/Projects/ProjectLayout.vue';
 
 import { projectDetailsResolver, projectsResolver } from './resolver/projects.resolver';
 import { initiativeDetailsResolver, initiativesResolver } from './resolver/initiatives.resolver';
@@ -31,7 +32,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
 	},
 	{
 		path: 'projects',
-		component: RouterNesting,
+		component: ProjectLayout,
 		beforeEnter: projectsResolver,
 		children: projectsRoutes,
 	},

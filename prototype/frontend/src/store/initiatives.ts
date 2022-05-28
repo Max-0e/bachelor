@@ -4,6 +4,7 @@ import { Status } from '@/intefaces/task.interface';
 import router from '@/router';
 import initiativeService from '@/services/initiative.service';
 import { defineStore } from 'pinia';
+import { computed, ref, Ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { useObjectiveStore } from './objectives';
 import { useProjectStore } from './project';
@@ -16,7 +17,11 @@ export const useInitiativeStore = defineStore('initiative', {
 
 	getters: {
 		getCurrentInitiative(state) {
-			return state.initiatives.find((initiative) => initiative.id === router.currentRoute.value.params['id']);
+			const initiative = state.initiatives.find((initiative) => initiative.id === router.currentRoute.value.params['id']);
+
+			if(!initiative) throw "No Current Initiative";
+
+			return initiative
 		},
 		getInitiativesFromCurrentObjective(state) {
 			return state.initiatives.filter((initiative) =>
@@ -45,6 +50,39 @@ export const useInitiativeStore = defineStore('initiative', {
 			const totalProgress = Math.round((totalDoneTasks / totalTasksInInitiative) * 100);
 
 			return { totalProgress, averageProjectProgress };
+		},
+		computeMetrics(projects: Ref<IProject[]>) {
+			const projectProgressArray = computed(() => 
+				projects.value.map((project) =>
+					Math.round((project.tasks.filter((task) => 
+						task.status === Status.done
+					).length / project.tasks.length) * 100)
+				)
+			)
+
+			const averageProjectProgress = computed(() => 
+				calculateTotal(projectProgressArray.value) / projectProgressArray.value.length
+			);
+
+			const totalDoneTasks = computed(() => 
+				calculateTotal(
+					projects.value.map((project) => 
+						project.tasks.filter((task) => 
+							task.status === Status.done
+						).length
+					)
+				)
+			);
+
+			const totalTasksInInitiative = computed(() => 
+				calculateTotal(projects.value.map((project) => project.tasks.length))
+			);
+
+			const totalProgress = computed(() =>
+				Math.round((totalDoneTasks.value / totalTasksInInitiative.value) * 100)
+			);
+
+			return ref({ totalProgress, averageProjectProgress });
 		},
 		async loadInitiatives() {
 			await initiativeService.getInitiatives().then((initiatives) => {

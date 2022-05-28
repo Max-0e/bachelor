@@ -1,5 +1,5 @@
 <template>
-	<div class="relative">
+	<div class="relative" @keydown.enter="changeShowSaveAndCancel(false);$emit('save');blurInput()">
 		<input
 			@input="$emit('update:modelValue', ($event.target as HTMLInputElement).value); changeShowSaveAndCancel(true)"
 			class="p-3 pr-12 bg-dark-50 bg-opacity-0 w-full block transition-all outline-none dark:hover:bg-opacity-40 focus-visible:(outline-transparent border-b border-gray-600) hover:(bg-opacity-40)"
@@ -48,9 +48,15 @@ const props = defineProps({
 defineEmits(['update:modelValue', 'save']);
 
 const show = ref(false);
+const focus = ref(false);
 const initialModelValue = ref(props.modelValue);
 
 function changeShowSaveAndCancel(newValue: boolean) {
 	show.value = newValue;
+	focus.value = false;
+}
+
+function blurInput() {
+	document.getElementById(props.id!)?.blur();
 }
 </script>

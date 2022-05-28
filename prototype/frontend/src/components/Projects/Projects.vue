@@ -10,7 +10,12 @@
 	<AppModal :open="showCreateProjectModal">
 		<div class="font-bold text-xl w-full text-left">Create new Project</div>
 		<div class="w-full">
-			<form>
+			<form
+			@keydown.enter="
+				projectStore.createProject(projectToCreate);
+				clearFormField();
+				showCreateProjectModal = false;
+			">
 				<div>
 					<AppInputField
 						v-model="projectToCreate.name"
