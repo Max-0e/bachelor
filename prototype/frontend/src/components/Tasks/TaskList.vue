@@ -30,7 +30,7 @@
 			:options="
 			[
 				{name: Status[Status.open], value: Status.open},
-				{name: Status[Status.inProgress], value: Status.inProgress},
+				{name: Status[Status.inProgress], value: Status.inProgress, disabled: true},
 				{name: Status[Status.done], value: Status.done}
 			]"
 			></AppDropDownMenu>
@@ -51,17 +51,17 @@
 	</div>
 </template>
 <script setup lang="ts">
-import AppIcon from '../shared/AppIcon.vue';
-import AppButton from '../shared/AppButton.vue';
+import AppIcon from '../shared/UI/AppIcon.vue';
+import AppButton from '../shared/Input/AppButton.vue';
 import AppTaskListItem from './Tasks-Components/TaskListItem.vue';
-import AppInputField from '../shared/AppInputField.vue';
+import AppInputField from '../shared/Input/AppInputField.vue';
 
 import { useProjectStore } from '@/store/project';
 import { PropType, Ref, ref } from 'vue';
 import { ICreateTask, Status } from '@/intefaces/task.interface';
 import { IProject } from '@/intefaces/project.interface';
-import AppToolTip from '../shared/AppToolTip.vue';
-import AppDropDownMenu from '../shared/AppDropDownMenu.vue';
+import AppToolTip from '../shared/UI/AppToolTip.vue';
+import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
 
 const projectStore = useProjectStore();
 

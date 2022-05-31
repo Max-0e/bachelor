@@ -53,8 +53,8 @@
 <script setup lang="ts">
 import router from '@/router';
 import { useAuthStore } from '@/store/auth';
-import AppChip from '@/components/shared/AppChip.vue';
-import AppIcon from '@/components/shared/AppIcon.vue';
+import AppChip from '@/components/shared/UI/AppChip.vue';
+import AppIcon from '@/components/shared/UI/AppIcon.vue';
 import { ref } from 'vue';
 import { useInitiativeStore } from '@/store/initiatives';
 import { useProjectStore } from '@/store/project';

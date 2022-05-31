@@ -46,8 +46,8 @@ import { ref } from 'vue';
 import { IRegisterPayload } from '@/intefaces/registerPayload.interface';
 import router from '@/router';
 import authService from '@/services/auth.service';
-import AppButton from '../shared/AppButton.vue';
-import AppInputField from '../shared/AppInputField.vue';
+import AppButton from '../shared/Input/AppButton.vue';
+import AppInputField from '../shared/Input/AppInputField.vue';
 import { useAppStore } from '@/store/app';
 import { ToastType } from '@/intefaces/toastConfig';
 

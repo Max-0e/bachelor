@@ -13,7 +13,7 @@
 	</AppToolTip>
 </template>
 <script setup lang="ts">
-import AppToolTip from './AppToolTip.vue';
+import AppToolTip from '../UI/AppToolTip.vue';
 defineProps({
 	color: { type: String, default: 'blue' },
 	iconButton: Boolean,

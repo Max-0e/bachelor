@@ -34,8 +34,8 @@ import { ILoginPayload } from '@/intefaces/loginPayload.interface';
 import router from '@/router';
 import { useAuthStore } from '@/store/auth';
 
-import AppButton from '../shared/AppButton.vue';
-import AppInputField from '../shared/AppInputField.vue';
+import AppButton from '../shared/Input/AppButton.vue';
+import AppInputField from '../shared/Input/AppInputField.vue';
 
 import { useToast } from 'vue-toastification';
 

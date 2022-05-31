@@ -11,7 +11,7 @@
 </template>
 <script setup lang="ts">
 import AppModal from './AppModal.vue';
-import AppButton from './AppButton.vue';
+import AppButton from '../Input/AppButton.vue';
 
 defineProps({
 	open: Boolean,

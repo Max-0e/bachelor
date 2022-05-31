@@ -16,7 +16,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'pinia/node_modules/vue-demi';
-import AppIcon from '../AppIcon.vue';
+import AppIcon from './AppIcon.vue';
 
 const expanded = ref(false)
 

@@ -14,5 +14,5 @@
 </template>
 <script setup lang="ts">
 import { useAuthStore } from '@/store/auth';
-import AppChip from '../shared/AppChip.vue';
+import AppChip from '../shared/UI/AppChip.vue';
 </script>

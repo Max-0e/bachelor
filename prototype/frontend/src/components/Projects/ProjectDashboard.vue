@@ -38,10 +38,10 @@
 <script setup lang="ts">
 import { useProjectStore } from '@/store/project';
 import { ref } from 'vue';
-import AppInlineInputField from '../shared/AppInlineInputField.vue';
+import AppInlineInputField from '../shared/Input/AppInlineInputField.vue';
 import AppTaskList from '../Tasks/TaskList.vue';
 import AlternativeTaskList from '../Tasks/AlternativeTaskList.vue';
-import AppCollapsible from '../shared/AppCollapsible.vue';
+import AppCollapsible from '../shared/UI/AppCollapsible.vue';
 
 import { DoughnutChart } from 'vue-chart-3';
 

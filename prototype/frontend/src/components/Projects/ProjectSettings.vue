@@ -32,9 +32,9 @@
 import { IProject } from '@/intefaces/project.interface';
 import { useProjectStore } from '@/store/project';
 import { PropType, ref } from 'vue';
-import AppButton from '../shared/AppButton.vue';
-import AppYesNoModal from '../shared/AppYesNoModal.vue';
-import AppIcon from '../shared/AppIcon.vue';
+import AppButton from '../shared/Input/AppButton.vue';
+import AppYesNoModal from '../shared/Modal/AppYesNoModal.vue';
+import AppIcon from '../shared/UI/AppIcon.vue';
 
 const deleteModalOpen = ref(false);
 

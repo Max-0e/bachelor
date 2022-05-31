@@ -42,10 +42,10 @@
 	</AppModal>
 </template>
 <script setup lang="ts">
-import AppModal from '@/components/shared/AppModal.vue';
-import AppButton from '@/components/shared/AppButton.vue';
-import AppFloatingActionButton from '@/components/shared/AppFloatingActionButton.vue';
-import AppInputField from '@/components/shared/AppInputField.vue';
+import AppModal from '@/components/shared/Modal/AppModal.vue';
+import AppButton from '@/components/shared/Input/AppButton.vue';
+import AppFloatingActionButton from '@/components/shared/UI/AppFloatingActionButton.vue';
+import AppInputField from '@/components/shared/Input/AppInputField.vue';
 
 import router from '@/router';
 

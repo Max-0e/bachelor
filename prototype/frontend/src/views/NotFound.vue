@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import AppButton from '@/components/shared/AppButton.vue';
+import AppButton from '@/components/shared/Input/AppButton.vue';
 </script>
 
 <style scoped></style>

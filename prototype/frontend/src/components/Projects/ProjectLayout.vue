@@ -48,8 +48,8 @@
 import { useProjectStore } from '@/store/project';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
-import AppIcon from '../shared/AppIcon.vue';
-import AppToolTip from '../shared/AppToolTip.vue';
+import AppIcon from '../shared/UI/AppIcon.vue';
+import AppToolTip from '../shared/UI/AppToolTip.vue';
 
 const projectStore = useProjectStore();
 const router = useRouter();

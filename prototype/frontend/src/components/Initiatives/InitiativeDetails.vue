@@ -94,14 +94,14 @@ import { useProjectStore } from '@/store/project';
 import { ref } from 'vue';
 
 import ProjectCard from '@/components/Projects/Projects-Components/ProjectCard.vue';
-import AppModal from '@/components/shared/AppModal.vue';
-import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
-import AppButton from '@/components/shared/AppButton.vue';
-import AppDropDownMenu from '@/components/shared/AppDropDownMenu.vue';
-import AppFloatingActionButton from '@/components/shared/AppFloatingActionButton.vue';
-import AppInlineInputField from '@/components/shared/AppInlineInputField.vue';
+import AppModal from '@/components/shared/Modal/AppModal.vue';
+import AppYesNoModal from '@/components/shared/Modal/AppYesNoModal.vue';
+import AppButton from '@/components/shared/Input/AppButton.vue';
+import AppDropDownMenu from '@/components/shared/Input/AppDropDownMenu.vue';
+import AppFloatingActionButton from '@/components/shared/UI/AppFloatingActionButton.vue';
+import AppInlineInputField from '@/components/shared/Input/AppInlineInputField.vue';
 import { useInitiativeStore } from '@/store/initiatives';
-import AppIcon from '../shared/AppIcon.vue';
+import AppIcon from '../shared/UI/AppIcon.vue';
 import { computed } from '@vue/reactivity';
 
 const projectStore = useProjectStore();

@@ -100,14 +100,14 @@ import { useInitiativeStore } from '@/store/initiatives';
 import { ref } from 'vue';
 
 import InitiativeCard from '@/components/Initiatives/Initiatives-Components/InitiativeCard.vue';
-import AppModal from '@/components/shared/AppModal.vue';
-import AppDropDownMenu from '@/components/shared/AppDropDownMenu.vue';
-import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
-import AppButton from '@/components/shared/AppButton.vue';
-import AppFloatingActionButton from '@/components/shared/AppFloatingActionButton.vue';
-import AppInlineInputField from '@/components/shared/AppInlineInputField.vue';
+import AppModal from '@/components/shared/Modal/AppModal.vue';
+import AppDropDownMenu from '@/components/shared/Input/AppDropDownMenu.vue';
+import AppYesNoModal from '@/components/shared/Modal/AppYesNoModal.vue';
+import AppButton from '@/components/shared/Input/AppButton.vue';
+import AppFloatingActionButton from '@/components/shared/UI/AppFloatingActionButton.vue';
+import AppInlineInputField from '@/components/shared/Input/AppInlineInputField.vue';
 import { useObjectiveStore } from '@/store/objectives';
-import AppIcon from '../shared/AppIcon.vue';
+import AppIcon from '../shared/UI/AppIcon.vue';
 
 const initiativeStore = useInitiativeStore();
 const objectiveStore = useObjectiveStore();

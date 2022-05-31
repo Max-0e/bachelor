@@ -45,11 +45,11 @@
 	</AppYesNoModal>
 </template>
 <script setup lang="ts">
-import AppInlineInputField from '@/components/shared/AppInlineInputField.vue';
-import AppDropDownMenu from '@/components/shared/AppDropDownMenu.vue';
-import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
-import AppIcon from '@/components/shared/AppIcon.vue';
-import AppToolTip from '@/components/shared/AppToolTip.vue';
+import AppInlineInputField from '@/components/shared/Input/AppInlineInputField.vue';
+import AppDropDownMenu from '@/components/shared/Input/AppDropDownMenu.vue';
+import AppYesNoModal from '@/components/shared/Modal/AppYesNoModal.vue';
+import AppIcon from '@/components/shared/UI/AppIcon.vue';
+import AppToolTip from '@/components/shared/UI/AppToolTip.vue';
 
 import { useProjectStore } from '@/store/project';
 import { PropType, ref } from 'vue';

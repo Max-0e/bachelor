@@ -21,8 +21,8 @@ import router from '@/router';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
 import { ref } from 'vue';
-import AppButton from '../shared/AppButton.vue';
-import AppInputField from '../shared/AppInputField.vue';
+import AppButton from '../shared/Input/AppButton.vue';
+import AppInputField from '../shared/Input/AppInputField.vue';
 
 const usernameOrEmail = ref('');
 

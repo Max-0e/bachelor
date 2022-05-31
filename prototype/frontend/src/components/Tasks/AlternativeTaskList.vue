@@ -40,7 +40,7 @@ import { useProjectStore } from '@/store/project';
 import { PropType, Ref, ref } from 'vue';
 import AlternativeTaskListItem from './Tasks-Components/AlternativeTaskListItem.vue';
 
-import AppYesNoModal from '@/components/shared/AppYesNoModal.vue';
+import AppYesNoModal from '@/components/shared/Modal/AppYesNoModal.vue';
 import DropZone from '../shared/DragAndDrop/DropZone.vue';
 import DraggableItem from '../shared/DragAndDrop/DraggableItem.vue';
 
