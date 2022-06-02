@@ -1,10 +1,13 @@
 <template>
 	<div class="flex flex-wrap gap-5">
-		<ProjectCard
-			class="cursor-pointer flex-grow"
-			v-for="project in projectStore.projects"
-			:project="project"
-			@click="router.push('/app/projects/' + project.id)" />
+		<TransitionGroup>
+			<ProjectCard
+				class="cursor-pointer flex-grow"
+				:key="project.name"
+				v-for="project in projectStore.projects"
+				:project="project"
+				@click="router.push('/app/projects/' + project.id)" />
+		</TransitionGroup>
 	</div>
 	<AppFloatingActionButton @click="showCreateProjectModal = true" :icon="true">add</AppFloatingActionButton>
 	<AppModal :open="showCreateProjectModal">

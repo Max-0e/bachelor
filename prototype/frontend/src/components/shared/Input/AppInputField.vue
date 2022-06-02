@@ -7,6 +7,7 @@
 			:type="type"
 			:name="name"
 			:id="id"
+			:autocomplete="autocomplete"
 			:placeholder="placeholder" />
 	</div>
 </template>
@@ -21,5 +22,6 @@ defineProps({
 	id: String,
 	placeholder: String,
 	modelValue: String,
+	autocomplete: String
 });
 </script>

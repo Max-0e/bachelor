@@ -39,9 +39,9 @@
 		</div>
 	</nav>
 	<div class="w-full p-5 content-container overflow-scroll overflow-x-hidden">
-		<Transition>
+		<!-- <Transition> -->
 			<router-view />
-		</Transition>
+		<!-- </Transition> -->
 	</div>
 	<footer class="w-full relative h-8 p-1 flex justify-between shadow-md bg-gray-100 dark:(bg-dark-100)">
 		<div class="flex justify-evenly">

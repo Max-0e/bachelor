@@ -6,6 +6,7 @@
 			name="email"
 			id="email"
 			placeholder="E-Mail"
+			autocomplete="email"
 			label="E-Mail" />
 	</div>
 	<div>
@@ -15,6 +16,7 @@
 			name="username"
 			id="username"
 			placeholder="Username"
+			autocomplete="username"
 			label="Username" />
 	</div>
 	<div>
@@ -24,6 +26,7 @@
 			name="password"
 			id="password"
 			placeholder="Password"
+			autocomplete="new-password"
 			label="Password" />
 	</div>
 	<div>
@@ -33,6 +36,7 @@
 			name="password2"
 			id="password2"
 			placeholder="Reenter Password"
+			autocomplete="new-password"
 			label="Reenter Password" />
 	</div>
 	<div class="mt-15 mb-15">

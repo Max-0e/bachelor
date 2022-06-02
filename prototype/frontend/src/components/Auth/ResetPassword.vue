@@ -6,6 +6,7 @@
 			name="password"
 			id="password"
 			placeholder="New Password"
+			autocomplete="new-password"
 			label="New Password" />
 	</div>
 	<div>
@@ -15,6 +16,7 @@
 			name="password2"
 			id="password2"
 			placeholder="Reenter New Password"
+			autocomplete="new-password"
 			label="Reenter New Password" />
 	</div>
 	<div class="mb-15">

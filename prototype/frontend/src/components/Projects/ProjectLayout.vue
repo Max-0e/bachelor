@@ -38,9 +38,9 @@
             </AppToolTip>
 		</div>
 		<div class="w-full h-full pl-15">
-            <Transition>
+            <!-- <Transition> -->
                 <router-view />
-            </Transition>
+            <!-- </Transition> -->
 		</div>
 	</div>
 </template>

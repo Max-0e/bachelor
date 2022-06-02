@@ -6,6 +6,7 @@
 			name="usernameOrEmail"
 			id="usernameOrEmail"
 			placeholder="Username/E-Mail"
+			autocomplete="username email"
 			label="Username/E-Mail" />
 	</div>
 	<div>
@@ -15,6 +16,7 @@
 			name="password"
 			id="password"
 			placeholder="Password"
+			autocomplete="current-password"
 			label="Password" />
 	</div>
 	<div class="mb-15">
