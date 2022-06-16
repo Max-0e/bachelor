@@ -15,7 +15,7 @@ class Logger {
 	}
 
 	public warn(...args: any[]): void {
-		console.warn(this.logPrefix(), '⚠️', ...args);
+		console.warn(this.logPrefix(), '⚠️ ', ...args);
 	}
 
 	public inspect(item: any): void {

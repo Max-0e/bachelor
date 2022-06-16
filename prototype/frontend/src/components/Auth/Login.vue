@@ -2,6 +2,8 @@
 	<div>
 		<AppInputField
 			v-model="loginPayload.usernameOrEmail"
+			:validation-types="[validationType.required]"
+			ref="usernameOrEmail"
 			type="text"
 			name="usernameOrEmail"
 			id="usernameOrEmail"
@@ -12,6 +14,8 @@
 	<div>
 		<AppInputField
 			v-model="loginPayload.password"
+			:validation-types="[validationType.required]"
+			ref="password"
 			type="password"
 			name="password"
 			id="password"
@@ -33,6 +37,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { ILoginPayload } from '@/intefaces/loginPayload.interface';
+import { validationType } from '@/enums/validationType.enum';
 import router from '@/router';
 import { useAuthStore } from '@/store/auth';
 
@@ -46,11 +51,26 @@ const loginPayload = ref<ILoginPayload>({
 	password: '',
 });
 
+
+const usernameOrEmail = ref<InstanceType<typeof AppInputField> | null>(null);
+const password = ref<InstanceType<typeof AppInputField> | null>(null);
+
 function login() {
-	useAuthStore()
-		.login(loginPayload.value)
-		.then((_) => router.push({name: 'Dashboard'}))
-		.catch((error) => useToast().error(error.message, { timeout: 5000 }));
+	if (validateForm()) 
+		useAuthStore()
+			.login(loginPayload.value)
+			.then((_) => router.push({name: 'Dashboard'}))
+			.catch((error) => useToast().error(error.message, { timeout: 5000 }));
+}
+
+function validateForm() {
+	// due to weird automatic selfoptimization the following code 
+	// would not be completlz executed if the first function already returns false
+	// return password.value!.validate() && usernameOrEmail.value!.validate();
+	// so this explicit validation is needed;
+	const usernameOrEmailValid = usernameOrEmail.value!.validate();
+	const passwordValid = password.value!.validate();
+	return  usernameOrEmailValid && passwordValid;
 }
 </script>
 
