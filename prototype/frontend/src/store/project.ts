@@ -77,7 +77,13 @@ export const useProjectStore = defineStore('project', {
 			});
 		},
 		updateProject(projectToUpdate: IProject) {
-			projectService.updateProject(projectToUpdate.id, { name: projectToUpdate.name }).then((project) => {
+			projectService.updateProject(
+				projectToUpdate.id,
+				{ 
+					name: projectToUpdate.name,
+					wipLimit: projectToUpdate.wipLimit 
+				}
+			).then((project) => {
 				this.updateProjectInState(project);
 				showSuccessToast('updated');
 			});

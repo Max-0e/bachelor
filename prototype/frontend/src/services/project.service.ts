@@ -1,6 +1,6 @@
 import HttpClient from '../utility/http';
 import { API_URL } from '../config';
-import { ICreateProject, IProject } from '@/intefaces/project.interface';
+import { ICreateProject, IProject, IUpdateProject } from '@/intefaces/project.interface';
 
 class ProjectService {
 	constructor() {}
@@ -15,7 +15,7 @@ class ProjectService {
 		return res.body as IProject;
 	}
 
-	public async updateProject(projectId: string, project: ICreateProject) {
+	public async updateProject(projectId: string, project: IUpdateProject) {
 		const res = await HttpClient.put(`${API_URL}/projects/${projectId}`, project, { withCredentials: true });
 		return res.body as IProject;
 	}

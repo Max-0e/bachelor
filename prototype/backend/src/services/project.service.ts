@@ -57,6 +57,7 @@ class ProjectService {
 	 * @returns the updated Project
 	 */
 	public async updateProject(projectId: string, project: IProject) {
+		console.log(project);
 		const projectToUpdate = await this.getProjectById(projectId);
 		await projectToUpdate.updateOne(project);
 		return await this.getProjectById(projectId);

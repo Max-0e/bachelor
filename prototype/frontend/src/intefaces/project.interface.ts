@@ -10,3 +10,7 @@ export interface IProject {
 export interface ICreateProject {
 	name: string;
 }
+export interface IUpdateProject {
+	name: string;
+	wipLimit: number;
+}
