@@ -1,6 +1,6 @@
 import { ProjectModel, ProjectDocument } from '../models/project.model';
 import { NotFoundError } from '../error/not-found.error';
-import { IProject } from '../interfaces/project.interface';
+import { IProject, IProjectModel } from '../interfaces/project.interface';
 import { IProjectDto } from '@/interfaces/dtos/projectDto.interface';
 import taskService from './task.service';
 import initiativeService from './initiative.service';
@@ -47,7 +47,8 @@ class ProjectService {
 	public async createProject(project: IProject) {
 		project.wipLimit = 5;
 		const projectModel = new ProjectModel({ ...project });
-		return await projectModel.save();
+		await projectModel.save();
+		return await this.getProjectById(projectModel._id)
 	}
 
 	/**
@@ -57,7 +58,6 @@ class ProjectService {
 	 * @returns the updated Project
 	 */
 	public async updateProject(projectId: string, project: IProject) {
-		console.log(project);
 		const projectToUpdate = await this.getProjectById(projectId);
 		await projectToUpdate.updateOne(project);
 		return await this.getProjectById(projectId);

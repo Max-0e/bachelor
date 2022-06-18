@@ -23,7 +23,7 @@ class AuthController {
 	}
 
 	public async logoutUser(req: Request, res: Response): Promise<Response> {
-		req.logout();
+		req.logout(() => {});
 		return await sendResponse.message(res, 200, 'logged out');
 	}
 
