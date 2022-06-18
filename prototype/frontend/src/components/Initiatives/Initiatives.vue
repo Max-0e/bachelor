@@ -7,15 +7,15 @@
 			@click="router.push('/app/initiatives/' + initiative.id)">
 		</InitiativeCard>
 	</div>
-	<AppFloatingActionButton @click="showCreateInitiativeModal = true" :icon="true">add</AppFloatingActionButton>
-	<AppModal :open="showCreateInitiativeModal">
+	<AppFloatingActionButton @click="createInitiativeModal!.open()" :icon="true">add</AppFloatingActionButton>
+	<AppModal ref="createInitiativeModal">
 		<div class="font-bold text-xl w-full text-left">Create new Initiative</div>
 		<div class="w-full">
 			<form
 			@keydown.enter="
 				initiativeStore.createInitiative(initiativeToCreate);
 				initiativeToCreate.name = '';
-				showCreateInitiativeModal = false;
+				createInitiativeModal!.close()
 			">
 				<div>
 					<AppInputField
@@ -29,12 +29,12 @@
 			</form>
 		</div>
 		<div class="w-full flex justify-end gap-5">
-			<AppButton color="red" @click="showCreateInitiativeModal = false">Cancel</AppButton>
+			<AppButton color="red" @click="createInitiativeModal!.close()">Cancel</AppButton>
 			<AppButton
 				@click="
 					initiativeStore.createInitiative(initiativeToCreate);
 					initiativeToCreate.name = '';
-					showCreateInitiativeModal = false;
+					createInitiativeModal!.close()
 				"
 				>Create</AppButton
 			>
@@ -54,7 +54,7 @@ import { Ref, ref } from 'vue';
 import { ICreateInitiative } from '@/intefaces/initiative.interface';
 import InitiativeCard from './Initiatives-Components/InitiativeCard.vue';
 
-const showCreateInitiativeModal = ref(false);
+const createInitiativeModal = ref<InstanceType<typeof AppModal> | null>(null);
 
 const initiativeToCreate: Ref<ICreateInitiative> = ref({ name: '' });
 

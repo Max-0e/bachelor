@@ -7,15 +7,15 @@
 			@click="router.push('/app/objectives/' + objective.id)">
 		</ObjectiveCard>
 	</div>
-	<AppFloatingActionButton @click="showCreateObjectiveModal = true" :icon="true">add</AppFloatingActionButton>
-	<AppModal :open="showCreateObjectiveModal">
+	<AppFloatingActionButton @click="createObjectiveModal?.open()" :icon="true">add</AppFloatingActionButton>
+	<AppModal ref="createObjectiveModal">
 		<div class="font-bold text-xl w-full text-left">Create new Objective</div>
 		<div class="w-full">
 			<form
 			@keydown.enter="
 				objectiveStore.createObjective(objectiveToCreate);
 				objectiveToCreate.name = '';
-				showCreateObjectiveModal = false;
+				createObjectiveModal?.close();
 			">
 				<div>
 					<AppInputField
@@ -29,12 +29,12 @@
 			</form>
 		</div>
 		<div class="w-full flex justify-end gap-5">
-			<AppButton color="red" @click="showCreateObjectiveModal = false">Cancel</AppButton>
+			<AppButton color="red" @click="createObjectiveModal?.close()">Cancel</AppButton>
 			<AppButton
 				@click="
 					objectiveStore.createObjective(objectiveToCreate);
 					objectiveToCreate.name = '';
-					showCreateObjectiveModal = false;
+					createObjectiveModal?.close();
 				"
 				>Create</AppButton
 			>
@@ -54,7 +54,7 @@ import { Ref, ref } from 'vue';
 import { ICreateObjective } from '@/intefaces/objective.interface';
 import ObjectiveCard from './Objectives-Components/ObjectiveCard.vue';
 
-const showCreateObjectiveModal = ref(false);
+const createObjectiveModal = ref<InstanceType<typeof AppModal> | null>(null);;
 
 const objectiveToCreate: Ref<ICreateObjective> = ref({ name: '' });
 

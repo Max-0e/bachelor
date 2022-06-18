@@ -18,7 +18,7 @@
 					:iconButton="true"
 					tooltip="delete initiative"
 					tooltipPosition="left"
-					@click="deleteModalOpen = true">
+					@click="deleteModal!.open()">
 					delete
 				</AppButton>
 			</div>
@@ -32,12 +32,12 @@
 			</div>
 		</div>
 		<AppYesNoModal
-			:open="deleteModalOpen"
+			ref="deleteModal"
 			@yes="
 				initiativeStore.deleteCurrentInitiative();
-				deleteModalOpen = false;
+				deleteModal!.open();
 			"
-			@cancel="deleteModalOpen = false">
+			@cancel="deleteModal!.close()">
 			Delete Initiative "{{ currentInitiative.name }}"?
 		</AppYesNoModal>
 		<div class="text-left ml-10 mt-10 text-xl font-bold">Projects</div>
@@ -47,24 +47,23 @@
 				<div class="w-1/10 px-2">
 					<div
 						class="cursor-pointer w-full h-full flex justify-center shadow-md items-center rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-dark-400 dark:hover:bg-dark-600"
-						@click="removeProjectModalOpen = true">
+						@click="projectToRemove = project;removeProjectModal!.open()">
 						<AppIcon>more_vert</AppIcon>
 					</div>
 				</div>
-				<AppYesNoModal
-					:open="removeProjectModalOpen"
-					@yes="
-						initiativeStore.removeProjectFromCurrentInitiative(project);
-						removeProjectModalOpen = false;
-					"
-					@cancel="removeProjectModalOpen = false">
-					Remove Project "{{ project.name }}" from Initiative "{{ currentInitiative.name }}"?
-				</AppYesNoModal>
 			</div>
 		</div>
+		<AppYesNoModal
+			ref="removeProjectModal"
+			@yes="
+				initiativeStore.removeProjectFromCurrentInitiative(projectToRemove!);
+				removeProjectModal!.close();
+			">
+			Remove Project "{{ projectToRemove?.name }}" from Initiative "{{ currentInitiative.name }}"?
+		</AppYesNoModal>
 
-		<AppFloatingActionButton @click="showAddProjectToInitiativeModal = true" :icon="true">add</AppFloatingActionButton>
-		<AppModal :open="showAddProjectToInitiativeModal">
+		<AppFloatingActionButton @click="addProjectToInitiativeModal!.open()" :icon="true">add</AppFloatingActionButton>
+		<AppModal ref="addProjectToInitiativeModal">
 			<div class="font-bold text-xl w-full text-left">Add Project to Initiative</div>
 			<div class="w-full">
 				<form>
@@ -81,7 +80,7 @@
 			</div>
 			<ProjectCard v-if="selectedProject != null" :project="selectedProject"></ProjectCard>
 			<div class="w-full flex justify-end gap-5">
-				<AppButton color="red" @click="showAddProjectToInitiativeModal = false">Cancel</AppButton>
+				<AppButton color="red" @click="addProjectToInitiativeModal!.close()">Cancel</AppButton>
 				<AppButton @click="addProjectToInitiative()">Add</AppButton>
 			</div>
 		</AppModal>
@@ -102,16 +101,18 @@ import AppFloatingActionButton from '@/components/shared/UI/AppFloatingActionBut
 import AppInlineInputField from '@/components/shared/Input/AppInlineInputField.vue';
 import { useInitiativeStore } from '@/store/initiatives';
 import AppIcon from '../shared/UI/AppIcon.vue';
-import { computed } from '@vue/reactivity';
+import { computed, Ref } from '@vue/reactivity';
+import { IProject } from '@/intefaces/project.interface';
 
 const projectStore = useProjectStore();
 const initiativeStore = useInitiativeStore();
 
-const showAddProjectToInitiativeModal = ref(false);
-const removeProjectModalOpen = ref(false);
-const deleteModalOpen = ref(false);
+const addProjectToInitiativeModal = ref<InstanceType<typeof AppModal> | null>(null);
+const removeProjectModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
+const deleteModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 
-const selectedProject = ref(null);
+const selectedProject: Ref<IProject | null>  = ref(null);
+const projectToRemove: Ref<IProject | null> = ref(null);
 
 const currentInitiative = ref(initiativeStore.getCurrentInitiative);
 
@@ -124,7 +125,7 @@ function updateInitiative() {
 function addProjectToInitiative() {
 	if (!!selectedProject.value) {
 		initiativeStore.addProjectToInitiative(currentInitiative.value, selectedProject.value);
-		showAddProjectToInitiativeModal.value = false;
+		addProjectToInitiativeModal.value!.close();
 		selectedProject.value = null;
 	} else {
 		// TODO do some stuff here;

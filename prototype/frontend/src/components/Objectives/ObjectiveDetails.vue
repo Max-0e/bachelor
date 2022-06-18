@@ -18,7 +18,7 @@
 					:iconButton="true"
 					tooltip="delete objective"
 					tooltipPosition="left"
-					@click="deleteModalOpen = true">
+					@click="deleteModal!.open()">
 					delete
 				</AppButton>
 			</div>
@@ -32,12 +32,10 @@
 			</div>
 		</div>
 		<AppYesNoModal
-			:open="deleteModalOpen"
 			@yes="
 				objectiveStore.deleteCurrentObjective();
-				deleteModalOpen = false;
-			"
-			@cancel="deleteModalOpen = false">
+				deleteModal!.close();
+			">
 			Delete Objective "{{ currentObjective.name }}"?
 		</AppYesNoModal>
 		<div class="text-left ml-10 mt-10 text-xl font-bold">Initiatives</div>
@@ -50,26 +48,25 @@
 				<div class="w-1/10 px-2">
 					<div
 						class="cursor-pointer w-full h-full flex justify-center shadow-md items-center rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-dark-400 dark:hover:bg-dark-600"
-						@click="removeInitiativeModalOpen = true">
+						@click="removeInitiativeModal!.open()">
 						<AppIcon>more_vert</AppIcon>
 					</div>
 				</div>
 				<AppYesNoModal
-					:open="removeInitiativeModalOpen"
 					@yes="
 						objectiveStore.removeInitiativeFromCurrentObjective(initiative);
-						removeInitiativeModalOpen = false;
+						removeInitiativeModal!.close();
 					"
-					@cancel="removeInitiativeModalOpen = false">
+					@cancel="removeInitiativeModal!.close()">
 					Remove Initiative "{{ initiative.name }}" fom Objective "{{ currentObjective.name }}"?
 				</AppYesNoModal>
 			</div>
 		</div>
 
-		<AppFloatingActionButton @click="showAddInitiativeToObjectiveModal = true" :icon="true"
+		<AppFloatingActionButton @click="addInitiativeToObjectiveModal!.open()" :icon="true"
 			>add</AppFloatingActionButton
 		>
-		<AppModal :open="showAddInitiativeToObjectiveModal">
+		<AppModal>
 			<div class="font-bold text-xl w-full text-left">Add Initiative to Objective</div>
 			<div class="w-full">
 				<form>
@@ -87,7 +84,7 @@
 				</form>
 			</div>
 			<div class="w-full flex justify-end gap-5">
-				<AppButton color="red" @click="showAddInitiativeToObjectiveModal = false">Cancel</AppButton>
+				<AppButton color="red" @click="addInitiativeToObjectiveModal!.close()">Cancel</AppButton>
 				<AppButton @click="addInitiativeToObjective()">Add</AppButton>
 			</div>
 		</AppModal>
@@ -112,9 +109,9 @@ import AppIcon from '../shared/UI/AppIcon.vue';
 const initiativeStore = useInitiativeStore();
 const objectiveStore = useObjectiveStore();
 
-const showAddInitiativeToObjectiveModal = ref(false);
-const removeInitiativeModalOpen = ref(false);
-const deleteModalOpen = ref(false);
+const addInitiativeToObjectiveModal = ref<InstanceType<typeof AppModal> | null>(null);
+const removeInitiativeModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
+const deleteModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 
 const selectedInitiative = ref(null);
 
@@ -129,7 +126,7 @@ function updateObjective() {
 function addInitiativeToObjective() {
 	if (!!currentObjective.value && !!selectedInitiative.value) {
 		objectiveStore.addInitiativeToObjective(currentObjective.value, selectedInitiative.value);
-		showAddInitiativeToObjectiveModal.value = false;
+		addInitiativeToObjectiveModal.value!.close();
 	} else {
 		// TODO do some stuff here;
 	}

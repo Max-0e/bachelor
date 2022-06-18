@@ -23,12 +23,10 @@
 	</div>
 
     <AppYesNoModal
-		:open="deleteModalOpen"
+		ref="deleteModal"
 		@yes="
 			projectStore.deleteTask(project, taskToDelete);
-			deleteModalOpen = false;
-		"
-		@cancel="deleteModalOpen = false">
+		">
 		Delete Project "{{ taskToDelete.name }}"?
 	</AppYesNoModal>
 </template>
@@ -47,11 +45,11 @@ import DraggableItem from '../shared/DragAndDrop/DraggableItem.vue';
 const projectStore = useProjectStore();
 
 const taskToDelete: Ref<ITask> = ref({id:'', name: '', status: Status.done});
-const deleteModalOpen = ref(false);
+const deleteModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 
-function openDeleteTaskModal (task: any) {
-    deleteModalOpen.value = true;
-    taskToDelete.value = task
+function openDeleteTaskModal (task: ITask) {
+    deleteModal.value!.open();
+    taskToDelete.value = task;
 }
 
 const props = defineProps({

@@ -4,7 +4,7 @@
         :color="'red'"
         tooltip="delete project"
         tooltipPosition="left"
-        @click="deleteModalOpen = true">
+        @click="deleteModal!.open()">
         <div class="flex items-center justify-center">
             <AppIcon>
                 delete
@@ -19,12 +19,8 @@
     Wip-Limit: {{currentProject.wipLimit}}
 </div>
 <AppYesNoModal
-    :open="deleteModalOpen"
-    @yes="
-        projectStore.deleteCurrentProject();
-        deleteModalOpen = false;
-    "
-    @cancel="deleteModalOpen = false">
+    ref="deleteModal"
+    @yes="projectStore.deleteCurrentProject();">
     Delete Project "{{ currentProject.name }}"?
 </AppYesNoModal>
 </template>
@@ -36,7 +32,7 @@ import AppButton from '../shared/Input/AppButton.vue';
 import AppYesNoModal from '../shared/Modal/AppYesNoModal.vue';
 import AppIcon from '../shared/UI/AppIcon.vue';
 
-const deleteModalOpen = ref(false);
+const deleteModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 
 const projectStore = useProjectStore();
 

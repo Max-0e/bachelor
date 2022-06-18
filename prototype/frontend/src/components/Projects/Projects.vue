@@ -9,15 +9,15 @@
 				@click="router.push('/app/projects/' + project.id)" />
 		</TransitionGroup>
 	</div>
-	<AppFloatingActionButton @click="showCreateProjectModal = true" :icon="true">add</AppFloatingActionButton>
-	<AppModal :open="showCreateProjectModal">
+	<AppFloatingActionButton @click="createProjectModal!.open()" :icon="true">add</AppFloatingActionButton>
+	<AppModal ref="createProjectModal">
 		<div class="font-bold text-xl w-full text-left">Create new Project</div>
 		<div class="w-full">
 			<form
 			@keydown.enter="
 				projectStore.createProject(projectToCreate);
 				clearFormField();
-				showCreateProjectModal = false;
+				createProjectModal!.close();
 			">
 				<div>
 					<AppInputField
@@ -31,12 +31,12 @@
 			</form>
 		</div>
 		<div class="w-full flex justify-end gap-5">
-			<AppButton color="red" @click="showCreateProjectModal = false">Cancel</AppButton>
+			<AppButton color="red" @click="createProjectModal!.close()">Cancel</AppButton>
 			<AppButton
 				@click="
 					projectStore.createProject(projectToCreate);
 					clearFormField();
-					showCreateProjectModal = false;
+					createProjectModal!.close();
 				"
 				>Create</AppButton
 			>
@@ -55,7 +55,7 @@ import { ICreateProject } from '@/intefaces/project.interface';
 import { ref, Ref } from 'vue';
 import router from '@/router';
 
-const showCreateProjectModal = ref(false);
+const createProjectModal = ref<InstanceType<typeof AppModal> | null>(null);
 const projectToCreate: Ref<ICreateProject> = ref({ name: '' });
 const projectStore = useProjectStore();
 
