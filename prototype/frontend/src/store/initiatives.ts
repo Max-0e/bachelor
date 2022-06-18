@@ -40,7 +40,7 @@ export const useInitiativeStore = defineStore('initiative', {
 			const projectProgressArray = projects.map((project) =>
 				Math.round((project.tasks.filter((task) => task.status === Status.done).length / project.tasks.length) * 100)
 			);
-			const averageProjectProgress = calculateTotal(projectProgressArray) / projectProgressArray.length;
+			const averageProjectProgress = Math.round(calculateTotal(projectProgressArray) / projectProgressArray.length);
 
 			const totalDoneTasks = calculateTotal(
 				projects.map((project) => project.tasks.filter((task) => task.status === Status.done).length)

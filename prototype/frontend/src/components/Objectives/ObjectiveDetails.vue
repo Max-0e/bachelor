@@ -32,6 +32,7 @@
 			</div>
 		</div>
 		<AppYesNoModal
+			ref="deleteModal"
 			@yes="
 				objectiveStore.deleteCurrentObjective();
 				deleteModal!.close();
@@ -48,25 +49,25 @@
 				<div class="w-1/10 px-2">
 					<div
 						class="cursor-pointer w-full h-full flex justify-center shadow-md items-center rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-dark-400 dark:hover:bg-dark-600"
-						@click="removeInitiativeModal!.open()">
+						@click="initiativeToRemove = initiative; removeInitiativeModal!.open()">
 						<AppIcon>more_vert</AppIcon>
 					</div>
 				</div>
-				<AppYesNoModal
-					@yes="
-						objectiveStore.removeInitiativeFromCurrentObjective(initiative);
-						removeInitiativeModal!.close();
-					"
-					@cancel="removeInitiativeModal!.close()">
-					Remove Initiative "{{ initiative.name }}" fom Objective "{{ currentObjective.name }}"?
-				</AppYesNoModal>
 			</div>
 		</div>
+		<AppYesNoModal
+			ref="removeInitiativeModal"
+			@yes="
+				objectiveStore.removeInitiativeFromCurrentObjective(initiativeToRemove!);
+				removeInitiativeModal!.close();
+			">
+			Remove Initiative "{{ initiativeToRemove?.name }}" fom Objective "{{ currentObjective.name }}"?
+		</AppYesNoModal>
 
 		<AppFloatingActionButton @click="addInitiativeToObjectiveModal!.open()" :icon="true"
 			>add</AppFloatingActionButton
 		>
-		<AppModal>
+		<AppModal ref="addInitiativeToObjectiveModal">
 			<div class="font-bold text-xl w-full text-left">Add Initiative to Objective</div>
 			<div class="w-full">
 				<form>
@@ -94,7 +95,7 @@
 <script setup lang="ts">
 import router from '@/router';
 import { useInitiativeStore } from '@/store/initiatives';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 
 import InitiativeCard from '@/components/Initiatives/Initiatives-Components/InitiativeCard.vue';
 import AppModal from '@/components/shared/Modal/AppModal.vue';
@@ -105,6 +106,7 @@ import AppFloatingActionButton from '@/components/shared/UI/AppFloatingActionBut
 import AppInlineInputField from '@/components/shared/Input/AppInlineInputField.vue';
 import { useObjectiveStore } from '@/store/objectives';
 import AppIcon from '../shared/UI/AppIcon.vue';
+import { IInitiative } from '@/intefaces/initiative.interface';
 
 const initiativeStore = useInitiativeStore();
 const objectiveStore = useObjectiveStore();
@@ -113,7 +115,8 @@ const addInitiativeToObjectiveModal = ref<InstanceType<typeof AppModal> | null>(
 const removeInitiativeModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 const deleteModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 
-const selectedInitiative = ref(null);
+const selectedInitiative: Ref<IInitiative | null>  = ref(null);
+const initiativeToRemove: Ref<IInitiative | null>  = ref(null);
 
 const currentObjective = ref(objectiveStore.getCurrentObjective);
 
