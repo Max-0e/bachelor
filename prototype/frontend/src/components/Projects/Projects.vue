@@ -13,15 +13,12 @@
 	<AppModal ref="createProjectModal">
 		<div class="font-bold text-xl w-full text-left">Create new Project</div>
 		<div class="w-full">
-			<form
-			@keydown.enter="
-				projectStore.createProject(projectToCreate);
-				clearFormField();
-				createProjectModal!.close();
-			">
+			<form @keydown.enter="createProject()">
 				<div>
 					<AppInputField
 						v-model="projectToCreate.name"
+						:validation-types="[validationType.name, validationType.required]"
+						ref="projectName"
 						type="text"
 						name="name"
 						id="name"
@@ -32,13 +29,7 @@
 		</div>
 		<div class="w-full flex justify-end gap-5">
 			<AppButton color="red" @click="createProjectModal!.close()">Cancel</AppButton>
-			<AppButton
-				@click="
-					projectStore.createProject(projectToCreate);
-					clearFormField();
-					createProjectModal!.close();
-				"
-				>Create</AppButton
+			<AppButton @click="createProject()">Create</AppButton
 			>
 		</div>
 	</AppModal>
@@ -46,6 +37,7 @@
 
 <script setup lang="ts">
 import { useProjectStore } from '@/store/project';
+import { validationType } from '@/enums/validationType.enum';
 import ProjectCard from '@/components/Projects/Projects-Components/ProjectCard.vue';
 import AppModal from '@/components/shared/Modal/AppModal.vue';
 import AppButton from '@/components/shared/Input/AppButton.vue';
@@ -55,11 +47,17 @@ import { ICreateProject } from '@/intefaces/project.interface';
 import { ref, Ref } from 'vue';
 import router from '@/router';
 
+const projectName = ref<InstanceType<typeof AppInputField> | null>(null)
+
 const createProjectModal = ref<InstanceType<typeof AppModal> | null>(null);
 const projectToCreate: Ref<ICreateProject> = ref({ name: '' });
 const projectStore = useProjectStore();
 
-function clearFormField() {
-	projectToCreate.value.name = '';
+function createProject() {
+	if (projectName.value!.validate()) {
+		projectStore.createProject(projectToCreate.value);
+		createProjectModal.value!.close();
+		projectToCreate.value.name = '';
+	}
 }
 </script>

@@ -19,13 +19,12 @@
 </template>
 
 <script setup lang="ts">
-import { emailRegex } from '@/config';
+import { emailRegex, nameRegex } from '@/config';
 import { validationType } from '@/enums/validationType.enum';
 import { PropType, computed, toRefs, ref } from 'vue';
 import AppLabel from './AppLabel.vue'; 
 
 const showValidation = ref(false);
-
 
 const props = defineProps({
 	label: String,
@@ -39,7 +38,7 @@ const props = defineProps({
 	match: String,
 });
 
-const emit = defineEmits(['validated', 'update:modelValue']);
+defineEmits(['validated', 'update:modelValue']);
 
 const refProps = toRefs(props);
 
@@ -61,6 +60,7 @@ const validationText = computed(() => {
 					if (!emailRegex.test(modelValue)) text = "not a valid email-adress"
 					break;
 				case validationType.name:
+					if (!nameRegex.test(modelValue)) text = "not a valid value"
 					break;
 			}
 		})
