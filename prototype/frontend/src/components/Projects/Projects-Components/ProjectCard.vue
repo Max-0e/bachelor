@@ -4,12 +4,9 @@
 		:class="metrics.progress === 100 ? 'border border-green-500' : ''">
 		<div class="text-2xl">{{ project.name }}</div>
 		<div>Tasks: {{ project.tasks.length }}</div>
-		<div class="relative border rounded-md border-dark-100">
-			<span class="z-50">Progress: {{ metrics.progress }}%</span>
-			<div
-				class="bg-green-400 opacity-40 rounded-md absolute left-0 top-0 h-full"
-				:style="`width:${metrics.progress}%`"></div>
-		</div>
+		<AppProgressBar :progress="metrics.progress">
+			Progress
+		</AppProgressBar>
 		<div v-if="!light" class="h-100 w-100 mx-auto">
 			<DoughnutChart
 				:chartData="
@@ -23,7 +20,7 @@
 <script setup lang="ts">
 import { PropType, ref, toRef, toRefs } from 'vue';
 import { IProject } from '@/intefaces/project.interface';
-import { Status } from '@/intefaces/task.interface';
+import AppProgressBar from '../../shared/UI/AppProgressBar.vue';
 
 import { projectDoughnutChartOptions, getProjectChartData } from '@/chartoptions/projectDoughnutChartOptions';
 

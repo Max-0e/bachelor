@@ -5,11 +5,14 @@
 		<div
 			v-for="objective in objectives"
 			ref="objectiveRefs"
-			class="h-50 w-100 transition-all flex justify-center items-center text-xl bg-dark-600 rounded-md"
+			class="transition-all flex-grow rounded-md"
 			@mouseenter="markObjective(objective)"
 			@mouseleave="unmark()"
-			:class="markedObjective === objective || markedObjectives?.includes(objective) ? 'bg-dark-100' : ''">
-			{{ objective.name }}
+			:class="markedObjective === objective || markedObjectives?.includes(objective) ? 'border border-5 border-blue-500' : ''">
+			<ObjectiveCard
+				class="cursor-pointer"
+				:objective="objective"
+				@click="router.push('/app/objectives/' + objective.id)" />
 		</div>
 	</div>
 	<div class="text-left">Initiatives</div>
@@ -17,11 +20,14 @@
 		<div
 			ref="initiativeRefs"
 			v-for="initiative in initiativeStore.initiatives"
-			class="h-50 w-100 transition-all flex justify-center items-center text-xl bg-dark-600 rounded-md"
+			class="transition-all flex-grow rounded-md"
 			@mouseenter="markInitiative(initiative)"
 			@mouseleave="unmark()"
-			:class="markedInitiative === initiative || markedInitiatives?.includes(initiative) ? 'bg-dark-100' : ''">
-			{{ initiative.name }}
+			:class="markedInitiative === initiative || markedInitiatives?.includes(initiative) ? 'border border-5 border-blue-500' : ''">
+			<InitiativeCard
+				class="cursor-pointer"
+				:initiative="initiative"
+				@click="router.push('/app/initiatives/' + initiative.id)" />
 		</div>
 	</div>
 	<div class="text-left">Projects</div>
@@ -29,7 +35,7 @@
 		<div
 			ref="projectsRefs"
 			v-for="project in projectStore.projects"
-			class="transition-all rounded-md flex-grow p-1"
+			class="transition-all rounded-md flex-grow"
 			@mouseenter="markProject(project)"
 			@mouseleave="unmark()"
 			:class="markedProject === project || markedProjects?.includes(project) ? 'border border-5 border-blue-500' : ''">
@@ -53,6 +59,8 @@ import { useObjectiveStore } from '@/store/objectives';
 import { useProjectStore } from '@/store/project';
 import { onMounted, ref } from 'vue';
 import ProjectCard from '../Projects/Projects-Components/ProjectCard.vue';
+import ObjectiveCard from '../Objectives/Objectives-Components/ObjectiveCard.vue';
+import InitiativeCard from '../Initiatives/Initiatives-Components/InitiativeCard.vue';
 
 const objectiveStore = useObjectiveStore();
 const initiativeStore = useInitiativeStore();
