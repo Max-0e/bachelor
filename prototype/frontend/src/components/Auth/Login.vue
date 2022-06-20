@@ -51,26 +51,25 @@ const loginPayload = ref<ILoginPayload>({
 	password: '',
 });
 
-
 const usernameOrEmail = ref<InstanceType<typeof AppInputField> | null>(null);
 const password = ref<InstanceType<typeof AppInputField> | null>(null);
 
 function login() {
-	if (validateForm()) 
+	if (validateForm())
 		useAuthStore()
 			.login(loginPayload.value)
-			.then((_) => router.push({name: 'Dashboard'}))
+			.then((_) => router.push({ name: 'Dashboard' }))
 			.catch((error) => useToast().error(error.message, { timeout: 5000 }));
 }
 
 function validateForm() {
-	// due to weird automatic selfoptimization the following code 
+	// due to weird automatic selfoptimization the following code
 	// would not be completlz executed if the first function already returns false
 	// return password.value!.validate() && usernameOrEmail.value!.validate();
 	// so this explicit validation is needed;
 	const usernameOrEmailValid = usernameOrEmail.value!.validate();
 	const passwordValid = password.value!.validate();
-	return  usernameOrEmailValid && passwordValid;
+	return usernameOrEmailValid && passwordValid;
 }
 </script>
 

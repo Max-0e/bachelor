@@ -12,11 +12,11 @@
 		<div class="font-bold text-xl w-full text-left">Create new Initiative</div>
 		<div class="w-full">
 			<form
-			@keydown.enter="
-				initiativeStore.createInitiative(initiativeToCreate);
-				initiativeToCreate.name = '';
-				createInitiativeModal!.close()
-			">
+				@keydown.enter="
+					initiativeStore.createInitiative(initiativeToCreate);
+					initiativeToCreate.name = '';
+					createInitiativeModal!.close();
+				">
 				<div>
 					<AppInputField
 						v-model="initiativeToCreate.name"
@@ -34,7 +34,7 @@
 				@click="
 					initiativeStore.createInitiative(initiativeToCreate);
 					initiativeToCreate.name = '';
-					createInitiativeModal!.close()
+					createInitiativeModal!.close();
 				"
 				>Create</AppButton
 			>

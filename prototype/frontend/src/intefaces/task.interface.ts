@@ -12,5 +12,5 @@ export interface ICreateTask {
 export enum Status {
 	open,
 	inProgress,
-	done
+	done,
 }

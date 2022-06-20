@@ -8,7 +8,7 @@ export function makeErrorMiddleware() {
 		if (err instanceof AppError) {
 			Logger.warn(err.message);
 			return sendResponse.error(res, err.status, err.message);
-		} else if (err.name === "ValidationError") {
+		} else if (err.name === 'ValidationError') {
 			Logger.warn(err.message);
 			return sendResponse.error(res, 400, err.message);
 		} else {

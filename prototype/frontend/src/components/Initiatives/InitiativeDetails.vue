@@ -43,11 +43,17 @@
 		<div class="text-left ml-10 mt-10 text-xl font-bold">Projects</div>
 		<div class="flex flex-wrap gap-10 p-5 m-5 border border-gray-300 dark:border-dark-50 rounded-lg">
 			<div class="flex-grow flex" v-for="project in projectStore.getProjectsFromCurrentInitiative">
-				<ProjectCard class="cursor-pointer w-9/10" :project="project" @click="router.push('/app/projects/' + project.id)" />
+				<ProjectCard
+					class="cursor-pointer w-9/10"
+					:project="project"
+					@click="router.push('/app/projects/' + project.id)" />
 				<div class="w-1/10 px-2">
 					<div
 						class="cursor-pointer w-full h-full flex justify-center shadow-md items-center rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-dark-400 dark:hover:bg-dark-600"
-						@click="projectToRemove = project;removeProjectModal!.open()">
+						@click="
+							projectToRemove = project;
+							removeProjectModal!.open();
+						">
 						<AppIcon>more_vert</AppIcon>
 					</div>
 				</div>
@@ -67,15 +73,14 @@
 			<div class="font-bold text-xl w-full text-left">Add Project to Initiative</div>
 			<div class="w-full">
 				<form>
-						<AppDropDownMenu
+					<AppDropDownMenu
 						v-model="selectedProject"
 						selectText="select Project"
 						:options="
 							projectStore.projects
-							.filter((projectFromState) => !projectStore.getProjectsFromCurrentInitiative.includes(projectFromState))
-							.map(project => ({name: project.name, value: project}))
-						"
-						/>
+								.filter((projectFromState) => !projectStore.getProjectsFromCurrentInitiative.includes(projectFromState))
+								.map((project) => ({ name: project.name, value: project }))
+						" />
 				</form>
 			</div>
 			<ProjectCard v-if="selectedProject != null" :project="selectedProject"></ProjectCard>
@@ -111,12 +116,12 @@ const addProjectToInitiativeModal = ref<InstanceType<typeof AppModal> | null>(nu
 const removeProjectModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 const deleteModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 
-const selectedProject: Ref<IProject | null>  = ref(null);
+const selectedProject: Ref<IProject | null> = ref(null);
 const projectToRemove: Ref<IProject | null> = ref(null);
 
 const currentInitiative = ref(initiativeStore.getCurrentInitiative);
 
-const metrics = computed (() => useInitiativeStore().getMetrics(projectStore.getProjectsFromCurrentInitiative));
+const metrics = computed(() => useInitiativeStore().getMetrics(projectStore.getProjectsFromCurrentInitiative));
 
 function updateInitiative() {
 	if (!!currentInitiative.value) initiativeStore.updateInitiative(currentInitiative.value);

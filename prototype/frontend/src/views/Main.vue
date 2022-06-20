@@ -12,9 +12,7 @@
 		</div>
 		<div class="flex">
 			<div class="flex justify-center items-center">
-				<AppIcon @click="refreshData()" :class="{'animate-spin': refreshing}">
-					sync
-				</AppIcon>
+				<AppIcon @click="refreshData()" :class="{ 'animate-spin': refreshing }"> sync </AppIcon>
 			</div>
 			<div class="flex relative items-center p-2 hoverForContextMenu">
 				<AppChip>person</AppChip>
@@ -40,7 +38,7 @@
 	</nav>
 	<div class="w-full p-5 content-container overflow-scroll overflow-x-hidden">
 		<!-- <Transition> -->
-			<router-view />
+		<router-view />
 		<!-- </Transition> -->
 	</div>
 	<footer class="w-full relative h-8 p-1 flex justify-between shadow-md bg-gray-100 dark:(bg-dark-100)">
@@ -67,7 +65,7 @@ async function logout() {
 	useAuthStore()
 		.logout()
 		.then((_) => {
-			router.push({name: 'Login'});
+			router.push({ name: 'Login' });
 		});
 }
 
@@ -82,8 +80,8 @@ async function refreshData() {
 	if (useObjectiveStore().isLoaded) {
 		await useObjectiveStore().loadObjectives();
 	}
-	useToast().info('you are up to date', { timeout: 1500 })
-	refreshing.value = false
+	useToast().info('you are up to date', { timeout: 1500 });
+	refreshing.value = false;
 }
 </script>
 <style scoped>

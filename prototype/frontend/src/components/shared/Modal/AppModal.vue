@@ -15,14 +15,14 @@ import { ref } from '@vue/reactivity';
 
 const isOpen = ref(false);
 
-const open = () => isOpen.value = true;
-const close = () => isOpen.value = false;
+const open = () => (isOpen.value = true);
+const close = () => (isOpen.value = false);
 
 defineProps({
-	dismissable: {Type: Boolean, default: true}
-})
+	dismissable: { Type: Boolean, default: true },
+});
 
-defineExpose({open, close})
+defineExpose({ open, close });
 </script>
 
 <style scoped>

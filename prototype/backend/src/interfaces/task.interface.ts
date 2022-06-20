@@ -7,5 +7,5 @@ export interface ITask {
 export enum Status {
 	open,
 	inProgress,
-	done
+	done,
 }

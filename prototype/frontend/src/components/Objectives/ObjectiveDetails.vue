@@ -49,7 +49,10 @@
 				<div class="w-1/10 px-2">
 					<div
 						class="cursor-pointer w-full h-full flex justify-center shadow-md items-center rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-dark-400 dark:hover:bg-dark-600"
-						@click="initiativeToRemove = initiative; removeInitiativeModal!.open()">
+						@click="
+							initiativeToRemove = initiative;
+							removeInitiativeModal!.open();
+						">
 						<AppIcon>more_vert</AppIcon>
 					</div>
 				</div>
@@ -64,23 +67,23 @@
 			Remove Initiative "{{ initiativeToRemove?.name }}" fom Objective "{{ currentObjective.name }}"?
 		</AppYesNoModal>
 
-		<AppFloatingActionButton @click="addInitiativeToObjectiveModal!.open()" :icon="true"
-			>add</AppFloatingActionButton
-		>
+		<AppFloatingActionButton @click="addInitiativeToObjectiveModal!.open()" :icon="true">add</AppFloatingActionButton>
 		<AppModal ref="addInitiativeToObjectiveModal">
 			<div class="font-bold text-xl w-full text-left">Add Initiative to Objective</div>
 			<div class="w-full">
 				<form>
 					<div>
 						<AppDropDownMenu
-						v-model="selectedInitiative"
-						selectText="select Initiative"
-						:options="
-							initiativeStore.initiatives
-							.filter((initiativeFromState) => !initiativeStore.getInitiativesFromCurrentObjective.includes(initiativeFromState))
-							.map(initiative => ({name: initiative.name, value: initiative}))
-						"
-						/>
+							v-model="selectedInitiative"
+							selectText="select Initiative"
+							:options="
+								initiativeStore.initiatives
+									.filter(
+										(initiativeFromState) =>
+											!initiativeStore.getInitiativesFromCurrentObjective.includes(initiativeFromState)
+									)
+									.map((initiative) => ({ name: initiative.name, value: initiative }))
+							" />
 					</div>
 				</form>
 			</div>
@@ -115,8 +118,8 @@ const addInitiativeToObjectiveModal = ref<InstanceType<typeof AppModal> | null>(
 const removeInitiativeModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 const deleteModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
 
-const selectedInitiative: Ref<IInitiative | null>  = ref(null);
-const initiativeToRemove: Ref<IInitiative | null>  = ref(null);
+const selectedInitiative: Ref<IInitiative | null> = ref(null);
+const initiativeToRemove: Ref<IInitiative | null> = ref(null);
 
 const currentObjective = ref(objectiveStore.getCurrentObjective);
 

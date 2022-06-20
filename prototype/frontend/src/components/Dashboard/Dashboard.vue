@@ -1,40 +1,47 @@
 <template>
 	Dashboard
-<div class="text-left">
-	Objectives
-</div>
-<div class="p-10 flex gap-5">
-	<div v-for="objective in objectives" ref="objectiveRefs" class="h-50 w-100 transition-all flex justify-center items-center text-xl bg-dark-600 rounded-md" @mouseenter="markObjective(objective)" @mouseleave="unmark()" :class="markedObjective === objective || markedObjectives?.includes(objective) ? 'bg-dark-100':''">
-		{{objective.name}}
+	<div class="text-left">Objectives</div>
+	<div class="p-10 flex gap-5">
+		<div
+			v-for="objective in objectives"
+			ref="objectiveRefs"
+			class="h-50 w-100 transition-all flex justify-center items-center text-xl bg-dark-600 rounded-md"
+			@mouseenter="markObjective(objective)"
+			@mouseleave="unmark()"
+			:class="markedObjective === objective || markedObjectives?.includes(objective) ? 'bg-dark-100' : ''">
+			{{ objective.name }}
+		</div>
 	</div>
-</div>
-<div class="text-left">
-	Initiatives
-</div>
-<div class="p-10 flex gap-5">
-	<div ref="initiativeRefs" v-for="initiative in initiativeStore.initiatives" class="h-50 w-100 transition-all flex justify-center items-center text-xl bg-dark-600 rounded-md"  @mouseenter="markInitiative(initiative)" @mouseleave="unmark()" :class="markedInitiative === initiative || markedInitiatives?.includes(initiative) ? 'bg-dark-100':''">
-		{{initiative.name}}
+	<div class="text-left">Initiatives</div>
+	<div class="p-10 flex gap-5">
+		<div
+			ref="initiativeRefs"
+			v-for="initiative in initiativeStore.initiatives"
+			class="h-50 w-100 transition-all flex justify-center items-center text-xl bg-dark-600 rounded-md"
+			@mouseenter="markInitiative(initiative)"
+			@mouseleave="unmark()"
+			:class="markedInitiative === initiative || markedInitiatives?.includes(initiative) ? 'bg-dark-100' : ''">
+			{{ initiative.name }}
+		</div>
 	</div>
-</div>
-<div class="text-left">
-	Projects
-</div>
-<div class="p-10 flex gap-5">
-	<div ref="projectsRefs"
-		v-for="project in projectStore.projects"
-		class="transition-all rounded-md flex-grow p-1"
-		@mouseenter="markProject(project)"
-		@mouseleave="unmark()"
-		:class="markedProject === project || markedProjects?.includes(project) ? 'border border-5 border-blue-500':''">
-		<ProjectCard
-			class="cursor-pointer"
-			:key="project.name"
-			:light="true"
-			:project="project"
-			@click="router.push('/app/projects/' + project.id)" />
+	<div class="text-left">Projects</div>
+	<div class="p-10 flex gap-5">
+		<div
+			ref="projectsRefs"
+			v-for="project in projectStore.projects"
+			class="transition-all rounded-md flex-grow p-1"
+			@mouseenter="markProject(project)"
+			@mouseleave="unmark()"
+			:class="markedProject === project || markedProjects?.includes(project) ? 'border border-5 border-blue-500' : ''">
+			<ProjectCard
+				class="cursor-pointer"
+				:key="project.name"
+				:light="true"
+				:project="project"
+				@click="router.push('/app/projects/' + project.id)" />
+		</div>
 	</div>
-</div>
-<!-- <div ref="blubRef" @click="blub()">blub</div> -->
+	<!-- <div ref="blubRef" @click="blub()">blub</div> -->
 </template>
 <script setup lang="ts">
 import { IInitiative } from '@/intefaces/initiative.interface';
@@ -60,29 +67,37 @@ const markedInitiatives = ref<IInitiative[] | null>(null);
 const markedProject = ref<IProject | null>(null);
 const markedProjects = ref<IProject[] | null>(null);
 
-function markObjective (objective: IObjective) {
+function markObjective(objective: IObjective) {
 	markedObjective.value = objective;
-	markedInitiatives.value = objective.initiatives.map(initiativeid => 
-		initiativeStore.initiatives.find(initiative => initiativeid === initiative.id)!
-	)
-	markedProjects.value = markedInitiatives.value.flatMap(initiative =>projectStore.projects.filter(project => initiative.projects.includes(project.id)))
+	markedInitiatives.value = objective.initiatives.map(
+		(initiativeid) => initiativeStore.initiatives.find((initiative) => initiativeid === initiative.id)!
+	);
+	markedProjects.value = markedInitiatives.value.flatMap((initiative) =>
+		projectStore.projects.filter((project) => initiative.projects.includes(project.id))
+	);
 }
 
-function markInitiative (initiative: IInitiative) {
+function markInitiative(initiative: IInitiative) {
 	markedInitiative.value = initiative;
-	markedObjectives.value = objectives.value.filter(objective => objective.initiatives.find(i => i === initiative.id));
-	markedProjects.value = projectStore.projects.filter(project => initiative.projects.includes(project.id));
+	markedObjectives.value = objectives.value.filter((objective) =>
+		objective.initiatives.find((i) => i === initiative.id)
+	);
+	markedProjects.value = projectStore.projects.filter((project) => initiative.projects.includes(project.id));
 }
 
-function markProject (project: IProject) {
+function markProject(project: IProject) {
 	markedProject.value = project;
-	markedInitiatives.value = initiativeStore.initiatives.filter(initiative => 
-		initiative.projects.find(p => p === project.id)
-	)
-	markedObjectives.value =  objectives.value.filter(objective => objective.initiatives.find(initiativeId => markedInitiatives.value?.find(initiative => initiativeId === initiative.id)))
+	markedInitiatives.value = initiativeStore.initiatives.filter((initiative) =>
+		initiative.projects.find((p) => p === project.id)
+	);
+	markedObjectives.value = objectives.value.filter((objective) =>
+		objective.initiatives.find((initiativeId) =>
+			markedInitiatives.value?.find((initiative) => initiativeId === initiative.id)
+		)
+	);
 }
 
-function unmark () {
+function unmark() {
 	markedObjective.value = null;
 	markedInitiative.value = null;
 	markedProject.value = null;
@@ -94,7 +109,6 @@ function unmark () {
 // const objectiveRefs = ref<InstanceType<typeof HTMLDivElement>[]>([]);
 // const initiativeRefs = ref<InstanceType<typeof HTMLDivElement>[]>([]);
 // const projectsRefs = ref<InstanceType<typeof HTMLDivElement>[]>([]);
-
 
 // const blubRef = ref<InstanceType<typeof HTMLDivElement>>();
 

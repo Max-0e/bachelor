@@ -18,8 +18,8 @@ export const useProjectStore = defineStore('project', {
 	getters: {
 		getCurrentProject(state): IProject {
 			const project = state.projects.find((project) => project.id === router.currentRoute.value.params['id']);
-			if (!project) throw "No Current Project";
-			return project
+			if (!project) throw 'No Current Project';
+			return project;
 		},
 		getProjectsFromCurrentInitiative(state) {
 			return state.projects.filter((project) =>
@@ -27,40 +27,32 @@ export const useProjectStore = defineStore('project', {
 			);
 		},
 		getProjectsForInitiativeInitiative(state) {
-			return (initiative: IInitiative) => state.projects.filter((project) =>
-				initiative.projects.find((projectId) => projectId === project.id)
-			);
+			return (initiative: IInitiative) =>
+				state.projects.filter((project) => initiative.projects.find((projectId) => projectId === project.id));
 		},
 	},
 
 	actions: {
-		computeMetrics(project: Ref<IProject>){
-			const openTasksLength = computed(() => 
-				project.value.tasks.filter((task) => task.status === Status.open).length
+		computeMetrics(project: Ref<IProject>) {
+			const openTasksLength = computed(() => project.value.tasks.filter((task) => task.status === Status.open).length);
+			const inProgressTasksLength = computed(
+				() => project.value.tasks.filter((task) => task.status === Status.inProgress).length
 			);
-			const inProgressTasksLength = computed(() =>
-				project.value.tasks.filter((task) => task.status === Status.inProgress).length
-			);
-			const doneTasksLength = computed(() => 
-				project.value.tasks.filter((task) => task.status === Status.done).length
-			);
+			const doneTasksLength = computed(() => project.value.tasks.filter((task) => task.status === Status.done).length);
 
-			const progress = computed(() => 
-				Math.round((doneTasksLength.value / project.value.tasks.length) * 100)
-			);
+			const progress = computed(() => Math.round((doneTasksLength.value / project.value.tasks.length) * 100));
 
 			return ref({
 				openTasksLength,
 				inProgressTasksLength,
 				doneTasksLength,
-				progress
-			})
+				progress,
+			});
 		},
-		getProjectsForInitiative(initiative: Ref<IInitiative>): Ref<IProject[]>{
-			const projects = computed(() => 
-				this.projects.filter((project) =>
-					initiative.value.projects.includes(project.id)
-			));
+		getProjectsForInitiative(initiative: Ref<IInitiative>): Ref<IProject[]> {
+			const projects = computed(() =>
+				this.projects.filter((project) => initiative.value.projects.includes(project.id))
+			);
 
 			return projects;
 		},
@@ -77,16 +69,15 @@ export const useProjectStore = defineStore('project', {
 			});
 		},
 		updateProject(projectToUpdate: IProject) {
-			projectService.updateProject(
-				projectToUpdate.id,
-				{ 
+			projectService
+				.updateProject(projectToUpdate.id, {
 					name: projectToUpdate.name,
-					wipLimit: projectToUpdate.wipLimit 
-				}
-			).then((project) => {
-				this.updateProjectInState(project);
-				showSuccessToast('updated');
-			});
+					wipLimit: projectToUpdate.wipLimit,
+				})
+				.then((project) => {
+					this.updateProjectInState(project);
+					showSuccessToast('updated');
+				});
 		},
 		updateProjectInState(project: IProject) {
 			this.projects[this.projects.findIndex((projectInState) => projectInState.id === project.id)] = project;

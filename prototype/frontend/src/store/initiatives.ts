@@ -17,11 +17,13 @@ export const useInitiativeStore = defineStore('initiative', {
 
 	getters: {
 		getCurrentInitiative(state) {
-			const initiative = state.initiatives.find((initiative) => initiative.id === router.currentRoute.value.params['id']);
+			const initiative = state.initiatives.find(
+				(initiative) => initiative.id === router.currentRoute.value.params['id']
+			);
 
-			if(!initiative) throw "No Current Initiative";
+			if (!initiative) throw 'No Current Initiative';
 
-			return initiative
+			return initiative;
 		},
 		getInitiativesFromCurrentObjective(state) {
 			return state.initiatives.filter((initiative) =>
@@ -52,35 +54,27 @@ export const useInitiativeStore = defineStore('initiative', {
 			return { totalProgress, averageProjectProgress };
 		},
 		computeMetrics(projects: Ref<IProject[]>) {
-			const projectProgressArray = computed(() => 
+			const projectProgressArray = computed(() =>
 				projects.value.map((project) =>
-					Math.round((project.tasks.filter((task) => 
-						task.status === Status.done
-					).length / project.tasks.length) * 100)
+					Math.round((project.tasks.filter((task) => task.status === Status.done).length / project.tasks.length) * 100)
 				)
-			)
-
-			const averageProjectProgress = computed(() => 
-				calculateTotal(projectProgressArray.value) / projectProgressArray.value.length
 			);
 
-			const totalDoneTasks = computed(() => 
+			const averageProjectProgress = computed(
+				() => calculateTotal(projectProgressArray.value) / projectProgressArray.value.length
+			);
+
+			const totalDoneTasks = computed(() =>
 				calculateTotal(
-					projects.value.map((project) => 
-						project.tasks.filter((task) => 
-							task.status === Status.done
-						).length
-					)
+					projects.value.map((project) => project.tasks.filter((task) => task.status === Status.done).length)
 				)
 			);
 
-			const totalTasksInInitiative = computed(() => 
+			const totalTasksInInitiative = computed(() =>
 				calculateTotal(projects.value.map((project) => project.tasks.length))
 			);
 
-			const totalProgress = computed(() =>
-				Math.round((totalDoneTasks.value / totalTasksInInitiative.value) * 100)
-			);
+			const totalProgress = computed(() => Math.round((totalDoneTasks.value / totalTasksInInitiative.value) * 100));
 
 			return ref({ totalProgress, averageProjectProgress });
 		},

@@ -4,8 +4,21 @@
 			<slot></slot>
 		</div>
 		<div class="w-full flex justify-end gap-5">
-			<AppButton color="red" @click="close();$emit('cancel')">Cancel</AppButton>
-			<AppButton @click="close();$emit('yes')">Yes</AppButton>
+			<AppButton
+				color="red"
+				@click="
+					close();
+					$emit('cancel');
+				"
+				>Cancel</AppButton
+			>
+			<AppButton
+				@click="
+					close();
+					$emit('yes');
+				"
+				>Yes</AppButton
+			>
 		</div>
 	</AppModal>
 </template>
@@ -20,5 +33,5 @@ const open = () => modal.value!.open();
 const close = () => modal.value!.close();
 
 defineEmits(['yes', 'cancel']);
-defineExpose({open, close});
+defineExpose({ open, close });
 </script>

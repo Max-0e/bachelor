@@ -32,7 +32,8 @@ class TaskService {
 
 	public async updateTask(taskId: string, task: ITask) {
 		const taskToUpdate = await this.getTaskById(taskId);
-		if (taskToUpdate.status !== Status.inProgress && task.status === Status.inProgress) await this.checkWipLimit(taskId);
+		if (taskToUpdate.status !== Status.inProgress && task.status === Status.inProgress)
+			await this.checkWipLimit(taskId);
 		await taskToUpdate.updateOne(task);
 		return await this.getTaskById(taskId);
 	}
@@ -59,9 +60,10 @@ class TaskService {
 		const projectModel = await projectService.getProjectByTaskId(taskId);
 		const project = await projectService.mapModel(projectModel);
 
-		if (project.tasks.filter(task => task.status === Status.inProgress)
-			.length === project.wipLimit) 
-			throw new ConflictError("Wip-Limit reached");
+		if (
+			project.tasks.filter((task) => task.status === Status.inProgress).length === project.wipLimit
+		)
+			throw new ConflictError('Wip-Limit reached');
 	}
 }
 

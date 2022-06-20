@@ -1,6 +1,6 @@
 export enum validationType {
-    required = 'required',
-    name = 'name',
-    email = 'email',
-    matches = 'matches'
+	required = 'required',
+	name = 'name',
+	email = 'email',
+	matches = 'matches',
 }

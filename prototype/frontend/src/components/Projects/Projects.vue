@@ -29,8 +29,7 @@
 		</div>
 		<div class="w-full flex justify-end gap-5">
 			<AppButton color="red" @click="createProjectModal!.close()">Cancel</AppButton>
-			<AppButton @click="createProject()">Create</AppButton
-			>
+			<AppButton @click="createProject()">Create</AppButton>
 		</div>
 	</AppModal>
 </template>
@@ -47,7 +46,7 @@ import { ICreateProject } from '@/intefaces/project.interface';
 import { ref, Ref } from 'vue';
 import router from '@/router';
 
-const projectName = ref<InstanceType<typeof AppInputField> | null>(null)
+const projectName = ref<InstanceType<typeof AppInputField> | null>(null);
 
 const createProjectModal = ref<InstanceType<typeof AppModal> | null>(null);
 const projectToCreate: Ref<ICreateProject> = ref({ name: '' });

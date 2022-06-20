@@ -14,18 +14,16 @@
 			</div>
 		</div>
 		<div>
-			Tasks (done): {{metrics.doneTasksLength}}<br>
-			Progress: {{metrics.progress}}%
+			Tasks (done): {{ metrics.doneTasksLength }}<br />
+			Progress: {{ metrics.progress }}%
 		</div>
-		<DoughnutChart :chartData="getProjectChartData(
-				[
-					metrics.openTasksLength,
-					metrics.inProgressTasksLength,
-					metrics.doneTasksLength
-				]
-			)" :options="projectDoughnutChartOptions" />
+		<DoughnutChart
+			:chartData="
+				getProjectChartData([metrics.openTasksLength, metrics.inProgressTasksLength, metrics.doneTasksLength])
+			"
+			:options="projectDoughnutChartOptions" />
 		<div class="p-5">
-			<AlternativeTaskList :project="currentProject"/>
+			<AlternativeTaskList :project="currentProject" />
 		</div>
 		<div class="p-5">
 			<AppCollapsible triggerText="Backlog">
@@ -45,7 +43,7 @@ import AppCollapsible from '../shared/UI/AppCollapsible.vue';
 
 import { DoughnutChart } from 'vue-chart-3';
 
-import { projectDoughnutChartOptions, getProjectChartData } from '@/chartoptions/projectDoughnutChartOptions'
+import { projectDoughnutChartOptions, getProjectChartData } from '@/chartoptions/projectDoughnutChartOptions';
 
 const projectStore = useProjectStore();
 

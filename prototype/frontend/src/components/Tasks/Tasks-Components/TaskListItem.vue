@@ -12,17 +12,16 @@
 				@save="projectStore.updateTask(project, task)" />
 		</span>
 		<span class="w-1/3 text-left px-5">
-			<AppDropDownMenu v-model="task.status"
-			selectText="select Status"
-			@update:model-value="projectStore.updateTask(project, task)"
-			:defaultValueName="Status[task.status]"
-			:options="
-			[
-				{name: Status[Status.open], value: Status.open},
-				{name: Status[Status.inProgress], value: Status.inProgress},
-				{name: Status[Status.done], value: Status.done}
-			]"
-			></AppDropDownMenu>
+			<AppDropDownMenu
+				v-model="task.status"
+				selectText="select Status"
+				@update:model-value="projectStore.updateTask(project, task)"
+				:defaultValueName="Status[task.status]"
+				:options="[
+					{ name: Status[Status.open], value: Status.open },
+					{ name: Status[Status.inProgress], value: Status.inProgress },
+					{ name: Status[Status.done], value: Status.done },
+				]"></AppDropDownMenu>
 		</span>
 		<span class="w-1/3 px-5">
 			<div class="float-right">
@@ -52,7 +51,7 @@ import AppToolTip from '@/components/shared/UI/AppToolTip.vue';
 
 import { useProjectStore } from '@/store/project';
 import { PropType, ref } from 'vue';
-import { ITask, Status} from '@/intefaces/task.interface';
+import { ITask, Status } from '@/intefaces/task.interface';
 import { IProject } from '@/intefaces/project.interface';
 
 const projectStore = useProjectStore();

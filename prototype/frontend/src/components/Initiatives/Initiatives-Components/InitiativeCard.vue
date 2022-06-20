@@ -22,5 +22,5 @@ const props = defineProps({
 
 const projects = ref(useInitiativeStore().getProjectsForInitiative(props.initiative));
 
-const metrics = computed( () => useInitiativeStore().getMetrics(projects.value));
+const metrics = computed(() => useInitiativeStore().getMetrics(projects.value));
 </script>

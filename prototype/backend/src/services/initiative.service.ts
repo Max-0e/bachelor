@@ -43,7 +43,8 @@ class InitiativeService {
 		// validate ProjectId
 		await projectService.getProjectById(projectId);
 
-		if (initiativeToUpdate.projects.includes(projectId)) throw new ConflictError('Project already in Initiative.');
+		if (initiativeToUpdate.projects.includes(projectId))
+			throw new ConflictError('Project already in Initiative.');
 
 		initiativeToUpdate.projects.push(projectId);
 		await initiativeToUpdate.save();
@@ -77,8 +78,9 @@ class InitiativeService {
 	public async deleteInitiativeById(id: string) {
 		const initiative = await this.getInitiativeById(id);
 		try {
-			const objectivesToRemoveInitiativeFrom = await objectiveService.getObjectivesContainingInitiative(id);
-			for (const objective of objectivesToRemoveInitiativeFrom ) {
+			const objectivesToRemoveInitiativeFrom =
+				await objectiveService.getObjectivesContainingInitiative(id);
+			for (const objective of objectivesToRemoveInitiativeFrom) {
 				await objectiveService.removeInitiativeFromObjective(objective._id, id);
 			}
 		} catch (error: any) {

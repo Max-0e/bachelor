@@ -17,7 +17,7 @@ class ProjectService {
 
 	/**
 	 * gets Project by given Id
-	 * @param projectId 
+	 * @param projectId
 	 * @returns the Projectdocument
 	 */
 	public async getProjectById(projectId: string) {
@@ -29,7 +29,7 @@ class ProjectService {
 
 	/**
 	 * gets Project by given Task Id
-	 * @param taskId 
+	 * @param taskId
 	 * @returns the Projectdocument
 	 */
 	public async getProjectByTaskId(taskId: string) {
@@ -41,20 +41,20 @@ class ProjectService {
 
 	/**
 	 * Create a ProjectDocument
-	 * @param project 
+	 * @param project
 	 * @returns the created ProjectDocument
 	 */
 	public async createProject(project: IProject) {
 		project.wipLimit = 5;
 		const projectModel = new ProjectModel({ ...project });
 		await projectModel.save();
-		return await this.getProjectById(projectModel._id)
+		return await this.getProjectById(projectModel._id);
 	}
 
 	/**
 	 * Update Project by id
-	 * @param projectId 
-	 * @param project 
+	 * @param projectId
+	 * @param project
 	 * @returns the updated Project
 	 */
 	public async updateProject(projectId: string, project: IProject) {
@@ -65,15 +65,16 @@ class ProjectService {
 
 	/**
 	 * deletes the Project with the given Id
-	 * @param id 
-	 * @returns 
+	 * @param id
+	 * @returns
 	 */
 	public async deleteProjectById(id: string) {
 		const project = await this.getProjectById(id);
-		project.tasks.forEach(async taskId => await taskService.deleteTaskById(taskId));
+		project.tasks.forEach(async (taskId) => await taskService.deleteTaskById(taskId));
 		try {
-			const initiativesToRemoveProjectFrom = await initiativeService.getInitiativesContainingProject(id);
-			for (const initiative of initiativesToRemoveProjectFrom ) {
+			const initiativesToRemoveProjectFrom =
+				await initiativeService.getInitiativesContainingProject(id);
+			for (const initiative of initiativesToRemoveProjectFrom) {
 				await initiativeService.removeProjectFromInitiative(initiative._id, id);
 			}
 		} catch (error: any) {
@@ -83,12 +84,12 @@ class ProjectService {
 	}
 	/**
 	 * removes Task from Project
-	 * @param taskId 
+	 * @param taskId
 	 * @returns the updated Project
 	 */
 	public async removeTaskFromProject(taskId: string) {
 		const project = await this.getProjectByTaskId(taskId);
-		if(!!project) {
+		if (!!project) {
 			// TODO is there another way?
 			project.tasks = project.tasks.filter(
 				(taskIdFromDocument) => !taskIdFromDocument.toString().includes(taskId)
@@ -100,7 +101,7 @@ class ProjectService {
 
 	/**
 	 * Map a ProjectModelObject to IProjectObject with populated Tasks
-	 * @param projectModel 
+	 * @param projectModel
 	 * @returns the IProjectObject
 	 */
 	public async mapModel(projectModel: ProjectDocument): Promise<IProject> {
@@ -109,7 +110,7 @@ class ProjectService {
 
 	/**
 	 * Map an Array of ProjectModelObjects to Array of IProjectOIbjects with populated Tasks
-	 * @param projectModels 
+	 * @param projectModels
 	 * @returns the IProjectObject-Array
 	 */
 	public async mapModelArray(projectModels: ProjectDocument[]) {
@@ -118,7 +119,7 @@ class ProjectService {
 
 	/**
 	 * map IProject to ProjectDto
-	 * @param project 
+	 * @param project
 	 * @returns the ProjectDto
 	 */
 	public mapToProjectDto(project: IProject): IProjectDto {
@@ -132,7 +133,7 @@ class ProjectService {
 
 	/**
 	 * map IProject-Array to ProjectDto-Array
-	 * @param projects 
+	 * @param projects
 	 * @returns the ProjectDto-Array
 	 */
 	public mapArrayToProjectDtoArray(projects: IProject[]): IProjectDto[] {

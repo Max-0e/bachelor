@@ -1,4 +1,4 @@
-import { Status } from "../task.interface";
+import { Status } from '../task.interface';
 
 export interface TaskDto {
 	id: string;

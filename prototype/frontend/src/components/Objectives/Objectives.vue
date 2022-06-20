@@ -12,11 +12,11 @@
 		<div class="font-bold text-xl w-full text-left">Create new Objective</div>
 		<div class="w-full">
 			<form
-			@keydown.enter="
-				objectiveStore.createObjective(objectiveToCreate);
-				objectiveToCreate.name = '';
-				createObjectiveModal?.close();
-			">
+				@keydown.enter="
+					objectiveStore.createObjective(objectiveToCreate);
+					objectiveToCreate.name = '';
+					createObjectiveModal?.close();
+				">
 				<div>
 					<AppInputField
 						v-model="objectiveToCreate.name"
@@ -54,7 +54,7 @@ import { Ref, ref } from 'vue';
 import { ICreateObjective } from '@/intefaces/objective.interface';
 import ObjectiveCard from './Objectives-Components/ObjectiveCard.vue';
 
-const createObjectiveModal = ref<InstanceType<typeof AppModal> | null>(null);;
+const createObjectiveModal = ref<InstanceType<typeof AppModal> | null>(null);
 
 const objectiveToCreate: Ref<ICreateObjective> = ref({ name: '' });
 

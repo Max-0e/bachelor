@@ -25,15 +25,14 @@
 				label="Task-Name" />
 		</span>
 		<span class="w-1/3 text-left">
-			<AppDropDownMenu v-model="taskToCreate.status" 
-			selectText="select Status"
-			:options="
-			[
-				{name: Status[Status.open], value: Status.open},
-				{name: Status[Status.inProgress], value: Status.inProgress, disabled: true},
-				{name: Status[Status.done], value: Status.done}
-			]"
-			></AppDropDownMenu>
+			<AppDropDownMenu
+				v-model="taskToCreate.status"
+				selectText="select Status"
+				:options="[
+					{ name: Status[Status.open], value: Status.open },
+					{ name: Status[Status.inProgress], value: Status.inProgress, disabled: true },
+					{ name: Status[Status.done], value: Status.done },
+				]"></AppDropDownMenu>
 		</span>
 		<span class="w-1/3">
 			<AppButton :iconButton="true" :color="'red'" :slim="true" class="px-2 m-1 float-right" @click="setDefaults()"

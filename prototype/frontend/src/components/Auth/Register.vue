@@ -80,19 +80,17 @@ const registerPayload = ref<IRegisterPayload>({
 const password2value = ref<string>('');
 
 async function register() {
-	if (validateForm()) 
-		await authService
-			.register(registerPayload.value)
-			.then((_) => {
-				useAppStore().showToastOnRouting = {
-					toastType: ToastType.SUCCESS,
-					toastContent: 'Registration Successfull. Please confirm your E-Mail-Adress',
-				};
-				router.push('login');
-			})
+	if (validateForm())
+		await authService.register(registerPayload.value).then((_) => {
+			useAppStore().showToastOnRouting = {
+				toastType: ToastType.SUCCESS,
+				toastContent: 'Registration Successfull. Please confirm your E-Mail-Adress',
+			};
+			router.push('login');
+		});
 }
 
-function validateForm(){
+function validateForm() {
 	const emailValid = email.value!.validate();
 	const usernameValid = username.value!.validate();
 	const passwordValid = password.value!.validate();
