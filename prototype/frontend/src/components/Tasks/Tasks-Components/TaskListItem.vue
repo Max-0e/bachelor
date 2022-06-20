@@ -19,7 +19,7 @@
 				:defaultValueName="Status[task.status]"
 				:options="[
 					{ name: Status[Status.open], value: Status.open },
-					{ name: Status[Status.inProgress], value: Status.inProgress },
+					{ name: Status[Status.inProgress], value: Status.inProgress, disabled: project.tasks.filter((task) => task.status === Status.inProgress).length >= project.wipLimit, disabledTooltip: 'WIP-Limit Reached' },
 					{ name: Status[Status.done], value: Status.done },
 				]"></AppDropDownMenu>
 		</span>

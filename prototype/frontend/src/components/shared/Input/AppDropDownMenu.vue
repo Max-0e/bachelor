@@ -14,8 +14,11 @@
 			<div
 				v-for="option in options"
 				class="cursor-pointer w-full px-3 py-1 hover:bg-gray-400 dark:hover:bg-dark-100"
+				:class="option.disabled ? 'bg-gray-200 dark:bg-dark-200':''"
 				@click="selectOption(option)">
-				{{ option.name }}
+				<AppToolTip :text="option.disabled ? option.disabledTooltip : ''">
+					{{ option.name }}
+				</AppToolTip>
 			</div>
 		</div>
 	</div>
@@ -23,12 +26,14 @@
 <script setup lang="ts">
 import { onMounted, PropType, ref } from 'vue';
 import AppIcon from '../UI/AppIcon.vue';
+import AppToolTip from '../UI/AppToolTip.vue';
 
 const props = defineProps({
 	selectText: { type: String, required: true },
 	defaultValueName: String,
 	options: { type: Object as PropType<{ name: string; value: any; disabled?: boolean; disabledTooltip?: string }[]> },
 });
+
 
 const expanded = ref(false);
 
@@ -43,7 +48,8 @@ onMounted(() => {
 
 const emit = defineEmits(['update:modelValue']);
 
-function selectOption(option: { name: string; value: any }) {
+function selectOption(option: { name: string; value: any; disabled?: boolean; disabledTooltip?: string }) {
+	if (option.disabled) return;
 	selectedOption.value = option;
 	expanded.value = false;
 	emit('update:modelValue', option.value);
