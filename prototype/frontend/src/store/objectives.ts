@@ -5,6 +5,7 @@ import objectiveService from '@/services/objective.service';
 import { defineStore } from 'pinia';
 import { useToast } from 'vue-toastification';
 import { useInitiativeStore } from './initiatives';
+import { useProjectStore } from './project';
 
 export const useObjectiveStore = defineStore('objective', {
 	state: () => ({
@@ -24,21 +25,13 @@ export const useObjectiveStore = defineStore('objective', {
 				(initiative) => !!objective.initiatives.find((initiativeId) => initiativeId === initiative.id)
 			);
 		},
-		// getMetrics(initiatives: IInitiative[]) {
-		// 	const initiativeProgressArray = initiatives.map((initiative) =>
-		// 		Math.round((initiative.tasks.filter((task) => task.done).length / initiative.tasks.length) * 100)
-		// 	);
-		// 	const averageInitiativeProgress = calculateTotal(initiativeProgressArray) / initiativeProgressArray.length;
+		getMetrics(initiatives: IInitiative[]) {
+			const projects = initiatives.flatMap((initiative) =>
+				useInitiativeStore().getProjectsForInitiative(initiative)
+			);
 
-		// 	const totalDoneTasks = calculateTotal(
-		// 		initiatives.map((initiative) => initiative.tasks.filter((task) => task.done).length)
-		// 	);
-		// 	const totalTasksInObjective = calculateTotal(initiatives.map((initiative) => initiative.tasks.length));
-
-		// 	const totalProgress = Math.round((totalDoneTasks / totalTasksInObjective) * 100);
-
-		// 	return { totalProgress, averageInitiativeProgress };
-		// },
+			return useInitiativeStore().getMetrics(projects);
+		},
 		async loadObjectives() {
 			await objectiveService.getObjectives().then((objectives) => {
 				this.objectives = objectives;

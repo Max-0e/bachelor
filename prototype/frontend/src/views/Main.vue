@@ -1,5 +1,5 @@
 <template>
-	<nav class="w-full relative h-15 top-0 shadow-md flex justify-between z-99 dark:(bg-dark-700)">
+	<nav class="w-full relative h-15 top-0 shadow-md flex justify-between z-99 bg-white dark:(bg-dark-700)">
 		<div class="flex flex-wrap">
 			<h1 class="text-3xl my-auto ml-5 content-center">Prototype</h1>
 			<div class="ml-5 flex items-center">
@@ -101,5 +101,6 @@ async function refreshData() {
 
 .router-link-active {
 	background-color: gray;
+	color: white;
 }
 </style>

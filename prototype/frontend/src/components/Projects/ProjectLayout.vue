@@ -1,6 +1,6 @@
 <template>
 	<div class="w-full h-full">
-		<div class="w-15 absolute bg-dark-400 h-full top-0 left-0 pt-16">
+		<div class="w-15 absolute bg-gray-200 dark:bg-dark-400 h-full top-0 left-0 pt-16">
 			<AppToolTip class="w-full flex justify-center p-2" text="Project Overview" position="right">
 				<router-link :to="{ name: 'Projects' }" class="transition-all">
 					<AppIcon> home </AppIcon>
