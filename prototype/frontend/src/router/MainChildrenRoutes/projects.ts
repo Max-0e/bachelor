@@ -4,7 +4,7 @@ import Projects from '@/components/Projects/Projects.vue';
 import ProjectDashboard from '@/components/Projects/ProjectDashboard.vue';
 import ProjectSettings from '@/components/Projects/ProjectSettings.vue';
 import TaskBoard from '@/components/Tasks/AlternativeTaskList.vue';
-import TaskBacklog from '@/components/Tasks/Tasklist.vue';
+import TaskBacklog from '../../components/Tasks/TaskList.vue';
 
 import RouterNesting from '@/components/shared/RouterNesting.vue';
 import { useProjectStore } from '@/store/project';
