@@ -19,6 +19,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
 		path: 'dashboard',
 		name: 'Dashboard',
 		component: Dashboard,
+		beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
 	},
 	{
 		path: 'profile',
