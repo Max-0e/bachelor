@@ -4,27 +4,11 @@ import { IProject, IProjectModel } from '../interfaces/project.interface';
 import { IProjectDto } from '@/interfaces/dtos/projectDto.interface';
 import taskService from './task.service';
 import initiativeService from './initiative.service';
+import { EntityService } from './entity.service';
 
-class ProjectService {
-	/**
-	 * gets all Projects
-	 * @returns all Project from Database
-	 */
-	public async getProjects() {
-		const projects: ProjectDocument[] = await ProjectModel.find();
-		return projects;
-	}
-
-	/**
-	 * gets Project by given Id
-	 * @param projectId
-	 * @returns the Projectdocument
-	 */
-	public async getProjectById(projectId: string) {
-		const project: ProjectDocument | null = await ProjectModel.findOne({ _id: projectId });
-		if (!project) throw new NotFoundError('This Project does not exists.');
-
-		return project;
+class ProjectService extends EntityService<IProjectModel, IProjectDto> {
+	constructor () {
+		super(ProjectModel)
 	}
 
 	/**
@@ -35,32 +19,7 @@ class ProjectService {
 	public async getProjectByTaskId(taskId: string) {
 		const project: ProjectDocument | null = await ProjectModel.findOne({ tasks: taskId });
 		if (!project) throw new NotFoundError('This Project does not exists.');
-
 		return project;
-	}
-
-	/**
-	 * Create a ProjectDocument
-	 * @param project
-	 * @returns the created ProjectDocument
-	 */
-	public async createProject(project: IProject) {
-		project.wipLimit = 5;
-		const projectModel = new ProjectModel({ ...project });
-		await projectModel.save();
-		return await this.getProjectById(projectModel._id);
-	}
-
-	/**
-	 * Update Project by id
-	 * @param projectId
-	 * @param project
-	 * @returns the updated Project
-	 */
-	public async updateProject(projectId: string, project: IProject) {
-		const projectToUpdate = await this.getProjectById(projectId);
-		await projectToUpdate.updateOne(project);
-		return await this.getProjectById(projectId);
 	}
 
 	/**
@@ -68,8 +27,8 @@ class ProjectService {
 	 * @param id
 	 * @returns
 	 */
-	public async deleteProjectById(id: string) {
-		const project = await this.getProjectById(id);
+	public override async deleteEntityById(id: string): Promise<void> {
+		const project = await this.getEntityById(id);
 		project.tasks.forEach(async (taskId) => await taskService.deleteTaskById(taskId));
 		try {
 			const initiativesToRemoveProjectFrom =
@@ -95,7 +54,7 @@ class ProjectService {
 				(taskIdFromDocument) => !taskIdFromDocument.toString().includes(taskId)
 			);
 			await project.save();
-			return await this.getProjectById(project?.id);
+			return await this.getEntityById(project?.id);
 		}
 	}
 
@@ -108,36 +67,16 @@ class ProjectService {
 		return await projectModel.populate('tasks');
 	}
 
-	/**
-	 * Map an Array of ProjectModelObjects to Array of IProjectOIbjects with populated Tasks
-	 * @param projectModels
-	 * @returns the IProjectObject-Array
-	 */
-	public async mapModelArray(projectModels: ProjectDocument[]) {
-		return await Promise.all(projectModels.map((projectModel) => this.mapModel(projectModel)));
-	}
-
-	/**
-	 * map IProject to ProjectDto
-	 * @param project
-	 * @returns the ProjectDto
-	 */
-	public mapToProjectDto(project: IProject): IProjectDto {
-		return {
-			id: project._id,
-			name: project.name,
-			wipLimit: project.wipLimit,
-			tasks: taskService.mapArrayToDtoArray(project.tasks),
+	public override async mapToDto(entity: ProjectDocument): Promise<IProjectDto> {
+		const model = await this.mapModel(entity);
+		const dto = {
+			id: model._id,
+            // TODO this should be possible in another way
+			...(model as any)._doc
 		};
-	}
-
-	/**
-	 * map IProject-Array to ProjectDto-Array
-	 * @param projects
-	 * @returns the ProjectDto-Array
-	 */
-	public mapArrayToProjectDtoArray(projects: IProject[]): IProjectDto[] {
-		return projects.map((project) => this.mapToProjectDto(project));
+        delete dto._id;
+        delete dto.__v;
+        return dto as IProjectDto;
 	}
 }
 

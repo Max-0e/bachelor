@@ -1,19 +1,13 @@
-import Router from 'express';
+import { IInitiativeDto } from '@/interfaces/dtos/initiativeDto.interface';
+import { IInitiative } from '@/interfaces/initiative.interface';
 import InitiativesController from '../controller/initiative.controller';
+import { makeEntityRouter } from './entity.router';
 
 export function makeInitiativesRouter() {
-	const router = Router();
+	const router = makeEntityRouter<IInitiative, IInitiativeDto>(InitiativesController);
 
-	router.get('/', InitiativesController.getInitiatives);
-	router.get('/:initiativeId', InitiativesController.getInitiativeById);
-	router.post('/', InitiativesController.createInitiative);
 	router.post('/:initiativeId/addProject/:projectId', InitiativesController.addProjectToInitiative);
-	router.put('/:initiativeId', InitiativesController.updateInitiative);
-	router.delete(
-		'/:initiativeId/removeProject/:projectId',
-		InitiativesController.removeProjectFromInitiative
-	);
-	router.delete('/:initiativeId', InitiativesController.deleteInitiative);
+	router.delete('/:initiativeId/removeProject/:projectId', InitiativesController.removeProjectFromInitiative);
 
 	return router;
 }

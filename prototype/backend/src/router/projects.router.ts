@@ -1,14 +1,10 @@
-import Router from 'express';
-import ProjectsController from '../controller/projects.controller';
+import projectsController from '@/controller/projects.controller';
+import { IProjectDto } from '@/interfaces/dtos/projectDto.interface';
+import { IProjectModel } from '@/interfaces/project.interface';
+import { makeEntityRouter } from './entity.router';
 
 export function makeProjectsRouter() {
-	const router = Router();
-
-	router.get('/', ProjectsController.getProjects);
-	router.get('/:projectId', ProjectsController.getProjectById);
-	router.post('/', ProjectsController.createProject);
-	router.put('/:projectId', ProjectsController.updateProject);
-	router.delete('/:projectId', ProjectsController.deleteProject);
+	const router = makeEntityRouter<IProjectModel, IProjectDto>(projectsController);
 
 	return router;
 }

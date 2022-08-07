@@ -6,20 +6,11 @@ import { IInitiativeDto } from '../interfaces/dtos/initiativeDto.interface';
 import { ValidationError } from '../error/validation.error';
 import objectiveService from './objective.service';
 import { ConflictError } from '../error/conflict.error';
+import { EntityService } from './entity.service';
 
-class InitiativeService {
-	public async getInitiatives() {
-		const initiatives: InitiativeDocument[] = await InitiativeModel.find();
-		return initiatives;
-	}
-
-	public async getInitiativeById(initiativeId: string) {
-		const initiative: InitiativeDocument | null = await InitiativeModel.findOne({
-			_id: initiativeId,
-		});
-		if (!initiative) throw new NotFoundError('This Initiative does not exists.');
-
-		return initiative;
+class InitiativeService extends EntityService<IInitiative, IInitiativeDto> {
+	constructor () {
+		super(InitiativeModel)
 	}
 
 	public async getInitiativesContainingProject(projectId: string) {
@@ -31,17 +22,10 @@ class InitiativeService {
 		return initiatives;
 	}
 
-	public async createInitiative(initiative: IInitiative) {
-		const initiativeModel = new InitiativeModel({ ...initiative });
-		const newInitiative = await initiativeModel.save();
-
-		return newInitiative;
-	}
-
 	public async addProjectToInitiative(initiativeId: string, projectId: string) {
-		const initiativeToUpdate = await this.getInitiativeById(initiativeId);
+		const initiativeToUpdate = await this.getEntityById(initiativeId);
 		// validate ProjectId
-		await projectService.getProjectById(projectId);
+		await projectService.getEntityById(projectId);
 
 		if (initiativeToUpdate.projects.includes(projectId))
 			throw new ConflictError('Project already in Initiative.');
@@ -49,13 +33,13 @@ class InitiativeService {
 		initiativeToUpdate.projects.push(projectId);
 		await initiativeToUpdate.save();
 
-		return await this.getInitiativeById(initiativeId);
+		return await this.getEntityById(initiativeId);
 	}
 
 	public async removeProjectFromInitiative(initiativeId: string, projectId: string) {
-		const initiativeToUpdate = await this.getInitiativeById(initiativeId);
+		const initiativeToUpdate = await this.getEntityById(initiativeId);
 		// validate ProjectId
-		await projectService.getProjectById(projectId);
+		await projectService.getEntityById(projectId);
 
 		if (!initiativeToUpdate.projects.includes(projectId))
 			throw new ValidationError('project is not part of initiative');
@@ -66,17 +50,11 @@ class InitiativeService {
 
 		await initiativeToUpdate.save();
 
-		return await this.getInitiativeById(initiativeId);
+		return await this.getEntityById(initiativeId);
 	}
 
-	public async updateInitiative(initiativeId: string, initiative: IInitiative) {
-		const initiativeToUpdate = await this.getInitiativeById(initiativeId);
-		await initiativeToUpdate.updateOne(initiative);
-		return await this.getInitiativeById(initiativeId);
-	}
-
-	public async deleteInitiativeById(id: string) {
-		const initiative = await this.getInitiativeById(id);
+	public override async deleteEntityById (id: string) {
+		const initiative = await this.getEntityById(id);
 		try {
 			const objectivesToRemoveInitiativeFrom =
 				await objectiveService.getObjectivesContainingInitiative(id);
@@ -87,18 +65,6 @@ class InitiativeService {
 			if (error.status !== 404) throw error;
 		}
 		return initiative.delete();
-	}
-
-	public mapToDto(initiative: IInitiative): IInitiativeDto {
-		return {
-			id: initiative._id,
-			name: initiative.name,
-			projects: initiative.projects,
-		};
-	}
-
-	public mapArrayToDtoArray(initiatives: IInitiative[]): IInitiativeDto[] {
-		return initiatives.map((initiative) => this.mapToDto(initiative));
 	}
 }
 

@@ -8,7 +8,7 @@ import { ConflictError } from '../error/conflict.error';
 
 class TaskService {
 	public async getTasksByProjectId(projectId: string) {
-		const projectModel = await projectService.getProjectById(projectId);
+		const projectModel = await projectService.getEntityById(projectId);
 		const project: IProject = await projectService.mapModel(projectModel);
 		return project.tasks;
 	}
@@ -23,7 +23,7 @@ class TaskService {
 		const taskModel = new TaskModel({ ...task });
 		const newTask = await taskModel.save();
 
-		const project = await projectService.getProjectById(projectId);
+		const project = await projectService.getEntityById(projectId);
 		project.tasks.push(newTask._id);
 		await project.save();
 
