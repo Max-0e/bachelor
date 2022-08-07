@@ -13,7 +13,7 @@ class InitiativesController extends EntityController<IInitiative, IInitiativeDto
 			req.params.initiativeId,
 			req.params.projectId
 		);
-		return await sendResponse.data(res, 203, initiativeService.mapToDto(initiative));
+		return await sendResponse.data(res, 203, await initiativeService.mapToDto(initiative));
 	}
 
 	public async removeProjectFromInitiative(req: Request, res: Response): Promise<Response> {
@@ -21,7 +21,7 @@ class InitiativesController extends EntityController<IInitiative, IInitiativeDto
 			req.params.initiativeId,
 			req.params.projectId
 		);
-		return await sendResponse.data(res, 203, initiativeService.mapToDto(initiative));
+		return await sendResponse.data(res, 203, await initiativeService.mapToDto(initiative));
 	}
 }
 

@@ -13,7 +13,7 @@ class ObjectivesController extends EntityController<IObjective, IObjectiveDto> {
 			req.params.objectiveId,
 			req.params.initiativeId
 		);
-		return await sendResponse.data(res, 203, objectiveService.mapToDto(objective));
+		return await sendResponse.data(res, 203, await objectiveService.mapToDto(objective));
 	}
 
 	public async removeInitiativeFromObjective(req: Request, res: Response): Promise<Response> {
@@ -21,7 +21,7 @@ class ObjectivesController extends EntityController<IObjective, IObjectiveDto> {
 			req.params.objectiveId,
 			req.params.initiativeId
 		);
-		return await sendResponse.data(res, 203, objectiveService.mapToDto(objective));
+		return await sendResponse.data(res, 203, await objectiveService.mapToDto(objective));
 	}
 }
 

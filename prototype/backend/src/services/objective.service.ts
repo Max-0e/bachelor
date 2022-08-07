@@ -22,7 +22,7 @@ class ObjectiveService extends EntityService<IObjective, IObjectiveDto> {
 	public async addInitiativeToObjective(objectiveId: string, initiativeId: string) {
 		const objectiveToUpdate = await this.getEntityById(objectiveId);
 		// validate InitiativeId
-		await initiativeService.getInitiativeById(initiativeId);
+		await initiativeService.getEntityById(initiativeId);
 
 		objectiveToUpdate.initiatives.push(initiativeId);
 		await objectiveToUpdate.save();
@@ -33,7 +33,7 @@ class ObjectiveService extends EntityService<IObjective, IObjectiveDto> {
 	public async removeInitiativeFromObjective(objectiveId: string, initiativeId: string) {
 		const objectiveToUpdate = await this.getEntityById(objectiveId);
 		// validate InitiativeId
-		await initiativeService.getInitiativeById(initiativeId);
+		await initiativeService.getEntityById(initiativeId);
 
 		if (!objectiveToUpdate.initiatives.includes(initiativeId))
 			throw new ValidationError('initiative is not part of objective');

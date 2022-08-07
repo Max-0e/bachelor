@@ -1,4 +1,4 @@
-import projectsController from '@/controller/projects.controller';
+import projectsController from '../controller/projects.controller';
 import { IProjectDto } from '@/interfaces/dtos/projectDto.interface';
 import { IProjectModel } from '@/interfaces/project.interface';
 import { makeEntityRouter } from './entity.router';

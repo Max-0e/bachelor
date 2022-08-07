@@ -14,21 +14,21 @@ export abstract class EntityController<T, DTO> {
     }
 	public async getEntities(req: Request, res: Response): Promise<Response> {
 		const entities = await this.entityService.getEntities();
-		return await sendResponse.data(res, 200, this.entityService.mapArrayToDtoArray(entities));
+		return await sendResponse.data(res, 200, await this.entityService.mapArrayToDtoArray(entities));
 	}
 
 	public async getEntityById(req: Request, res: Response): Promise<Response> {
 		const entity = await this.entityService.getEntityById(req.params.id);
-		return await sendResponse.data(res, 200, this.entityService.mapToDto(entity));
+		return await sendResponse.data(res, 200, await this.entityService.mapToDto(entity));
 	}
 
 	public async createEntity(req: Request, res: Response): Promise<Response> {
 		const createdEntity = await this.entityService.createEntity(req.body as T);
-		return await sendResponse.data(res, 201, this.entityService.mapToDto(createdEntity));
+		return await sendResponse.data(res, 201, await this.entityService.mapToDto(createdEntity));
 	}
 	public async updateEntity(req: Request, res: Response): Promise<Response> {
 		const updatedEntity = await this.entityService.updateEntity(req.params.id as string, req.body as T);
-		return await sendResponse.data(res, 203, this.entityService.mapToDto(updatedEntity));
+		return await sendResponse.data(res, 203, await this.entityService.mapToDto(updatedEntity));
 	}
 
 	public async deleteEntity(req: Request, res: Response): Promise<Response> {
