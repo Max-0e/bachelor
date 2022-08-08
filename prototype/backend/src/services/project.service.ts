@@ -76,6 +76,7 @@ class ProjectService extends EntityService<IProjectModel, IProjectDto> {
 		};
         delete dto._id;
         delete dto.__v;
+		dto.tasks = taskService.mapArrayToDtoArray(dto.tasks)
         return dto as IProjectDto;
 	}
 }
