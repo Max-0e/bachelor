@@ -8,8 +8,6 @@
 	</div>
 </template>
 <script setup lang="ts">
-import AppIcon from './AppIcon.vue';
-
 defineProps({
 	icon: { type: Boolean, default: true },
 });

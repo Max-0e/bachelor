@@ -1,14 +1,9 @@
-import Router from 'express';
-import TasksController from '../controller/tasks.controller';
+import { tasksController } from '../controller/tasks.controller';
+import { ITask } from '../interfaces/task.interface';
+import { makeEntityRouter } from './entity.router';
 
 export function makeTasksRouter() {
-	const router = Router();
-
-	router.get('/project/:projectId', TasksController.getTasksByProjectId);
-	router.get('/:taskId', TasksController.getTaskById);
-	router.post('/:projectId', TasksController.createTask);
-	router.put('/', TasksController.updateTask);
-	router.delete('/:taskId', TasksController.deleteTask);
+	const router = makeEntityRouter<ITask>(tasksController);
 
 	return router;
 }

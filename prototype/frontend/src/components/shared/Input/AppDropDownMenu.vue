@@ -1,11 +1,15 @@
 <template>
 	<div class="relative" @focusout="expanded = false" tabindex="0">
-		<div class="p-1 w-full bg-gray-400 dark:bg-dark-50 rounded-lg cursor-pointer" @click="expanded = !expanded">
+		<div
+			class="p-1 w-full bg-gray-400 dark:bg-dark-50 rounded-lg cursor-pointer"
+			@click="expanded = !expanded">
 			<div class="flex pl-4 items-center justify-between">
 				<span class="pr-5">
 					{{ selectedOption.name }}
 				</span>
-				<AppIcon :class="expanded ? 'transform rotate-180' : ''"> expand_more </AppIcon>
+				<AppIcon :class="expanded ? 'transform rotate-180' : ''">
+					expand_more
+				</AppIcon>
 			</div>
 		</div>
 		<div
@@ -14,7 +18,7 @@
 			<div
 				v-for="option in options"
 				class="cursor-pointer w-full px-3 py-1 hover:bg-gray-400 dark:hover:bg-dark-100"
-				:class="option.disabled ? 'bg-gray-200 dark:bg-dark-200':''"
+				:class="option.disabled ? 'bg-gray-200 dark:bg-dark-200' : ''"
 				@click="selectOption(option)">
 				<AppToolTip :text="option.disabled ? option.disabledTooltip : ''">
 					{{ option.name }}
@@ -25,15 +29,21 @@
 </template>
 <script setup lang="ts">
 import { onMounted, PropType, ref } from 'vue';
-import AppIcon from '../UI/AppIcon.vue';
-import AppToolTip from '../UI/AppToolTip.vue';
 
 const props = defineProps({
 	selectText: { type: String, required: true },
 	defaultValueName: String,
-	options: { type: Object as PropType<{ name: string; value: any; disabled?: boolean; disabledTooltip?: string }[]> },
+	options: {
+		type: Object as PropType<
+			{
+				name: string;
+				value: any;
+				disabled?: boolean;
+				disabledTooltip?: string;
+			}[]
+		>,
+	},
 });
-
 
 const expanded = ref(false);
 
@@ -41,18 +51,29 @@ const selectedOption = ref({ name: props.selectText, value: null });
 
 onMounted(() => {
 	if (!!props.defaultValueName && !!props.options) {
-		const defaultOption = props.options.find((option) => option.name === props.defaultValueName);
+		const defaultOption = props.options.find(
+			(option) => option.name === props.defaultValueName
+		);
 		if (!!defaultOption) selectedOption.value = defaultOption;
 	}
 });
 
 const emit = defineEmits(['update:modelValue']);
 
-function selectOption(option: { name: string; value: any; disabled?: boolean; disabledTooltip?: string }) {
+function selectOption(option: {
+	name: string;
+	value: any;
+	disabled?: boolean;
+	disabledTooltip?: string;
+}) {
 	if (option.disabled) return;
 	selectedOption.value = option;
 	expanded.value = false;
 	emit('update:modelValue', option.value);
 }
+const reset = () =>
+	(selectedOption.value = { name: props.selectText, value: null });
+
+defineExpose({ reset });
 </script>
 <style scoped></style>

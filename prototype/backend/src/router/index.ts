@@ -1,23 +1,17 @@
 import { Router } from 'express';
-import sendResponse from '../utility/sendResponse';
 import { isAuth } from '../middlewares/auth';
 import { makeAuthRouter } from './auth.router';
-import { makeProjectsRouter } from './projects.router';
+import { makeEntityGroupsRouter } from './entity-groups-router';
+import { makeLevelRouter } from './level.router';
 import { makeTasksRouter } from './tasks.router';
-import { makeInitiativesRouter } from './initiatives.router';
-import { makeObjectivesRouter } from './objectives.router';
 
 export function makeRouter(): Router {
 	const router = Router();
 
 	router.use('/auth', makeAuthRouter());
-	router.use('/projects', isAuth, makeProjectsRouter());
 	router.use('/tasks', isAuth, makeTasksRouter());
-	router.use('/initiatives', isAuth, makeInitiativesRouter());
-	router.use('/objectives', isAuth, makeObjectivesRouter());
-	// router.get('/test', isAuth, (req, res) =>
-	// 	sendResponse.message(res, 200, 'some secret information')
-	// );
+	router.use('/groups', isAuth, makeEntityGroupsRouter());
+	router.use('/level', isAuth, makeLevelRouter());
 
 	return router;
 }

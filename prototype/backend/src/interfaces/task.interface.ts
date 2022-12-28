@@ -1,11 +1,10 @@
+import { Entity } from "./entity.interface";
+
 export interface ITask {
-	_id: string;
-	name: string;
 	status: Status;
+	storyPoints: number;
 }
 
-export enum Status {
-	open,
-	inProgress,
-	done,
-}
+export type Task = Entity<ITask>;
+export const statusEnum = ['open', 'inProgress', 'done'] as const;
+export type Status = typeof statusEnum[number];

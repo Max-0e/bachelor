@@ -6,7 +6,9 @@
 			<div>
 				{{ triggerText }}
 			</div>
-			<AppIcon :class="expanded ? 'transform rotate-180' : ''"> expand_more </AppIcon>
+			<AppIcon :class="expanded ? 'transform rotate-180' : ''">
+				expand_more
+			</AppIcon>
 		</div>
 		<!-- TODO why cant u animate display none -->
 		<div
@@ -17,8 +19,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { ref } from 'pinia/node_modules/vue-demi';
-import AppIcon from './AppIcon.vue';
+import { ref } from 'vue';
 
 const expanded = ref(false);
 

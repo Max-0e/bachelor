@@ -1,25 +1,17 @@
 import { RouteRecordRaw } from 'vue-router';
 
+import Dashboard from '@/components/Dashboard/Dashboard.vue';
+import Levels from '@/components/Levels/Levels.vue';
 import Profile from '@/components/Profile/Profile.vue';
 import Settings from '@/components/Settings/Settings.vue';
-import Dashboard from '@/components/Dashboard/Dashboard.vue';
-
-import RouterNesting from '@/components/shared/RouterNesting.vue';
-import ProjectLayout from '@/components/Projects/ProjectLayout.vue';
-
-import { projectDetailsResolver, projectsResolver } from './resolver/projects.resolver';
-import { initiativeDetailsResolver, initiativesResolver } from './resolver/initiatives.resolver';
-import { objectivesResolver } from './resolver/objectives.resolver';
-import objectivesRoutes from './MainChildrenRoutes/objectives';
-import projectsRoutes from './MainChildrenRoutes/projects';
-import initiativesRoutes from './MainChildrenRoutes/initiatives';
+import { levelsResolver } from './resolver/level.resolver';
 
 const mainRoutes: Array<RouteRecordRaw> = [
 	{
 		path: 'dashboard',
 		name: 'Dashboard',
 		component: Dashboard,
-		beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
+		// beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
 	},
 	{
 		path: 'profile',
@@ -32,23 +24,29 @@ const mainRoutes: Array<RouteRecordRaw> = [
 		component: Settings,
 	},
 	{
-		path: 'projects',
-		component: ProjectLayout,
-		beforeEnter: projectsResolver,
-		children: projectsRoutes,
+		path: 'levels',
+		name: 'Levels',
+		component: Levels,
+		beforeEnter: levelsResolver,
 	},
-	{
-		path: 'initiatives',
-		component: RouterNesting,
-		beforeEnter: [initiativesResolver, projectsResolver],
-		children: initiativesRoutes,
-	},
-	{
-		path: 'objectives',
-		component: RouterNesting,
-		beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
-		children: objectivesRoutes,
-	},
+	// {
+	// 	path: 'projects',
+	// 	component: ProjectLayout,
+	// 	beforeEnter: projectsResolver,
+	// 	children: projectsRoutes,
+	// },
+	// {
+	// 	path: 'initiatives',
+	// 	component: RouterNesting,
+	// 	beforeEnter: [initiativesResolver, projectsResolver],
+	// 	children: initiativesRoutes,
+	// },
+	// {
+	// 	path: 'objectives',
+	// 	component: RouterNesting,
+	// 	beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
+	// 	children: objectivesRoutes,
+	// },
 ];
 
 export default mainRoutes;

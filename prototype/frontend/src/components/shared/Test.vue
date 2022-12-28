@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { ChartOptions, ChartData } from 'chart.js';
+import { ChartData, ChartOptions } from 'chart.js';
 import { computed, ref } from 'vue';
 import { DoughnutChart } from 'vue-chart-3';
 

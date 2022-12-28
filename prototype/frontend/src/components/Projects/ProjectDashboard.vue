@@ -49,5 +49,5 @@ const projectStore = useProjectStore();
 
 const currentProject = ref(projectStore.getCurrentProject);
 
-const metrics = projectStore.computeMetrics(currentProject);
+const metrics = projectStore.computeMetricsForProject(currentProject);
 </script>

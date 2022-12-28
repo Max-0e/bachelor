@@ -1,8 +1,8 @@
-import { RouteRecordRaw } from 'vue-router';
+import ForgotPassword from '@/components/Auth/ForgotPassword.vue';
 import Login from '@/components/Auth/Login.vue';
 import Register from '@/components/Auth/Register.vue';
 import ResetPassword from '@/components/Auth/ResetPassword.vue';
-import ForgotPassword from '@/components/Auth/ForgotPassword.vue';
+import { RouteRecordRaw } from 'vue-router';
 
 const authRoutes: Array<RouteRecordRaw> = [
 	{

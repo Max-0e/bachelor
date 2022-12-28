@@ -12,16 +12,9 @@ export type HttpOptions = {
 	withCredentials?: boolean;
 };
 
-export type HttpResponse<TBody = any, TError = any> = {
-	isError: boolean;
-	body: TBody | null;
-	error: TError | null;
-	status: number | null;
-};
-
 class HttpClient {
-	public async get<T>(url: string, options: HttpOptions = {}): Promise<HttpResponse<T>> {
-		return await this.makeHttpResponseFromAxiosPromise(
+	public async get<T>(url: string, options: HttpOptions = {}) {
+		return await this.makeHttpResponseFromAxiosPromise<T>(
 			axios.get(url, {
 				params: options?.params,
 				headers: options?.headers,
@@ -30,18 +23,8 @@ class HttpClient {
 		);
 	}
 
-	public async head<T>(url: string, options: HttpOptions = {}): Promise<HttpResponse<T>> {
-		return await this.makeHttpResponseFromAxiosPromise(
-			axios.head(url, {
-				params: options?.params,
-				headers: options?.headers,
-				withCredentials: options?.withCredentials,
-			})
-		);
-	}
-
-	public async post<T>(url: string, jsonBody: any, options: HttpOptions = {}): Promise<HttpResponse<T>> {
-		return await this.makeHttpResponseFromAxiosPromise(
+	public async post<T>(url: string, jsonBody: any, options: HttpOptions = {}) {
+		return await this.makeHttpResponseFromAxiosPromise<T>(
 			axios.post(url, jsonBody, {
 				params: options?.params,
 				headers: options?.headers,
@@ -50,8 +33,8 @@ class HttpClient {
 		);
 	}
 
-	public async put<T>(url: string, jsonBody: any, options: HttpOptions = {}): Promise<HttpResponse<T>> {
-		return await this.makeHttpResponseFromAxiosPromise(
+	public async put<T>(url: string, jsonBody: any, options: HttpOptions = {}) {
+		return await this.makeHttpResponseFromAxiosPromise<T>(
 			axios.put(url, jsonBody, {
 				params: options?.params,
 				headers: options?.headers,
@@ -60,18 +43,8 @@ class HttpClient {
 		);
 	}
 
-	public async patch<T>(url: string, jsonBody: any, options: HttpOptions = {}): Promise<HttpResponse<T>> {
-		return await this.makeHttpResponseFromAxiosPromise(
-			axios.patch(url, jsonBody, {
-				params: options?.params,
-				headers: options?.headers,
-				withCredentials: options?.withCredentials,
-			})
-		);
-	}
-
-	public async delete<T>(url: string, options: HttpOptions = {}): Promise<HttpResponse<T>> {
-		return await this.makeHttpResponseFromAxiosPromise(
+	public async delete<T>(url: string, options: HttpOptions = {}) {
+		return await this.makeHttpResponseFromAxiosPromise<T>(
 			axios.delete(url, {
 				params: options?.params,
 				headers: options?.headers,
@@ -80,18 +53,13 @@ class HttpClient {
 		);
 	}
 
-	private async makeHttpResponseFromAxiosPromise<T>(axiosPromise: Promise<AxiosResponse<T>>): Promise<HttpResponse<T>> {
+	private async makeHttpResponseFromAxiosPromise<T>(axiosPromise: Promise<AxiosResponse<T>>): Promise<T> {
 		try {
 			const response = await axiosPromise;
 			if (DEV_MODE) {
 				Logger.debug('Http response', response?.data);
 			}
-			return {
-				isError: false,
-				body: response.data,
-				status: response.status,
-				error: null,
-			};
+			return response.data;
 		} catch (error: any) {
 			if (error?.response) {
 				if (DEV_MODE) {

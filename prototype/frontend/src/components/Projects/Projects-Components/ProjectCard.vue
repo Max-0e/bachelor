@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, ref, toRef, toRefs } from 'vue';
+import { PropType, toRefs } from 'vue';
 import { IProject } from '@/intefaces/project.interface';
 import AppProgressBar from '../../shared/UI/AppProgressBar.vue';
 
@@ -34,5 +34,5 @@ const props = defineProps({
 
 const refProps = toRefs(props);
 
-const metrics = useProjectStore().computeMetrics(refProps.project);
+const metrics = useProjectStore().computeMetricsForProject(refProps.project);
 </script>

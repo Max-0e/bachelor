@@ -1,34 +1,39 @@
+import { EntityCreateDto, EntityReadDto } from '@/interfaces/dtos/entityDto.interface';
+import { Entity, EntityDocument } from '@/interfaces/entity.interface';
+import { Model } from 'mongoose';
 import { NotFoundError } from '../error/not-found.error';
-import { EntityDocument } from '@/interfaces/entity.interface';
-import { FilterQuery, Model } from 'mongoose';
 
-export abstract class EntityService<T,DTO> {
+export abstract class EntityService<T> {
 
-    public readonly EntityModel: Model<T>;
+	public readonly EntityModel;
 
-    constructor (entityModel: Model<T>) {
-        this.EntityModel = entityModel;
-    }
+	constructor(entityModel: Model<Entity<T>>) {
+		this.EntityModel = entityModel;
+	}
 	public async getEntities(): Promise<EntityDocument<T>[]> {
 		return await this.EntityModel.find();
 	}
-	public async getEntityById(id: string): Promise<EntityDocument<T>> {
-		const entity = await this.EntityModel.findOne({ _id: id } as FilterQuery<T>);
+	public async getEntityById(id: string) {
+		const entity = await this.EntityModel.findById(id);
 		if (!entity) throw new NotFoundError('This Entity does not exists.');
 
 		return entity;
 	}
 
-	public async createEntity(entity: T): Promise<EntityDocument<T>> {
+	public async createEntity(entity: EntityCreateDto<T>): Promise<EntityDocument<T>> {
 		const entityModel = new this.EntityModel({ ...entity });
 		const newEntity = await entityModel.save();
 
 		return this.getEntityById(newEntity._id);
 	}
 
-	public async updateEntity(entityId: string, entity: T) {
+	public async updateEntity(entityId: string, entity: EntityCreateDto<T>) {
 		const entityToUpdate = await this.getEntityById(entityId);
-		await entityToUpdate.updateOne(entity);
+		const updatedEntity = {
+			_id: entityId,
+			...entity
+		}
+		await entityToUpdate.updateOne(updatedEntity);
 		return await this.getEntityById(entityId);
 	}
 
@@ -37,18 +42,11 @@ export abstract class EntityService<T,DTO> {
 		return entity.delete();
 	}
 
-	public async mapToDto(entity: EntityDocument<T>): Promise<DTO>  {
-		const dto = {
-			id: entity._id,
-            // TODO this should be possible in another way
-			...(entity as any)._doc
-		};
-        delete dto._id;
-        delete dto.__v;
-        return dto as DTO;
+	public async mapToDto(entity: EntityDocument<T>) {
+		return entity.toJSON() as EntityReadDto<T>
 	}
 
-	public async mapArrayToDtoArray(entities: EntityDocument<T>[]): Promise<DTO[]> {
+	public async mapArrayToDtoArray(entities: EntityDocument<T>[]): Promise<EntityReadDto<T>[]> {
 		return Promise.all(entities.map(async (entity) => await this.mapToDto(entity)))
 	}
 }

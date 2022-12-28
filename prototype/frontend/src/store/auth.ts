@@ -14,9 +14,6 @@ export const useAuthStore = defineStore('auth', {
 		user: null,
 		loggedIn: false,
 	}),
-
-	getters: {},
-
 	actions: {
 		async checkAuthorization() {
 			if (storageService.getHasCookie()) {

@@ -52,7 +52,7 @@ async function resetPassword() {
 			};
 			router.push('login');
 		})
-		.catch((e) => {
+		.catch((_) => {
 			return;
 		});
 }

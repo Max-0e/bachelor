@@ -56,20 +56,20 @@
 	<router-link to="login">Login</router-link>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
-import { IRegisterPayload } from '@/intefaces/registerPayload.interface';
 import { validationType } from '@/enums/validationType.enum';
+import { inputRef } from '@/intefaces/form.interface';
+import { IRegisterPayload } from '@/intefaces/registerPayload.interface';
+import { ToastType } from '@/intefaces/toastConfig';
 import router from '@/router';
 import authService from '@/services/auth.service';
-import AppButton from '../shared/Input/AppButton.vue';
-import AppInputField from '../shared/Input/AppInputField.vue';
 import { useAppStore } from '@/store/app';
-import { ToastType } from '@/intefaces/toastConfig';
+import { ref } from 'vue';
+import { FormGroup } from '../shared/Input/formGroup';
 
-const email = ref<InstanceType<typeof AppInputField> | null>(null);
-const username = ref<InstanceType<typeof AppInputField> | null>(null);
-const password = ref<InstanceType<typeof AppInputField> | null>(null);
-const password2 = ref<InstanceType<typeof AppInputField> | null>(null);
+const email = inputRef();
+const username = inputRef();
+const password = inputRef();
+const password2 = inputRef();
 
 const registerPayload = ref<IRegisterPayload>({
 	email: '',
@@ -77,25 +77,20 @@ const registerPayload = ref<IRegisterPayload>({
 	password: '',
 });
 
+const formGroup = new FormGroup([email, username, password, password2]);
+
 const password2value = ref<string>('');
 
 async function register() {
-	if (validateForm())
+	if (formGroup.validate())
 		await authService.register(registerPayload.value).then((_) => {
 			useAppStore().showToastOnRouting = {
 				toastType: ToastType.SUCCESS,
-				toastContent: 'Registration Successfull. Please confirm your E-Mail-Adress',
+				toastContent:
+					'Registration Successfull. Please confirm your E-Mail-Adress',
 			};
 			router.push('login');
 		});
-}
-
-function validateForm() {
-	const emailValid = email.value!.validate();
-	const usernameValid = username.value!.validate();
-	const passwordValid = password.value!.validate();
-	const password2Valid = password2.value!.validate();
-	return emailValid && usernameValid && passwordValid && password2Valid;
 }
 </script>
 <style scoped></style>

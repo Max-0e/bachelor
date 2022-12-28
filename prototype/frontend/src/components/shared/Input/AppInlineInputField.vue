@@ -17,7 +17,10 @@
 			:name="name"
 			:id="id"
 			:placeholder="placeholder" />
-		<div v-if="show" class="pr-2 absolute right-0 flex gap-2 items-center" :class="withLabel ? '' : 'bottom-1/5'">
+		<div
+			v-if="show"
+			class="pr-2 absolute right-0 flex gap-2 items-center"
+			:class="withLabel ? '' : 'bottom-1/5'">
 			<span
 				@click="
 					$emit('save');
@@ -36,13 +39,14 @@
 				>clear</span
 			>
 		</div>
-		<AppLabel class="absolute text-sm" v-if="show && withLabel" :for="name">{{ label }}</AppLabel>
+		<AppLabel class="absolute text-sm" v-if="show && withLabel" :for="name">{{
+			label
+		}}</AppLabel>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import AppLabel from './AppLabel.vue';
 
 const props = defineProps({
 	label: String,

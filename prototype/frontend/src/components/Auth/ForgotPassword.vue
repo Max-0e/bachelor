@@ -1,7 +1,9 @@
 <template>
 	<div>
 		<AppInputField
-			v-model="usernameOrEmail"
+			v-model="payload.usernameOrEmail"
+			:validation-types="[validationType.required]"
+			ref="usernameOrEmail"
 			type="text"
 			name="usernameOrEmail"
 			id="usernameOrEmail"
@@ -17,23 +19,31 @@
 	</div>
 </template>
 <script setup lang="ts">
+import { validationType } from '@/enums/validationType.enum';
+import { inputRef } from '@/intefaces/form.interface';
 import { ToastType } from '@/intefaces/toastConfig';
 import router from '@/router';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
-import { ref } from 'vue';
-import AppButton from '../shared/Input/AppButton.vue';
-import AppInputField from '../shared/Input/AppInputField.vue';
+import { FormGroup } from '../shared/Input/formGroup';
 
-const usernameOrEmail = ref('');
+const payload = ref({
+	usernameOrEmail: '',
+});
+const usernameOrEmail = inputRef();
+const formGroup = new FormGroup([usernameOrEmail]);
 
 async function requestResetLink() {
+	if (!formGroup.validate()) return;
+	console.log(formGroup.validate());
+
 	await authService
-		.forgotPassword(usernameOrEmail.value)
+		.forgotPassword(payload.value.usernameOrEmail)
 		.then((_) => {
 			useAppStore().showToastOnRouting = {
 				toastType: ToastType.SUCCESS,
-				toastContent: 'The user with the given E-Mail-Address received his reset Link if he exists.',
+				toastContent:
+					'The user with the given E-Mail-Address received his reset Link if he exists.',
 			};
 			router.push('login');
 		})

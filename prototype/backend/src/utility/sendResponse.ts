@@ -5,7 +5,7 @@ class sendResponse {
 		return res.status(status).json({ status, message });
 	}
 
-	public async data(res: Response, status: number, payloadJSON: Object): Promise<Response> {
+	public async data<T>(res: Response, status: number, payloadJSON: T): Promise<Response<T>> {
 		return res.status(status).json(payloadJSON);
 	}
 

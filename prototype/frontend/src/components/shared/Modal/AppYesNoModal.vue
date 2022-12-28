@@ -23,9 +23,8 @@
 	</AppModal>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue';
 import AppModal from './AppModal.vue';
-import AppButton from '../Input/AppButton.vue';
-import { ref } from '@vue/reactivity';
 
 const modal = ref<InstanceType<typeof AppModal> | null>(null);
 

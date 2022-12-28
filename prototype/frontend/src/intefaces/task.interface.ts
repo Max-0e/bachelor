@@ -1,16 +1,10 @@
+import { Entity } from "./entity.interface";
+
 export interface ITask {
-	id: string;
-	name: string;
 	status: Status;
+	storyPoints: number;
 }
 
-export interface ICreateTask {
-	name: string;
-	status: Status;
-}
+export type Task = Entity<ITask>
 
-export enum Status {
-	open,
-	inProgress,
-	done,
-}
+export type Status = 'open' | 'inProgress' | 'done'

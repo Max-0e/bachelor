@@ -1,8 +1,9 @@
-import { Model, Document } from "mongoose";
+import { Document } from "mongoose";
 
-export interface IEntity {
+export type Entity<T> = {
 	_id: string;
-}
-export type EntityDocument<T> = Document & T;
+	name: string;
+	entityGroupIds: string[];
+} & T;
 
-// export type EntityModel<T> = Model<T>;
+export type EntityDocument<T> = Document & Entity<T>;

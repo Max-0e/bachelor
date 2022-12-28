@@ -1,13 +1,13 @@
-import { createApp, vModelCheckbox } from 'vue';
 import { createPinia } from 'pinia';
+import 'virtual:windi.css';
+import { createApp } from 'vue';
+import Toast, { PluginOptions } from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
+import 'windi.css';
 import App from './App.vue';
 import router from './router';
-// import 'windi.css';
-import 'virtual:windi.css';
-import 'vue-toastification/dist/index.css';
-import { useAuthStore } from './store/auth';
-import Toast, { PluginOptions } from 'vue-toastification';
 import { useAppStore } from './store/app';
+import { useAuthStore } from './store/auth';
 
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);

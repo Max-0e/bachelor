@@ -1,3 +1,47 @@
+<script setup lang="ts">
+import AppIcon from '../shared/UI/AppIcon.vue';
+import AppButton from '../shared/Input/AppButton.vue';
+import AppTaskListItem from './Tasks-Components/TaskListItem.vue';
+import AppInputField from '../shared/Input/AppInputField.vue';
+
+import { useProjectStore } from '@/store/project';
+import { PropType, Ref, ref } from 'vue';
+import { ICreateTask, ITask, Status } from '@/intefaces/task.interface';
+import { IProject } from '@/intefaces/project.interface';
+import AppToolTip from '../shared/UI/AppToolTip.vue';
+import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
+import { IEpic } from '@/intefaces/epic.interface';
+
+const projectStore = useProjectStore();
+
+const defaultTaskValue = { name: '', status: Status.open };
+const createNewTask = ref(false);
+
+const taskToCreate: Ref<ICreateTask> = ref({ name: defaultTaskValue.name, status: defaultTaskValue.status });
+
+
+function createTask() {
+	if (taskToCreate.value.name === defaultTaskValue.name) return;
+	if (!!props.epic) taskToCreate.value.epics = [props.epic.id]
+	projectStore.createTask(projectStore.getCurrentProject, taskToCreate.value);
+	setDefaults();
+}
+
+function removeFromEpic (task: ITask) {
+	if(!props.epic) return;
+	task.epics = task.epics.filter(epicId => props.epic?.id !== epicId)
+	projectStore.updateTask(props.project, task);
+}
+
+function setDefaults() {
+	taskToCreate.value = { name: defaultTaskValue.name, status: defaultTaskValue.status };
+	createNewTask.value = false;
+}
+const props = defineProps({
+	project: { type: Object as PropType<IProject>, required: true },
+	epic: { type: Object as PropType<IEpic>, required: false },
+});
+</script>
 <template>
 	<!-- Table Header -->
 	<div class="w-full flex justify-between p-5 m-2">
@@ -12,7 +56,12 @@
 		</span>
 	</div>
 	<!-- Task List -->
-	<AppTaskListItem v-for="task in project.tasks" :task="task" :project="project" />
+	<div class="flex items-center" v-for="task in (!!epic ? project.tasks.filter(task => task.epics?.includes(epic!.id)) : project.tasks)">
+		<AppTaskListItem :task="task" :project="project" />
+		<AppToolTip text="remove from epic" position="left" v-if="!!epic">
+			<AppIcon class="text-red-600 hover:bg-dark-700" @click="removeFromEpic(task)">remove_circle_outline</AppIcon>
+		</AppToolTip>
+	</div>
 	<!-- Add Task Field -->
 	<div class="border border-dark-100 w-full rounded-md flex justify-between items-center p-2 m-2" v-if="createNewTask">
 		<span class="w-1/3 text-left">
@@ -49,38 +98,3 @@
 		</AppToolTip>
 	</div>
 </template>
-<script setup lang="ts">
-import AppIcon from '../shared/UI/AppIcon.vue';
-import AppButton from '../shared/Input/AppButton.vue';
-import AppTaskListItem from './Tasks-Components/TaskListItem.vue';
-import AppInputField from '../shared/Input/AppInputField.vue';
-
-import { useProjectStore } from '@/store/project';
-import { PropType, Ref, ref } from 'vue';
-import { ICreateTask, Status } from '@/intefaces/task.interface';
-import { IProject } from '@/intefaces/project.interface';
-import AppToolTip from '../shared/UI/AppToolTip.vue';
-import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
-
-const projectStore = useProjectStore();
-
-const defaultTaskValue = { name: '', status: Status.open };
-
-const taskToCreate: Ref<ICreateTask> = ref({ name: defaultTaskValue.name, status: defaultTaskValue.status });
-
-const createNewTask = ref(false);
-
-function createTask() {
-	if (taskToCreate.value.name === defaultTaskValue.name) return;
-	projectStore.createTask(projectStore.getCurrentProject, taskToCreate.value);
-	setDefaults();
-}
-
-function setDefaults() {
-	taskToCreate.value = { name: defaultTaskValue.name, status: defaultTaskValue.status };
-	createNewTask.value = false;
-}
-defineProps({
-	project: { type: Object as PropType<IProject>, required: true },
-});
-</script>

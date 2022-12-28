@@ -8,7 +8,7 @@
 				? 'bg-blue-400 dark:bg-blue-800'
 				: 'bg-gray-400 dark:bg-dark-200'
 		">
-		<span class="w-1/2 text-left px-5">
+		<span class="flex-grow text-left">
 			<AppInlineInputField
 				v-model="task.name"
 				type="text"
@@ -19,7 +19,7 @@
 				:with-label="false"
 				@save="projectStore.updateTask(project, task)" />
 		</span>
-		<span class="w-1/2 px-5">
+		<span>
 			<div class="float-right">
 				<AppToolTip text="delete Task" position="left">
 					<AppIcon

@@ -25,6 +25,11 @@
 					<AppIcon> list </AppIcon>
 				</router-link>
 			</AppToolTip>
+			<AppToolTip class="w-full flex justify-center p-2" text="Epics" position="right" v-if="currentProject">
+				<router-link :to="{ name: 'Epics' }" class="transition-all">
+					<AppIcon> view_module </AppIcon>
+				</router-link>
+			</AppToolTip>
 			<AppToolTip class="w-full flex justify-center p-2" text="Project Settings" position="right" v-if="currentProject">
 				<router-link :to="{ name: 'ProjectSettings' }" class="transition-all">
 					<AppIcon> settings </AppIcon>
@@ -41,12 +46,10 @@
 <script setup lang="ts">
 import { useProjectStore } from '@/store/project';
 import { computed } from '@vue/reactivity';
-import { useRouter } from 'vue-router';
 import AppIcon from '../shared/UI/AppIcon.vue';
 import AppToolTip from '../shared/UI/AppToolTip.vue';
 
 const projectStore = useProjectStore();
-const router = useRouter();
 
 const currentProject = computed(() => {
 	try {
