@@ -1,6 +1,7 @@
 import { Entity, EntityCreate } from '@/intefaces/entity.interface';
 import { EntityService } from '@/services/entity.service';
 import { defineStore } from 'pinia';
+import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 
 export interface EntityState<T> {
@@ -41,32 +42,33 @@ export function defineEntityStore<
 			},
 			createEntity(entityToCreate: EntityCreate<T>) {
 				entityService.createEntity(entityToCreate).then((entity) => {
-					state.entities.push(entity);
-					useToast().success('successfully created' + storeName);
+					this.$patch((state) => state.entities.push(ref(entity).value));
+					useToast().success('successfully created ' + storeName);
 				});
 			},
-			updateProject(entityId: string, entityToUpdate: EntityCreate<T>) {
+			updateEntity(entityId: string, entityToUpdate: EntityCreate<T>) {
 				entityService.updateEntity(entityId, entityToUpdate).then((entity) => {
 					this.updateEntityInState(entity);
-					useToast().success('successfully updated' + storeName);
+					useToast().success('successfully updated ' + storeName);
 				});
 			},
 			updateEntityInState(entity: Entity<T>) {
-				state.entities[
-					state.entities.findIndex(
-						(entityInState) => entityInState.id === entity.id
-					)
-				] = ref(entity).value;
+				state.entities[this.findEntityIndexInState(entity.id)] = entity;
 			},
 			deleteEntity(entity: Entity<T>) {
 				entityService.deleteEntity(entity.id).then((_) => {
 					this.deleteEntityInState(entity);
-					useToast().success('successfully deleted' + storeName);
+					useToast().success('successfully deleted ' + storeName);
 				});
 			},
 			deleteEntityInState(entity: Entity<T>) {
-				state.entities = state.entities.filter(
-					(entityInState) => entityInState !== entity
+				this.$patch((state) => {
+					state.entities.splice(this.findEntityIndexInState(entity.id), 1);
+				});
+			},
+			findEntityIndexInState(entityId: string) {
+				return state.entities.findIndex(
+					(entityInState) => entityInState.id === entityId
 				);
 			},
 			...actions,

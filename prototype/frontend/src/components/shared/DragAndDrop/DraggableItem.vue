@@ -17,7 +17,7 @@ import { ref } from 'vue';
 
 const hidden = ref(false);
 
-defineEmits(['dragstart']);
+defineEmits<{ (e: 'dragstart', data: DragEvent): void }>();
 
 const props = defineProps({
 	data: { type: String, required: true },

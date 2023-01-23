@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<AppInputField
-			v-model="registerPayload.email"
 			ref="email"
 			:validation-types="[validationType.required, validationType.email]"
 			type="email"
@@ -13,7 +12,6 @@
 	</div>
 	<div>
 		<AppInputField
-			v-model="registerPayload.username"
 			:validation-types="[validationType.required]"
 			ref="username"
 			type="text"
@@ -25,9 +23,8 @@
 	</div>
 	<div>
 		<AppInputField
-			v-model="registerPayload.password"
 			:validation-types="[validationType.required, validationType.matches]"
-			:match="password2value"
+			:match="formGroup.formObjects.password2.value"
 			ref="password"
 			type="password"
 			name="password"
@@ -38,9 +35,8 @@
 	</div>
 	<div>
 		<AppInputField
-			v-model="password2value"
 			:validation-types="[validationType.required, validationType.matches]"
-			:match="registerPayload.password"
+			:match="formGroup.formObjects.password.value"
 			ref="password2"
 			type="password"
 			name="password2"
@@ -56,34 +52,25 @@
 	<router-link to="login">Login</router-link>
 </template>
 <script setup lang="ts">
+import { FormGroup } from '@/components/shared/Input/formGroup';
 import { validationType } from '@/enums/validationType.enum';
 import { inputRef } from '@/intefaces/form.interface';
-import { IRegisterPayload } from '@/intefaces/registerPayload.interface';
 import { ToastType } from '@/intefaces/toastConfig';
 import router from '@/router';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
-import { ref } from 'vue';
-import { FormGroup } from '../shared/Input/formGroup';
+import { RouterLink } from 'vue-router';
 
 const email = inputRef();
 const username = inputRef();
 const password = inputRef();
 const password2 = inputRef();
 
-const registerPayload = ref<IRegisterPayload>({
-	email: '',
-	username: '',
-	password: '',
-});
-
-const formGroup = new FormGroup([email, username, password, password2]);
-
-const password2value = ref<string>('');
+const formGroup = new FormGroup({ email, username, password, password2 });
 
 async function register() {
 	if (formGroup.validate())
-		await authService.register(registerPayload.value).then((_) => {
+		await authService.register(formGroup.value).then((_) => {
 			useAppStore().showToastOnRouting = {
 				toastType: ToastType.SUCCESS,
 				toastContent:

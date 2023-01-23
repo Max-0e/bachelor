@@ -7,7 +7,6 @@
 			:class="isOpen ? '' : 'invisible modaloffset'"
 			class="transition-all bg-white dark:bg-dark-100 max-w-2/3 z-50 p-10 flex flex-wrap content-between gap-5 rounded-lg">
 			<slot></slot>
-			<!-- (large ? ' max-w-5/6 max-h-5/6' : ' max-w-3/4 max-h-2/3') -->
 		</div>
 	</div>
 </template>
@@ -16,8 +15,14 @@ import { ref } from 'vue';
 
 const isOpen = ref(false);
 
-const open = () => (isOpen.value = true);
-const close = () => (isOpen.value = false);
+const open = () => {
+	isOpen.value = true;
+	emit('opened');
+};
+const close = () => {
+	isOpen.value = false;
+	emit('closed');
+};
 
 defineProps({
 	dismissable: { Type: Boolean, default: true },
@@ -25,6 +30,8 @@ defineProps({
 });
 
 defineExpose({ open, close });
+
+const emit = defineEmits<{ (e: 'opened'): void; (e: 'closed'): void }>();
 </script>
 
 <style scoped>

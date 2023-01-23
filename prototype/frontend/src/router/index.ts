@@ -1,13 +1,13 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Main from '@/views/Main.vue';
-import Auth from '@/views/Auth.vue';
+import Auth from '@/layouts/Auth.vue';
+import Main from '@/layouts/Main.vue';
 import authRoutes from '@/router/auth';
 import mainRoutes from '@/router/main';
-import Activate from '@/components/Auth/Activate.vue';
-import NotFound from '@/views/NotFound.vue';
-import { useAuthStore } from '@/store/auth';
-import { useToast } from 'vue-toastification';
 import { useAppStore } from '@/store/app';
+import { useAuthStore } from '@/store/auth';
+import Activate from '@/views/Auth/Activate.vue';
+import NotFound from '@/views/NotFound.vue';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { useToast } from 'vue-toastification';
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -41,7 +41,7 @@ const router = createRouter({
 	routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
 	checkToShowToast();
 	if (to.path == '/') next({ name: 'Main' });
 	if (to.matched.length === 0) next({ name: 'NotFound' });
@@ -53,7 +53,9 @@ router.beforeEach((to, from, next) => {
 function checkToShowToast() {
 	const toastConfig = useAppStore().showToastOnRouting;
 	if (!!toastConfig) {
-		useToast()[toastConfig.toastType](toastConfig.toastContent, { timeout: 5000 });
+		useToast()[toastConfig.toastType](toastConfig.toastContent, {
+			timeout: 5000,
+		});
 		useAppStore().showToastOnRouting = null;
 	}
 }

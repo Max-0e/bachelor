@@ -2,9 +2,7 @@
 	<AppLabel :for="name">{{ label }}</AppLabel>
 	<div class="mx-5 mt-2 mb-5 relative rounded-md shadow-md">
 		<input
-			@input="
-				$emit('update:modelValue', ($event.target as HTMLInputElement).value)
-			"
+			@input="inputValue = ($event.target as HTMLInputElement).value"
 			@focusout="showValidation = true"
 			class="p-3 pl-7 pr-12 block w-full dark:bg-dark-50 sm:text-sm rounded-md focus-visible:(outline outline-2)"
 			:class="
@@ -40,18 +38,19 @@ const props = defineProps({
 	name: String,
 	id: String,
 	placeholder: String,
-	modelValue: { type: String, required: true },
 	autocomplete: String,
 	validationTypes: Array as PropType<validationType[]>,
 	match: String,
 });
 
-defineEmits(['validated', 'update:modelValue']);
+const inputValue = ref('');
+
+defineEmits(['validated']);
 
 const refProps = toRefs(props);
 
 const validationText = computed(() => {
-	const modelValue = refProps.modelValue.value;
+	const modelValue = inputValue.value;
 	const validationTypes = refProps.validationTypes?.value;
 
 	if (!!validationTypes) {
@@ -78,9 +77,16 @@ const validationText = computed(() => {
 	return false;
 });
 
+function patchValue(newValue: string) {
+	inputValue.value = newValue;
+}
+function getInputValue() {
+	return inputValue.value;
+}
+
 function validate(): boolean {
 	showValidation.value = true;
 	return !validationText.value;
 }
-defineExpose({ validate });
+defineExpose({ validate, patchValue, getInputValue });
 </script>

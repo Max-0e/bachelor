@@ -1,9 +1,9 @@
 import { RouteRecordRaw } from 'vue-router';
 
 import Dashboard from '@/components/Dashboard/Dashboard.vue';
-import Levels from '@/components/Levels/Levels.vue';
 import Profile from '@/components/Profile/Profile.vue';
 import Settings from '@/components/Settings/Settings.vue';
+import Levels from '@/views/Levels.vue';
 import { levelsResolver } from './resolver/level.resolver';
 
 const mainRoutes: Array<RouteRecordRaw> = [

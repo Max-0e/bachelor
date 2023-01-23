@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<AppInputField
-			v-model="password"
+			ref="password"
 			type="password"
 			name="password"
 			id="password"
@@ -11,7 +11,7 @@
 	</div>
 	<div>
 		<AppInputField
-			v-model="password2"
+			ref="password2"
 			type="password"
 			name="password2"
 			id="password2"
@@ -27,22 +27,25 @@
 	</div>
 </template>
 <script setup lang="ts">
+import { FormGroup } from '@/components/shared/Input/formGroup';
+import { inputRef } from '@/intefaces/form.interface';
 import { ToastType } from '@/intefaces/toastConfig';
 import router from '@/router';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
-import { ref } from 'vue';
-import AppButton from '../shared/Input/AppButton.vue';
-import AppInputField from '../shared/Input/AppInputField.vue';
 
-const password = ref('');
-const password2 = ref('');
+const password = inputRef();
+const password2 = inputRef();
+
+const formGroup = new FormGroup({ password, password2 });
 
 async function resetPassword() {
+	if (!formGroup.validate()) return;
 	const pwdResetToken = router.currentRoute.value.params.resetToken as string;
+
 	await authService
 		.resetPassword({
-			password: password.value,
+			password: formGroup.formObjects.password.value,
 			pwdResetToken: pwdResetToken,
 		})
 		.then((_) => {

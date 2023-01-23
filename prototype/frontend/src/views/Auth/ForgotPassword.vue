@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<AppInputField
-			v-model="payload.usernameOrEmail"
 			:validation-types="[validationType.required]"
 			ref="usernameOrEmail"
 			type="text"
@@ -19,26 +18,22 @@
 	</div>
 </template>
 <script setup lang="ts">
+import { FormGroup } from '@/components/shared/Input/formGroup';
 import { validationType } from '@/enums/validationType.enum';
 import { inputRef } from '@/intefaces/form.interface';
 import { ToastType } from '@/intefaces/toastConfig';
 import router from '@/router';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
-import { FormGroup } from '../shared/Input/formGroup';
 
-const payload = ref({
-	usernameOrEmail: '',
-});
 const usernameOrEmail = inputRef();
-const formGroup = new FormGroup([usernameOrEmail]);
+const formGroup = new FormGroup({ usernameOrEmail });
 
 async function requestResetLink() {
 	if (!formGroup.validate()) return;
-	console.log(formGroup.validate());
 
 	await authService
-		.forgotPassword(payload.value.usernameOrEmail)
+		.forgotPassword(formGroup.value.usernameOrEmail)
 		.then((_) => {
 			useAppStore().showToastOnRouting = {
 				toastType: ToastType.SUCCESS,
@@ -47,7 +42,7 @@ async function requestResetLink() {
 			};
 			router.push('login');
 		})
-		.catch((e) => {
+		.catch((_) => {
 			return;
 		});
 }
