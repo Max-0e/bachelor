@@ -1,7 +1,8 @@
-import { Entity } from "./entity.interface";
+import { Entity } from './entity.interface';
+import { LinkableEntity } from './linkable-entity.interface';
 
 export interface IEntityGroup {
-    levelId: string;
+	levelId: string;
 }
 
-export type EntityGroup = Entity<IEntityGroup>
+export type EntityGroup = Entity<LinkableEntity<IEntityGroup>>;

@@ -63,7 +63,7 @@ export abstract class EntityController<T> {
 	}
 
 	public async deleteEntity(
-		req: Request<{ id: string }>,
+		req: Request<IdRequest>,
 		res: Response
 	): Promise<Response> {
 		await this.entityService.deleteEntityById(req.params.id);

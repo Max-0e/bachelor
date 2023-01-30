@@ -1,7 +1,6 @@
-import { ITask } from "@/intefaces/task.interface";
-import { EntityService } from "./entity.service";
+import { ITask } from '@/intefaces/task.interface';
+import { LinkableEntityService } from './linkable-entity.service';
 
-class TaskService extends EntityService<ITask>{
-}
+class TaskService extends LinkableEntityService<ITask> {}
 
 export const taskService = new TaskService('tasks');

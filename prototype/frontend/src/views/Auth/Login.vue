@@ -1,26 +1,22 @@
 <template>
-	<div>
-		<AppInputField
-			:validation-types="[validationType.required]"
-			ref="usernameOrEmail"
-			type="text"
-			name="usernameOrEmail"
-			id="usernameOrEmail"
-			placeholder="Username/E-Mail"
-			autocomplete="username email"
-			label="Username/E-Mail" />
-	</div>
-	<div>
-		<AppInputField
-			:validation-types="[validationType.required]"
-			ref="password"
-			type="password"
-			name="password"
-			id="password"
-			placeholder="Password"
-			autocomplete="current-password"
-			label="Password" />
-	</div>
+	<AppInputField
+		:validation-types="[validationType.required]"
+		ref="usernameOrEmail"
+		type="text"
+		name="usernameOrEmail"
+		id="usernameOrEmail"
+		placeholder="Username/E-Mail"
+		autocomplete="username email"
+		label="Username/E-Mail" />
+	<AppInputField
+		:validation-types="[validationType.required]"
+		ref="password"
+		type="password"
+		name="password"
+		id="password"
+		placeholder="Password"
+		autocomplete="current-password"
+		label="Password" />
 	<div class="mb-15">
 		<AppButton @click="login()">Login</AppButton>
 	</div>

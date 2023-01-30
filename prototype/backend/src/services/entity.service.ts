@@ -1,10 +1,12 @@
-import { EntityCreateDto, EntityReadDto } from '@/interfaces/dtos/entityDto.interface';
+import {
+	EntityCreateDto,
+	EntityReadDto,
+} from '@/interfaces/dtos/entityDto.interface';
 import { Entity, EntityDocument } from '@/interfaces/entity.interface';
 import { Model } from 'mongoose';
 import { NotFoundError } from '../error/not-found.error';
 
 export abstract class EntityService<T> {
-
 	public readonly EntityModel;
 
 	constructor(entityModel: Model<Entity<T>>) {
@@ -15,12 +17,16 @@ export abstract class EntityService<T> {
 	}
 	public async getEntityById(id: string) {
 		const entity = await this.EntityModel.findById(id);
-		if (!entity) throw new NotFoundError('This Entity does not exists.');
+		if (!entity)
+			throw new NotFoundError(`Entity with id ${id} does not exists.`);
 
 		return entity;
 	}
 
-	public async createEntity(entity: EntityCreateDto<T>): Promise<EntityDocument<T>> {
+	public async createEntity(
+		entity: EntityCreateDto<T>
+	): Promise<EntityDocument<T>> {
+		this.validateEntityCreateDto(entity);
 		const entityModel = new this.EntityModel({ ...entity });
 		const newEntity = await entityModel.save();
 
@@ -28,11 +34,12 @@ export abstract class EntityService<T> {
 	}
 
 	public async updateEntity(entityId: string, entity: EntityCreateDto<T>) {
+		this.validateEntityUpdateDto(entity);
 		const entityToUpdate = await this.getEntityById(entityId);
 		const updatedEntity = {
 			_id: entityId,
-			...entity
-		}
+			...entity,
+		};
 		await entityToUpdate.updateOne(updatedEntity);
 		return await this.getEntityById(entityId);
 	}
@@ -42,11 +49,14 @@ export abstract class EntityService<T> {
 		return entity.delete();
 	}
 
-	public async mapToDto(entity: EntityDocument<T>) {
-		return entity.toJSON() as EntityReadDto<T>
+	public mapToDto(entity: EntityDocument<T>) {
+		return entity.toJSON() as EntityReadDto<T>;
 	}
 
-	public async mapArrayToDtoArray(entities: EntityDocument<T>[]): Promise<EntityReadDto<T>[]> {
-		return Promise.all(entities.map(async (entity) => await this.mapToDto(entity)))
+	public mapArrayToDtoArray(entities: EntityDocument<T>[]): EntityReadDto<T>[] {
+		return entities.map((entity) => this.mapToDto(entity));
 	}
+
+	abstract validateEntityCreateDto(entity: EntityCreateDto<T>): void;
+	abstract validateEntityUpdateDto(entity: EntityCreateDto<T>): void;
 }

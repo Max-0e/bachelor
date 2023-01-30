@@ -4,6 +4,8 @@ import Dashboard from '@/components/Dashboard/Dashboard.vue';
 import Profile from '@/components/Profile/Profile.vue';
 import Settings from '@/components/Settings/Settings.vue';
 import Levels from '@/views/Levels.vue';
+import levelViewRoutes from './MainChildrenRoutes/levels';
+import { groupsResolver } from './resolver/groups.resolver';
 import { levelsResolver } from './resolver/level.resolver';
 
 const mainRoutes: Array<RouteRecordRaw> = [
@@ -11,7 +13,6 @@ const mainRoutes: Array<RouteRecordRaw> = [
 		path: 'dashboard',
 		name: 'Dashboard',
 		component: Dashboard,
-		// beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
 	},
 	{
 		path: 'profile',
@@ -29,24 +30,12 @@ const mainRoutes: Array<RouteRecordRaw> = [
 		component: Levels,
 		beforeEnter: levelsResolver,
 	},
-	// {
-	// 	path: 'projects',
-	// 	component: ProjectLayout,
-	// 	beforeEnter: projectsResolver,
-	// 	children: projectsRoutes,
-	// },
-	// {
-	// 	path: 'initiatives',
-	// 	component: RouterNesting,
-	// 	beforeEnter: [initiativesResolver, projectsResolver],
-	// 	children: initiativesRoutes,
-	// },
-	// {
-	// 	path: 'objectives',
-	// 	component: RouterNesting,
-	// 	beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
-	// 	children: objectivesRoutes,
-	// },
+	{
+		path: 'levelView/:levelId',
+		name: 'LevelView',
+		children: levelViewRoutes,
+		beforeEnter: [groupsResolver, levelsResolver],
+	},
 ];
 
 export default mainRoutes;

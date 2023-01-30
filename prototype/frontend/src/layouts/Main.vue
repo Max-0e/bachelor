@@ -15,9 +15,12 @@
 					class="transition-all rounded-md px-2"
 					>Levels</router-link
 				>
-				<!-- <router-link :to="{ name: 'Objectives' }" class="transition-all rounded-md px-2">Portfolio</router-link>
-				<router-link :to="{ name: 'Initiatives' }" class="transition-all rounded-md px-2">Coordination</router-link>
-				<router-link :to="{ name: 'Projects' }" class="transition-all rounded-md px-2">Operation</router-link> -->
+				<router-link
+					v-for="level of levelStore.entities"
+					:to="'/app/levelView/' + level.id"
+					class="transition-all rounded-md px-2 m-2"
+					>{{ level.name }}</router-link
+				>
 			</div>
 		</div>
 		<div class="flex">
@@ -57,7 +60,7 @@
 	<footer
 		class="w-full relative h-8 p-1 flex justify-between shadow-md bg-gray-100 dark:(bg-dark-100)">
 		<div class="flex justify-evenly">
-			<span>hello {{ useAuthStore().user?.username }}</span>
+			<span>Welcome {{ useAuthStore().user?.username }}</span>
 		</div>
 	</footer>
 </template>
@@ -72,6 +75,8 @@ import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 
 const refreshing = ref(false);
+
+const levelStore = useLevelStore();
 
 async function logout() {
 	useAuthStore()
@@ -103,10 +108,5 @@ async function refreshData() {
 
 .content-container {
 	height: calc(100vh - 5.75rem);
-}
-
-.router-link-active {
-	background-color: gray;
-	color: white;
 }
 </style>

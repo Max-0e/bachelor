@@ -1,10 +1,10 @@
-interface IEntity extends IEntityCreate {
+interface IEntity {
 	id: string;
+	name: string;
 }
 
 interface IEntityCreate {
 	name: string;
-	entityGroupIds: string[];
 }
 
 export type Entity<T> = IEntity & T;

@@ -1,15 +1,13 @@
 <template>
-	<div>
-		<AppInputField
-			:validation-types="[validationType.required]"
-			ref="usernameOrEmail"
-			type="text"
-			name="usernameOrEmail"
-			id="usernameOrEmail"
-			placeholder="Username/E-Mail"
-			autocomplete="username email"
-			label="Username/E-Mail" />
-	</div>
+	<AppInputField
+		:validation-types="[validationType.required]"
+		ref="usernameOrEmail"
+		type="text"
+		name="usernameOrEmail"
+		id="usernameOrEmail"
+		placeholder="Username/E-Mail"
+		autocomplete="username email"
+		label="Username/E-Mail" />
 	<div class="mb-15">
 		<AppButton @click="requestResetLink()">Send Reset Link</AppButton>
 	</div>

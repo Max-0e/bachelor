@@ -1,24 +1,20 @@
 <template>
-	<div>
-		<AppInputField
-			ref="password"
-			type="password"
-			name="password"
-			id="password"
-			placeholder="New Password"
-			autocomplete="new-password"
-			label="New Password" />
-	</div>
-	<div>
-		<AppInputField
-			ref="password2"
-			type="password"
-			name="password2"
-			id="password2"
-			placeholder="Reenter New Password"
-			autocomplete="new-password"
-			label="Reenter New Password" />
-	</div>
+	<AppInputField
+		ref="password"
+		type="password"
+		name="password"
+		id="password"
+		placeholder="New Password"
+		autocomplete="new-password"
+		label="New Password" />
+	<AppInputField
+		ref="password2"
+		type="password"
+		name="password2"
+		id="password2"
+		placeholder="Reenter New Password"
+		autocomplete="new-password"
+		label="Reenter New Password" />
 	<div class="mb-15">
 		<AppButton @click="resetPassword()">Reset Password</AppButton>
 	</div>
