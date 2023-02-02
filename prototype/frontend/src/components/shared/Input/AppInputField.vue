@@ -90,5 +90,9 @@ function validate(): boolean {
 	showValidation.value = true;
 	return !validationText.value;
 }
-defineExpose({ validate, patchValue, getInputValue });
+
+function resetValidation() {
+	showValidation.value = false;
+}
+defineExpose({ validate, patchValue, getInputValue, resetValidation });
 </script>

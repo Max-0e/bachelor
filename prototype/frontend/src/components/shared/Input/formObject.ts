@@ -9,8 +9,12 @@ export class FormObject {
 	patchValue(value: string) {
 		this.inputRef.value?.patchValue(value);
 	}
+
 	validate() {
 		return this.inputRef.value?.validate() ?? false;
+	}
+	resetValidation() {
+		this.inputRef.value?.resetValidation();
 	}
 
 	get value() {
