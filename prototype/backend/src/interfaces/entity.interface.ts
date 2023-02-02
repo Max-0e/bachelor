@@ -5,9 +5,6 @@ export interface IEntity {
 	name: string;
 }
 
-export type Entity<T> = {
-	_id: string;
-	name: string;
-} & T;
+export type Entity<T> = IEntity & T;
 
 export type EntityDocument<T> = Document & Entity<T>;

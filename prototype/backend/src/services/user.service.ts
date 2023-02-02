@@ -1,6 +1,6 @@
-import { UserDto } from '@/interfaces/dtos/userDto.interface';
 import { AuthorizationError } from '../error/auth.error';
 import { NotFoundError } from '../error/not-found.error';
+import { UserDto } from '../interfaces/dtos/userDto.interface';
 import { UserDocument, UserModel } from '../models/user.model';
 
 class UserService {

@@ -27,6 +27,7 @@ declare module '@vue/runtime-core' {
     CreateGroupFormModal: typeof import('./src/components/Groups/CreateGroupFormModal.vue')['default']
     CreateLevelForm: typeof import('./src/components/Levels/CreateLevelForm.vue')['default']
     CreateLevelFormModal: typeof import('./src/components/Levels/CreateLevelFormModal.vue')['default']
+    CreateOrganizationFormModal: typeof import('./src/components/Organizations/CreateOrganizationFormModal.vue')['default']
     Dashboard: typeof import('./src/components/Dashboard/Dashboard.vue')['default']
     DraggableItem: typeof import('./src/components/shared/DragAndDrop/DraggableItem.vue')['default']
     DropZone: typeof import('./src/components/shared/DragAndDrop/DropZone.vue')['default']

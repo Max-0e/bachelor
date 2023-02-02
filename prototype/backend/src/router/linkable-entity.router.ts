@@ -1,13 +1,13 @@
 import { LinkableEntityController } from '../controller/linkable-entity.controller';
-import { makeEntityRouter } from './entity.router';
+import { makeOrganizationBasedEntityRouter } from './organization-based-entity.router';
 
 export function makeLinkableEntityRouter<T>(
 	linkableEntityController: LinkableEntityController<T>
 ) {
-	const router = makeEntityRouter(linkableEntityController);
+	const router = makeOrganizationBasedEntityRouter(linkableEntityController);
 
 	router.post(
-		'/link/:entityId/:entityToLinkToId',
+		':organizationId/link/:entityId/:entityToLinkToId',
 		linkableEntityController.linkEntityToEntityFromOtherHirarchy
 	);
 

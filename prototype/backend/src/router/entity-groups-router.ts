@@ -3,7 +3,5 @@ import { IEntityGroup } from '../interfaces/entityGroup.interface';
 import { makeLinkableEntityRouter } from './linkable-entity.router';
 
 export function makeEntityGroupsRouter() {
-	const router = makeLinkableEntityRouter<IEntityGroup>(entityGroupsController);
-
-	return router;
+	return makeLinkableEntityRouter<IEntityGroup>(entityGroupsController);
 }

@@ -2,8 +2,14 @@
 	<nav
 		class="w-full relative h-15 top-0 shadow-md flex justify-between z-99 bg-white dark:(bg-dark-700)">
 		<div class="flex flex-wrap">
-			<h1 class="text-3xl my-auto ml-5 content-center">Prototype</h1>
-			<div class="ml-5 flex items-center">
+			<h1
+				class="text-3xl my-auto ml-5 content-center"
+				@click="router.push({ name: 'Organization' })">
+				Prototype
+			</h1>
+			<div
+				v-if="!!useOrganizationStore().currentEntity"
+				class="ml-5 flex items-center">
 				<router-link
 					:to="{ name: 'Dashboard' }"
 					class="transition-all rounded-md px-2"
@@ -17,7 +23,7 @@
 				>
 				<router-link
 					v-for="level of levelStore.entities"
-					:to="'/app/levelView/' + level.id"
+					:to="{ name: 'LevelView', params: { levelId: level.id } }"
 					class="transition-all rounded-md px-2 m-2"
 					>{{ level.name }}</router-link
 				>
@@ -70,12 +76,12 @@ import router from '@/router';
 import { useAuthStore } from '@/store/auth';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 
 const refreshing = ref(false);
-
 const levelStore = useLevelStore();
 
 async function logout() {

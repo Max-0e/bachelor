@@ -1,10 +1,10 @@
+import { Model } from 'mongoose';
+import { NotFoundError } from '../error/not-found.error';
 import {
 	EntityCreateDto,
 	EntityReadDto,
-} from '@/interfaces/dtos/entityDto.interface';
-import { Entity, EntityDocument } from '@/interfaces/entity.interface';
-import { Model } from 'mongoose';
-import { NotFoundError } from '../error/not-found.error';
+} from '../interfaces/dtos/entityDto.interface';
+import { Entity, EntityDocument } from '../interfaces/entity.interface';
 
 export abstract class EntityService<T> {
 	public readonly EntityModel;
@@ -29,8 +29,7 @@ export abstract class EntityService<T> {
 		this.validateEntityCreateDto(entity);
 		const entityModel = new this.EntityModel({ ...entity });
 		const newEntity = await entityModel.save();
-
-		return this.getEntityById(newEntity._id);
+		return await this.getEntityById(newEntity._id);
 	}
 
 	public async updateEntity(entityId: string, entity: EntityCreateDto<T>) {

@@ -2,9 +2,9 @@ import { ValidationError } from '../error/validation.error';
 import { EntityCreateDto } from '../interfaces/dtos/entityDto.interface';
 import { ILevel } from '../interfaces/level.interface';
 import { LevelModel } from '../models/level.model';
-import { EntityService } from './entity.service';
+import { OrganizationBasedEntityService } from './organization-based-entity.service';
 
-class LevelService extends EntityService<ILevel> {
+class LevelService extends OrganizationBasedEntityService<ILevel> {
 	constructor() {
 		super(LevelModel);
 	}

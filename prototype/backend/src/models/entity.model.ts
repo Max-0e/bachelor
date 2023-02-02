@@ -1,5 +1,5 @@
-import { Entity } from '@/interfaces/entity.interface';
 import { model, Schema, SchemaDefinition } from 'mongoose';
+import { Entity } from '../interfaces/entity.interface';
 
 export function makeEntityModel<T>(
 	entityName: string,

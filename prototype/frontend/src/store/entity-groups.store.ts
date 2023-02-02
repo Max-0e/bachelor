@@ -2,8 +2,9 @@ import { IEntityGroup } from '@/intefaces/entity-groups.interface';
 import { LinkableEntity } from '@/intefaces/linkable-entity.interface';
 import router from '@/router';
 import { entityGroupsService } from '@/services/entity-groups.service';
-import { EntityState, getEntityStateDefaults } from './entity.store';
+import { EntityState } from './entity.store';
 import { defineLinkableEntityStore } from './linkable-entity.store';
+import { getOrganizationBasedEntityStateDefaults } from './organization-based-entity.store';
 
 const makeEntityGroupGetters = () => ({
 	currentGroups(state: EntityState<LinkableEntity<IEntityGroup>>) {
@@ -21,7 +22,7 @@ export const useGroupStore = defineLinkableEntityStore<
 >(
 	'group',
 	entityGroupsService,
-	getEntityStateDefaults(),
+	getOrganizationBasedEntityStateDefaults(),
 	makeEntityGroupGetters(),
 	makeEntityGroupActions()
 );

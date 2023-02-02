@@ -1,8 +1,8 @@
 import { ITask } from '@/intefaces/task.interface';
 import { taskService } from '@/services/task.service';
 
-import { getEntityStateDefaults } from './entity.store';
 import { defineLinkableEntityStore } from './linkable-entity.store';
+import { getOrganizationBasedEntityStateDefaults } from './organization-based-entity.store';
 
 const makeTaskGetters = () => ({});
 
@@ -15,7 +15,7 @@ export const useTaskStore = defineLinkableEntityStore<
 >(
 	'task',
 	taskService,
-	getEntityStateDefaults(),
+	getOrganizationBasedEntityStateDefaults(),
 	makeTaskGetters(),
 	makeTaskActions()
 );

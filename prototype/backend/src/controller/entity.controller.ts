@@ -1,9 +1,9 @@
+import { Request, Response } from 'express';
 import {
 	EntityCreateDto,
 	EntityReadDto,
-} from '@/interfaces/dtos/entityDto.interface';
-import { EntityService } from '@/services/entity.service';
-import { Request, Response } from 'express';
+} from '../interfaces/dtos/entityDto.interface';
+import { EntityService } from '../services/entity.service';
 import sendResponse from '../utility/sendResponse';
 
 export abstract class EntityController<T> {
@@ -22,7 +22,7 @@ export abstract class EntityController<T> {
 		return await sendResponse.data<EntityReadDto<T>[]>(
 			res,
 			200,
-			await this.entityService.mapArrayToDtoArray(entities)
+			this.entityService.mapArrayToDtoArray(entities)
 		);
 	}
 
@@ -31,7 +31,7 @@ export abstract class EntityController<T> {
 		return await sendResponse.data<EntityReadDto<T>>(
 			res,
 			200,
-			await this.entityService.mapToDto(entity)
+			this.entityService.mapToDto(entity)
 		);
 	}
 
@@ -43,7 +43,7 @@ export abstract class EntityController<T> {
 		return await sendResponse.data<EntityReadDto<T>>(
 			res,
 			201,
-			await this.entityService.mapToDto(createdEntity)
+			this.entityService.mapToDto(createdEntity)
 		);
 	}
 
@@ -58,7 +58,7 @@ export abstract class EntityController<T> {
 		return await sendResponse.data<EntityReadDto<T>>(
 			res,
 			203,
-			await this.entityService.mapToDto(updatedEntity)
+			this.entityService.mapToDto(updatedEntity)
 		);
 	}
 

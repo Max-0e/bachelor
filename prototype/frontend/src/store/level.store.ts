@@ -1,27 +1,27 @@
 import { ILevel } from '@/intefaces/level.interface';
 import { levelService } from '@/services/level.service';
 import {
-	defineEntityStore,
-	EntityState,
-	getEntityStateDefaults,
-} from './entity.store';
+	defineOrganizationBasedEntityStore,
+	getOrganizationBasedEntityStateDefaults,
+	OrganizationBasedEntityState,
+} from './organization-based-entity.store';
 
 const makeLevelGetters = () => ({
-	getNextHirachyLevel(state: EntityState<ILevel>) {
+	getNextHirachyLevel(state: OrganizationBasedEntityState<ILevel>) {
 		return state.entities.length;
 	},
 });
 
 const makeLevelActions = () => ({});
 
-export const useLevelStore = defineEntityStore<
+export const useLevelStore = defineOrganizationBasedEntityStore<
 	ILevel,
 	ReturnType<typeof makeLevelGetters>,
 	ReturnType<typeof makeLevelActions>
 >(
 	'level',
 	levelService,
-	getEntityStateDefaults(),
+	getOrganizationBasedEntityStateDefaults(),
 	makeLevelGetters(),
 	makeLevelActions
 );

@@ -50,7 +50,7 @@ function login() {
 	if (!formGroup.validate()) return;
 	useAuthStore()
 		.login(formGroup.value)
-		.then((_) => router.push({ name: 'Dashboard' }))
+		.then((_) => router.push({ name: 'Organization' }))
 		.catch((error) => useToast().error(error.message, { timeout: 5000 }));
 }
 </script>
