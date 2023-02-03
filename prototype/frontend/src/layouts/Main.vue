@@ -73,16 +73,18 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/store/auth';
-// import { useGroupStore } from '@/store/entity-groups.store';
+import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 import { useOrganizationStore } from '@/store/organization.store';
-// import { useTaskStore } from '@/store/tasks.store';
+import { useTaskStore } from '@/store/tasks.store';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
 const refreshing = ref(false);
 const organizationStore = useOrganizationStore();
+const groupStore = useGroupStore();
+const taskStore = useTaskStore();
 const levelStore = useLevelStore();
 const router = useRouter();
 const authStore = useAuthStore();
@@ -96,9 +98,9 @@ async function logout() {
 
 async function refreshData() {
 	refreshing.value = true;
-	// await useTaskStore().loadEntities();
-	// await useGroupStore().loadEntities();
-	// await useLevelStore().loadEntities();
+	await taskStore.loadEntities();
+	await groupStore.loadEntities();
+	await levelStore.loadEntities();
 	toast.info('you are up to date', { timeout: 1500 });
 	refreshing.value = false;
 }

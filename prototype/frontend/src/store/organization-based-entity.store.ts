@@ -40,8 +40,9 @@ export function defineOrganizationBasedEntityStore<
 		state: (): OrganizationBasedEntityState<T> => state,
 		getters: {
 			currentEntity(state: OrganizationBasedEntityState<T>) {
+				const router = useRouter();
 				const currentEntityId =
-					useRouter().currentRoute.value.params[storeName + 'Id'];
+					router.currentRoute.value.params[storeName + 'Id'];
 				return state.entities.find((entity) => entity.id === currentEntityId);
 			},
 			...(getters as PiniaReadyGetters),
