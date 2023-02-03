@@ -1,5 +1,5 @@
 export interface IOrganizationBasedEntity {
-	entityGroupIds: string[];
+	organizationId: string;
 }
 
 export type OrganizationBasedEntity<T> = IOrganizationBasedEntity & T;
