@@ -11,6 +11,7 @@ const levelViewRoutes: Array<RouteRecordRaw> = [
 	},
 	{
 		path: 'group/:groupId',
+		name: 'GroupView',
 		component: GroupView,
 	},
 ];

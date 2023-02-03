@@ -1,9 +1,10 @@
 import { Entity, EntityCreate } from '@/intefaces/entity.interface';
 import { OrganizationBasedEntity } from '@/intefaces/organization-based-entity.interface';
-import router from '@/router';
+
 import { OrganizationBasedEntityService } from '@/services/organization-based-entity.service';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import { useOrganizationStore } from './organization.store';
 
@@ -40,7 +41,7 @@ export function defineOrganizationBasedEntityStore<
 		getters: {
 			currentEntity(state: OrganizationBasedEntityState<T>) {
 				const currentEntityId =
-					router.currentRoute.value.params[storeName + 'Id'];
+					useRouter().currentRoute.value.params[storeName + 'Id'];
 				return state.entities.find((entity) => entity.id === currentEntityId);
 			},
 			...(getters as PiniaReadyGetters),

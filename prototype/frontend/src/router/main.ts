@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import Profile from '@/components/Profile/Profile.vue';
 import Settings from '@/components/Settings/Settings.vue';
 import { organizationRoutes } from './organization';
-import { organizationsResolver } from './resolver/organizations.resolver';
+// import { organizationsResolver } from './resolver/organizations.resolver';
 
 const mainRoutes: Array<RouteRecordRaw> = [
 	{
@@ -13,8 +13,7 @@ const mainRoutes: Array<RouteRecordRaw> = [
 	},
 	{
 		path: 'organization',
-		name: 'Organization',
-		beforeEnter: [organizationsResolver],
+		// beforeEnter: [organizationsResolver],
 		children: organizationRoutes,
 	},
 	{

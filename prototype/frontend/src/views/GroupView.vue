@@ -19,10 +19,10 @@
 </template>
 <script lang="ts" setup>
 import { modalRef } from '@/intefaces/modal.interface';
-import router from '@/router';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 import { ref } from '@vue/reactivity';
+import { useRouter } from 'vue-router';
 
 const deleteGroupModal = modalRef();
 
@@ -31,6 +31,6 @@ const currentGroup = ref(groupStore.currentEntity!);
 
 function deleteCurrentGroup() {
 	groupStore.deleteEntity(currentGroup.value);
-	router.push('/app/levelView/' + useLevelStore().currentEntity!.id);
+	useRouter().push('/app/levelView/' + useLevelStore().currentEntity!.id);
 }
 </script>

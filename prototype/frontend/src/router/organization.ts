@@ -4,18 +4,17 @@ import Dashboard from '@/components/Dashboard/Dashboard.vue';
 import Levels from '@/views/Levels.vue';
 import OrganizationView from '@/views/OrganizationView.vue';
 import levelViewRoutes from './MainChildrenRoutes/levels';
-import { groupsResolver } from './resolver/groups.resolver';
-import { levelsResolver } from './resolver/level.resolver';
+// import { groupsResolver } from './resolver/groups.resolver';
+// import { levelsResolver } from './resolver/level.resolver';
 
 export const organizationRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '',
-		name: 'defaultt',
+		name: 'Organization',
 		component: OrganizationView,
 	},
 	{
 		path: ':organizationId',
-		name: 'Organization',
 		children: [
 			{
 				path: '',
@@ -31,13 +30,12 @@ export const organizationRoutes: Array<RouteRecordRaw> = [
 				path: 'levels',
 				name: 'Levels',
 				component: Levels,
-				beforeEnter: levelsResolver,
+				// beforeEnter: levelsResolver,
 			},
 			{
 				path: 'levelView/:levelId',
-				name: 'LevelView',
 				children: levelViewRoutes,
-				beforeEnter: [groupsResolver, levelsResolver],
+				// beforeEnter: [groupsResolver, levelsResolver],
 			},
 		],
 	},

@@ -5,11 +5,13 @@ import Toast, { PluginOptions } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 import 'windi.css';
 import App from './App.vue';
-import router from './router';
+
 import { useAppStore } from './store/app';
 import { useAuthStore } from './store/auth';
 
 import { Chart, registerables } from 'chart.js';
+import { router } from './router';
+
 Chart.register(...registerables);
 
 const app = createApp(App);

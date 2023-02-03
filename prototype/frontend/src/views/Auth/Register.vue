@@ -48,10 +48,9 @@ import { FormGroup } from '@/components/shared/Input/formGroup';
 import { validationType } from '@/enums/validationType.enum';
 import { inputRef } from '@/intefaces/form.interface';
 import { ToastType } from '@/intefaces/toastConfig';
-import router from '@/router';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const email = inputRef();
 const username = inputRef();
@@ -68,7 +67,7 @@ async function register() {
 				toastContent:
 					'Registration Successfull. Please confirm your E-Mail-Adress',
 			};
-			router.push('login');
+			useRouter().push('login');
 		});
 }
 </script>

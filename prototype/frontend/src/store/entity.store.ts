@@ -1,5 +1,5 @@
 import { Entity, EntityCreate } from '@/intefaces/entity.interface';
-import router from '@/router';
+import { router } from '@/router';
 import { EntityService } from '@/services/entity.service';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';

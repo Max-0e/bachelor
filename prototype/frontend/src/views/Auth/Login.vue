@@ -30,16 +30,17 @@
 
 <script setup lang="ts">
 import { validationType } from '@/enums/validationType.enum';
-import router from '@/router';
+
 import { useAuthStore } from '@/store/auth';
 
 import { FormGroup } from '@/components/shared/Input/formGroup';
 import { inputRef } from '@/intefaces/form.interface';
-import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
 const usernameOrEmail = inputRef();
 const password = inputRef();
+const router = useRouter();
 
 const formGroup = new FormGroup({
 	usernameOrEmail,

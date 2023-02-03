@@ -20,9 +20,9 @@ import { FormGroup } from '@/components/shared/Input/formGroup';
 import { validationType } from '@/enums/validationType.enum';
 import { inputRef } from '@/intefaces/form.interface';
 import { ToastType } from '@/intefaces/toastConfig';
-import router from '@/router';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
+import { useRouter } from 'vue-router';
 
 const usernameOrEmail = inputRef();
 const formGroup = new FormGroup({ usernameOrEmail });
@@ -38,7 +38,7 @@ async function requestResetLink() {
 				toastContent:
 					'The user with the given E-Mail-Address received his reset Link if he exists.',
 			};
-			router.push('login');
+			useRouter().push('login');
 		})
 		.catch((_) => {
 			return;

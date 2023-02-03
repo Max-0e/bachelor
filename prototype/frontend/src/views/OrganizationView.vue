@@ -5,7 +5,7 @@
 			v-for="organization in useOrganizationStore().entities"
 			class="bg-dark-700 p-10"
 			@click="
-				router.push('/app/organization/' + organization.id + '/dashboard')
+				$router.push('/app/organization/' + organization.id + '/dashboard')
 			">
 			{{ organization.name }}
 		</div>
@@ -17,7 +17,6 @@
 </template>
 <script lang="ts" setup>
 import { modalRef } from '@/intefaces/modal.interface';
-import router from '@/router';
 import { useOrganizationStore } from '@/store/organization.store';
 
 const createOrganizationFormModal = modalRef();

@@ -4,8 +4,8 @@
 	</div>
 	<GroupCard
 		@click="
-			router.push(
-				router.currentRoute.value.fullPath.toString() + '/group/' + group.id
+			$router.push(
+				$router.currentRoute.value.fullPath.toString() + '/group/' + group.id
 			)
 		"
 		v-for="group of groupStore.currentGroups"
@@ -20,7 +20,6 @@
 </template>
 <script lang="ts" setup>
 import { modalRef } from '@/intefaces/modal.interface';
-import router from '@/router';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 

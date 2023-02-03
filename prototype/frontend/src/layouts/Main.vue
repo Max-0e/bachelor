@@ -8,7 +8,7 @@
 				Prototype
 			</h1>
 			<div
-				v-if="!!useOrganizationStore().currentEntity"
+				v-if="!!organizationStore.currentEntity"
 				class="ml-5 flex items-center">
 				<router-link
 					:to="{ name: 'Dashboard' }"
@@ -66,38 +66,40 @@
 	<footer
 		class="w-full relative h-8 p-1 flex justify-between shadow-md bg-gray-100 dark:(bg-dark-100)">
 		<div class="flex justify-evenly">
-			<span>Welcome {{ useAuthStore().user?.username }}</span>
+			<span>Welcome {{ authStore.user?.username }}</span>
 		</div>
 	</footer>
 </template>
 
 <script setup lang="ts">
-import router from '@/router';
 import { useAuthStore } from '@/store/auth';
-import { useGroupStore } from '@/store/entity-groups.store';
+// import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 import { useOrganizationStore } from '@/store/organization.store';
-import { useTaskStore } from '@/store/tasks.store';
+// import { useTaskStore } from '@/store/tasks.store';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
 const refreshing = ref(false);
+const organizationStore = useOrganizationStore();
 const levelStore = useLevelStore();
+const router = useRouter();
+const authStore = useAuthStore();
+const toast = useToast();
 
 async function logout() {
-	useAuthStore()
-		.logout()
-		.then((_) => {
-			router.push({ name: 'Login' });
-		});
+	authStore.logout().then((_) => {
+		router.push({ name: 'Login' });
+	});
 }
 
 async function refreshData() {
 	refreshing.value = true;
-	await useTaskStore().loadEntities();
-	await useGroupStore().loadEntities();
-	await useLevelStore().loadEntities();
-	useToast().info('you are up to date', { timeout: 1500 });
+	// await useTaskStore().loadEntities();
+	// await useGroupStore().loadEntities();
+	// await useLevelStore().loadEntities();
+	toast.info('you are up to date', { timeout: 1500 });
 	refreshing.value = false;
 }
 </script>
