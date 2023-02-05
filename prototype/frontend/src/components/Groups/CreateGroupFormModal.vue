@@ -35,14 +35,16 @@ const formGroup = new FormGroup({ name });
 
 const submit = () => {
 	if (!formGroup.validate()) return;
+
 	const currentLevel = levelStore.currentEntity;
-	console.log('blub:', currentLevel);
 	if (!currentLevel) return;
+
 	groupStore.createEntity({
 		name: formGroup.formObjects.name.value,
 		levelId: currentLevel.id,
 		entityGroupIds: [],
 	});
+
 	modal.value?.close();
 };
 

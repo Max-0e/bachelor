@@ -3,9 +3,9 @@
 		class="w-full relative h-15 top-0 shadow-md flex justify-between z-99 bg-white dark:(bg-dark-700)">
 		<div class="flex flex-wrap">
 			<h1
-				class="text-3xl my-auto ml-5 content-center"
+				class="text-3xl my-auto ml-5 content-center cursor-pointer"
 				@click="router.push({ name: 'Organization' })">
-				Prototype
+				{{ organizationStore.currentEntity?.name ?? 'Prototype' }}
 			</h1>
 			<div
 				v-if="!!organizationStore.currentEntity"
@@ -21,12 +21,29 @@
 					class="transition-all rounded-md px-2"
 					>Levels</router-link
 				>
-				<router-link
-					v-for="level of levelStore.entities"
-					:to="{ name: 'LevelView', params: { levelId: level.id } }"
-					class="transition-all rounded-md px-2 m-2"
-					>{{ level.name }}</router-link
-				>
+				<div
+					v-for="level of levelStore.entities.sort(
+						(a, b) => b.hirarchyLevel - a.hirarchyLevel
+					)">
+					<router-link
+						v-if="level.hirarchyLevel > 1"
+						:to="{ name: 'LevelView', params: { levelId: level.id } }"
+						class="transition-all rounded-md px-2 m-2"
+						>{{ level.name }}</router-link
+					>
+					<router-link
+						v-else-if="
+							level.hirarchyLevel > 0 ||
+							!organizationStore.currentEntity?.useEpics
+						"
+						class="transition-all rounded-md px-2 m-2"
+						:to="{
+							name: 'Projects',
+							params: { levelId: level.id },
+						}">
+						{{ level.name }}</router-link
+					>
+				</div>
 			</div>
 		</div>
 		<div class="flex">

@@ -2,8 +2,10 @@
 	<div class="flex w-full gap-6 text-2xl py-5">
 		<div class="w-1/3">Open</div>
 		<div class="w-1/3">
-			In Progress ({{ project.tasks.filter((task) => task.status === Status.inProgress).length }} of
-			{{ project.wipLimit }})
+			In Progress ({{
+				project.tasks.filter((task) => task.status === Status.inProgress).length
+			}}
+			of {{ project.wipLimit }})
 		</div>
 		<div class="w-1/3">Done</div>
 	</div>
@@ -12,7 +14,9 @@
 			<DraggableItem
 				@dragstart=""
 				:data="task.id"
-				v-for="task in project.tasks.filter((task) => task.status === Status.open)">
+				v-for="task in project.tasks.filter(
+					(task) => task.status === Status.open
+				)">
 				<AlternativeTaskListItem
 					:task="task"
 					:project="project"
@@ -20,13 +24,18 @@
 			</DraggableItem>
 		</DropZone>
 		<DropZone
-			:disable="project.tasks.filter((task) => task.status === Status.inProgress).length >= project.wipLimit"
+			:disable="
+				project.tasks.filter((task) => task.status === Status.inProgress)
+					.length >= project.wipLimit
+			"
 			class="w-1/3"
 			@onDrop="onDrop($event, Status.inProgress)">
 			<DraggableItem
 				@dragstart=""
 				:data="task.id"
-				v-for="task in project.tasks.filter((task) => task.status === Status.inProgress)">
+				v-for="task in project.tasks.filter(
+					(task) => task.status === Status.inProgress
+				)">
 				<AlternativeTaskListItem
 					:task="task"
 					:project="project"
@@ -37,7 +46,9 @@
 			<DraggableItem
 				@dragstart=""
 				:data="task.id"
-				v-for="task in project.tasks.filter((task) => task.status === Status.done)">
+				v-for="task in project.tasks.filter(
+					(task) => task.status === Status.done
+				)">
 				<AlternativeTaskListItem
 					:task="task"
 					:project="project"
@@ -46,7 +57,9 @@
 		</DropZone>
 	</div>
 
-	<AppYesNoModal ref="deleteModal" @yes="projectStore.deleteTask(project, taskToDelete)">
+	<AppYesNoModal
+		ref="deleteModal"
+		@yes="projectStore.deleteTask(project, taskToDelete)">
 		Delete Project "{{ taskToDelete.name }}"?
 	</AppYesNoModal>
 </template>
@@ -56,11 +69,11 @@ import { IProject } from '@/intefaces/project.interface';
 import { ITask, Status } from '@/intefaces/task.interface';
 import { useProjectStore } from '@/store/project';
 import { PropType, Ref, ref } from 'vue';
-import AlternativeTaskListItem from './Tasks-Components/AlternativeTaskListItem.vue';
+import AlternativeTaskListItem from '../../../../../old/Tasks/Tasks-Components/AlternativeTaskListItem.vue';
 
 import AppYesNoModal from '@/components/shared/Modal/AppYesNoModal.vue';
-import DropZone from '../shared/DragAndDrop/DropZone.vue';
 import DraggableItem from '../shared/DragAndDrop/DraggableItem.vue';
+import DropZone from '../shared/DragAndDrop/DropZone.vue';
 
 const projectStore = useProjectStore();
 

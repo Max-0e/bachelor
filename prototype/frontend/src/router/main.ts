@@ -1,8 +1,8 @@
 import { RouteRecordRaw } from 'vue-router';
 
 import Profile from '@/components/Profile/Profile.vue';
-import Settings from '@/components/Settings/Settings.vue';
-import { organizationRoutes } from './organization';
+import Settings from '@/views/Settings.vue';
+import { organizationRoutes } from './MainChildrenRoutes/organization';
 import { organizationsResolver } from './resolver/organizations.resolver';
 
 const mainRoutes: Array<RouteRecordRaw> = [

@@ -19,9 +19,9 @@
 					? 'visible ' + (disable ? 'bg-light-50 opacity-50' : '')
 					: 'hidden'
 			">
-			<span class="text-dark-900 opacity-100" v-if="disable"
-				>Wip limit reached</span
-			>
+			<span class="text-dark-900 opacity-100" v-if="disable">{{
+				disableMessage
+			}}</span>
 		</div>
 	</div>
 </template>
@@ -34,5 +34,6 @@ defineEmits(['onDrop']);
 
 defineProps({
 	disable: { type: Boolean, default: false },
+	disableMessage: String,
 });
 </script>

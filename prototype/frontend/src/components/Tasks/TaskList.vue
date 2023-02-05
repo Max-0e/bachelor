@@ -1,40 +1,45 @@
 <script setup lang="ts">
-import AppIcon from '../shared/UI/AppIcon.vue';
+import AppTaskListItem from '../../../../../old/Tasks/Tasks-Components/TaskListItem.vue';
 import AppButton from '../shared/Input/AppButton.vue';
-import AppTaskListItem from './Tasks-Components/TaskListItem.vue';
 import AppInputField from '../shared/Input/AppInputField.vue';
+import AppIcon from '../shared/UI/AppIcon.vue';
 
+import { IEpic } from '@/intefaces/epic.interface';
+import { IProject } from '@/intefaces/project.interface';
+import { ICreateTask, ITask } from '@/intefaces/task.interface';
 import { useProjectStore } from '@/store/project';
 import { PropType, Ref, ref } from 'vue';
-import { ICreateTask, ITask, Status } from '@/intefaces/task.interface';
-import { IProject } from '@/intefaces/project.interface';
-import AppToolTip from '../shared/UI/AppToolTip.vue';
 import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
-import { IEpic } from '@/intefaces/epic.interface';
+import AppToolTip from '../shared/UI/AppToolTip.vue';
 
 const projectStore = useProjectStore();
 
 const defaultTaskValue = { name: '', status: Status.open };
 const createNewTask = ref(false);
 
-const taskToCreate: Ref<ICreateTask> = ref({ name: defaultTaskValue.name, status: defaultTaskValue.status });
-
+const taskToCreate: Ref<ICreateTask> = ref({
+	name: defaultTaskValue.name,
+	status: defaultTaskValue.status,
+});
 
 function createTask() {
 	if (taskToCreate.value.name === defaultTaskValue.name) return;
-	if (!!props.epic) taskToCreate.value.epics = [props.epic.id]
+	if (!!props.epic) taskToCreate.value.epics = [props.epic.id];
 	projectStore.createTask(projectStore.getCurrentProject, taskToCreate.value);
 	setDefaults();
 }
 
-function removeFromEpic (task: ITask) {
-	if(!props.epic) return;
-	task.epics = task.epics.filter(epicId => props.epic?.id !== epicId)
+function removeFromEpic(task: ITask) {
+	if (!props.epic) return;
+	task.epics = task.epics.filter((epicId) => props.epic?.id !== epicId);
 	projectStore.updateTask(props.project, task);
 }
 
 function setDefaults() {
-	taskToCreate.value = { name: defaultTaskValue.name, status: defaultTaskValue.status };
+	taskToCreate.value = {
+		name: defaultTaskValue.name,
+		status: defaultTaskValue.status,
+	};
 	createNewTask.value = false;
 }
 const props = defineProps({
@@ -56,14 +61,22 @@ const props = defineProps({
 		</span>
 	</div>
 	<!-- Task List -->
-	<div class="flex items-center" v-for="task in (!!epic ? project.tasks.filter(task => task.epics?.includes(epic!.id)) : project.tasks)">
+	<div
+		class="flex items-center"
+		v-for="task in (!!epic ? project.tasks.filter(task => task.epics?.includes(epic!.id)) : project.tasks)">
 		<AppTaskListItem :task="task" :project="project" />
 		<AppToolTip text="remove from epic" position="left" v-if="!!epic">
-			<AppIcon class="text-red-600 hover:bg-dark-700" @click="removeFromEpic(task)">remove_circle_outline</AppIcon>
+			<AppIcon
+				class="text-red-600 hover:bg-dark-700"
+				@click="removeFromEpic(task)"
+				>remove_circle_outline</AppIcon
+			>
 		</AppToolTip>
 	</div>
 	<!-- Add Task Field -->
-	<div class="border border-dark-100 w-full rounded-md flex justify-between items-center p-2 m-2" v-if="createNewTask">
+	<div
+		class="border border-dark-100 w-full rounded-md flex justify-between items-center p-2 m-2"
+		v-if="createNewTask">
 		<span class="w-1/3 text-left">
 			<AppInputField
 				v-model="taskToCreate.name"
@@ -79,22 +92,45 @@ const props = defineProps({
 				selectText="select Status"
 				:options="[
 					{ name: Status[Status.open], value: Status.open },
-					{ name: Status[Status.inProgress], value: Status.inProgress, disabled: project.tasks.filter((task) => task.status === Status.inProgress).length >= project.wipLimit, disabledTooltip: 'WIP-Limit Reached' },
+					{
+						name: Status[Status.inProgress],
+						value: Status.inProgress,
+						disabled:
+							project.tasks.filter((task) => task.status === Status.inProgress)
+								.length >= project.wipLimit,
+						disabledTooltip: 'WIP-Limit Reached',
+					},
 					{ name: Status[Status.done], value: Status.done },
 				]"></AppDropDownMenu>
 		</span>
 		<span class="w-1/3">
-			<AppButton :iconButton="true" :color="'red'" :slim="true" class="px-2 m-1 float-right" @click="setDefaults()"
+			<AppButton
+				:iconButton="true"
+				:color="'red'"
+				:slim="true"
+				class="px-2 m-1 float-right"
+				@click="setDefaults()"
 				>clear</AppButton
 			>
-			<AppButton :iconButton="true" :color="'blue'" :slim="true" class="px-2 m-1 float-right" @click="createTask()"
+			<AppButton
+				:iconButton="true"
+				:color="'blue'"
+				:slim="true"
+				class="px-2 m-1 float-right"
+				@click="createTask()"
 				>done</AppButton
 			>
 		</span>
 	</div>
-	<div class="border border-dark-100 w-full rounded-md flex justify-around items-center p-2 m-2" v-else>
+	<div
+		class="border border-dark-100 w-full rounded-md flex justify-around items-center p-2 m-2"
+		v-else>
 		<AppToolTip text="create new Task">
-			<AppIcon class="hover:bg-light-900 dark:hover:bg-dark-400" @click="createNewTask = true"> add </AppIcon>
+			<AppIcon
+				class="hover:bg-light-900 dark:hover:bg-dark-400"
+				@click="createNewTask = true">
+				add
+			</AppIcon>
 		</AppToolTip>
 	</div>
 </template>

@@ -1,9 +1,7 @@
 <template>
 	<div
 		class="flex items-center justify-between p-10 bg-dark-500 m-10 text-left rounded-md"
-		v-for="level in store.entities.sort(
-			(a, b) => b.hirarchyLevel - a.hirarchyLevel
-		)">
+		v-for="level in store.entities">
 		<div class="w-1/3 text-3xl font-bold">{{ level.name }}</div>
 		<div class="w-1/3 text-3xl">{{ level.hirarchyLevel }}</div>
 		<AppToolTip text="Delete Level" position="top">
