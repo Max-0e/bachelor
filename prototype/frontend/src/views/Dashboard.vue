@@ -1,146 +1,143 @@
 <template>
 	Dashboard
-	<!-- <div class="text-left">Objectives</div>
-	<div class="p-10 flex gap-5">
-		<div
-			v-for="objective in objectives"
-			ref="objectiveRefs"
-			class="transition-all flex-grow rounded-md"
-			@mouseenter="markObjective(objective)"
-			@mouseleave="unmark()"
-			:class="markedObjective === objective || markedObjectives?.includes(objective) ? 'border border-5 border-blue-500' : ''">
-			<ObjectiveCard
-				class="cursor-pointer"
-				:objective="objective"
-				@click="router.push('/app/objectives/' + objective.id)" />
+	<AppToggleInput
+		:initial-value="linkingEnabled"
+		@change="linkingEnabled = !linkingEnabled"
+		label="Enable Linking"></AppToggleInput>
+	<div class="relative">
+		<svg v-if="linkingEnabled" ref="svg" class="absolute h-full w-full">
+			<Transition>
+				<path
+					v-if="showLink"
+					ref="path"
+					:d="`M ${startPosition.x} ${startPosition.y}, ${currentMousePosition.x} ${currentMousePosition.y}`"
+					stroke="black"
+					stroke-width="5"
+					fill="transparent" />
+			</Transition>
+		</svg>
+		<div v-for="level in levelStore.currentEntitiesFromOrganization">
+			<div class="text-left">{{ level.name }}</div>
+			<div class="p-10 flex gap-5">
+				<DropZone
+					v-if="linkingEnabled"
+					class="border border-2"
+					v-for="group in groups.filter((x) => x.levelId === level.id)"
+					@on-drop="link(group.id, $event)"
+					:class="
+						markedGroup === group || markedGroups.includes(group)
+							? '!border-blue-500'
+							: 'border-transparent'
+					">
+					<div
+						class="transition-all flex-grow rounded-md"
+						@mouseenter="markGroup(group)"
+						@mouseleave="unmark()">
+						{{ group.name }}
+						<div>some fancy Data</div>
+						<div class="flex justify-center">
+							<DraggableItem
+								@dragstart="startLinkage($event)"
+								@dragend="stopLinkage()"
+								:data="group.id">
+								<AppIcon>hub</AppIcon>
+							</DraggableItem>
+						</div>
+					</div>
+				</DropZone>
+				<div
+					v-else
+					class="transition-all flex-grow rounded-md border border-2 cursor-pointer"
+					v-for="group in groups.filter((x) => x.levelId === level.id)"
+					:class="
+						markedGroup === group || markedGroups.includes(group)
+							? '!border-blue-500'
+							: '!border-dark-500'
+					"
+					@mouseenter="markGroup(group)"
+					@mouseleave="unmark()">
+					{{ group.name }}
+					<div>some fancy Data</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="text-left">Initiatives</div>
-	<div class="p-10 flex gap-5">
-		<div
-			ref="initiativeRefs"
-			v-for="initiative in initiativeStore.initiatives"
-			class="transition-all flex-grow rounded-md"
-			@mouseenter="markInitiative(initiative)"
-			@mouseleave="unmark()"
-			:class="markedInitiative === initiative || markedInitiatives?.includes(initiative) ? 'border border-5 border-blue-500' : ''">
-			<InitiativeCard
-				class="cursor-pointer"
-				:initiative="initiative"
-				@click="router.push('/app/initiatives/' + initiative.id)" />
-		</div>
-	</div>
-	<div class="text-left">Projects</div>
-	<div class="p-10 flex gap-5">
-		<div
-			ref="projectsRefs"
-			v-for="project in projectStore.projects"
-			class="transition-all rounded-md flex-grow"
-			@mouseenter="markProject(project)"
-			@mouseleave="unmark()"
-			:class="markedProject === project || markedProjects?.includes(project) ? 'border border-5 border-blue-500' : ''">
-			<ProjectCard
-				class="cursor-pointer"
-				:key="project.name"
-				:light="true"
-				:project="project"
-				@click="router.push('/app/projects/' + project.id)" />
-		</div>
-	</div> -->
-	<!-- <div ref="blubRef" @click="blub()">blub</div> -->
 </template>
 <script setup lang="ts">
-// import { IInitiative } from '@/intefaces/initiative.interface';
-// import { IObjective } from '@/intefaces/objective.interface';
-// import { IProject } from '@/intefaces/project.interface';
-// import router from '@/router';
-// import { useInitiativeStore } from '@/store/initiatives';
-// import { useObjectiveStore } from '@/store/objectives';
-// import { useProjectStore } from '@/store/project';
-// import { ref } from 'vue';
-// import InitiativeCard from '../Initiatives/Initiatives-Components/InitiativeCard.vue';
-// import ObjectiveCard from '../Objectives/Objectives-Components/ObjectiveCard.vue';
-// import ProjectCard from '../Projects/Projects-Components/ProjectCard.vue';
+import { EntityGroup } from '@/intefaces/entity-groups.interface';
+import { useGroupStore } from '@/store/entity-groups.store';
+import { useLevelStore } from '@/store/level.store';
+import { computed, ref } from 'vue';
 
-// const objectiveStore = useObjectiveStore();
-// const initiativeStore = useInitiativeStore();
-// const projectStore = useProjectStore();
+const groupStore = useGroupStore();
+const levelStore = useLevelStore();
 
-// const objectives = ref(objectiveStore.objectives);
+const groups = ref(groupStore.currentEntitiesFromOrganization);
 
-// const markedObjective = ref<IObjective | IObjective[] | null>(null);
-// const markedObjectives = ref<IObjective[] | null>(null);
-// const markedInitiative = ref<IInitiative | null>(null);
-// const markedInitiatives = ref<IInitiative[] | null>(null);
-// const markedProject = ref<IProject | null>(null);
-// const markedProjects = ref<IProject[] | null>(null);
+const markedGroup = ref<EntityGroup | undefined>(undefined);
+const markedGroups = computed(() => {
+	const groupsstuff = groups.value;
+	groupsstuff;
+	return markedGroup.value
+		? getLinkedGroupsUp(markedGroup.value).concat(
+				getLinkedGroupsDown(markedGroup.value)
+		  )
+		: [];
+});
 
-// function markObjective(objective: IObjective) {
-// 	markedObjective.value = objective;
-// 	markedInitiatives.value = objective.initiatives.map(
-// 		(initiativeid) => initiativeStore.initiatives.find((initiative) => initiativeid === initiative.id)!
-// 	);
-// 	markedProjects.value = markedInitiatives.value.flatMap((initiative) =>
-// 		projectStore.projects.filter((project) => initiative.projects.includes(project.id))
-// 	);
-// }
+const linkingEnabled = ref(false);
 
-// function markInitiative(initiative: IInitiative) {
-// 	markedInitiative.value = initiative;
-// 	markedObjectives.value = objectives.value.filter((objective) =>
-// 		objective.initiatives.find((i) => i === initiative.id)
-// 	);
-// 	markedProjects.value = projectStore.projects.filter((project) => initiative.projects.includes(project.id));
-// }
+const path = ref<SVGPathElement | null>(null);
 
-// function markProject(project: IProject) {
-// 	markedProject.value = project;
-// 	markedInitiatives.value = initiativeStore.initiatives.filter((initiative) =>
-// 		initiative.projects.find((p) => p === project.id)
-// 	);
-// 	markedObjectives.value = objectives.value.filter((objective) =>
-// 		objective.initiatives.find((initiativeId) =>
-// 			markedInitiatives.value?.find((initiative) => initiativeId === initiative.id)
-// 		)
-// 	);
-// }
+const showLink = ref(false);
 
-// function unmark() {
-// 	markedObjective.value = null;
-// 	markedInitiative.value = null;
-// 	markedProject.value = null;
-// 	markedObjectives.value = null;
-// 	markedInitiatives.value = null;
-// 	markedProjects.value = null;
-// }
+const startPosition = ref({
+	x: 0,
+	y: 0,
+});
+const currentMousePosition = ref({
+	x: 0,
+	y: 0,
+});
 
-// const objectiveRefs = ref<InstanceType<typeof HTMLDivElement>[]>([]);
-// const initiativeRefs = ref<InstanceType<typeof HTMLDivElement>[]>([]);
-// const projectsRefs = ref<InstanceType<typeof HTMLDivElement>[]>([]);
+document.addEventListener('drag', (e) => {
+	currentMousePosition.value.x = e.pageX - 20;
+	currentMousePosition.value.y = e.pageY - 130;
+});
 
-// const blubRef = ref<InstanceType<typeof HTMLDivElement>>();
+function getLinkedGroupsUp(group: EntityGroup): EntityGroup[] {
+	const linkedGroups = groups.value.filter((x) =>
+		group.entityGroupIds.includes(x.id)
+	);
+	return linkedGroups.concat(linkedGroups.flatMap((x) => getLinkedGroupsUp(x)));
+}
+function getLinkedGroupsDown(group: EntityGroup): EntityGroup[] {
+	const linkedGroups = groups.value.filter((x) =>
+		x.entityGroupIds.includes(group.id)
+	);
+	return linkedGroups.concat(
+		linkedGroups.flatMap((x) => getLinkedGroupsDown(x))
+	);
+}
 
-// const blub = () => {
-// 	console.log(blubRef.value?.getBoundingClientRect())
-// }
+function markGroup(group: EntityGroup) {
+	markedGroup.value = group;
+}
 
-// onMounted(() => console.log('objectiveRefs', objectiveRefs.value));
+function unmark() {
+	markedGroup.value = undefined;
+}
+
+function startLinkage(event: DragEvent) {
+	showLink.value = true;
+	startPosition.value.x = event.pageX - 20;
+	startPosition.value.y = event.pageY - 130;
+}
+function stopLinkage() {
+	showLink.value = false;
+}
+
+function link(entityToLinkToId: string, entityId: string) {
+	groupStore.link(entityId, entityToLinkToId);
+}
 </script>
-
-<!-- <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-
-const list = ref([1, 2, 3])
-
-const itemRefs = ref([])
-
-onMounted(() => {
-  console.log(itemRefs.value.map(i => (i as any).getBoundingClientRect().y))
-})
-</script>
-
-<template>
-  <div ref="itemRefs" v-for="item in list">
-    {{ item }}
-  </div>
-</template> -->

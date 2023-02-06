@@ -1,11 +1,11 @@
 import { LinkableEntity } from '@/intefaces/linkable-entity.interface';
-import { OrganizationBasedEntity } from '@/intefaces/organization-based-entity.interface';
 import { LinkableEntityService } from '@/services/linkable-entity.service';
-import { EntityStore } from './entity.store';
+import { useToast } from 'vue-toastification';
 import {
 	defineOrganizationBasedEntityStore,
 	OrganizationBasedEntityState,
 } from './organization-based-entity.store';
+import { useOrganizationStore } from './organization.store';
 
 export function defineLinkableEntityStore<
 	T,
@@ -22,16 +22,35 @@ export function defineLinkableEntityStore<
 		storeName,
 		linkableEntityService,
 		state,
-		getters,
+		{
+			getEntitiesLinkedToEntityGroupId(
+				state: OrganizationBasedEntityState<LinkableEntity<T>>
+			) {
+				return (entityGroupId: string) =>
+					state.entities.filter(({ entityGroupIds }) =>
+						entityGroupIds.includes(entityGroupId)
+					);
+			},
+			...getters,
+		},
 		{
 			link(
-				this: EntityStore<OrganizationBasedEntity<LinkableEntity<T>>>,
+				this: any, //EntityStore<OrganizationBasedEntity<LinkableEntity<T>>>,
 				entityId: string,
-				entityIdToLinkTo: string
+				entityIdToLinkTo: string,
+				organizationId: string | undefined = useOrganizationStore()
+					.currentEntity?.id
 			) {
+				if (!organizationId) return;
 				linkableEntityService
-					.link(entityId, entityIdToLinkTo)
-					.then((updatedEntity) => this.updateEntityInState(updatedEntity));
+					.link(organizationId, entityId, entityIdToLinkTo)
+					.then((updatedEntity) => {
+						this.updateEntityInState(updatedEntity);
+						useToast().success('linked successfully');
+					})
+					.catch((e) => {
+						useToast().error(e.message);
+					});
 			},
 			...actions,
 		}

@@ -8,11 +8,15 @@ import { OrganizationBasedEntityService } from './organization-based-entity.serv
 export abstract class LinkableEntityService<
 	T
 > extends OrganizationBasedEntityService<LinkableEntity<T>> {
-	public async link(entityId: string, entityIdToLinkTo: string) {
+	public async link(
+		organizationId: string,
+		entityId: string,
+		entityIdToLinkTo: string
+	) {
 		return await HttpClient.post<
 			Entity<OrganizationBasedEntity<LinkableEntity<T>>>
 		>(
-			`${API_URL}/${this.entityName}/link/${entityId}/${entityIdToLinkTo}`,
+			`${API_URL}/organization/${this.entityName}/${organizationId}/link/${entityId}/${entityIdToLinkTo}`,
 			{},
 			{
 				withCredentials: true,

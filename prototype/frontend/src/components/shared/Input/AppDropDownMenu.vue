@@ -28,7 +28,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { onMounted, PropType, ref } from 'vue';
+import { onMounted, PropType, ref, toRef, watch } from 'vue';
 
 const props = defineProps({
 	selectText: { type: String, required: true },
@@ -45,18 +45,27 @@ const props = defineProps({
 	},
 });
 
+const defaultValueName = toRef(props, 'defaultValueName');
+watch(defaultValueName, (x) => {
+	setDefaultOption(x);
+});
+
 const expanded = ref(false);
 
 const selectedOption = ref({ name: props.selectText, value: null });
 
 onMounted(() => {
-	if (!!props.defaultValueName && !!props.options) {
+	setDefaultOption(props.defaultValueName);
+});
+
+const setDefaultOption = (value?: string) => {
+	if (!!value && !!props.options) {
 		const defaultOption = props.options.find(
 			(option) => option.name === props.defaultValueName
 		);
 		if (!!defaultOption) selectedOption.value = defaultOption;
 	}
-});
+};
 
 const emit = defineEmits(['update:modelValue']);
 

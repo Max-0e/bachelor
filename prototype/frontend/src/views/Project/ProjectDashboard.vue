@@ -18,27 +18,34 @@
 				<AppIcon @click="deteleProjectModal?.open()">delete</AppIcon>
 			</AppToolTip>
 		</div>
-		<!-- <div>
-			Tasks (done): {{ metrics.doneTasksLength }}<br />
+		<div>
+			Tasks (done):
+			{{
+				taskStore
+					.getEntitiesLinkedToEntityGroupId(currentProject.id)
+					.filter(({ status }) => status === 'done').length
+			}}<br />
 			Progress: {{ metrics.progress }}%
 		</div>
-		<DoughnutChart
-			:chartData="
-				getProjectChartData([
-					metrics.openTasksLength,
-					metrics.inProgressTasksLength,
-					metrics.doneTasksLength,
-				])
-			"
-			:options="projectDoughnutChartOptions" />
+		<div class="w-1/4 m-auto">
+			<Doughnut
+				:data="
+					getProjectChartData([
+						metrics.openLength,
+						metrics.inProgressLength,
+						metrics.doneLength,
+					])
+				"
+				:options="projectDoughnutChartOptions" />
+		</div>
 		<div class="p-5">
-			<AlternativeTaskList :project="currentProject" />
+			<AlternativeTaskList />
 		</div>
 		<div class="p-5">
 			<AppCollapsible triggerText="Backlog">
-				<AppTaskList :project="currentProject" />
+				<TaskList />
 			</AppCollapsible>
-		</div> -->
+		</div>
 	</div>
 	<div v-else>Something went Wrong...</div>
 	<AppYesNoModal ref="deteleProjectModal" @yes="deleteCurrentProject()">
@@ -51,18 +58,29 @@ import { useGroupStore } from '@/store/entity-groups.store';
 import { ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
-// import { projectDoughnutChartOptions, getProjectChartData } from '@/chartoptions/projectDoughnutChartOptions';
+import {
+	getProjectChartData,
+	projectDoughnutChartOptions,
+} from '@/components/chartoptions/projectDoughnutChartOptions';
+import { useTaskStore } from '@/store/tasks.store';
+
+import { Doughnut } from 'vue-chartjs';
 
 const groupStore = useGroupStore();
+const taskStore = useTaskStore();
 const router = useRouter();
 
 const currentProject = ref(groupStore.currentEntity);
 const deteleProjectModal = modalRef();
+
+const tasks = ref(
+	taskStore.getEntitiesLinkedToEntityGroupId(currentProject.value!.id)
+);
 
 function deleteCurrentProject() {
 	groupStore.deleteEntity(currentProject.value!);
 	router.push({ name: 'Projects' });
 }
 
-// const metrics = projectStore.computeMetricsForProject(currentProject);
+const metrics = taskStore.computeMetrics(tasks);
 </script>

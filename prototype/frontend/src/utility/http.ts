@@ -53,7 +53,9 @@ class HttpClient {
 		);
 	}
 
-	private async makeHttpResponseFromAxiosPromise<T>(axiosPromise: Promise<AxiosResponse<T>>): Promise<T> {
+	private async makeHttpResponseFromAxiosPromise<T>(
+		axiosPromise: Promise<AxiosResponse<T>>
+	): Promise<T> {
 		try {
 			const response = await axiosPromise;
 			if (DEV_MODE) {
@@ -65,7 +67,10 @@ class HttpClient {
 				if (DEV_MODE) {
 					Logger.debug('Http error', error.response?.data);
 				}
-				throw new HttpError(error.response.data, error.response.status);
+				throw new HttpError(
+					error.response.data.message ?? error.response.data,
+					error.response.status
+				);
 			} else {
 				throw new HttpError();
 			}

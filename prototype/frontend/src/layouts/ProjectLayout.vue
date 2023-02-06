@@ -19,7 +19,7 @@
 					<AppIcon> dashboard </AppIcon>
 				</router-link>
 			</AppToolTip>
-			<!-- <AppToolTip
+			<AppToolTip
 				class="w-full flex justify-center p-2"
 				text="Task-Board"
 				position="right"
@@ -36,12 +36,12 @@
 				<router-link :to="{ name: 'ProjectBacklog' }" class="transition-all">
 					<AppIcon> list </AppIcon>
 				</router-link>
-			</AppToolTip> -->
+			</AppToolTip>
 			<AppToolTip
 				class="w-full flex justify-center p-2"
 				text="Epics"
 				position="right"
-				v-if="currentProject">
+				v-if="currentProject && useOrganizationStore().currentEntity?.useEpics">
 				<router-link :to="{ name: 'Epics' }" class="transition-all">
 					<AppIcon> view_module </AppIcon>
 				</router-link>
@@ -63,6 +63,7 @@
 </template>
 <script setup lang="ts">
 import { useGroupStore } from '@/store/entity-groups.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { ref } from '@vue/reactivity';
 
 const groupStore = useGroupStore();

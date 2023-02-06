@@ -4,7 +4,10 @@
 		class="transition-all"
 		:class="hidden ? 'hidden' : 'visible'"
 		@drag="hidden = true"
-		@dragend="hidden = false"
+		@dragend="
+			hidden = false;
+			$emit('dragend', $event);
+		"
 		@dragstart="
 			startDrag($event);
 			$emit('dragstart', $event);
@@ -17,7 +20,10 @@ import { ref } from 'vue';
 
 const hidden = ref(false);
 
-defineEmits<{ (e: 'dragstart', data: DragEvent): void }>();
+defineEmits<{
+	(e: 'dragstart', data: DragEvent): void;
+	(e: 'dragend', data: DragEvent): void;
+}>();
 
 const props = defineProps({
 	data: { type: String, required: true },

@@ -1,101 +1,83 @@
 <template>
 	<div class="flex w-full gap-6 text-2xl py-5">
 		<div class="w-1/3">Open</div>
-		<div class="w-1/3">
-			In Progress ({{
-				project.tasks.filter((task) => task.status === Status.inProgress).length
-			}}
-			of {{ project.wipLimit }})
-		</div>
+		<div class="w-1/3">In Progress</div>
 		<div class="w-1/3">Done</div>
 	</div>
 	<div class="flex w-full gap-6">
-		<DropZone class="w-1/3" @onDrop="onDrop($event, Status.open)">
-			<DraggableItem
-				@dragstart=""
-				:data="task.id"
-				v-for="task in project.tasks.filter(
-					(task) => task.status === Status.open
-				)">
-				<AlternativeTaskListItem
-					:task="task"
-					:project="project"
-					@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
-			</DraggableItem>
+		<DropZone class="w-1/3" @onDrop="onDrop($event, 'open')">
+			<TransitionGroup>
+				<DraggableItem
+					:data="task.id"
+					:key="task.id"
+					v-for="task in tasks.filter(({ status }) => status === 'open')">
+					<AlternativeTaskListItem
+						:task="task"
+						@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
+				</DraggableItem>
+			</TransitionGroup>
 		</DropZone>
-		<DropZone
-			:disable="
-				project.tasks.filter((task) => task.status === Status.inProgress)
-					.length >= project.wipLimit
-			"
-			class="w-1/3"
-			@onDrop="onDrop($event, Status.inProgress)">
-			<DraggableItem
-				@dragstart=""
-				:data="task.id"
-				v-for="task in project.tasks.filter(
-					(task) => task.status === Status.inProgress
-				)">
-				<AlternativeTaskListItem
-					:task="task"
-					:project="project"
-					@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
-			</DraggableItem>
+		<DropZone class="w-1/3" @onDrop="onDrop($event, 'inProgress')">
+			<TransitionGroup>
+				<DraggableItem
+					:data="task.id"
+					:key="task.id"
+					v-for="task in tasks.filter(({ status }) => status === 'inProgress')">
+					<AlternativeTaskListItem
+						:task="task"
+						@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
+				</DraggableItem>
+			</TransitionGroup>
 		</DropZone>
-		<DropZone class="w-1/3" @onDrop="onDrop($event, Status.done)">
-			<DraggableItem
-				@dragstart=""
-				:data="task.id"
-				v-for="task in project.tasks.filter(
-					(task) => task.status === Status.done
-				)">
-				<AlternativeTaskListItem
-					:task="task"
-					:project="project"
-					@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
-			</DraggableItem>
+		<DropZone class="w-1/3" @onDrop="onDrop($event, 'done')">
+			<TransitionGroup>
+				<DraggableItem
+					:key="task.id"
+					:data="task.id"
+					v-for="task in tasks.filter(({ status }) => status === 'done')">
+					<AlternativeTaskListItem
+						:task="task"
+						@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
+				</DraggableItem>
+			</TransitionGroup>
 		</DropZone>
 	</div>
 
-	<AppYesNoModal
-		ref="deleteModal"
-		@yes="projectStore.deleteTask(project, taskToDelete)">
-		Delete Project "{{ taskToDelete.name }}"?
+	<AppYesNoModal ref="deleteModal" @yes="taskStore.deleteEntity(taskToDelete!)">
+		Delete Project "{{ taskToDelete?.name }}"?
 	</AppYesNoModal>
 </template>
 
 <script setup lang="ts">
-import { IProject } from '@/intefaces/project.interface';
-import { ITask, Status } from '@/intefaces/task.interface';
-import { useProjectStore } from '@/store/project';
-import { PropType, Ref, ref } from 'vue';
-import AlternativeTaskListItem from '../../../../../old/Tasks/Tasks-Components/AlternativeTaskListItem.vue';
+import { modalRef } from '@/intefaces/modal.interface';
+import { Status, Task } from '@/intefaces/task.interface';
+import { useGroupStore } from '@/store/entity-groups.store';
+import { useTaskStore } from '@/store/tasks.store';
+import { Ref, ref } from 'vue';
 
-import AppYesNoModal from '@/components/shared/Modal/AppYesNoModal.vue';
-import DraggableItem from '../shared/DragAndDrop/DraggableItem.vue';
-import DropZone from '../shared/DragAndDrop/DropZone.vue';
+const taskStore = useTaskStore();
 
-const projectStore = useProjectStore();
+const taskToDelete: Ref<Task | undefined> = ref();
+const deleteModal = modalRef();
 
-const taskToDelete: Ref<ITask> = ref({ id: '', name: '', status: Status.done });
-const deleteModal = ref<InstanceType<typeof AppYesNoModal> | null>(null);
-
-function openDeleteTaskModal(task: ITask) {
+function openDeleteTaskModal(task: Task) {
 	deleteModal.value!.open();
 	taskToDelete.value = task;
 }
 
-const props = defineProps({
-	project: { type: Object as PropType<IProject>, required: true },
-});
+const currentProject = useGroupStore().currentEntity;
+
+const tasks = ref(
+	taskStore.getEntitiesLinkedToEntityGroupId(currentProject!.id)
+);
 
 function onDrop(taskId: string, status: Status) {
-	const task = props.project.tasks.find((task) => task.id == taskId);
+	const task = tasks.value.find((task) => task.id == taskId);
 
 	if (!task) return;
 	if (task.status === status) return;
 
 	task.status = status;
-	useProjectStore().updateTask(props.project, task);
+	taskStore.updateEntity(task.id, task);
 }
 </script>

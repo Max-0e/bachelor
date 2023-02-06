@@ -1,5 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 
+import AlternativeTaskListVue from '@/components/Tasks/AlternativeTaskList.vue';
+import TaskListVue from '@/components/Tasks/TaskList.vue';
 import ProjectLayoutVue from '@/layouts/ProjectLayout.vue';
 import GroupView from '@/views/GroupView.vue';
 import LevelView from '@/views/LevelView.vue';
@@ -30,6 +32,16 @@ const levelViewRoutes: Array<RouteRecordRaw> = [
 						path: 'dashboard',
 						name: 'ProjectDashboard',
 						component: ProjectDashboardVue,
+					},
+					{
+						path: 'board',
+						name: 'ProjectBoard',
+						component: AlternativeTaskListVue,
+					},
+					{
+						path: 'backlog',
+						name: 'ProjectBacklog',
+						component: TaskListVue,
 					},
 					{
 						path: 'epics',

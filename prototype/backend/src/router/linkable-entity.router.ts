@@ -7,7 +7,7 @@ export function makeLinkableEntityRouter<T>(
 	const router = makeOrganizationBasedEntityRouter(linkableEntityController);
 
 	router.post(
-		':organizationId/link/:entityId/:entityToLinkToId',
+		'/:organizationId/link/:entityId/:entityToLinkToId',
 		linkableEntityController.linkEntityToEntityFromOtherHirarchy
 	);
 

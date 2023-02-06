@@ -45,6 +45,14 @@ export function defineOrganizationBasedEntityStore<
 					router.currentRoute.value.params[storeName + 'Id'];
 				return state.entities.find((entity) => entity.id === currentEntityId);
 			},
+			currentEntitiesFromOrganization(state: OrganizationBasedEntityState<T>) {
+				const router = useRouter();
+				const currentOrganizationId =
+					router.currentRoute.value.params['organizationId'];
+				return state.entities.filter(
+					(entity) => entity.organizationId === currentOrganizationId
+				);
+			},
 			...(getters as PiniaReadyGetters),
 		},
 		actions: {

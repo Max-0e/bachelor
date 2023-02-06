@@ -5,6 +5,7 @@ import Levels from '@/views/Levels.vue';
 import OrganizationView from '@/views/OrganizationView.vue';
 import { groupsResolver } from '../resolver/groups.resolver';
 import { levelsResolver } from '../resolver/level.resolver';
+import { tasksResolver } from '../resolver/tasks.resolver';
 import levelViewRoutes from './levels';
 
 export const organizationRoutes: Array<RouteRecordRaw> = [
@@ -15,6 +16,7 @@ export const organizationRoutes: Array<RouteRecordRaw> = [
 	},
 	{
 		path: ':organizationId',
+		beforeEnter: [tasksResolver, groupsResolver, levelsResolver],
 		children: [
 			{
 				path: '',
@@ -30,12 +32,10 @@ export const organizationRoutes: Array<RouteRecordRaw> = [
 				path: 'levels',
 				name: 'Levels',
 				component: Levels,
-				beforeEnter: levelsResolver,
 			},
 			{
 				path: 'levelView/:levelId',
 				children: levelViewRoutes,
-				beforeEnter: [groupsResolver, levelsResolver],
 			},
 		],
 	},

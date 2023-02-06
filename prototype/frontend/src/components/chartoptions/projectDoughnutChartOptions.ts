@@ -1,9 +1,8 @@
 import { ChartData, ChartOptions } from 'chart.js';
-import { computed, Ref } from 'vue';
 
 export const projectDoughnutChartOptions: ChartOptions<'doughnut'> = {
 	responsive: true,
-	maintainAspectRatio: false,
+	maintainAspectRatio: true,
 	animation: {
 		animateRotate: true,
 		animateScale: true,

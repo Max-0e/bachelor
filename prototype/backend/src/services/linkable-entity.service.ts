@@ -30,6 +30,9 @@ export abstract class LinkableEntityService<
 			organizationId,
 			entityId
 		);
+		if (entity.entityGroupIds.includes(entityIdToLinkTo))
+			throw new ConflictError('Entity already linked.');
+
 		const entityToLinkTo = await this.getEntityGroupById(
 			organizationId,
 			entityIdToLinkTo

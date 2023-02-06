@@ -26,7 +26,11 @@
 						(a, b) => b.hirarchyLevel - a.hirarchyLevel
 					)">
 					<router-link
-						v-if="level.hirarchyLevel > 1"
+						v-if="
+							level.hirarchyLevel > 1 ||
+							(level.hirarchyLevel === 1 &&
+								!organizationStore.currentEntity?.useEpics)
+						"
 						:to="{ name: 'LevelView', params: { levelId: level.id } }"
 						class="transition-all rounded-md px-2 m-2"
 						>{{ level.name }}</router-link
