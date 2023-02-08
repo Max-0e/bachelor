@@ -1,5 +1,5 @@
-import Auth from '@/layouts/Auth.vue';
-import Main from '@/layouts/Main.vue';
+import AuthVue from '@/layouts/Auth.vue';
+import MainVue from '@/layouts/Main.vue';
 import authRoutes from '@/router/auth';
 import mainRoutes from '@/router/main';
 import { useAppStore } from '@/store/app';
@@ -13,13 +13,13 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/app',
 		name: 'Main',
-		component: Main,
+		component: MainVue,
 		children: mainRoutes,
 	},
 	{
 		path: '/auth',
 		name: 'Auth',
-		component: Auth,
+		component: AuthVue,
 		meta: { noAuth: true },
 		children: authRoutes,
 	},
@@ -36,7 +36,7 @@ const routes: Array<RouteRecordRaw> = [
 	},
 ];
 
-const router = createRouter({
+export const router = createRouter({
 	history: createWebHistory(),
 	routes,
 });
@@ -59,5 +59,3 @@ function checkToShowToast() {
 		useAppStore().showToastOnRouting = null;
 	}
 }
-
-export default router;

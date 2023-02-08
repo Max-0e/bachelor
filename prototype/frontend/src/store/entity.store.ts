@@ -1,4 +1,5 @@
 import { Entity, EntityCreate } from '@/intefaces/entity.interface';
+import { router } from '@/router';
 import { EntityService } from '@/services/entity.service';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -33,7 +34,14 @@ export function defineEntityStore<
 
 	return defineStore(storeName, {
 		state: (): EntityState<T> => state,
-		getters: getters as PiniaReadyGetters,
+		getters: {
+			currentEntity(state: EntityState<T>) {
+				const currentEntityId =
+					router.currentRoute.value.params[storeName + 'Id'];
+				return state.entities.find((entity) => entity.id === currentEntityId);
+			},
+			...(getters as PiniaReadyGetters),
+		},
 		actions: {
 			async loadEntities() {
 				const entities = await entityService.getEntities();
@@ -75,3 +83,15 @@ export function defineEntityStore<
 		},
 	});
 }
+
+export type EntityStore<T> = EntityState<T> & {
+	currentEntity(state: EntityState<T>): Entity<T> | undefined;
+} & {
+	loadEntities(): Promise<void>;
+	createEntity(entityToCreate: EntityCreate<T>): void;
+	updateEntity(entityId: string, entityToUpdate: EntityCreate<T>): void;
+	updateEntityInState(entity: Entity<T>): void;
+	deleteEntity(entity: Entity<T>): void;
+	deleteEntityInState(entity: Entity<T>): void;
+	findEntityIndexInState(entityId: string): number;
+};

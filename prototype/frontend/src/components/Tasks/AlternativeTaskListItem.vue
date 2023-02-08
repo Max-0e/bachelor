@@ -2,14 +2,15 @@
 	<div
 		class="w-full cursor-move rounded-md flex justify-between items-center p-1 m-1"
 		:class="
-			task.status === Status.done
+			task.status === 'done'
 				? 'bg-green-400 dark:bg-green-600'
-				: task.status === Status.inProgress
+				: task.status === 'inProgress'
 				? 'bg-blue-400 dark:bg-blue-800'
 				: 'bg-gray-400 dark:bg-dark-200'
 		">
-		<span class="flex-grow text-left">
-			<AppInlineInputField
+		<span class="flex-grow text-left p-5">
+			{{ task.name }}
+			<!-- <AppInlineInputField
 				v-model="task.name"
 				type="text"
 				name="name"
@@ -17,7 +18,7 @@
 				placeholder="Task-Name"
 				label="Task-Name"
 				:with-label="false"
-				@save="projectStore.updateTask(project, task)" />
+				@save="taskStore.updateEntity(task.id, task)" /> -->
 		</span>
 		<span>
 			<div class="float-right">
@@ -33,20 +34,11 @@
 	</div>
 </template>
 <script setup lang="ts">
-import AppInlineInputField from '@/components/shared/Input/AppInlineInputField.vue';
-import AppIcon from '@/components/shared/UI/AppIcon.vue';
-import AppToolTip from '@/components/shared/UI/AppToolTip.vue';
-
-import { useProjectStore } from '@/store/project';
-import { PropType, ref } from 'vue';
-import { ITask, Status } from '@/intefaces/task.interface';
-import { IProject } from '@/intefaces/project.interface';
-
-const projectStore = useProjectStore();
+import { Task } from '@/intefaces/task.interface';
+import { PropType } from 'vue';
 
 defineProps({
-	task: { type: Object as PropType<ITask>, required: true },
-	project: { type: Object as PropType<IProject>, required: true },
+	task: { type: Object as PropType<Task>, required: true },
 });
 
 defineEmits(['onOpenDeleteTaskModal']);

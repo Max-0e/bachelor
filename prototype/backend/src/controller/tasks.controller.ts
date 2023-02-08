@@ -1,9 +1,8 @@
 import { ITask } from '../interfaces/task.interface';
 import { taskService } from '../services/tasks.service';
+import { LinkableEntityController } from './linkable-entity.controller';
 
-import { EntityController } from './entity.controller';
-
-class TasksController extends EntityController<ITask> {
+class TasksController extends LinkableEntityController<ITask> {
 	constructor() {
 		super(taskService);
 	}

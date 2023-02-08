@@ -6,7 +6,14 @@ import WindiCSS from 'vite-plugin-windicss';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [vue(), WindiCSS(), Components({ dts: true })],
+	plugins: [
+		vue(),
+		WindiCSS(),
+		Components({
+			dts: true,
+			dirs: ['src/components', 'src/layouts', 'src/views'],
+		}),
+	],
 	resolve: {
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -14,5 +21,8 @@ export default defineConfig({
 	},
 	server: {
 		port: 8080,
+	},
+	build: {
+		target: 'esnext',
 	},
 });

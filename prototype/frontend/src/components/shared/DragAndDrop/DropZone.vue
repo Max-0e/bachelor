@@ -1,9 +1,7 @@
 <template>
 	<div
-		class="transition-all relative bg-gray-300 dark:bg-dark-100 rounded-md min-h-10 p-5"
-		:class="
-			markAsTarget ? 'border border-blue-500 bg-gray-200 dark:bg-dark-200' : ''
-		"
+		class="transition-all relative border border-transparent bg-gray-300 dark:bg-dark-100 rounded-md min-h-50 p-5"
+		:class="{ '!border-blue-500 bg-gray-200 dark:bg-dark-200': markAsTarget }"
 		@drop="
 			if (!disable) $emit('onDrop', $event.dataTransfer?.getData('data'));
 			markAsTarget = false;
@@ -19,9 +17,9 @@
 					? 'visible ' + (disable ? 'bg-light-50 opacity-50' : '')
 					: 'hidden'
 			">
-			<span class="text-dark-900 opacity-100" v-if="disable"
-				>Wip limit reached</span
-			>
+			<span class="text-dark-900 opacity-100" v-if="disable">{{
+				disableMessage
+			}}</span>
 		</div>
 	</div>
 </template>
@@ -34,5 +32,6 @@ defineEmits(['onDrop']);
 
 defineProps({
 	disable: { type: Boolean, default: false },
+	disableMessage: String,
 });
 </script>

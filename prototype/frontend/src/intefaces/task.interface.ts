@@ -1,10 +1,13 @@
-import { Entity } from "./entity.interface";
+import { Entity } from './entity.interface';
+import { LinkableEntity } from './linkable-entity.interface';
+import { OrganizationBasedEntity } from './organization-based-entity.interface';
 
 export interface ITask {
 	status: Status;
 	storyPoints: number;
 }
 
-export type Task = Entity<ITask>
+export type Task = Entity<LinkableEntity<OrganizationBasedEntity<ITask>>>;
 
-export type Status = 'open' | 'inProgress' | 'done'
+export const statusEnum = ['open', 'inProgress', 'done'] as const;
+export type Status = typeof statusEnum[number];

@@ -1,7 +1,7 @@
-import { UserModel, UserDocument } from '../models/user.model';
-import { NotFoundError } from '../error/not-found.error';
 import { AuthorizationError } from '../error/auth.error';
-import { UserDto } from '@/interfaces/dtos/userDto.interface';
+import { NotFoundError } from '../error/not-found.error';
+import { UserDto } from '../interfaces/dtos/userDto.interface';
+import { UserDocument, UserModel } from '../models/user.model';
 
 class UserService {
 	public async findUserByUsernameOrEmail(usernameOrEmail: string) {
@@ -46,9 +46,13 @@ class UserService {
 				{ $set: { pwdHash: pwdHash } }
 			);
 			if (res.modifiedCount === 0)
-				throw new NotFoundError('This User does not exists or the Token has already been used.');
+				throw new NotFoundError(
+					'This User does not exists or the Token has already been used.'
+				);
 		} else {
-			throw new AuthorizationError('This ResetToken has reached its expiration');
+			throw new AuthorizationError(
+				'This ResetToken has reached its expiration'
+			);
 		}
 	}
 
@@ -58,7 +62,8 @@ class UserService {
 			{ $set: { pwdResetToken: token, pwdResetTime: new Date() } }
 		);
 
-		if (res.modifiedCount === 0) throw new NotFoundError('This User does not exist.');
+		if (res.modifiedCount === 0)
+			throw new NotFoundError('This User does not exist.');
 	}
 
 	private checkResetDuration(pwdResetTime: Date) {

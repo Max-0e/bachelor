@@ -1,5 +1,5 @@
-import { EntityController } from "@/controller/entity.controller";
-import { Router } from "express";
+import { Router } from 'express';
+import { EntityController } from '../controller/entity.controller';
 
 export function makeEntityRouter<T>(entityController: EntityController<T>) {
 	const router = Router();

@@ -1,12 +1,12 @@
 <template></template>
 <script setup lang="ts">
 import { ToastType } from '@/intefaces/toastConfig';
-import router from '@/router';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
 import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-const activationToken = router.currentRoute.value.params.activationToken;
+const activationToken = useRouter().currentRoute.value.params.activationToken;
 
 onMounted(
 	async () =>
@@ -18,14 +18,14 @@ onMounted(
 					toastContent:
 						'Successfully activated your Account. You can now log in.',
 				};
-				router.push('login');
+				useRouter().push('login');
 			})
 			.catch((_) => {
 				useAppStore().showToastOnRouting = {
 					toastType: ToastType.ERROR,
 					toastContent: 'Activation Unsuccessful',
 				};
-				router.push('login');
+				useRouter().push('login');
 			})
 );
 </script>

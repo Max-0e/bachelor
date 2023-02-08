@@ -1,17 +1,20 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import Dashboard from '@/components/Dashboard/Dashboard.vue';
 import Profile from '@/components/Profile/Profile.vue';
-import Settings from '@/components/Settings/Settings.vue';
-import Levels from '@/views/Levels.vue';
-import { levelsResolver } from './resolver/level.resolver';
+import Settings from '@/views/Settings.vue';
+import { organizationRoutes } from './MainChildrenRoutes/organization';
+import { organizationsResolver } from './resolver/organizations.resolver';
 
 const mainRoutes: Array<RouteRecordRaw> = [
 	{
-		path: 'dashboard',
-		name: 'Dashboard',
-		component: Dashboard,
-		// beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
+		path: '',
+		name: 'default',
+		redirect: '/app/organization',
+	},
+	{
+		path: 'organization',
+		beforeEnter: [organizationsResolver],
+		children: organizationRoutes,
 	},
 	{
 		path: 'profile',
@@ -23,30 +26,6 @@ const mainRoutes: Array<RouteRecordRaw> = [
 		name: 'Settings',
 		component: Settings,
 	},
-	{
-		path: 'levels',
-		name: 'Levels',
-		component: Levels,
-		beforeEnter: levelsResolver,
-	},
-	// {
-	// 	path: 'projects',
-	// 	component: ProjectLayout,
-	// 	beforeEnter: projectsResolver,
-	// 	children: projectsRoutes,
-	// },
-	// {
-	// 	path: 'initiatives',
-	// 	component: RouterNesting,
-	// 	beforeEnter: [initiativesResolver, projectsResolver],
-	// 	children: initiativesRoutes,
-	// },
-	// {
-	// 	path: 'objectives',
-	// 	component: RouterNesting,
-	// 	beforeEnter: [objectivesResolver, initiativesResolver, projectsResolver],
-	// 	children: objectivesRoutes,
-	// },
 ];
 
 export default mainRoutes;

@@ -1,27 +1,29 @@
 <template>
-	<AppLabel :for="name">{{ label }}</AppLabel>
-	<div class="mx-5 mt-2 mb-5 relative rounded-md shadow-md">
-		<input
-			@input="inputValue = ($event.target as HTMLInputElement).value"
-			@focusout="showValidation = true"
-			class="p-3 pl-7 pr-12 block w-full dark:bg-dark-50 sm:text-sm rounded-md focus-visible:(outline outline-2)"
-			:class="
-				!!validationText && showValidation
-					? 'outline outline-2 outline-red-500'
-					: ''
-			"
-			:type="type"
-			:name="name"
-			:id="id"
-			:autocomplete="autocomplete"
-			:placeholder="placeholder" />
-		<TransitionGroup>
-			<div
-				class="absolute text-red-500 text-sm ml-7 mt-1"
-				v-if="!!validationText && !!showValidation">
-				{{ validationText }}
-			</div>
-		</TransitionGroup>
+	<div>
+		<AppLabel :for="name">{{ label }}</AppLabel>
+		<div class="mx-5 mt-2 mb-5 relative rounded-md shadow-md">
+			<input
+				@input="inputValue = ($event.target as HTMLInputElement).value"
+				@focusout="showValidation = true"
+				class="p-3 pl-7 pr-12 block w-full dark:bg-dark-50 sm:text-sm rounded-md focus-visible:(outline outline-2)"
+				:class="
+					!!validationText && showValidation
+						? 'outline outline-2 outline-red-500'
+						: ''
+				"
+				:type="type"
+				:name="name"
+				:id="id"
+				:autocomplete="autocomplete"
+				:placeholder="placeholder" />
+			<TransitionGroup>
+				<div
+					class="absolute text-red-500 text-sm ml-7 mt-1"
+					v-if="!!validationText && !!showValidation">
+					{{ validationText }}
+				</div>
+			</TransitionGroup>
+		</div>
 	</div>
 </template>
 
@@ -88,5 +90,9 @@ function validate(): boolean {
 	showValidation.value = true;
 	return !validationText.value;
 }
-defineExpose({ validate, patchValue, getInputValue });
+
+function resetValidation() {
+	showValidation.value = false;
+}
+defineExpose({ validate, patchValue, getInputValue, resetValidation });
 </script>

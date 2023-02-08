@@ -1,14 +1,14 @@
-import express, { Application } from 'express';
 import cors from 'cors';
+import express, { Application } from 'express';
 
 import passport from 'passport';
 
-import { makeRouter } from './router';
 import { connectDb } from './mongodbcontext/connect';
 import { makeSessionStore } from './mongodbcontext/sessionStore';
+import { makeDeserializeUser } from './passport/deserializeUser';
 import { localStrategy } from './passport/localStrategy';
 import { makeSerializeUser } from './passport/serializeUser';
-import { makeDeserializeUser } from './passport/deserializeUser';
+import { makeRouter } from './router';
 
 import { middlewares } from './middlewares';
 

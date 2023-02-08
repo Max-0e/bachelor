@@ -1,47 +1,3 @@
-<script setup lang="ts">
-import AppIcon from '../shared/UI/AppIcon.vue';
-import AppButton from '../shared/Input/AppButton.vue';
-import AppTaskListItem from './Tasks-Components/TaskListItem.vue';
-import AppInputField from '../shared/Input/AppInputField.vue';
-
-import { useProjectStore } from '@/store/project';
-import { PropType, Ref, ref } from 'vue';
-import { ICreateTask, ITask, Status } from '@/intefaces/task.interface';
-import { IProject } from '@/intefaces/project.interface';
-import AppToolTip from '../shared/UI/AppToolTip.vue';
-import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
-import { IEpic } from '@/intefaces/epic.interface';
-
-const projectStore = useProjectStore();
-
-const defaultTaskValue = { name: '', status: Status.open };
-const createNewTask = ref(false);
-
-const taskToCreate: Ref<ICreateTask> = ref({ name: defaultTaskValue.name, status: defaultTaskValue.status });
-
-
-function createTask() {
-	if (taskToCreate.value.name === defaultTaskValue.name) return;
-	if (!!props.epic) taskToCreate.value.epics = [props.epic.id]
-	projectStore.createTask(projectStore.getCurrentProject, taskToCreate.value);
-	setDefaults();
-}
-
-function removeFromEpic (task: ITask) {
-	if(!props.epic) return;
-	task.epics = task.epics.filter(epicId => props.epic?.id !== epicId)
-	projectStore.updateTask(props.project, task);
-}
-
-function setDefaults() {
-	taskToCreate.value = { name: defaultTaskValue.name, status: defaultTaskValue.status };
-	createNewTask.value = false;
-}
-const props = defineProps({
-	project: { type: Object as PropType<IProject>, required: true },
-	epic: { type: Object as PropType<IEpic>, required: false },
-});
-</script>
 <template>
 	<!-- Table Header -->
 	<div class="w-full flex justify-between p-5 m-2">
@@ -49,52 +5,134 @@ const props = defineProps({
 			<b>Name</b>
 		</span>
 		<span class="w-1/3 text-left">
-			<b>Done</b>
+			<b>Status</b>
 		</span>
 		<span class="w-1/3 text-right">
 			<b>Actions</b>
 		</span>
 	</div>
 	<!-- Task List -->
-	<div class="flex items-center" v-for="task in (!!epic ? project.tasks.filter(task => task.epics?.includes(epic!.id)) : project.tasks)">
-		<AppTaskListItem :task="task" :project="project" />
-		<AppToolTip text="remove from epic" position="left" v-if="!!epic">
-			<AppIcon class="text-red-600 hover:bg-dark-700" @click="removeFromEpic(task)">remove_circle_outline</AppIcon>
-		</AppToolTip>
-	</div>
+	<TransitionGroup>
+		<div class="flex items-center" v-for="task in tasks" :key="task.id">
+			<TaskListItem :task="task" />
+			<AppToolTip text="remove from epic" position="left" v-if="!!epic">
+				<AppIcon class="text-red-600 hover:bg-dark-700" @click=""
+					>remove_circle_outline</AppIcon
+				>
+			</AppToolTip>
+		</div>
+	</TransitionGroup>
 	<!-- Add Task Field -->
-	<div class="border border-dark-100 w-full rounded-md flex justify-between items-center p-2 m-2" v-if="createNewTask">
-		<span class="w-1/3 text-left">
-			<AppInputField
-				v-model="taskToCreate.name"
-				type="text"
-				name="name"
-				id="name"
-				placeholder="Task-Name"
-				label="Task-Name" />
-		</span>
-		<span class="w-1/3 text-left">
-			<AppDropDownMenu
-				v-model="taskToCreate.status"
-				selectText="select Status"
-				:options="[
-					{ name: Status[Status.open], value: Status.open },
-					{ name: Status[Status.inProgress], value: Status.inProgress, disabled: project.tasks.filter((task) => task.status === Status.inProgress).length >= project.wipLimit, disabledTooltip: 'WIP-Limit Reached' },
-					{ name: Status[Status.done], value: Status.done },
-				]"></AppDropDownMenu>
-		</span>
-		<span class="w-1/3">
-			<AppButton :iconButton="true" :color="'red'" :slim="true" class="px-2 m-1 float-right" @click="setDefaults()"
-				>clear</AppButton
-			>
-			<AppButton :iconButton="true" :color="'blue'" :slim="true" class="px-2 m-1 float-right" @click="createTask()"
-				>done</AppButton
-			>
-		</span>
-	</div>
-	<div class="border border-dark-100 w-full rounded-md flex justify-around items-center p-2 m-2" v-else>
-		<AppToolTip text="create new Task">
-			<AppIcon class="hover:bg-light-900 dark:hover:bg-dark-400" @click="createNewTask = true"> add </AppIcon>
-		</AppToolTip>
+	<div class="flex items-center">
+		<div
+			class="border border-dark-100 w-full rounded-md flex justify-between items-center p-1 m-1"
+			v-if="createNewTask">
+			<span class="w-1/3 text-left px-5">
+				<AppInputField
+					ref="name"
+					placeholder="name"
+					label="name"
+					id="name"
+					:validation-types="[validationType.required, validationType.name]">
+				</AppInputField>
+			</span>
+			<span class="w-1/3 text-left px-5">
+				<AppDropDownMenu
+					v-model="status"
+					selectText="select Status"
+					:options="options"></AppDropDownMenu>
+			</span>
+			<span class="w-1/3 px-5">
+				<AppButton
+					:iconButton="true"
+					:color="'red'"
+					:slim="true"
+					class="px-2 m-1 float-right"
+					@click="setDefaults()"
+					>clear</AppButton
+				>
+				<AppButton
+					:iconButton="true"
+					:color="'blue'"
+					:slim="true"
+					class="px-2 m-1 float-right"
+					@click="createTask()"
+					>done</AppButton
+				>
+			</span>
+		</div>
+		<div
+			class="border border-dark-100 w-full rounded-md flex justify-around items-center p-1 m-1"
+			v-else>
+			<AppToolTip text="create new Task">
+				<AppIcon
+					class="hover:bg-light-900 dark:hover:bg-dark-400"
+					@click="createNewTask = true">
+					add
+				</AppIcon>
+			</AppToolTip>
+		</div>
 	</div>
 </template>
+
+<script setup lang="ts">
+import { validationType } from '@/enums/validationType.enum';
+import { EntityGroup } from '@/intefaces/entity-groups.interface';
+import { inputRef } from '@/intefaces/form.interface';
+import { Status } from '@/intefaces/task.interface';
+import { useGroupStore } from '@/store/entity-groups.store';
+import { useTaskStore } from '@/store/tasks.store';
+import { PropType, ref } from 'vue';
+import { FormGroup } from '../shared/Input/formGroup';
+
+const options = [
+	{ name: 'open', value: 'open' },
+	{ name: 'inProgress', value: 'inProgress' },
+	{ name: 'done', value: 'done' },
+];
+
+const currentProject = ref(useGroupStore().currentEntity);
+const props = defineProps({
+	epic: { type: Object as PropType<EntityGroup>, required: false },
+});
+
+const createNewTask = ref(false);
+
+const taskStore = useTaskStore();
+
+const tasks = ref(
+	taskStore.getEntitiesLinkedToEntityGroupId(currentProject.value!.id)
+);
+
+const status = ref<Status>('open');
+const name = inputRef();
+const formGroup = new FormGroup({ name });
+
+function createTask() {
+	if (!formGroup.validate()) return;
+
+	const entityGroupIds = [currentProject.value!.id];
+	if (!!props.epic) entityGroupIds.push(props.epic.id);
+
+	taskStore.createEntity({
+		entityGroupIds,
+		storyPoints: 0,
+		name: formGroup.formObjects.name.value,
+		status: status.value,
+	});
+
+	setDefaults();
+}
+
+// function removeFromEpic(task: ITask) {
+// 	if (!props.epic) return;
+// 	task.epics = task.epics.filter((epicId) => props.epic?.id !== epicId);
+// 	projectStore.updateTask(props.project, task);
+// }
+
+function setDefaults() {
+	status.value = 'open';
+	name.value?.patchValue('');
+	createNewTask.value = false;
+}
+</script>

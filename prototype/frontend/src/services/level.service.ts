@@ -1,7 +1,6 @@
-import { ILevel } from "@/intefaces/level.interface";
-import { EntityService } from "./entity.service";
+import { ILevel } from '@/intefaces/level.interface';
+import { OrganizationBasedEntityService } from './organization-based-entity.service';
 
-class LevelService extends EntityService<ILevel>{
-}
+class LevelService extends OrganizationBasedEntityService<ILevel> {}
 
-export const levelService = new LevelService('level');
+export const levelService = new LevelService('levels');

@@ -16,7 +16,7 @@
 			>
 		</AppToolTip>
 		<div class="h-100 w-100 mx-auto">
-			<DoughnutChart
+			<!-- <DoughnutChart
 				:chartData="
 					getProjectChartData([
 						metrics.openTasksLength,
@@ -24,54 +24,33 @@
 						metrics.doneTasksLength,
 					])
 				"
-				:options="projectDoughnutChartOptions" />
+				:options="projectDoughnutChartOptions" /> -->
 		</div>
 	</div>
 	<AppModal ref="detailsModal" :large="true">
-		<EpicDetails :project="project" :epic="epic" />
+		<EpicDetails :epic="epic" />
 	</AppModal>
 	<AppYesNoModal
 		ref="deleteModal"
 		@yes="
-			projectStore.deleteEpic(project, epic);
+			groupStore.deleteEntity(epic);
 			deleteModal!.close();
 		">
 		Delete Epic "{{ epic.name }}"?
 	</AppYesNoModal>
 </template>
 <script setup lang="ts">
-import AppYesNoModal from '@/components/shared/Modal/AppYesNoModal.vue';
-import AppIcon from '@/components/shared/UI/AppIcon.vue';
-import AppToolTip from '@/components/shared/UI/AppToolTip.vue';
-import { IEpic } from '@/intefaces/epic.interface';
-import { IProject } from '@/intefaces/project.interface';
-import { useProjectStore } from '@/store/project';
-import { PropType, toRefs } from 'vue';
-import AppModal from '../shared/Modal/AppModal.vue';
-import EpicDetails from './EpicDetails.vue';
-
-import { DoughnutChart } from 'vue-chart-3';
-
-import {
-	getProjectChartData,
-	projectDoughnutChartOptions,
-} from '@/chartoptions/projectDoughnutChartOptions';
+import { EntityGroup } from '@/intefaces/entity-groups.interface';
 import { modalRef } from '@/intefaces/modal.interface';
+import { useGroupStore } from '@/store/entity-groups.store';
+import { PropType } from 'vue';
 
-const props = defineProps({
-	epic: { type: Object as PropType<IEpic>, required: true },
-	project: { type: Object as PropType<IProject>, required: true },
+const groupStore = useGroupStore();
+
+defineProps({
+	epic: { type: Object as PropType<EntityGroup>, required: true },
 });
 
 const deleteModal = modalRef();
 const detailsModal = modalRef();
-
-const projectStore = useProjectStore();
-
-const refProps = toRefs(props);
-
-const metrics = useProjectStore().computeMetricsForEpic(
-	refProps.project,
-	props.epic.id
-);
 </script>

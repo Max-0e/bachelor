@@ -1,14 +1,32 @@
+import { ValidationError } from '../error/validation.error';
+import { EntityCreateDto } from '../interfaces/dtos/entityDto.interface';
 import { ILevel } from '../interfaces/level.interface';
-import { makeEntityModel } from '../models/entity.model';
-import { EntityService } from './entity.service';
+import { LevelModel } from '../models/level.model';
+import { OrganizationBasedEntityService } from './organization-based-entity.service';
 
-class LevelService extends EntityService<ILevel> {
+class LevelService extends OrganizationBasedEntityService<ILevel> {
 	constructor() {
-		super(
-			makeEntityModel('Level', {
-				hirarchyLevel: { type: Number, required: true },
-			})
-		);
+		super(LevelModel);
+	}
+
+	validateEntityCreateDto(entity: EntityCreateDto<ILevel>): void {
+		const errors: string[] = [];
+		if (entity.hirarchyLevel === undefined) errors.push('hirarchyLevel');
+		if (!entity.name) errors.push('name');
+
+		if (errors.length > 0) {
+			throw new ValidationError(errors.join(',') + ' required.');
+		}
+	}
+
+	validateEntityUpdateDto(entity: EntityCreateDto<ILevel>): void {
+		const errors: string[] = [];
+		if (entity.hirarchyLevel === undefined) errors.push('hirarchyLevel');
+		if (!entity.name) errors.push('name');
+
+		if (errors.length > 0) {
+			throw new ValidationError(errors.join(',') + ' required.');
+		}
 	}
 }
 

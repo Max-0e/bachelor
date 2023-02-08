@@ -2,8 +2,14 @@
 	<nav
 		class="w-full relative h-15 top-0 shadow-md flex justify-between z-99 bg-white dark:(bg-dark-700)">
 		<div class="flex flex-wrap">
-			<h1 class="text-3xl my-auto ml-5 content-center">Prototype</h1>
-			<div class="ml-5 flex items-center">
+			<h1
+				class="text-3xl my-auto ml-5 content-center cursor-pointer"
+				@click="router.push({ name: 'Organization' })">
+				{{ organizationStore.currentEntity?.name ?? 'Prototype' }}
+			</h1>
+			<div
+				v-if="!!organizationStore.currentEntity"
+				class="ml-5 flex items-center">
 				<router-link
 					:to="{ name: 'Dashboard' }"
 					class="transition-all rounded-md px-2"
@@ -15,9 +21,33 @@
 					class="transition-all rounded-md px-2"
 					>Levels</router-link
 				>
-				<!-- <router-link :to="{ name: 'Objectives' }" class="transition-all rounded-md px-2">Portfolio</router-link>
-				<router-link :to="{ name: 'Initiatives' }" class="transition-all rounded-md px-2">Coordination</router-link>
-				<router-link :to="{ name: 'Projects' }" class="transition-all rounded-md px-2">Operation</router-link> -->
+				<div
+					v-for="level of levelStore.entities.sort(
+						(a, b) => b.hirarchyLevel - a.hirarchyLevel
+					)">
+					<router-link
+						v-if="
+							level.hirarchyLevel > 1 ||
+							(level.hirarchyLevel === 1 &&
+								!organizationStore.currentEntity?.useEpics)
+						"
+						:to="{ name: 'LevelView', params: { levelId: level.id } }"
+						class="transition-all rounded-md px-2 m-2"
+						>{{ level.name }}</router-link
+					>
+					<router-link
+						v-else-if="
+							level.hirarchyLevel > 0 ||
+							!organizationStore.currentEntity?.useEpics
+						"
+						class="transition-all rounded-md px-2 m-2"
+						:to="{
+							name: 'Projects',
+							params: { levelId: level.id },
+						}">
+						{{ level.name }}</router-link
+					>
+				</div>
 			</div>
 		</div>
 		<div class="flex">
@@ -57,36 +87,42 @@
 	<footer
 		class="w-full relative h-8 p-1 flex justify-between shadow-md bg-gray-100 dark:(bg-dark-100)">
 		<div class="flex justify-evenly">
-			<span>hello {{ useAuthStore().user?.username }}</span>
+			<span>Welcome {{ authStore.user?.username }}</span>
 		</div>
 	</footer>
 </template>
 
 <script setup lang="ts">
-import router from '@/router';
 import { useAuthStore } from '@/store/auth';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
 const refreshing = ref(false);
+const organizationStore = useOrganizationStore();
+const groupStore = useGroupStore();
+const taskStore = useTaskStore();
+const levelStore = useLevelStore();
+const router = useRouter();
+const authStore = useAuthStore();
+const toast = useToast();
 
 async function logout() {
-	useAuthStore()
-		.logout()
-		.then((_) => {
-			router.push({ name: 'Login' });
-		});
+	authStore.logout().then((_) => {
+		router.push({ name: 'Login' });
+	});
 }
 
 async function refreshData() {
 	refreshing.value = true;
-	await useTaskStore().loadEntities();
-	await useGroupStore().loadEntities();
-	await useLevelStore().loadEntities();
-	useToast().info('you are up to date', { timeout: 1500 });
+	await taskStore.loadEntities();
+	await groupStore.loadEntities();
+	await levelStore.loadEntities();
+	toast.info('you are up to date', { timeout: 1500 });
 	refreshing.value = false;
 }
 </script>
@@ -103,10 +139,5 @@ async function refreshData() {
 
 .content-container {
 	height: calc(100vh - 5.75rem);
-}
-
-.router-link-active {
-	background-color: gray;
-	color: white;
 }
 </style>

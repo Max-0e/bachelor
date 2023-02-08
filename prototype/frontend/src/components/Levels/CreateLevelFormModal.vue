@@ -1,6 +1,7 @@
 <template>
 	<AppModal ref="modal" @closed="formGroup.clear()">
-		<div>
+		<div class="flex flex-col gap-10">
+			<div class="text-3xl">Create new Level</div>
 			<AppInputField
 				ref="name"
 				placeholder="name"
@@ -8,8 +9,8 @@
 				id="name"
 				:validation-types="[validationType.required, validationType.name]">
 			</AppInputField>
+			<AppButton @click="submit()">Create Level</AppButton>
 		</div>
-		<AppButton @click="submit()">Create Level</AppButton>
 	</AppModal>
 </template>
 <script lang="ts" setup>
@@ -17,6 +18,7 @@ import { validationType } from '@/enums/validationType.enum';
 import { inputRef } from '@/intefaces/form.interface';
 import { modalRef } from '@/intefaces/modal.interface';
 import { useLevelStore } from '@/store/level.store';
+import { useOrganizationStore } from '@/store/organization.store';
 
 import { FormGroup } from '../shared/Input/formGroup';
 
@@ -31,10 +33,11 @@ const formGroup = new FormGroup({ name });
 
 const submit = () => {
 	if (!formGroup.validate()) return;
+	const organization = useOrganizationStore().currentEntity;
+	if (!organization) return;
 	levelStore.createEntity({
 		name: formGroup.formObjects.name.value,
 		hirarchyLevel: levelStore.getNextHirachyLevel,
-		entityGroupIds: [],
 	});
 	modal.value?.close();
 };

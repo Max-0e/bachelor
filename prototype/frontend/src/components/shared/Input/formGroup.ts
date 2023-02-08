@@ -35,8 +35,9 @@ export class FormGroup<T extends { [key: string]: InputRef }> {
 	}
 
 	clear() {
-		this.objectKeys.forEach((objectKey) =>
-			this.formObjects[objectKey].patchValue('')
-		);
+		this.objectKeys.forEach((objectKey) => {
+			this.formObjects[objectKey].patchValue('');
+			this.formObjects[objectKey].resetValidation();
+		});
 	}
 }

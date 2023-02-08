@@ -1,13 +1,33 @@
-import { ITask, statusEnum } from "../interfaces/task.interface";
-import { makeEntityModel } from "../models/entity.model";
-import { EntityService } from "./entity.service";
+import { ValidationError } from '../error/validation.error';
+import { EntityCreateDto } from '../interfaces/dtos/entityDto.interface';
+import { ITask } from '../interfaces/task.interface';
+import { TaskModel } from '../models/task-model';
+import { LinkableEntityService } from './linkable-entity.service';
 
-class TasksService extends EntityService<ITask>{
+class TasksService extends LinkableEntityService<ITask> {
 	constructor() {
-		super(makeEntityModel('Task', {
-			status: { type: String, required: true, enum: statusEnum },
-			storyPoints: { type: Number, required: true }
-		}));
+		super(TaskModel);
+	}
+
+	validateEntityCreateDto(entity: EntityCreateDto<ITask>): void {
+		const errors: string[] = [];
+		if (!entity.status) errors.push('hirarchyLevel');
+		if (entity.storyPoints === undefined) errors.push('hirarchyLevel');
+		if (!entity.name) errors.push('name');
+
+		if (errors.length > 0) {
+			throw new ValidationError(errors.join(',') + ' required.');
+		}
+	}
+	validateEntityUpdateDto(entity: EntityCreateDto<ITask>): void {
+		const errors: string[] = [];
+		if (!entity.status) errors.push('hirarchyLevel');
+		if (entity.storyPoints === undefined) errors.push('hirarchyLevel');
+		if (!entity.name) errors.push('name');
+
+		if (errors.length > 0) {
+			throw new ValidationError(errors.join(',') + ' required.');
+		}
 	}
 }
 
