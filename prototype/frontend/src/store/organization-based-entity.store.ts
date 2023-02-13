@@ -6,6 +6,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
+import { EntityState } from './entity.store';
 import { useOrganizationStore } from './organization.store';
 
 export interface OrganizationBasedEntityState<T> {
@@ -49,6 +50,7 @@ export function defineOrganizationBasedEntityStore<
 				const router = useRouter();
 				const currentOrganizationId =
 					router.currentRoute.value.params['organizationId'];
+				// this does not react to change in entities
 				return state.entities.filter(
 					(entity) => entity.organizationId === currentOrganizationId
 				);
@@ -128,14 +130,26 @@ export function defineOrganizationBasedEntityStore<
 	});
 }
 
-// export type EntityStore<T> = EntityState<T> & {
-// 	currentEntity(state: EntityState<T>): Entity<T> | undefined;
-// } & {
-// 	loadEntities(): Promise<void>;
-// 	createEntity(entityToCreate: EntityCreate<T>): void;
-// 	updateEntity(entityId: string, entityToUpdate: EntityCreate<T>): void;
-// 	updateEntityInState(entity: Entity<T>): void;
-// 	deleteEntity(entity: Entity<T>): void;
-// 	deleteEntityInState(entity: Entity<T>): void;
-// 	findEntityIndexInState(entityId: string): number;
-// };
+export type OrganizationBasedEntityStore<
+	T,
+	AdditionalGetters,
+	AdditionalActions
+> = OrganizationBasedEntityState<T> & {
+	currentEntity(state: EntityState<T>): Entity<T> | undefined;
+	currentEntitiesFromOrganization(state: EntityState<T>): Entity<T>[];
+} & AdditionalGetters & {
+		loadEntities(organizationId: string | undefined): Promise<void>;
+		createEntity(
+			entityToCreate: EntityCreate<T>,
+			organizationId: string | undefined
+		): void;
+		updateEntity(
+			entityId: string,
+			entityToUpdate: EntityCreate<T>,
+			organizationId: string | undefined
+		): void;
+		updateEntityInState(entity: Entity<T>): void;
+		deleteEntity(entity: Entity<T>, organizationId: string | undefined): void;
+		deleteEntityInState(entity: Entity<T>): void;
+		findEntityIndexInState(entityId: string): number;
+	} & AdditionalActions;

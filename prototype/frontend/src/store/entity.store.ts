@@ -84,14 +84,15 @@ export function defineEntityStore<
 	});
 }
 
-export type EntityStore<T> = EntityState<T> & {
-	currentEntity(state: EntityState<T>): Entity<T> | undefined;
-} & {
-	loadEntities(): Promise<void>;
-	createEntity(entityToCreate: EntityCreate<T>): void;
-	updateEntity(entityId: string, entityToUpdate: EntityCreate<T>): void;
-	updateEntityInState(entity: Entity<T>): void;
-	deleteEntity(entity: Entity<T>): void;
-	deleteEntityInState(entity: Entity<T>): void;
-	findEntityIndexInState(entityId: string): number;
-};
+export type EntityStore<T, AdditionalGetters, AdditionalActions> =
+	EntityState<T> & {
+		currentEntity(state: EntityState<T>): Entity<T> | undefined;
+	} & AdditionalGetters & {
+			loadEntities(): Promise<void>;
+			createEntity(entityToCreate: EntityCreate<T>): void;
+			updateEntity(entityId: string, entityToUpdate: EntityCreate<T>): void;
+			updateEntityInState(entity: Entity<T>): void;
+			deleteEntity(entity: Entity<T>): void;
+			deleteEntityInState(entity: Entity<T>): void;
+			findEntityIndexInState(entityId: string): number;
+		} & AdditionalActions;
