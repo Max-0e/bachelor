@@ -21,7 +21,7 @@
 			<div class="p-10 flex gap-5">
 				<DropZone
 					v-if="linkingEnabled"
-					class="border border-2"
+					class="border border-2 flex-grow relative"
 					v-for="group in groups.filter((x) => x.levelId === level.id)"
 					@on-drop="link(group.id, $event)"
 					:class="
@@ -30,29 +30,29 @@
 							: 'border-transparent'
 					">
 					<div
-						class="transition-all flex-grow rounded-md"
+						class="transition-all rounded-md"
 						@mouseenter="markGroup(group)"
 						@mouseleave="unmark()">
 						{{ group.name }}
 						<div>some fancy Data</div>
-						<div class="flex justify-center">
+						<div class="flex justify-center absolute top-[-40px] left-0 w-full">
 							<DraggableItem
 								@dragstart="startLinkage($event)"
 								@dragend="stopLinkage()"
 								:data="group.id">
-								<AppIcon>hub</AppIcon>
+								<AppIcon>fiber_manual_record</AppIcon>
 							</DraggableItem>
 						</div>
 					</div>
 				</DropZone>
 				<div
 					v-else
-					class="transition-all flex-grow rounded-md border border-2 cursor-pointer"
+					class="transition-all flex-grow bg-gray-300 p-5 dark:bg-dark-100 rounded-md border border-2 cursor-pointer"
 					v-for="group in groups.filter((x) => x.levelId === level.id)"
 					:class="
 						markedGroup === group || markedGroups.includes(group)
 							? '!border-blue-500'
-							: '!border-dark-500'
+							: '!border-transparent'
 					"
 					@mouseenter="markGroup(group)"
 					@mouseleave="unmark()">

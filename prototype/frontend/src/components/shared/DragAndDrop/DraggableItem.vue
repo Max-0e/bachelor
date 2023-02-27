@@ -1,7 +1,7 @@
 <template>
 	<div
 		draggable="true"
-		class="transition-all"
+		class="transition-all !cursor-move"
 		:class="hidden ? 'hidden' : 'visible'"
 		@drag="hidden = true"
 		@dragend="

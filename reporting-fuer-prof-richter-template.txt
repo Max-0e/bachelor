@@ -1,50 +1,57 @@
 Betreff: 0% - BA Konzeption und Entwicklung eines Systems zur softwaregestützten Dokumentation von Unternehmensstrukturen für automatisierte Fortschrittsmessung und Werteorientierung
 
 In dieser Woche erledigt:
-- Vorbereitung
--- Jira-Projekt mit Roadmap-Planung aufsetzen
--- Implementierungs-Prototyp Initialisierung und für Entwicklung vorbereiten
--- LaTeX-Projekt den Richtlinien anpassen
+- Kapitel Analyse
+-- 3.1, 3.2, 3.3 zu 80%
+- Kapitel Agile Unternehmensführung
+-- 2.1, 2.2 zu 90%
+- Literatur-Recherche zu 90% abgeschlossen
 
 Für die kommende Woche geplant:
-- Literatur-Recherche abschließen
+- Kapitel Analyse
+- Kapitel Agile Unternehmensführung
+- Literatur-Recherche
+- fachliche Konzeption
 
 Meilensteinplan:
 - Vorbereitung 100% 23.01.2023
 -- Jira-Projekt mit Roadmap-Planung aufsetzen 100%
 -- Implementierungs-Prototyp Initialisierung und für Entwicklung vorbereiten 100%
 -- LaTeX-Projekt den Richtlinien anpassen 100%
-- Literatur-Recherche 30% 30.01.2023
--- agiles Portfoliomanagement 40%
--- value based Software-Engineering 20%
--- Flight-Level 30%
+- Literatur-Recherche 95% 27.02.2023
+-- agiles Portfoliomanagement 100%
+-- value based Software-Engineering 90%
+-- Flight-Level 80%
 - Schreiben 0% 27.03.2023
 -- Kapitel Einleitung 0% 27.03.2023
--- Kapitel Agile Unternehmensführung 0% 06.02.2023
--- Kapitel Analyse 0% 13.02.2023
+-- Kapitel Agile Unternehmensführung 30% 13.03.2023
+-- Kapitel Analyse 40% 13.03.2023
 -- Kapitel Konzeption 0% 20.02.2023
--- Kapitel Implementierung 0% 12.03.2023
+-- Kapitel Implementierung 0% 20.03.2023
 -- Kapitel Evaluation 0% 20.03.2023
 -- Kapitel Fazit 0% 20.03.2023
-- Konzeption 30% 13.02.2023
--- fachliches Konzeption 15%
---- Prozessdefinition 40%
+- Konzeption 90% 13.03.2023
+-- fachliches Konzeption 45%
+--- Prozessdefinition 100%
 --- Anforderungs-Formulierung 0%
 --- UX-Prototyp 0%
--- technische Konzeption 40% 
---- Datenstruktur 50%
---- Backend-Architektur 50%
---- Frontend-Architektur 30%
---- Datenvisualisierung 10%
+-- technische Konzeption 75% 
+--- Datenstruktur 100%
+--- Backend-Architektur 100%
+--- Frontend-Architektur 50%
+--- Datenvisualisierung 50%
 --- DevOps 10%
-- Implementierung der Software 40% 12.03.2023
+- Implementierung der Software 90% 06.03.2023
 -- Authentifizierung 100%
--- Design REST-Interface 50%
--- Implementierung REST-Interface 50%
+-- Design REST-Interface 100%
+-- Implementierung REST-Interface 100%
 -- Implementierung DB-Schnittstelle 100%
--- Frontend States und Store 50%
+-- Frontend States und Store 100%
+-- Datenvisualisierung 100%
+-- App-Navigation 100%
+-- Daten-Import/Jira-Integration 40%
 -- tba
-- Test 0% 16.03.2023
+- Test 20% 16.03.2023
 -- Testdaten/Demo-Projekt erstellen 0% 10.03.2023
--- Termine mit Experten vereinbaren 0% 27.02.2023
+-- Termine mit Experten vereinbaren 80% 27.02.2023
 -- Test durchführen 0% 16.03.2023

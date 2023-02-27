@@ -5,7 +5,7 @@
 		<div class="w-1/3">Done</div>
 	</div>
 	<div class="flex w-full gap-6">
-		<DropZone class="w-1/3" @onDrop="onDrop($event, 'open')">
+		<DropZone class="w-1/3 min-h-50" @onDrop="onDrop($event, 'open')">
 			<TransitionGroup>
 				<DraggableItem
 					:data="task.id"
@@ -17,7 +17,7 @@
 				</DraggableItem>
 			</TransitionGroup>
 		</DropZone>
-		<DropZone class="w-1/3" @onDrop="onDrop($event, 'inProgress')">
+		<DropZone class="w-1/3 min-h-50" @onDrop="onDrop($event, 'inProgress')">
 			<TransitionGroup>
 				<DraggableItem
 					:data="task.id"
@@ -29,7 +29,7 @@
 				</DraggableItem>
 			</TransitionGroup>
 		</DropZone>
-		<DropZone class="w-1/3" @onDrop="onDrop($event, 'done')">
+		<DropZone class="w-1/3 min-h-50" @onDrop="onDrop($event, 'done')">
 			<TransitionGroup>
 				<DraggableItem
 					:key="task.id"

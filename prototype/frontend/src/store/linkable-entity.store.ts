@@ -1,9 +1,12 @@
+import { Entity } from '@/intefaces/entity.interface';
 import { LinkableEntity } from '@/intefaces/linkable-entity.interface';
+import { OrganizationBasedEntity } from '@/intefaces/organization-based-entity.interface';
 import { LinkableEntityService } from '@/services/linkable-entity.service';
 import { useToast } from 'vue-toastification';
 import {
 	defineOrganizationBasedEntityStore,
 	OrganizationBasedEntityState,
+	OrganizationBasedEntityStore,
 } from './organization-based-entity.store';
 import { useOrganizationStore } from './organization.store';
 
@@ -35,7 +38,7 @@ export function defineLinkableEntityStore<
 		},
 		{
 			link(
-				this: any, //EntityStore<OrganizationBasedEntity<LinkableEntity<T>>>,
+				this: LinkableEntityStore<T>,
 				entityId: string,
 				entityIdToLinkTo: string,
 				organizationId: string | undefined = useOrganizationStore()
@@ -56,3 +59,24 @@ export function defineLinkableEntityStore<
 		}
 	);
 }
+
+export type LinkableEntityStore<
+	T,
+	AdditionalGetters = {},
+	AdditionalActions = {}
+> = OrganizationBasedEntityStore<
+	T,
+	{
+		getEntitiesLinkedToEntityGroupId: () => (
+			entityGroupId: string
+		) => Entity<OrganizationBasedEntity<LinkableEntity<T>>>[];
+	} & AdditionalGetters,
+	{
+		link: (
+			this: LinkableEntityStore<T>,
+			entityId: string,
+			entityIdToLinkTo: string,
+			organizationId?: string | undefined
+		) => void;
+	} & AdditionalActions
+>;

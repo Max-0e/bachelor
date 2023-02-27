@@ -45,7 +45,11 @@ export abstract class OrganizationBasedEntityController<T> {
 	}
 
 	public async createEntity(
-		req: Request<OrganizationIdReqest, EntityReadDto<T>, EntityCreateDto<T>>,
+		req: Request<
+			OrganizationIdReqest,
+			EntityReadDto<OrganizationBasedEntity<T>>,
+			EntityCreateDto<OrganizationBasedEntity<T>>
+		>,
 		res: Response
 	) {
 		const createdEntity =
@@ -61,7 +65,10 @@ export abstract class OrganizationBasedEntityController<T> {
 	}
 
 	public async updateEntity(
-		req: Request<OrganizationIdReqest & IdRequest, EntityCreateDto<T>>,
+		req: Request<
+			OrganizationIdReqest & IdRequest,
+			EntityCreateDto<OrganizationBasedEntity<T>>
+		>,
 		res: Response
 	) {
 		const updatedEntity =

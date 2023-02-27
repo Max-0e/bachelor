@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="transition-all relative border border-transparent bg-gray-300 dark:bg-dark-100 rounded-md min-h-50 p-5"
+		class="transition-all relative border border-transparent bg-gray-300 dark:bg-dark-100 rounded-md p-5"
 		:class="{ '!border-blue-500 bg-gray-200 dark:bg-dark-200': markAsTarget }"
 		@drop="
 			if (!disable) $emit('onDrop', $event.dataTransfer?.getData('data'));
