@@ -1,10 +1,55 @@
-version: "2" # The Docker version
-
-volumes:
-    mongo_volume:
-
+# See: https://docs.docker.com/compose/compose-file/
+version: "3.9"
 services:
-    app:
-        image: bachelor:latest
-        ports:
-            - 3000:8080
+  reverse-proxy:
+    image: traefik
+    restart: always
+    command:
+        # Uncomment for development/testing:
+        - --api.insecure=true
+        - --entrypoints.web.address=:80
+        - --entrypoints.web.http.redirections.entryPoint.to=websecure
+        - --entrypoints.web.http.redirections.entryPoint.scheme=https
+        - --entrypoints.websecure.address=:443
+        # Uncomment for development/testing:
+        - --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+        - --certificatesresolvers.letsencrypt.acme.email=admin@interaction-room.de
+        - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+        - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+        - --providers.docker
+        - --providers.docker.exposedByDefault=false
+    network_mode: host
+    volumes:
+        - /letsencrypt:/letsencrypt
+        - /var/run/docker.sock:/var/run/docker.sock
+
+  api:
+    image: bachelor:latest
+    ports:
+        - 3000:8080
+    restart: always
+    environment:
+        - MONGO_PASSWORD
+        - SECRET
+        - CLIENT_APP_URL
+        - MONGO_DB
+        - MONGO_URL
+        - MONGO_USER
+        - VITE_API_DOMAIN
+        - VITE_DEV_MODE
+    labels:
+        - traefik.enable=true
+        - traefik.http.routers.bachelor.rule=Host(`bachelor`)
+        - traefik.http.routers.bachelor.entrypoints=websecure
+        - traefik.http.routers.bachelor.tls.certresolver=letsencrypt
+
+
+
+# version: "2" # The Docker version
+
+# services:
+#     app:
+#         image: bachelor:latest
+#         ports:
+#               - 3000:8080
+   
