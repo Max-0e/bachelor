@@ -10,13 +10,21 @@ jobs:
     runs-on: self-hosted 
     environment: 
       name: production
+    env:
+      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+      SECRET: ${{ secrets.SECRET }}
+      CLIENT_APP_URL: ${{ vars.CLIENT_APP_URL }}
+      MONGO_DB: ${{ vars.MONGO_DB }}
+      MONGO_URL: ${{ vars.MONGO_URL }}
+      MONGO_USER: ${{ vars.MONGO_USER }}
+      VITE_API_DOMAIN: ${{ vars.VITE_API_DOMAIN }}
+      VITE_DEV_MODE: ${{ vars.VITE_DEV_MODE }}
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
         cd prototype
         docker build . --file "Dockerfile" --tag bachelor:latest
-    
   deploy:
     runs-on: self-hosted
     # environment: 
