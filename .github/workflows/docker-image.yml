@@ -11,11 +11,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file "prototype/Dockerfile" --tag bachelor:latest
+      run: |
+        cd prototype
+        docker build . --file "Dockerfile" --tag bachelor:latest
     
   deploy:
     runs-on: self-hosted 
     steps:
-      - uses: actions/checkout@v3
       - name: Deploy the newest Docker image
         run: docker compose -f "prototype/docker-compose.yml" up -d
