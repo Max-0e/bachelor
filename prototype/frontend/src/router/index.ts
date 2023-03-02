@@ -6,7 +6,7 @@ import { useAppStore } from '@/store/app';
 import { useAuthStore } from '@/store/auth';
 import Activate from '@/views/Auth/Activate.vue';
 import NotFound from '@/views/NotFound.vue';
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
 const routes: Array<RouteRecordRaw> = [
@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 export const router = createRouter({
-	history: createWebHistory(),
+	history: createWebHashHistory(),
 	routes,
 });
 

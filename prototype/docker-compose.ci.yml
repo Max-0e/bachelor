@@ -1,0 +1,10 @@
+version: "2" # The Docker version
+
+volumes:
+    mongo_volume:
+
+services:
+    app:
+        image: bachelor:latest
+        ports:
+            - 3000:8080

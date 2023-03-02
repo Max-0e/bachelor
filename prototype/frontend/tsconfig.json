@@ -5,6 +5,7 @@
 		"lib": ["esnext", "dom"],
 		"jsx": "preserve",
 		"moduleResolution": "node",
+		"outDir": "./build",
 		"strict": true,
 		"sourceMap": true,
 		"resolveJsonModule": true,

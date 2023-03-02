@@ -10,7 +10,7 @@
 			{{ organization.name }}
 		</div>
 		<AppButton @click="createOrganizationFormModal?.open()"
-			>create new organization</AppButton
+			>Create new organization</AppButton
 		>
 	</div>
 	<CreateOrganizationFormModal ref="createOrganizationFormModal" />

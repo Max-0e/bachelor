@@ -1,0 +1,19 @@
+version: "2" # The Docker version
+
+volumes:
+    mongo_volume:
+
+services:
+    app:
+        image: bachelor:latest
+        depends_on:
+            - mongodb
+        ports:
+            - 3000:3000
+    mongodb:
+        image: mongo:latest
+        restart: unless-stopped
+        ports:
+            - '27017:27017'
+        volumes:
+            - ./mongodb:/data/db
