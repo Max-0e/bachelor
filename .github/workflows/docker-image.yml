@@ -1,4 +1,4 @@
-name: Docker Image CI/CD
+name: Docker Image CI/CD Pipeline
 
 on:
   pull_request:
@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: self-hosted 
+    environment: 
+      name: production
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
@@ -16,7 +18,9 @@ jobs:
         docker build . --file "Dockerfile" --tag bachelor:latest
     
   deploy:
-    runs-on: self-hosted 
+    runs-on: self-hosted
+    environment: 
+      name: production
     steps:
       - name: Deploy the newest Docker image
-        run: docker compose -f "prototype/docker-compose.yml" up -d
+        run: docker compose -f "prototype/docker-compose.ci.yml" up -d
