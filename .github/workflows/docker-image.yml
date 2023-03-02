@@ -48,5 +48,9 @@ jobs:
       VITE_API_DOMAIN: ${{ vars.VITE_API_DOMAIN }}
       VITE_DEV_MODE: ${{ vars.VITE_DEV_MODE }}
     steps:
+      - name: TEST ENVS
+        run: |
+          echo env.CLIENT_APP_URL
+          echo ${{ env.CLIENT_APP_URL }}
       - name: Deploy the newest Docker image
         run: docker compose -f "prototype/docker-compose.ci.yml" up -d
