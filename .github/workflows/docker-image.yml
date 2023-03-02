@@ -19,8 +19,8 @@ jobs:
     
   deploy:
     runs-on: self-hosted
-    environment: 
-      name: production
+    # environment: 
+    #   name: production
     steps:
       - name: Deploy the newest Docker image
         run: docker compose -f "prototype/docker-compose.ci.yml" up -d
