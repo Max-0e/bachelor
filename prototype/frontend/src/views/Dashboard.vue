@@ -138,6 +138,6 @@ function stopLinkage() {
 }
 
 function link(entityToLinkToId: string, entityId: string) {
-	groupStore.link(entityId, entityToLinkToId);
+	(groupStore as any).link(entityId, entityToLinkToId);
 }
 </script>
