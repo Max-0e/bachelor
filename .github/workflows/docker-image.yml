@@ -10,8 +10,6 @@ jobs:
     runs-on: self-hosted 
     steps:
     - uses: actions/checkout@v3
-      with:
-          repository: Max-0e/bachelor
     - name: Build the Docker image
       run: docker build . --file "prototype/Dockerfile" --tag bachelor:latest
     
@@ -19,7 +17,5 @@ jobs:
     runs-on: self-hosted 
     steps:
       - uses: actions/checkout@v3
-        with: 
-          repository: Max-0e/bachelor
       - name: Deploy the newest Docker image
         run: docker compose -f "prototype/docker-compose.yml" up -d
