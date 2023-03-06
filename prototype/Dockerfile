@@ -2,7 +2,7 @@
 # frontend
 FROM node:16-alpine as fe-build-stage
 WORKDIR /app
-ARG VITE_API_DOMAIN
+ARG VITE_API_URL
 ARG VITE_DEV_MODE
 COPY ./frontend/package*.json .
 RUN npm ci
