@@ -2,11 +2,14 @@ name: Docker Image CI/CD Pipeline
 
 on:
   pull_request:
+    types:
+      - closed
     branches:
       - main
 
 jobs:
   build:
+    if: github.event.pull_request.merged == true
     runs-on: self-hosted 
     environment: 
       name: production
