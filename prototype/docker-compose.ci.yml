@@ -35,7 +35,7 @@ services:
         - MONGO_USER
     labels:
         - traefik.enable=true
-        - traefik.http.routers.bachelor.rule=Host(`https://116.203.140.167.nip.io`)
+        - traefik.http.routers.bachelor.rule=Host(`116.203.140.167.nip.io`)
         - traefik.http.routers.bachelor.entrypoints=websecure
         - traefik.http.routers.bachelor.tls.certresolver=letsencrypt
 
