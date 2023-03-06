@@ -48,3 +48,5 @@ jobs:
     steps:
       - name: Deploy the newest Docker image
         run: docker compose -f "prototype/docker-compose.ci.yml" up -d
+      - name: Delete all old and unused Images
+        run: docker system prune -af
