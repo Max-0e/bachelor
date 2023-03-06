@@ -17,8 +17,8 @@ jobs:
       MONGO_DB: ${{ vars.MONGO_DB }}
       MONGO_URL: ${{ vars.MONGO_URL }}
       MONGO_USER: ${{ vars.MONGO_USER }}
-      VITE_API_DOMAIN: ${{ vars.VITE_API_DOMAIN }}
-      VITE_DEV_MODE: ${{ vars.VITE_DEV_MODE }}
+      VITE_API_URL: ${{ vars.VITE_API_URL }}
+      VITE_APP_DEV_MODE: ${{ vars.VITE_APP_DEV_MODE }}
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
@@ -31,8 +31,8 @@ jobs:
         --build-arg MONGO_DB=${{ env.MONGO_DB }}
         --build-arg MONGO_URL=${{ env.MONGO_URL }}
         --build-arg MONGO_USER=${{ env.MONGO_USER }}
-        --build-arg VITE_API_DOMAIN=${{ env.VITE_API_DOMAIN }}
-        --build-arg VITE_DEV_MODE=${{ env.VITE_DEV_MODE }}
+        --build-arg VITE_API_URL=${{ env.VITE_API_URL }}
+        --build-arg VITE_DEV_MODE=${{ env.VITE_APP_DEV_MODE }}
   deploy:
     needs: build
     runs-on: self-hosted
@@ -45,8 +45,6 @@ jobs:
       MONGO_DB: ${{ vars.MONGO_DB }}
       MONGO_URL: ${{ vars.MONGO_URL }}
       MONGO_USER: ${{ vars.MONGO_USER }}
-      VITE_API_DOMAIN: ${{ vars.VITE_API_DOMAIN }}
-      VITE_DEV_MODE: ${{ vars.VITE_DEV_MODE }}
     steps:
       - name: Deploy the newest Docker image
         run: docker compose -f "prototype/docker-compose.ci.yml" up -d
