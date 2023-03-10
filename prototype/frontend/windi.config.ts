@@ -4,7 +4,12 @@ export default defineConfig({
 	darkMode: 'class',
 	theme: {
 		extend: {
-			colors: {},
+			colors: {
+				successGreen: '#339933',
+			},
+			backgroundColor: {
+				successGreen: '#339933',
+			},
 		},
 	},
 	plugins: [],

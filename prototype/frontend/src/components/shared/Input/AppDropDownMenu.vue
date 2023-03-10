@@ -1,7 +1,7 @@
 <template>
 	<div class="relative" @focusout="expanded = false" tabindex="0">
 		<div
-			class="p-1 w-full bg-gray-400 dark:bg-dark-50 rounded-lg cursor-pointer"
+			class="p-1 w-full bg-gray-200 dark:bg-dark-50 rounded-lg cursor-pointer"
 			@click="expanded = !expanded">
 			<div class="flex pl-4 items-center justify-between">
 				<span class="pr-5">
@@ -13,11 +13,11 @@
 			</div>
 		</div>
 		<div
-			class="transition-all w-full absolute bg-gray-300 z-50 dark:bg-dark-400 rounded-md transform origin-top"
+			class="transition-all w-full absolute bg-gray-300 z-50 dark:bg-dark-400 rounded-md overflow-hidden transform origin-top"
 			:class="expanded ? 'transform-none' : 'scale-y-0'">
 			<div
 				v-for="option in options"
-				class="cursor-pointer w-full px-3 py-1 hover:bg-gray-400 dark:hover:bg-dark-100"
+				class="cursor-pointer w-full px-3 py-1 hover:bg-gray-400 dark:hover:bg-dark-200"
 				:class="option.disabled ? 'bg-gray-200 dark:bg-dark-200' : ''"
 				@click="selectOption(option)">
 				<AppToolTip :text="option.disabled ? option.disabledTooltip : ''">

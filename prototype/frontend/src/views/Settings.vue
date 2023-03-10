@@ -1,4 +1,5 @@
 <template>
+	<AppIcon button large @click="router.back()">arrow_back</AppIcon>
 	<div>Settings</div>
 	<AppToggleInput
 		:initial-value="useAppStore().darkMode"
@@ -7,4 +8,7 @@
 </template>
 <script setup lang="ts">
 import { useAppStore } from '@/store/app';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 </script>

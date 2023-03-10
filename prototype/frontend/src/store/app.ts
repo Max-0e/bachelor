@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 export const useAppStore = defineStore('app', {
 	state: () => ({
 		showToastOnRouting: null as IToastConfig | null,
-		darkMode: false as boolean,
+		darkMode: true as boolean,
 	}),
 
 	getters: {},

@@ -16,9 +16,7 @@
 		<div class="flex items-center" v-for="task in tasks" :key="task.id">
 			<TaskListItem :task="task" />
 			<AppToolTip text="remove from epic" position="left" v-if="!!epic">
-				<AppIcon
-					class="text-red-600 hover:bg-dark-700"
-					@click="removeFromEpic(task)"
+				<AppIcon class="text-red-600" button @click="removeFromEpic(task)"
 					>remove_circle_outline</AppIcon
 				>
 			</AppToolTip>
@@ -27,7 +25,7 @@
 	<!-- Add Task Field -->
 	<div class="flex items-center">
 		<div
-			class="border border-dark-100 w-full rounded-md flex justify-between items-center p-1 m-1"
+			class="border dark:border-dark-800 w-full rounded-md flex justify-between items-center p-1 m-1"
 			v-if="createNewTask">
 			<span class="w-1/3 text-left px-5">
 				<AppInputField
@@ -46,17 +44,17 @@
 			</span>
 			<span class="w-1/3 px-5">
 				<AppButton
-					:iconButton="true"
-					:color="'red'"
-					:slim="true"
+					iconButton
+					color="red"
+					slim
 					class="px-2 m-1 float-right"
 					@click="setDefaults()"
 					>clear</AppButton
 				>
 				<AppButton
-					:iconButton="true"
-					:color="'blue'"
-					:slim="true"
+					iconButton
+					color="blue"
+					slim
 					class="px-2 m-1 float-right"
 					@click="createTask()"
 					>done</AppButton
@@ -64,14 +62,10 @@
 			</span>
 		</div>
 		<div
-			class="border border-dark-100 w-full rounded-md flex justify-around items-center p-1 m-1"
+			class="border dark:border-dark-800 w-full rounded-md flex justify-around items-center p-1 m-1"
 			v-else>
 			<AppToolTip text="create new Task">
-				<AppIcon
-					class="hover:bg-light-900 dark:hover:bg-dark-400"
-					@click="createNewTask = true">
-					add
-				</AppIcon>
+				<AppIcon button @click="createNewTask = true"> add </AppIcon>
 			</AppToolTip>
 		</div>
 	</div>

@@ -57,7 +57,7 @@
 	<AppYesNoModal ref="deleteModal" @yes="taskStore.deleteEntity(taskToDelete!)">
 		Delete Project "{{ taskToDelete?.name }}"?
 	</AppYesNoModal>
-	<AppModal ref="detailsModal">
+	<AppModal ref="detailsModal" large>
 		<TaskDetails
 			v-if="!!taskForDetails"
 			:task="taskForDetails"
