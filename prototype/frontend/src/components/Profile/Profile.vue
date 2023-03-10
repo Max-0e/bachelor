@@ -1,4 +1,5 @@
 <template>
+	<AppIcon button large @click="router.back()">arrow_back</AppIcon>
 	<div class="text-4xl text-left flex content-center gap-10 m-10">
 		<AppChip> person </AppChip>
 		<div>
@@ -14,5 +15,7 @@
 </template>
 <script setup lang="ts">
 import { useAuthStore } from '@/store/auth';
-import AppChip from '../shared/UI/AppChip.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 </script>

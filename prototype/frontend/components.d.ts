@@ -60,5 +60,6 @@ declare module '@vue/runtime-core' {
     TaskDetails: typeof import('./src/components/Tasks/TaskDetails.vue')['default']
     TaskList: typeof import('./src/components/Tasks/TaskList.vue')['default']
     TaskListItem: typeof import('./src/components/Tasks/TaskListItem.vue')['default']
+    TasksDoughnutChart: typeof import('./src/components/shared/Chart/TasksDoughnutChart.vue')['default']
   }
 }

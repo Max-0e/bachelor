@@ -15,7 +15,7 @@
 					" />
 			</div>
 			<AppToolTip text="Delete Project" position="left">
-				<AppIcon @click="deleteProjectModal?.open()">delete</AppIcon>
+				<AppIcon button @click="deleteProjectModal?.open()">delete</AppIcon>
 			</AppToolTip>
 		</div>
 		<div>
@@ -28,15 +28,7 @@
 			Progress: {{ metrics.progress }}%
 		</div>
 		<div class="w-1/4 m-auto">
-			<Doughnut
-				:data="
-					getProjectChartData([
-						metrics.openLength,
-						metrics.inProgressLength,
-						metrics.doneLength,
-					])
-				"
-				:options="projectDoughnutChartOptions" />
+			<TasksDoughnutChart :tasks="tasks" />
 		</div>
 		<div class="p-5">
 			<AlternativeTaskList />
@@ -58,13 +50,7 @@ import { useGroupStore } from '@/store/entity-groups.store';
 import { computed, ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
-import {
-	getProjectChartData,
-	projectDoughnutChartOptions,
-} from '@/components/chartoptions/projectDoughnutChartOptions';
 import { useTaskStore } from '@/store/tasks.store';
-
-import { Doughnut } from 'vue-chartjs';
 
 const groupStore = useGroupStore();
 const taskStore = useTaskStore();

@@ -25,7 +25,7 @@ export function getProjectChartData(data: number[]): ChartData<'doughnut'> {
 		datasets: [
 			{
 				data: data,
-				backgroundColor: ['#333333', '#0079AF', '#339933'],
+				backgroundColor: ['#333333', '#2134A2', '#339933'],
 			},
 		],
 	};
