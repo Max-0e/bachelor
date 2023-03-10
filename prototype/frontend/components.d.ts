@@ -18,6 +18,7 @@ declare module '@vue/runtime-core' {
     AppForm: typeof import('./src/components/shared/Input/AppForm.vue')['default']
     AppIcon: typeof import('./src/components/shared/UI/AppIcon.vue')['default']
     AppInlineInputField: typeof import('./src/components/shared/Input/AppInlineInputField.vue')['default']
+    AppInlineTextArea: typeof import('./src/components/shared/Input/AppInlineTextArea.vue')['default']
     AppInputField: typeof import('./src/components/shared/Input/AppInputField.vue')['default']
     AppLabel: typeof import('./src/components/shared/Input/AppLabel.vue')['default']
     AppModal: typeof import('./src/components/shared/Modal/AppModal.vue')['default']
@@ -56,6 +57,7 @@ declare module '@vue/runtime-core' {
     RouterNesting: typeof import('./src/components/shared/RouterNesting.vue')['default']
     RouterView: typeof import('vue-router')['RouterView']
     Settings: typeof import('./src/views/Settings.vue')['default']
+    TaskDetails: typeof import('./src/components/Tasks/TaskDetails.vue')['default']
     TaskList: typeof import('./src/components/Tasks/TaskList.vue')['default']
     TaskListItem: typeof import('./src/components/Tasks/TaskListItem.vue')['default']
   }

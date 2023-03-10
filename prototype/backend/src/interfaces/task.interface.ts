@@ -3,6 +3,7 @@ import { LinkableEntity } from './linkable-entity.interface';
 
 export interface ITask {
 	status: Status;
+	description: string;
 	storyPoints: number;
 }
 

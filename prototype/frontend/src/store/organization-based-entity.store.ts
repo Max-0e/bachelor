@@ -1,5 +1,5 @@
-import { Entity, EntityCreate } from '@/intefaces/entity.interface';
-import { OrganizationBasedEntity } from '@/intefaces/organization-based-entity.interface';
+import { Entity, EntityCreate } from '@/interfaces/entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
 
 import { OrganizationBasedEntityService } from '@/services/organization-based-entity.service';
 import { defineStore } from 'pinia';

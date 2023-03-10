@@ -1,4 +1,4 @@
-import { Entity, EntityCreate } from '@/intefaces/entity.interface';
+import { Entity, EntityCreate } from '@/interfaces/entity.interface';
 import { router } from '@/router';
 import { EntityService } from '@/services/entity.service';
 import { defineStore } from 'pinia';

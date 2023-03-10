@@ -19,7 +19,7 @@
 	<CreateGroupFormModal ref="createGroupFormModal" />
 </template>
 <script lang="ts" setup>
-import { modalRef } from '@/intefaces/modal.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 

@@ -42,8 +42,8 @@
 	</AppYesNoModal>
 </template>
 <script setup lang="ts">
-import { modalRef } from '@/intefaces/modal.interface';
-import { Task } from '@/intefaces/task.interface';
+import { modalRef } from '@/interfaces/modal.interface';
+import { Task } from '@/interfaces/task.interface';
 import { useTaskStore } from '@/store/tasks.store';
 import { PropType } from 'vue';
 

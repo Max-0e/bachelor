@@ -1,4 +1,4 @@
-import { IOrganization } from '@/intefaces/organization.interface';
+import { IOrganization } from '@/interfaces/organization.interface';
 import { organizationService } from '@/services/organization.service';
 import { defineEntityStore, getEntityStateDefaults } from './entity.store';
 

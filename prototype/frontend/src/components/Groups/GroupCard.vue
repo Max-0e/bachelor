@@ -4,7 +4,7 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import { EntityGroup } from '@/intefaces/entity-groups.interface';
+import { EntityGroup } from '@/interfaces/entity-groups.interface';
 import { PropType } from '@vue/runtime-core';
 
 defineProps({

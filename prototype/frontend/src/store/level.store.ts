@@ -1,6 +1,6 @@
-import { Entity } from '@/intefaces/entity.interface';
-import { ILevel } from '@/intefaces/level.interface';
-import { OrganizationBasedEntity } from '@/intefaces/organization-based-entity.interface';
+import { Entity } from '@/interfaces/entity.interface';
+import { ILevel } from '@/interfaces/level.interface';
+import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
 import { levelService } from '@/services/level.service';
 import {
 	defineOrganizationBasedEntityStore,

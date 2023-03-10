@@ -1,4 +1,4 @@
-import { InputRef } from '@/intefaces/form.interface';
+import { InputRef } from '@/interfaces/form.interface';
 import { FormObject } from './formObject';
 
 export class FormGroup<T extends { [key: string]: InputRef }> {

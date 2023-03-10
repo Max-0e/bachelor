@@ -28,7 +28,7 @@
 		</div>
 	</div>
 	<AppModal ref="detailsModal" :large="true">
-		<EpicDetails :epic="epic" />
+		<EpicDetails :project="project" :epic="epic" />
 	</AppModal>
 	<AppYesNoModal
 		ref="deleteModal"
@@ -40,8 +40,8 @@
 	</AppYesNoModal>
 </template>
 <script setup lang="ts">
-import { EntityGroup } from '@/intefaces/entity-groups.interface';
-import { modalRef } from '@/intefaces/modal.interface';
+import { EntityGroup } from '@/interfaces/entity-groups.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { PropType } from 'vue';
 
@@ -49,6 +49,7 @@ const groupStore = useGroupStore();
 
 defineProps({
 	epic: { type: Object as PropType<EntityGroup>, required: true },
+	project: { type: Object as PropType<EntityGroup>, required: true },
 });
 
 const deleteModal = modalRef();

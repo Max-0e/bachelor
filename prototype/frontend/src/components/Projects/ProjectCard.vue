@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { EntityGroup } from '@/intefaces/entity-groups.interface';
+import { EntityGroup } from '@/interfaces/entity-groups.interface';
 import { useTaskStore } from '@/store/tasks.store';
 import { PropType, ref } from 'vue';
 

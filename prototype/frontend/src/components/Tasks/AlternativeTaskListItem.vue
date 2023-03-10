@@ -25,7 +25,10 @@
 				<AppToolTip text="delete Task" position="left">
 					<AppIcon
 						class="px-2 m-1 hover:bg-light-900 dark:hover:bg-dark-400"
-						@click="$emit('onOpenDeleteTaskModal', task)"
+						@click="
+							$emit('onOpenDeleteTaskModal', task);
+							$event.stopPropagation();
+						"
 						>delete</AppIcon
 					>
 				</AppToolTip>
@@ -34,7 +37,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { Task } from '@/intefaces/task.interface';
+import { Task } from '@/interfaces/task.interface';
 import { PropType } from 'vue';
 
 defineProps({

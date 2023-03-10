@@ -83,6 +83,6 @@ function selectOption(option: {
 const reset = () =>
 	(selectedOption.value = { name: props.selectText, value: null });
 
-defineExpose({ reset });
+defineExpose({ reset, selectOption });
 </script>
 <style scoped></style>

@@ -11,44 +11,53 @@
 			@save="" />
 
 		<div>
-			<!-- <div class="flex gap-5">
+			<div class="flex gap-5">
 				<AppDropDownMenu
 					ref="dropdown"
 					class="flex-grow"
 					v-model="selectedTask"
 					selectText="select Task to add"
 					:options="
-						project.tasks
-							.filter((task) => !task.epics?.includes(epic.id))
+						tasks
+							.filter((task) => !task.entityGroupIds.includes(epic.id))
 							.map((task) => ({ name: task.name, value: task }))
 					" />
 				<AppButton :disabled="!selectedTask" @click="addTaskToEpic()"
 					>Add to Epic</AppButton
 				>
 			</div>
-			<TaskList :project="project" :epic="epic" /> -->
+			<TaskList :epic="epic" />
 		</div>
 	</div>
 </template>
 <script setup lang="ts">
-import { EntityGroup } from '@/intefaces/entity-groups.interface';
-import { PropType } from 'vue';
+import { EntityGroup } from '@/interfaces/entity-groups.interface';
+import { Task } from '@/interfaces/task.interface';
+import { useTaskStore } from '@/store/tasks.store';
 
-// const projectStore = useProjectStore();
+import { computed, PropType, Ref, ref } from 'vue';
+import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
 
-// const selectedTask: Ref<ITask | null> = ref(null);
+const taskStore = useTaskStore();
 
-// const dropdown = ref<InstanceType<typeof AppDropDownMenu> | null>(null);
+const selectedTask: Ref<Task | null> = ref(null);
 
-defineProps({
+const tasks = computed(() =>
+	taskStore.getEntitiesLinkedToEntityGroupId(props.project.id)
+);
+const dropdown = ref<InstanceType<typeof AppDropDownMenu> | null>(null);
+
+const props = defineProps({
 	epic: { type: Object as PropType<EntityGroup>, required: true },
+	project: { type: Object as PropType<EntityGroup>, required: true },
 });
 
-// function addTaskToEpic() {
-// 	if (!selectedTask.value) return;
-// 	selectedTask.value?.epics.push(props.epic.id);
-// 	projectStore.updateTask(props.project, selectedTask.value);
-// 	selectedTask.value = null;
-// 	dropdown.value!.reset();
-// }
+function addTaskToEpic() {
+	const task = selectedTask.value;
+	if (!task) return;
+	task.entityGroupIds.push(props.epic.id);
+	taskStore.updateEntity(task.id, task);
+	selectedTask.value = null;
+	dropdown.value!.reset();
+}
 </script>
