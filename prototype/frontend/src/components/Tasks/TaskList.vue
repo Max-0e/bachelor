@@ -16,7 +16,9 @@
 		<div class="flex items-center" v-for="task in tasks" :key="task.id">
 			<TaskListItem :task="task" />
 			<AppToolTip text="remove from epic" position="left" v-if="!!epic">
-				<AppIcon class="text-red-600 hover:bg-dark-700" @click=""
+				<AppIcon
+					class="text-red-600 hover:bg-dark-700"
+					@click="removeFromEpic(task)"
 					>remove_circle_outline</AppIcon
 				>
 			</AppToolTip>
@@ -77,12 +79,12 @@
 
 <script setup lang="ts">
 import { validationType } from '@/enums/validationType.enum';
-import { EntityGroup } from '@/intefaces/entity-groups.interface';
-import { inputRef } from '@/intefaces/form.interface';
-import { Status } from '@/intefaces/task.interface';
+import { EntityGroup } from '@/interfaces/entity-groups.interface';
+import { inputRef } from '@/interfaces/form.interface';
+import { Status, Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useTaskStore } from '@/store/tasks.store';
-import { PropType, ref } from 'vue';
+import { computed, PropType, ref } from 'vue';
 import { FormGroup } from '../shared/Input/formGroup';
 
 const options = [
@@ -100,9 +102,10 @@ const createNewTask = ref(false);
 
 const taskStore = useTaskStore();
 
-const tasks = ref(
-	taskStore.getEntitiesLinkedToEntityGroupId(currentProject.value!.id)
-);
+const tasks = computed(() => {
+	const groupId = props.epic?.id ?? currentProject.value!.id;
+	return taskStore.getEntitiesLinkedToEntityGroupId(groupId);
+});
 
 const status = ref<Status>('open');
 const name = inputRef();
@@ -119,16 +122,21 @@ function createTask() {
 		storyPoints: 0,
 		name: formGroup.formObjects.name.value,
 		status: status.value,
+		description: '',
 	});
 
 	setDefaults();
 }
 
-// function removeFromEpic(task: ITask) {
-// 	if (!props.epic) return;
-// 	task.epics = task.epics.filter((epicId) => props.epic?.id !== epicId);
-// 	projectStore.updateTask(props.project, task);
-// }
+function removeFromEpic(task: Task) {
+	const epic = props.epic;
+	if (!epic) return;
+	task.entityGroupIds.splice(
+		task.entityGroupIds.findIndex((id) => id === epic.id),
+		1
+	);
+	taskStore.updateEntity(task.id, task);
+}
 
 function setDefaults() {
 	status.value = 'open';

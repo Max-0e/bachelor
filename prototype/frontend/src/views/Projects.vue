@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { modalRef } from '@/intefaces/modal.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 

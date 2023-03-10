@@ -1,6 +1,6 @@
 <template></template>
 <script setup lang="ts">
-import { ToastType } from '@/intefaces/toastConfig';
+import { ToastType } from '@/interfaces/toastConfig';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
 import { onMounted } from 'vue';

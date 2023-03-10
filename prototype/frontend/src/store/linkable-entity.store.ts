@@ -1,6 +1,6 @@
-import { Entity } from '@/intefaces/entity.interface';
-import { LinkableEntity } from '@/intefaces/linkable-entity.interface';
-import { OrganizationBasedEntity } from '@/intefaces/organization-based-entity.interface';
+import { Entity } from '@/interfaces/entity.interface';
+import { LinkableEntity } from '@/interfaces/linkable-entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
 import { LinkableEntityService } from '@/services/linkable-entity.service';
 import { useToast } from 'vue-toastification';
 import {

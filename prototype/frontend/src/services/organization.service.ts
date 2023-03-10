@@ -1,4 +1,4 @@
-import { IOrganization } from '@/intefaces/organization.interface';
+import { IOrganization } from '@/interfaces/organization.interface';
 import { EntityService } from './entity.service';
 
 class OrganizationService extends EntityService<IOrganization> {}

@@ -1,6 +1,7 @@
 <template>
 	<div v-if="!!groupStore.currentEntity" class="w-full flex gap-5">
 		<EpicCard
+			:project="groupStore.currentEntity"
 			:epic="epic"
 			:key="epic.name"
 			v-for="epic in groupStore.downwardsLinkedGroupsForCurrentGroup" />
@@ -26,8 +27,8 @@
 <script setup lang="ts">
 import { FormGroup } from '@/components/shared/Input/formGroup';
 import { validationType } from '@/enums/validationType.enum';
-import { inputRef } from '@/intefaces/form.interface';
-import { modalRef } from '@/intefaces/modal.interface';
+import { inputRef } from '@/interfaces/form.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 

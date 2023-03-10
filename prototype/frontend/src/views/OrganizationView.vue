@@ -16,7 +16,7 @@
 	<CreateOrganizationFormModal ref="createOrganizationFormModal" />
 </template>
 <script lang="ts" setup>
-import { modalRef } from '@/intefaces/modal.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useOrganizationStore } from '@/store/organization.store';
 
 const createOrganizationFormModal = modalRef();

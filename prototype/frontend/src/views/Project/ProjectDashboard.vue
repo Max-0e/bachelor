@@ -15,7 +15,7 @@
 					" />
 			</div>
 			<AppToolTip text="Delete Project" position="left">
-				<AppIcon @click="deteleProjectModal?.open()">delete</AppIcon>
+				<AppIcon @click="deleteProjectModal?.open()">delete</AppIcon>
 			</AppToolTip>
 		</div>
 		<div>
@@ -48,14 +48,14 @@
 		</div>
 	</div>
 	<div v-else>Something went Wrong...</div>
-	<AppYesNoModal ref="deteleProjectModal" @yes="deleteCurrentProject()">
+	<AppYesNoModal ref="deleteProjectModal" @yes="deleteCurrentProject()">
 		Delete this Project?
 	</AppYesNoModal>
 </template>
 <script setup lang="ts">
-import { modalRef } from '@/intefaces/modal.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
-import { ref } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import {
@@ -71,9 +71,9 @@ const taskStore = useTaskStore();
 const router = useRouter();
 
 const currentProject = ref(groupStore.currentEntity);
-const deteleProjectModal = modalRef();
+const deleteProjectModal = modalRef();
 
-const tasks = ref(
+const tasks = computed(() =>
 	taskStore.getEntitiesLinkedToEntityGroupId(currentProject.value!.id)
 );
 

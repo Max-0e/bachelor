@@ -1,4 +1,4 @@
-import { ITask, Task } from '@/intefaces/task.interface';
+import { ITask, Task } from '@/interfaces/task.interface';
 import { taskService } from '@/services/task.service';
 import { computed, Ref } from 'vue';
 

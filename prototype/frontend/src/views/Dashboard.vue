@@ -64,7 +64,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { EntityGroup } from '@/intefaces/entity-groups.interface';
+import { EntityGroup } from '@/interfaces/entity-groups.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 import { computed, ref } from 'vue';

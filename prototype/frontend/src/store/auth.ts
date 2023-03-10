@@ -1,5 +1,5 @@
-import { ILoginPayload } from '@/intefaces/loginPayload.interface';
-import { User } from '@/intefaces/user.interface';
+import { ILoginPayload } from '@/interfaces/loginPayload.interface';
+import { User } from '@/interfaces/user.interface';
 import authService from '@/services/auth.service';
 import storageService from '@/services/storage.service';
 import { defineStore } from 'pinia';

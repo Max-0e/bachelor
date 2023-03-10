@@ -1,5 +1,5 @@
-import { IEntityGroup } from '@/intefaces/entity-groups.interface';
-import { LinkableEntity } from '@/intefaces/linkable-entity.interface';
+import { IEntityGroup } from '@/interfaces/entity-groups.interface';
+import { LinkableEntity } from '@/interfaces/linkable-entity.interface';
 
 import { entityGroupsService } from '@/services/entity-groups.service';
 import { useRouter } from 'vue-router';
