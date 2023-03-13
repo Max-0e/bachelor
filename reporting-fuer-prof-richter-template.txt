@@ -1,15 +1,24 @@
 Betreff: 0% - BA Konzeption und Entwicklung eines Systems zur softwaregestützten Dokumentation von Unternehmensstrukturen für automatisierte Fortschrittsmessung und Werteorientierung
 
 In dieser Woche erledigt:
-- DevOps (Pipeline/Githubactions für CI/CD)
-- Literatur-Recherche
+- Kapitel Analyse
+-- warum agil?
+- Kapitel Konzeption
+-- Prozessdefinition 100%
+- fachliche Konzeption
+- technische Konzeption
+- Implementierung
+-- Datenimport/Jira-Integration
+--- Jira-Connection
+--- einige Bugfixes und visuelle Optimierungen
 
 Für die kommende Woche geplant:
 - Kapitel Analyse
 - Kapitel Agile Unternehmensführung
-- fachliche Konzeption
-- Implementierung
--- Datenimport/Jira-Integration
+- Kapitel Konzeption
+-Implementierung
+-- Datenimport
+
 
 Meilensteinplan:
 - Vorbereitung 100% 23.01.2023
@@ -20,26 +29,26 @@ Meilensteinplan:
 -- agiles Portfoliomanagement 100%
 -- value based Software-Engineering 100%
 -- Flight-Level 100%
-- Schreiben 10% 27.03.2023
+- Schreiben 15% 27.03.2023
 -- Kapitel Einleitung 0% 27.03.2023
--- Kapitel Agile Unternehmensführung 30% 13.03.2023
--- Kapitel Analyse 40% 13.03.2023
--- Kapitel Konzeption 0% 20.02.2023
--- Kapitel Implementierung 0% 20.03.2023
--- Kapitel Evaluation 0% 20.03.2023
--- Kapitel Fazit 0% 20.03.2023
-- Konzeption 90% 13.03.2023
--- fachliches Konzeption 45%
+-- Kapitel Agile Unternehmensführung 30% 20.03.2023
+-- Kapitel Analyse 40% 20.03.2023
+-- Kapitel Konzeption 30% 20.02.2023
+-- Kapitel Implementierung 0% 27.03.2023
+-- Kapitel Evaluation 0% 27.03.2023
+-- Kapitel Fazit 0% 27.03.2023
+- Konzeption 100% 13.03.2023
+-- fachliches Konzeption 100%
 --- Prozessdefinition 100%
---- Anforderungs-Formulierung 0%
---- UX-Prototyp 0%
--- technische Konzeption 90% 
+--- Anforderungs-Formulierung 100%
+--- UX-Prototyp 100%
+-- technische Konzeption 100% 
 --- Datenstruktur 100%
 --- Backend-Architektur 100%
 --- Frontend-Architektur 100%
---- Datenvisualisierung 50%
+--- Datenvisualisierung 100%
 --- DevOps(Pipeline/Githubactions für CI/CD) 100%
-- Implementierung der Software 90% 13.03.2023
+- Implementierung der Software 95% 20.03.2023
 -- Authentifizierung 100%
 -- Design REST-Interface 100%
 -- Implementierung REST-Interface 100%
@@ -47,9 +56,9 @@ Meilensteinplan:
 -- Frontend States und Store 100%
 -- Datenvisualisierung 100%
 -- App-Navigation 100%
--- Daten-Import/Jira-Integration 70%
+-- Daten-Import/Jira-Integration 80%
 -- tba
 - Test 20% 16.03.2023
 -- Testdaten/Demo-Projekt erstellen 0% 10.03.2023
 -- Termine mit Experten vereinbaren 80% 27.02.2023
--- Test durchführen 0% 16.03.2023
+-- Test durchführen 0% 27.03.2023
