@@ -1,8 +1,13 @@
 import { ITask, Task } from '@/interfaces/task.interface';
 import { taskService } from '@/services/task.service';
+import { unique } from '@/utility/unique';
 import { computed, Ref } from 'vue';
+import { useGroupStore } from './entity-groups.store';
 
-import { defineLinkableEntityStore } from './linkable-entity.store';
+import {
+	defineLinkableEntityStore,
+	LinkableEntityStore,
+} from './linkable-entity.store';
 import { getOrganizationBasedEntityStateDefaults } from './organization-based-entity.store';
 
 const makeTaskGetters = () => ({
@@ -30,6 +35,25 @@ const makeTaskGetters = () => ({
 					progress: Math.floor((doneLength / totalLength) * 100),
 				};
 			});
+	},
+	getTasksLinkedToEntityGroupIdRecursive(this: LinkableEntityStore<ITask>) {
+		return (entityGroupId: string) => {
+			const groupsFromLevelBelow =
+				useGroupStore().getEntitiesLinkedToEntityGroupId(entityGroupId);
+			const tasks = groupsFromLevelBelow.flatMap(({ id }) =>
+				//TODO: fix typing
+				(this as any).getEntitiesLinkedToEntityGroupId(id)
+			);
+			if (tasks.length === 0) {
+				return groupsFromLevelBelow
+					.flatMap(({ id }) =>
+						(this as any).getTasksLinkedToEntityGroupIdRecursive(id)
+					)
+					.filter(unique) as Task[];
+			} else {
+				return tasks as Task[];
+			}
+		};
 	},
 });
 

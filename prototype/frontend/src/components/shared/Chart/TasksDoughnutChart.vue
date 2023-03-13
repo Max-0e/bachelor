@@ -7,12 +7,12 @@
 				metrics.value.doneLength,
 			])
 		"
-		:options="projectDoughnutChartOptions" />
+		:options="getDoughnutChartOptions(name)" />
 </template>
 <script setup lang="ts">
 import {
+	getDoughnutChartOptions,
 	getProjectChartData,
-	projectDoughnutChartOptions,
 } from '@/components/chartoptions/projectDoughnutChartOptions';
 import { Task } from '@/interfaces/task.interface';
 import { useTaskStore } from '@/store/tasks.store';
@@ -21,6 +21,7 @@ import { Doughnut } from 'vue-chartjs';
 
 const props = defineProps({
 	tasks: { type: Object as PropType<Task[]>, required: true },
+	name: { type: String, default: 'Project' },
 });
 
 const metrics = computed(() => useTaskStore().computeMetrics(ref(props.tasks)));

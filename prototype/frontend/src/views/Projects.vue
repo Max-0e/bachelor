@@ -1,5 +1,7 @@
 <template>
-	<div>{{ useLevelStore().currentEntity?.name }} (operative)</div>
+	<div class="text-3xl my-5">
+		{{ useLevelStore().currentEntity?.name }} (operative)
+	</div>
 	<div v-if="groupStore.currentGroups.length === 0" class="italic">
 		no {{ useLevelStore().currentEntity?.name }}
 	</div>
