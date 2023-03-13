@@ -16,8 +16,8 @@
 </template>
 <script lang="ts" setup>
 import { validationType } from '@/enums/validationType.enum';
-import { inputRef } from '@/intefaces/form.interface';
-import { modalRef } from '@/intefaces/modal.interface';
+import { inputRef } from '@/interfaces/form.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 

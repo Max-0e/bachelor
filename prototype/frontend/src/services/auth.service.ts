@@ -1,7 +1,7 @@
-import { ILoginPayload } from '@/intefaces/loginPayload.interface';
-import { IRegisterPayload } from '@/intefaces/registerPayload.interface';
-import { IResetPasswordPayload } from '@/intefaces/resetPassword.interface';
-import { User } from '@/intefaces/user.interface';
+import { ILoginPayload } from '@/interfaces/loginPayload.interface';
+import { IRegisterPayload } from '@/interfaces/registerPayload.interface';
+import { IResetPasswordPayload } from '@/interfaces/resetPassword.interface';
+import { User } from '@/interfaces/user.interface';
 import { API_URL } from '../config';
 import HttpClient from '../utility/http';
 

@@ -16,7 +16,7 @@
 		<div class="flex items-center" v-for="task in tasks" :key="task.id">
 			<TaskListItem :task="task" />
 			<AppToolTip text="remove from epic" position="left" v-if="!!epic">
-				<AppIcon class="text-red-600 hover:bg-dark-700" @click=""
+				<AppIcon class="text-red-600" button @click="removeFromEpic(task)"
 					>remove_circle_outline</AppIcon
 				>
 			</AppToolTip>
@@ -25,7 +25,7 @@
 	<!-- Add Task Field -->
 	<div class="flex items-center">
 		<div
-			class="border border-dark-100 w-full rounded-md flex justify-between items-center p-1 m-1"
+			class="border dark:border-dark-800 w-full rounded-md flex justify-between items-center p-1 m-1"
 			v-if="createNewTask">
 			<span class="w-1/3 text-left px-5">
 				<AppInputField
@@ -44,17 +44,17 @@
 			</span>
 			<span class="w-1/3 px-5">
 				<AppButton
-					:iconButton="true"
-					:color="'red'"
-					:slim="true"
+					iconButton
+					color="red"
+					slim
 					class="px-2 m-1 float-right"
 					@click="setDefaults()"
 					>clear</AppButton
 				>
 				<AppButton
-					:iconButton="true"
-					:color="'blue'"
-					:slim="true"
+					iconButton
+					color="blue"
+					slim
 					class="px-2 m-1 float-right"
 					@click="createTask()"
 					>done</AppButton
@@ -62,14 +62,10 @@
 			</span>
 		</div>
 		<div
-			class="border border-dark-100 w-full rounded-md flex justify-around items-center p-1 m-1"
+			class="border dark:border-dark-800 w-full rounded-md flex justify-around items-center p-1 m-1"
 			v-else>
 			<AppToolTip text="create new Task">
-				<AppIcon
-					class="hover:bg-light-900 dark:hover:bg-dark-400"
-					@click="createNewTask = true">
-					add
-				</AppIcon>
+				<AppIcon button @click="createNewTask = true"> add </AppIcon>
 			</AppToolTip>
 		</div>
 	</div>
@@ -77,12 +73,12 @@
 
 <script setup lang="ts">
 import { validationType } from '@/enums/validationType.enum';
-import { EntityGroup } from '@/intefaces/entity-groups.interface';
-import { inputRef } from '@/intefaces/form.interface';
-import { Status } from '@/intefaces/task.interface';
+import { EntityGroup } from '@/interfaces/entity-groups.interface';
+import { inputRef } from '@/interfaces/form.interface';
+import { Status, Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useTaskStore } from '@/store/tasks.store';
-import { PropType, ref } from 'vue';
+import { computed, PropType, ref } from 'vue';
 import { FormGroup } from '../shared/Input/formGroup';
 
 const options = [
@@ -100,9 +96,10 @@ const createNewTask = ref(false);
 
 const taskStore = useTaskStore();
 
-const tasks = ref(
-	taskStore.getEntitiesLinkedToEntityGroupId(currentProject.value!.id)
-);
+const tasks = computed(() => {
+	const groupId = props.epic?.id ?? currentProject.value!.id;
+	return taskStore.getEntitiesLinkedToEntityGroupId(groupId);
+});
 
 const status = ref<Status>('open');
 const name = inputRef();
@@ -119,16 +116,21 @@ function createTask() {
 		storyPoints: 0,
 		name: formGroup.formObjects.name.value,
 		status: status.value,
+		description: '',
 	});
 
 	setDefaults();
 }
 
-// function removeFromEpic(task: ITask) {
-// 	if (!props.epic) return;
-// 	task.epics = task.epics.filter((epicId) => props.epic?.id !== epicId);
-// 	projectStore.updateTask(props.project, task);
-// }
+function removeFromEpic(task: Task) {
+	const epic = props.epic;
+	if (!epic) return;
+	task.entityGroupIds.splice(
+		task.entityGroupIds.findIndex((id) => id === epic.id),
+		1
+	);
+	taskStore.updateEntity(task.id, task);
+}
 
 function setDefaults() {
 	status.value = 'open';

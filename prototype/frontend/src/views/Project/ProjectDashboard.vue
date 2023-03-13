@@ -15,7 +15,7 @@
 					" />
 			</div>
 			<AppToolTip text="Delete Project" position="left">
-				<AppIcon @click="deteleProjectModal?.open()">delete</AppIcon>
+				<AppIcon button @click="deleteProjectModal?.open()">delete</AppIcon>
 			</AppToolTip>
 		</div>
 		<div>
@@ -28,15 +28,7 @@
 			Progress: {{ metrics.progress }}%
 		</div>
 		<div class="w-1/4 m-auto">
-			<Doughnut
-				:data="
-					getProjectChartData([
-						metrics.openLength,
-						metrics.inProgressLength,
-						metrics.doneLength,
-					])
-				"
-				:options="projectDoughnutChartOptions" />
+			<TasksDoughnutChart :tasks="tasks" />
 		</div>
 		<div class="p-5">
 			<AlternativeTaskList />
@@ -48,32 +40,26 @@
 		</div>
 	</div>
 	<div v-else>Something went Wrong...</div>
-	<AppYesNoModal ref="deteleProjectModal" @yes="deleteCurrentProject()">
+	<AppYesNoModal ref="deleteProjectModal" @yes="deleteCurrentProject()">
 		Delete this Project?
 	</AppYesNoModal>
 </template>
 <script setup lang="ts">
-import { modalRef } from '@/intefaces/modal.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
-import { ref } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
-import {
-	getProjectChartData,
-	projectDoughnutChartOptions,
-} from '@/components/chartoptions/projectDoughnutChartOptions';
 import { useTaskStore } from '@/store/tasks.store';
-
-import { Doughnut } from 'vue-chartjs';
 
 const groupStore = useGroupStore();
 const taskStore = useTaskStore();
 const router = useRouter();
 
 const currentProject = ref(groupStore.currentEntity);
-const deteleProjectModal = modalRef();
+const deleteProjectModal = modalRef();
 
-const tasks = ref(
+const tasks = computed(() =>
 	taskStore.getEntitiesLinkedToEntityGroupId(currentProject.value!.id)
 );
 

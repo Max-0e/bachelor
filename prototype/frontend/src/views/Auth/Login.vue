@@ -34,7 +34,7 @@ import { validationType } from '@/enums/validationType.enum';
 import { useAuthStore } from '@/store/auth';
 
 import { FormGroup } from '@/components/shared/Input/formGroup';
-import { inputRef } from '@/intefaces/form.interface';
+import { inputRef } from '@/interfaces/form.interface';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 

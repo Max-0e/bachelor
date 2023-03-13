@@ -47,7 +47,7 @@
 				</DropZone>
 				<div
 					v-else
-					class="transition-all flex-grow bg-gray-300 p-5 dark:bg-dark-100 rounded-md border border-2 cursor-pointer"
+					class="transition-all flex-grow bg-gray-200 p-5 dark:bg-dark-100 rounded-md border border-2 cursor-pointer"
 					v-for="group in groups.filter((x) => x.levelId === level.id)"
 					:class="
 						markedGroup === group || markedGroups.includes(group)
@@ -64,7 +64,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { EntityGroup } from '@/intefaces/entity-groups.interface';
+import { EntityGroup } from '@/interfaces/entity-groups.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 import { computed, ref } from 'vue';

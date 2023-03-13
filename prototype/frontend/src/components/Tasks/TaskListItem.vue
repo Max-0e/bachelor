@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="border border-dark-100 w-full rounded-md flex justify-between items-center p-1 m-1">
+		class="border dark:border-dark-800 w-full rounded-md flex justify-between items-center p-1 m-1">
 		<span class="w-1/3 text-left px-5">
 			<AppInlineInputField
 				v-model="task.name"
@@ -42,8 +42,8 @@
 	</AppYesNoModal>
 </template>
 <script setup lang="ts">
-import { modalRef } from '@/intefaces/modal.interface';
-import { Task } from '@/intefaces/task.interface';
+import { modalRef } from '@/interfaces/modal.interface';
+import { Task } from '@/interfaces/task.interface';
 import { useTaskStore } from '@/store/tasks.store';
 import { PropType } from 'vue';
 

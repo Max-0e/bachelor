@@ -6,7 +6,7 @@
 	<CreateLevelFormModal ref="createLevelFormModal"></CreateLevelFormModal>
 </template>
 <script lang="ts" setup>
-import { modalRef } from '@/intefaces/modal.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 
 const createLevelFormModal = modalRef();
 </script>

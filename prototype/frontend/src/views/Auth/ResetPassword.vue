@@ -24,8 +24,8 @@
 </template>
 <script setup lang="ts">
 import { FormGroup } from '@/components/shared/Input/formGroup';
-import { inputRef } from '@/intefaces/form.interface';
-import { ToastType } from '@/intefaces/toastConfig';
+import { inputRef } from '@/interfaces/form.interface';
+import { ToastType } from '@/interfaces/toastConfig';
 import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
 import { useRouter } from 'vue-router';

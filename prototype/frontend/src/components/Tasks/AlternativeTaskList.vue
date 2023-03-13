@@ -12,8 +12,13 @@
 					:key="task.id"
 					v-for="task in tasks.filter(({ status }) => status === 'open')">
 					<AlternativeTaskListItem
+						@click="openDetailsModal(task)"
+						@deleteTask="
+							openDeleteTaskModal(task);
+							detailsModal?.close();
+						"
 						:task="task"
-						@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
+						@onOpenDeleteTaskModal="openDeleteTaskModal(task)" />
 				</DraggableItem>
 			</TransitionGroup>
 		</DropZone>
@@ -24,8 +29,13 @@
 					:key="task.id"
 					v-for="task in tasks.filter(({ status }) => status === 'inProgress')">
 					<AlternativeTaskListItem
+						@click="openDetailsModal(task)"
+						@deleteTask="
+							openDeleteTaskModal(task);
+							detailsModal?.close();
+						"
 						:task="task"
-						@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
+						@onOpenDeleteTaskModal="openDeleteTaskModal(task)" />
 				</DraggableItem>
 			</TransitionGroup>
 		</DropZone>
@@ -36,8 +46,9 @@
 					:data="task.id"
 					v-for="task in tasks.filter(({ status }) => status === 'done')">
 					<AlternativeTaskListItem
+						@click="openDetailsModal(task)"
 						:task="task"
-						@onOpenDeleteTaskModal="(task) => openDeleteTaskModal(task)" />
+						@onOpenDeleteTaskModal="openDeleteTaskModal(task)" />
 				</DraggableItem>
 			</TransitionGroup>
 		</DropZone>
@@ -46,19 +57,30 @@
 	<AppYesNoModal ref="deleteModal" @yes="taskStore.deleteEntity(taskToDelete!)">
 		Delete Project "{{ taskToDelete?.name }}"?
 	</AppYesNoModal>
+	<AppModal ref="detailsModal" large>
+		<TaskDetails
+			v-if="!!taskForDetails"
+			:task="taskForDetails"
+			@deleteTask="
+				openDeleteTaskModal($event);
+				detailsModal?.close();
+			"></TaskDetails>
+	</AppModal>
 </template>
 
 <script setup lang="ts">
-import { modalRef } from '@/intefaces/modal.interface';
-import { Status, Task } from '@/intefaces/task.interface';
+import { modalRef } from '@/interfaces/modal.interface';
+import { Status, Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useTaskStore } from '@/store/tasks.store';
-import { Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 
 const taskStore = useTaskStore();
 
 const taskToDelete: Ref<Task | undefined> = ref();
+const taskForDetails: Ref<Task | undefined> = ref();
 const deleteModal = modalRef();
+const detailsModal = modalRef();
 
 function openDeleteTaskModal(task: Task) {
 	deleteModal.value!.open();
@@ -67,11 +89,11 @@ function openDeleteTaskModal(task: Task) {
 
 const currentProject = useGroupStore().currentEntity;
 
-const tasks = ref(
+const tasks = computed(() =>
 	taskStore.getEntitiesLinkedToEntityGroupId(currentProject!.id)
 );
 
-function onDrop(taskId: string, status: Status) {
+const onDrop = (taskId: string, status: Status) => {
 	const task = tasks.value.find((task) => task.id == taskId);
 
 	if (!task) return;
@@ -79,5 +101,10 @@ function onDrop(taskId: string, status: Status) {
 
 	task.status = status;
 	taskStore.updateEntity(task.id, task);
-}
+};
+
+const openDetailsModal = (task: Task) => {
+	taskForDetails.value = task;
+	detailsModal.value?.open();
+};
 </script>

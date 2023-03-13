@@ -1,4 +1,4 @@
-import { Entity, EntityCreate } from '@/intefaces/entity.interface';
+import { Entity, EntityCreate } from '@/interfaces/entity.interface';
 import { API_URL } from '../config';
 import HttpClient from '../utility/http';
 
@@ -15,22 +15,38 @@ export abstract class EntityService<T> {
 	}
 
 	public async getEntities() {
-		return await HttpClient.get<Entity<T>[]>(`${API_URL}/${this.entityName}`, { withCredentials: true });
+		return await HttpClient.get<Entity<T>[]>(`${API_URL}/${this.entityName}`, {
+			withCredentials: true,
+		});
 	}
 
 	public async getEntityById(entityId: string) {
-		return await HttpClient.get<Entity<T>>(`${API_URL}/${this.entityName}/${entityId}`, { withCredentials: true });
+		return await HttpClient.get<Entity<T>>(
+			`${API_URL}/${this.entityName}/${entityId}`,
+			{ withCredentials: true }
+		);
 	}
 
 	public async createEntity(entityCreate: EntityCreate<T>) {
-		return await HttpClient.post<Entity<T>>(`${API_URL}/${this.entityName}/`, entityCreate, { withCredentials: true });
+		return await HttpClient.post<Entity<T>>(
+			`${API_URL}/${this.entityName}/`,
+			entityCreate,
+			{ withCredentials: true }
+		);
 	}
 
 	public async updateEntity(entityId: string, entityUpdate: EntityCreate<T>) {
-		return await HttpClient.put<Entity<T>>(`${API_URL}/${this.entityName}/${entityId}`, entityUpdate, { withCredentials: true });
+		return await HttpClient.put<Entity<T>>(
+			`${API_URL}/${this.entityName}/${entityId}`,
+			entityUpdate,
+			{ withCredentials: true }
+		);
 	}
 
 	public async deleteEntity(entityId: string) {
-		return await HttpClient.delete<void>(`${API_URL}/${this.entityName}/${entityId}`, { withCredentials: true });
+		return await HttpClient.delete<void>(
+			`${API_URL}/${this.entityName}/${entityId}`,
+			{ withCredentials: true }
+		);
 	}
 }

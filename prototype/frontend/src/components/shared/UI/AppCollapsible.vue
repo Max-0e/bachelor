@@ -1,7 +1,7 @@
 <template>
 	<div class="w-full">
 		<div
-			class="w-full bg-gray-400 max-h-10 dark:bg-dark-50 rounded-xl cursor-pointer flex justify-between flex-col items-strech transition-all"
+			class="w-full bg-gray-200 max-h-10 dark:bg-dark-50 rounded-xl cursor-pointer flex justify-between flex-col items-strech transition-all"
 			:class="{ 'pb-5 max-h-[1000000px]': expanded }">
 			<div
 				@click="expanded = !expanded"
@@ -14,8 +14,8 @@
 				</AppIcon>
 			</div>
 			<div
-				@click="$event.stopPropagation;"
-				class="bg-gray-300 dark:bg-dark-200 p-2 mx-5 rounded-xl"
+				@click.stop=""
+				class="bg-gray-100 dark:bg-dark-200 p-2 mx-5 rounded-xl"
 				v-if="expanded">
 				<slot></slot>
 			</div>

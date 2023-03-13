@@ -1,5 +1,7 @@
 <template>
-	<div>{{ useLevelStore().currentEntity?.name }} (operative)</div>
+	<div class="text-3xl my-5">
+		{{ useLevelStore().currentEntity?.name }} (operative)
+	</div>
 	<div v-if="groupStore.currentGroups.length === 0" class="italic">
 		no {{ useLevelStore().currentEntity?.name }}
 	</div>
@@ -25,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { modalRef } from '@/intefaces/modal.interface';
+import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 

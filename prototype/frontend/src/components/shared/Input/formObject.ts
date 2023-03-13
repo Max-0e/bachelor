@@ -1,4 +1,4 @@
-import { InputRef } from '@/intefaces/form.interface';
+import { InputRef } from '@/interfaces/form.interface';
 
 export class FormObject {
 	inputRef;
