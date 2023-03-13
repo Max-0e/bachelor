@@ -11,7 +11,7 @@
 			<AppIcon button @click.stop="$emit('deleteEpic')">delete</AppIcon>
 		</AppToolTip>
 		<div class="h-100 w-100 mx-auto">
-			<TasksDoughnutChart :tasks="tasks" />
+			<TasksDoughnutChart name="Epic" :tasks="tasks" />
 		</div>
 		<AppProgressBar class="my-5" :progress="metrics.progress"
 			>Progress</AppProgressBar

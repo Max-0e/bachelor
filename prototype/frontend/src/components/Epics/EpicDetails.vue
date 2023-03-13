@@ -15,7 +15,7 @@
 			</AppToolTip>
 		</div>
 		<div class="h-48">
-			<TasksDoughnutChart :tasks="tasks" />
+			<TasksDoughnutChart name="Epic" :tasks="tasks" />
 		</div>
 		<div>
 			<div class="flex gap-5">

@@ -1,6 +1,8 @@
 import { ChartData, ChartOptions } from 'chart.js';
 
-export const projectDoughnutChartOptions: ChartOptions<'doughnut'> = {
+export const getDoughnutChartOptions = (
+	name: string
+): ChartOptions<'doughnut'> => ({
 	responsive: true,
 	maintainAspectRatio: true,
 	animation: {
@@ -14,10 +16,10 @@ export const projectDoughnutChartOptions: ChartOptions<'doughnut'> = {
 		},
 		title: {
 			display: true,
-			text: 'Project Progress',
+			text: name + ' Progress',
 		},
 	},
-};
+});
 
 export function getProjectChartData(data: number[]): ChartData<'doughnut'> {
 	return {
