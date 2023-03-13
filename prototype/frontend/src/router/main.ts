@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import Profile from '@/components/Profile/Profile.vue';
+import Profile from '@/views/Profile.vue';
 import Settings from '@/views/Settings.vue';
 import { organizationRoutes } from './MainChildrenRoutes/organization';
 import { organizationsResolver } from './resolver/organizations.resolver';

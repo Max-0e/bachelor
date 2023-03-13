@@ -1,25 +1,34 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { UserDocument, UserModel } from '../models/user.model';
-import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import { AES } from 'crypto-js';
+import mongoose from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
+import { UserDocument, UserModel } from '../models/user.model';
 
-import userService from '../services/user.service';
 import mailerService from '../services/mailer.service';
+import userService from '../services/user.service';
 
-import { CLIENT_APP_URL } from '../config';
-import sendResponse from '../utility/sendResponse';
-import { NotFoundError } from '../error/not-found.error';
+import { CLIENT_APP_URL, SECRET } from '../config';
 import { AuthorizationError } from '../error/auth.error';
+import { NotFoundError } from '../error/not-found.error';
+import sendResponse from '../utility/sendResponse';
 
 class AuthController {
 	public async login(req: Request, res: Response): Promise<Response> {
-		return await sendResponse.data(res, 200, userService.mapToDto(req.user as UserDocument));
+		return await sendResponse.data(
+			res,
+			200,
+			userService.mapToDto(req.user as UserDocument)
+		);
 	}
 
 	public async authorize(req: Request, res: Response): Promise<Response> {
-		return await sendResponse.data(res, 200, userService.mapToDto(req.user as UserDocument));
+		return await sendResponse.data(
+			res,
+			200,
+			userService.mapToDto(req.user as UserDocument)
+		);
 	}
 
 	public async logoutUser(req: Request, res: Response): Promise<Response> {
@@ -27,7 +36,11 @@ class AuthController {
 		return await sendResponse.message(res, 200, 'logged out');
 	}
 
-	public async register(req: Request, res: Response, next: NextFunction): Promise<Response> {
+	public async register(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<Response> {
 		const activationToken = uuidv4();
 
 		const user = new UserModel({
@@ -44,17 +57,51 @@ class AuthController {
 			text: 'Click on the Link to activate your account.',
 			html: `<h4>Finish Registration</h4>
 			<p>Click on the Link to activate your account..</p>
-			<a href="${CLIENT_APP_URL}/activate/${activationToken}">Confirm E-Mail-Adress</a>`,
+			<a href="${CLIENT_APP_URL}/activate/${activationToken}">Confirm E-Mail-Address</a>`,
 		};
 		await userService.createUser(user);
 		mailerService.sendMail(config);
-		return await sendResponse.message(res, 200, 'E-Mail for registration was sent successfully.');
+		return await sendResponse.message(
+			res,
+			200,
+			'E-Mail for registration was sent successfully.'
+		);
 	}
 
-	public async activateUser(req: Request, res: Response, next: NextFunction): Promise<Response> {
+	public async addJiraAPIToken(req: Request, res: Response): Promise<Response> {
+		const token = req.body.token;
+		const user = req.user as UserDocument;
+		user.jiraApiToken = AES.encrypt(token, SECRET).toString();
+		await user.save();
+
+		return await sendResponse.data(res, 200, userService.mapToDto(user));
+	}
+
+	public async deleteJiraAPIToken(
+		req: Request,
+		res: Response
+	): Promise<Response> {
+		const user = req.user as UserDocument;
+		user.jiraApiToken = undefined;
+		await user.save();
+
+		console.log(user);
+
+		return await sendResponse.data(res, 200, userService.mapToDto(user));
+	}
+
+	public async activateUser(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<Response> {
 		try {
 			await userService.activate(req.body.activationToken as string);
-			return await sendResponse.message(res, 200, 'User was successfully activated.');
+			return await sendResponse.message(
+				res,
+				200,
+				'User was successfully activated.'
+			);
 		} catch (error) {
 			if (error instanceof NotFoundError)
 				return sendResponse.error(res, error.status, error.message);
@@ -62,7 +109,11 @@ class AuthController {
 		}
 	}
 
-	public async requestPasswordReset(req: Request, res: Response, next: NextFunction) {
+	public async requestPasswordReset(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) {
 		try {
 			const user = await userService.findUserByUsernameOrEmail(req.body.email);
 			if (user) {
@@ -71,7 +122,7 @@ class AuthController {
 					recipientEmail: user.email,
 					subject: 'Reset your Password',
 					text: 'Click on the Link to reset your password.\n',
-					html: `<h4>Kalley Password Reset</h4>
+					html: `<h4>Password Reset</h4>
 					<p>Click on the Link to reset your password. \n
 					Your Link will only be active for 2 hours!</p>
 					<a href="${CLIENT_APP_URL}/resetPassword/${resetToken}">Reset Password</a>`,
@@ -89,12 +140,20 @@ class AuthController {
 		);
 	}
 
-	public async resetPassword(req: Request, res: Response, next: NextFunction): Promise<Response> {
+	public async resetPassword(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<Response> {
 		const newPwdHash = bcrypt.hashSync(req.body.password, 10);
 		const pwdResetToken = req.body.pwdResetToken;
 		try {
 			await userService.resetPassword(pwdResetToken, newPwdHash);
-			return await sendResponse.message(res, 200, 'Password successfully reset');
+			return await sendResponse.message(
+				res,
+				200,
+				'Password successfully reset'
+			);
 		} catch (error) {
 			if (error instanceof NotFoundError)
 				return sendResponse.error(res, error.status, error.message);

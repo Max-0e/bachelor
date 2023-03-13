@@ -1,10 +1,11 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 import { IUser } from '../interfaces/user.interface';
 
 const userSchema = new Schema<IUser>({
 	username: { type: String, required: true },
 	email: { type: String, required: true },
 	pwdHash: { type: String, required: true },
+	jiraApiToken: { type: String, required: false },
 	pwdResetToken: { type: String, required: false },
 	pwdResetTime: { type: Date, required: false },
 	activated: { type: Boolean, required: true },

@@ -69,6 +69,24 @@ class AuthService {
 			{}
 		);
 	}
+
+	public async addJiraApiToken(token: string) {
+		return await HttpClient.put<User>(
+			`${API_URL}/auth/addJiraApiToken/`,
+			{
+				token,
+			},
+			{ withCredentials: true }
+		);
+	}
+	public async deleteJiraApiToken() {
+		return await HttpClient.delete<User>(
+			`${API_URL}/auth/deleteJiraApiToken/`,
+			{
+				withCredentials: true,
+			}
+		);
+	}
 }
 
 export default new AuthService();

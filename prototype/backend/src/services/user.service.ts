@@ -1,3 +1,5 @@
+import { AES, enc } from 'crypto-js';
+import { SECRET } from '../config';
 import { AuthorizationError } from '../error/auth.error';
 import { NotFoundError } from '../error/not-found.error';
 import { UserDto } from '../interfaces/dtos/userDto.interface';
@@ -75,6 +77,9 @@ class UserService {
 			id: user._id,
 			username: user.username,
 			email: user.email,
+			jiraApiToken: user.jiraApiToken
+				? AES.decrypt(user.jiraApiToken, SECRET).toString(enc.Utf8)
+				: undefined,
 		};
 	}
 }

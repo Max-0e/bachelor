@@ -1,7 +1,7 @@
 import Router from 'express';
 import passport from 'passport';
-import { isAuth } from '../middlewares/auth';
 import AuthController from '../controller/auth.controller';
+import { isAuth } from '../middlewares/auth';
 
 export function makeAuthRouter() {
 	const router = Router();
@@ -13,6 +13,12 @@ export function makeAuthRouter() {
 	router.post('/activate', AuthController.activateUser);
 	router.post('/forgot-password', AuthController.requestPasswordReset);
 	router.post('/reset-password/', AuthController.resetPassword);
+	router.put('/addJiraApiToken/', isAuth, AuthController.addJiraAPIToken);
+	router.delete(
+		'/deleteJiraApiToken/',
+		isAuth,
+		AuthController.deleteJiraAPIToken
+	);
 
 	return router;
 }

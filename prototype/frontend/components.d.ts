@@ -46,7 +46,7 @@ declare module '@vue/runtime-core' {
     Main: typeof import('./src/layouts/Main.vue')['default']
     NotFound: typeof import('./src/views/NotFound.vue')['default']
     OrganizationView: typeof import('./src/views/OrganizationView.vue')['default']
-    Profile: typeof import('./src/components/Profile/Profile.vue')['default']
+    Profile: typeof import('./src/views/Profile.vue')['default']
     ProjectCard: typeof import('./src/components/Projects/ProjectCard.vue')['default']
     ProjectDashboard: typeof import('./src/views/Project/ProjectDashboard.vue')['default']
     ProjectLayout: typeof import('./src/layouts/ProjectLayout.vue')['default']
