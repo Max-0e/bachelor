@@ -1,0 +1,1 @@
+{"rule":"DE_SUBJECT_VERB_AGREEMENT","sentence":"^\\QDer Fortschritt eines Planungselements, welches keine Aufgabe oder Projekt ist, wird durch den Gesamtfortschritt der verknüpften Elemente aus der darunterliegenden Ebene aggregiert.\\E$"}

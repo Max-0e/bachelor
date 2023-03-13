@@ -1,4 +1,18 @@
+Resultierend aus der Analyse soll an dieser Stelle ein Prozess definiert werden, aus denen anschließend ein UX-Konzept und eine prototypische Implementierung entwickelt werden kann.
 \subsection{Prozessdefinition / Anforderungsformulierung}
+Für Fortschrittsmessung und Werteorientierung müssen Zusammenhänge innerhalb eines Portfolios mit operativen Elementen, deren absoluter Fortschritt tatsächlich gemessen werden kann, dokumentiert werden können. Diese Verknüpfung muss über beliebig viele Ebenen stattfinden können, um möglichst universell und unabhängig von der Unternehmensstruktur verwendbar zu sein.
+Operative Elemente, hier genannt Aufgabe, haben einen veränderbaren Status an dem festgestellt werden kann, ob sie fertig sind und somit für den gemessenen Fortschritt einbezogen werden. Aufgaben können außerdem besitzen zudem zwei numerische Werte: Storypoints und Value. Storypoints sollen als relativer Wert den Aufwand, der mit einer Aufgabe verbunden ist darstellen, während Value den Mehrwert widerspiegelt, welcher durch die Erledigung der Aufgabe entsteht. Die Bezeichnung ist in diesem Fall mit Absicht unspezifisch gewählt, um weitere Komplexität zu vermeiden und den Scope dieser Arbeit zu verkleinern, da zwischen verschiedenen Formen von Mehrwert unterschieden werden kann, wie z. B. Business-, Customer-Value oder auch interner Mehrwert. Ziel dieser Werte ist, die Aufgaben vergleichbarer zu machen, da einige Aufgaben mehr Einfluss auf den Fortschritt haben können als andere.
+
+Damit die spezifische Struktur eines Unternehmens abgebildet werden können, muss es möglich sein, verschiedene Ebenen anzulegen, welche die hierarchische Struktur darstellen kann. Innerhalb dieser Ebenen können Elemente angelegt werden, welche mit anderen Elementen in darüber liegenden Ebenen verknüpft werden können.
+Die unterste Ebene ist immer die operative Ebene, welche für gewöhnlich als Projekt bezeichnet wird. Optional können Epics verwendet werden, um Aufgaben innerhalb eines Projekts zu gruppieren, sodass mehrere Aufgaben zusammengefasst z. B. ein Feature o. ä. darstellen können.
+
+Der Fortschritt eines Projekts resultiert aus dem Verhältnis von offenen zu erledigten Aufgaben oder Epics, wobei Storypoints und Mehrwert als Faktoren hinzugezogen werden können, um das Verhältnis zu relativieren.
+
+Der Fortschritt eines Planungselements, welches keine Aufgabe oder Projekt ist, wird durch den Gesamtfortschritt der verknüpften Elemente aus der darunterliegenden Ebene aggregiert.
+
+Daraus ergibt sich eine Baumartige Struktur, welche die gesamte Planungsstruktur eines Unternehmens abbilden soll.
+
+Um die Evaluierung zu erleichtern und mehrere Szenarien testbar zu machen, können mehrere dieser Strukturen innerhalb der Anwendung existieren, weshalb es eine Ebene gibt, die hier Organisation genannt wird. Organisationen können unabhängig voneinander existieren und eine vollständige Datenstruktur beinhalten.
 
 \subsection{UX-Entwurf für die Abbildung des Prozesses}
 
