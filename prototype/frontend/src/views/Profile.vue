@@ -14,9 +14,16 @@
 	</div>
 	<div v-if="authStore.user?.jiraApiToken">
 		<div class="m-10 flex items-center gap-5">
-			<span class="text-2xl text-left"> You have a Jira Token </span>
+			<span class="text-2xl text-left">
+				You have a Jira Token for Domain
+				<span class="bold bg-gray-200 dark:bg-dark-900 p-2 rounded-md">
+					{{ authStore.user.jiraApiDomain }}.atlassian.net
+				</span>
+			</span>
 			<AppToolTip text="delete API-Token" position="top">
-				<AppIcon button @click="confirmDeleteModal?.open()">delete</AppIcon>
+				<AppIcon class="text-red-500" button @click="confirmDeleteModal?.open()"
+					>delete</AppIcon
+				>
 			</AppToolTip>
 			<AppIcon @click="showToken = !showToken">
 				{{ showToken ? 'visibility' : 'visibility_off' }}</AppIcon
@@ -30,10 +37,23 @@
 		<AppCollapsible class="px-10" trigger-text="Add Jira token">
 			<div class="flex items-center">
 				<AppInputField
-					class="w-full"
+					class="w-1/2"
+					:validation-types="[validationType.required]"
 					ref="token"
 					label="Token"
 					:type="showInput ? 'text' : 'password'">
+				</AppInputField>
+				<AppInputField
+					:validation-types="[validationType.required]"
+					class="w-1/2"
+					ref="domain"
+					label="Domain">
+				</AppInputField>
+				<AppInputField
+					:validation-types="[validationType.required]"
+					class="w-1/2"
+					ref="mail"
+					label="Jira-Mail">
 				</AppInputField>
 				<span class="pt-2 pr-4 flex items-center">
 					<AppIcon @click="showInput = !showInput">
@@ -43,12 +63,13 @@
 						text="Save Token"
 						position="top"
 						class="transform transition"
-						:class="{ 'scale-0': formGroup.formObjects.token.value === '' }">
-						<AppIcon
-							button
-							@click="
-								authStore.addJiraApiToken(formGroup.formObjects.token.value)
-							">
+						:class="{
+							'scale-0':
+								formGroup.formObjects.token.value === '' ||
+								formGroup.formObjects.domain.value === '' ||
+								formGroup.formObjects.mail.value === '',
+						}">
+						<AppIcon class="text-successGreen" button @click="addJiraToken()">
 							check
 						</AppIcon>
 					</AppToolTip>
@@ -76,6 +97,7 @@
 </template>
 <script setup lang="ts">
 import { FormGroup } from '@/components/shared/Input/formGroup';
+import { validationType } from '@/enums/validationType.enum';
 import { inputRef } from '@/interfaces/form.interface';
 import { modalRef } from '@/interfaces/modal.interface';
 import { useAuthStore } from '@/store/auth';
@@ -86,13 +108,22 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const token = inputRef();
-const formGroup = new FormGroup({ token });
+const domain = inputRef();
+const mail = inputRef();
+const formGroup = new FormGroup({ token, domain, mail });
 
 const confirmDeleteModal = modalRef();
 const helpModal = modalRef();
 
 const showToken = ref(false);
 const showInput = ref(false);
+
+const addJiraToken = () =>
+	authStore.addJiraApiToken(
+		formGroup.formObjects.token.value,
+		formGroup.formObjects.domain.value,
+		formGroup.formObjects.mail.value
+	);
 
 formGroup.formObjects.token.patchValue(authStore.user?.jiraApiToken ?? '');
 </script>

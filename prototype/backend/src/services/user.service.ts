@@ -77,6 +77,8 @@ class UserService {
 			id: user._id,
 			username: user.username,
 			email: user.email,
+			jiraApiDomain: user.jiraApiDomain,
+			jiraApiMail: user.jiraApiMail,
 			jiraApiToken: user.jiraApiToken
 				? AES.decrypt(user.jiraApiToken, SECRET).toString(enc.Utf8)
 				: undefined,

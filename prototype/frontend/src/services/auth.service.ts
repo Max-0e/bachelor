@@ -36,7 +36,7 @@ class AuthService {
 		return await HttpClient.post<User>(
 			`${API_URL}/auth/login`,
 			{
-				// scince passport needs the attribute to be named username a convertion is needed here
+				// since passport needs the attribute to be named username a conversion is needed here
 				username: loginPayload.usernameOrEmail,
 				password: loginPayload.password,
 			},
@@ -70,11 +70,13 @@ class AuthService {
 		);
 	}
 
-	public async addJiraApiToken(token: string) {
+	public async addJiraApiToken(token: string, domain: string, mail: string) {
 		return await HttpClient.put<User>(
 			`${API_URL}/auth/addJiraApiToken/`,
 			{
 				token,
+				domain,
+				mail,
 			},
 			{ withCredentials: true }
 		);

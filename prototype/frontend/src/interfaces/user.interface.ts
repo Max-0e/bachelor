@@ -3,4 +3,6 @@ export interface User {
 	username: string;
 	email: string;
 	jiraApiToken?: string;
+	jiraApiDomain?: string;
+	jiraApiMail?: string;
 }

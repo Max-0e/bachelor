@@ -12,6 +12,7 @@ import userService from '../services/user.service';
 import { CLIENT_APP_URL, SECRET } from '../config';
 import { AuthorizationError } from '../error/auth.error';
 import { NotFoundError } from '../error/not-found.error';
+import { ValidationError } from '../error/validation.error';
 import sendResponse from '../utility/sendResponse';
 
 class AuthController {
@@ -69,9 +70,15 @@ class AuthController {
 	}
 
 	public async addJiraAPIToken(req: Request, res: Response): Promise<Response> {
-		const token = req.body.token;
 		const user = req.user as UserDocument;
+		const { token, domain, mail } = req.body;
+		if (!token || !domain || !mail)
+			throw new ValidationError('Token, Mail and Domain required.');
+
 		user.jiraApiToken = AES.encrypt(token, SECRET).toString();
+		user.jiraApiDomain = domain;
+		user.jiraApiMail = mail;
+
 		await user.save();
 
 		return await sendResponse.data(res, 200, userService.mapToDto(user));
@@ -83,9 +90,9 @@ class AuthController {
 	): Promise<Response> {
 		const user = req.user as UserDocument;
 		user.jiraApiToken = undefined;
+		user.jiraApiDomain = undefined;
+		user.jiraApiMail = undefined;
 		await user.save();
-
-		console.log(user);
 
 		return await sendResponse.data(res, 200, userService.mapToDto(user));
 	}

@@ -35,9 +35,9 @@ export const useAuthStore = defineStore('auth', {
 		async logout() {
 			await authService.logout().then((_) => this.setLoggedIn(false));
 		},
-		async addJiraApiToken(token: string) {
+		async addJiraApiToken(token: string, domain: string, mail: string) {
 			await authService
-				.addJiraApiToken(token)
+				.addJiraApiToken(token, domain, mail)
 				.then((user) => (this.user = user));
 		},
 		async deleteJiraApiToken() {

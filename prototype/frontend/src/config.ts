@@ -1,5 +1,6 @@
 export const API_URL: string =
 	import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+export const JIRA_API_URL: string = '.atlassian.net/rest/api/3';
 export const DEV_MODE: boolean =
 	import.meta.env.VITE_DEV_MODE === 'true' || true;
 

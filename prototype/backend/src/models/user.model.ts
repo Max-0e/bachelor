@@ -6,6 +6,8 @@ const userSchema = new Schema<IUser>({
 	email: { type: String, required: true },
 	pwdHash: { type: String, required: true },
 	jiraApiToken: { type: String, required: false },
+	jiraApiDomain: { type: String, required: false },
+	jiraApiMail: { type: String, required: false },
 	pwdResetToken: { type: String, required: false },
 	pwdResetTime: { type: Date, required: false },
 	activated: { type: Boolean, required: true },
