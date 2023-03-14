@@ -1536,12 +1536,12 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 3,
-      "text": "linkEntityToEntityFromOtherHirarchy(organizationId: string, entityId: string, entityToLinkToId: string): EntityReadDto<OrganizationBasedEntity<T>>",
+      "text": "linkEntityToEntityFromOtherhierarchy(organizationId: string, entityId: string, entityToLinkToId: string): EntityReadDto<OrganizationBasedEntity<T>>",
       "baseline": 15,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "linkEntityToEntityFromOtherHirarchy(organizationId: string, entityId: string, entityToLinkToId: string): EntityReadDto<OrganizationBasedEntity<T>>"
+      "originalText": "linkEntityToEntityFromOtherhierarchy(organizationId: string, entityId: string, entityToLinkToId: string): EntityReadDto<OrganizationBasedEntity<T>>"
     },
     {
       "type": "text",
@@ -1581,12 +1581,12 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 3,
-      "text": "linkEntityToEntityFromOtherHirarchy:(organizationId: string, id: string, entityToLinkToId: string): Entity<OrganizationBasedEntity<LinkableEntity<T>>>\n\ngetEntityGroupById(organizationId: string, entityId: string): Entity<OrganizationBasedEntity<LinkableEntity<IEntityGroup>>>\nisEntityGroup(entity: any): entity is Entity<OrganizationBasedEntity<LinkableEntity<T>>>",
+      "text": "linkEntityToEntityFromOtherhierarchy:(organizationId: string, id: string, entityToLinkToId: string): Entity<OrganizationBasedEntity<LinkableEntity<T>>>\n\ngetEntityGroupById(organizationId: string, entityId: string): Entity<OrganizationBasedEntity<LinkableEntity<IEntityGroup>>>\nisEntityGroup(entity: any): entity is Entity<OrganizationBasedEntity<LinkableEntity<T>>>",
       "baseline": 72,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "linkEntityToEntityFromOtherHirarchy:(organizationId: string, id: string, entityToLinkToId: string): Entity<OrganizationBasedEntity<LinkableEntity<T>>>\n\ngetEntityGroupById(organizationId: string, entityId: string): Entity<OrganizationBasedEntity<LinkableEntity<IEntityGroup>>>\nisEntityGroup(entity: any): entity is Entity<OrganizationBasedEntity<LinkableEntity<T>>>"
+      "originalText": "linkEntityToEntityFromOtherhierarchy:(organizationId: string, id: string, entityToLinkToId: string): Entity<OrganizationBasedEntity<LinkableEntity<T>>>\n\ngetEntityGroupById(organizationId: string, entityId: string): Entity<OrganizationBasedEntity<LinkableEntity<IEntityGroup>>>\nisEntityGroup(entity: any): entity is Entity<OrganizationBasedEntity<LinkableEntity<T>>>"
     },
     {
       "type": "text",
@@ -2827,12 +2827,12 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 3,
-      "text": "hirarchyLevel: number",
+      "text": "hierarchyLevel: number",
       "baseline": 15,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "hirarchyLevel: number"
+      "originalText": "hierarchyLevel: number"
     },
     {
       "type": "rectangle",
@@ -5314,12 +5314,12 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 3,
-      "text": "hirarchyLevel: number",
+      "text": "hierarchyLevel: number",
       "baseline": 15,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "hirarchyLevel: number"
+      "originalText": "hierarchyLevel: number"
     },
     {
       "type": "rectangle",
@@ -5531,12 +5531,12 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 3,
-      "text": "hirarchyLevel: number",
+      "text": "hierarchyLevel: number",
       "baseline": 15,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "hirarchyLevel: number"
+      "originalText": "hierarchyLevel: number"
     },
     {
       "type": "rectangle",

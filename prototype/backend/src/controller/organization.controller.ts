@@ -28,18 +28,18 @@ class OrganizationController extends EntityController<IOrganization> {
 		if (createdEntity.useEpics) {
 			await this.levelService.createEntity({
 				name: 'Projects',
-				hirarchyLevel: 1,
+				hierarchyLevel: 1,
 				organizationId,
 			});
 			await this.levelService.createEntity({
 				name: 'Epics',
-				hirarchyLevel: 0,
+				hierarchyLevel: 0,
 				organizationId,
 			});
 		} else {
 			await this.levelService.createEntity({
 				name: 'Projects',
-				hirarchyLevel: 0,
+				hierarchyLevel: 0,
 				organizationId,
 			});
 		}
@@ -52,4 +52,4 @@ class OrganizationController extends EntityController<IOrganization> {
 	}
 }
 
-export const organizationConroller = new OrganizationController();
+export const organizationController = new OrganizationController();

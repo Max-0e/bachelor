@@ -7,6 +7,8 @@ export const SECRET: string = process.env.SECRET || 'DiesDasAnanas';
 export const CLIENT_APP_URL: string =
 	process.env.CLIENT_APP_URL || 'http://localhost:8080';
 
+export const JIRA_API_URL: string = '.atlassian.net/rest/api/3';
+
 export const SMTP_HOST: string = process.env.SMTP_HOST || 'smtp.ethereal.email';
 export const SMTP_PORT: number = parseInt(process.env.SMTP_PORT || '587');
 export const SMTP_USER: string =

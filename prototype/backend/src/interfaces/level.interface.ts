@@ -1,7 +1,7 @@
-import { Entity } from "./entity.interface";
+import { Entity } from './entity.interface';
 
 export interface ILevel {
-    hirarchyLevel: number;
+	hierarchyLevel: number;
 }
 
 export type Level = Entity<ILevel>;

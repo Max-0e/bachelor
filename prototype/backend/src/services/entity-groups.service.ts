@@ -10,7 +10,7 @@ class EntityGroupsService extends LinkableEntityService<IEntityGroup> {
 	}
 	validateEntityCreateDto(entity: EntityCreateDto<IEntityGroup>): void {
 		const errors: string[] = [];
-		if (!entity.levelId) errors.push('hirarchyLevel');
+		if (!entity.levelId) errors.push('hierarchyLevel');
 		if (!entity.name) errors.push('name');
 
 		if (errors.length > 0) {
@@ -20,7 +20,7 @@ class EntityGroupsService extends LinkableEntityService<IEntityGroup> {
 
 	validateEntityUpdateDto(entity: EntityCreateDto<IEntityGroup>): void {
 		const errors: string[] = [];
-		if (!entity.levelId) errors.push('hirarchyLevel');
+		if (!entity.levelId) errors.push('hierarchyLevel');
 		if (!entity.name) errors.push('name');
 
 		if (errors.length > 0) {

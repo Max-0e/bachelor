@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
 import bcrypt from 'bcrypt';
-import { AES } from 'crypto-js';
 import mongoose from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { UserDocument, UserModel } from '../models/user.model';
@@ -9,10 +8,9 @@ import { UserDocument, UserModel } from '../models/user.model';
 import mailerService from '../services/mailer.service';
 import userService from '../services/user.service';
 
-import { CLIENT_APP_URL, SECRET } from '../config';
+import { CLIENT_APP_URL } from '../config';
 import { AuthorizationError } from '../error/auth.error';
 import { NotFoundError } from '../error/not-found.error';
-import { ValidationError } from '../error/validation.error';
 import sendResponse from '../utility/sendResponse';
 
 class AuthController {
@@ -67,34 +65,6 @@ class AuthController {
 			200,
 			'E-Mail for registration was sent successfully.'
 		);
-	}
-
-	public async addJiraAPIToken(req: Request, res: Response): Promise<Response> {
-		const user = req.user as UserDocument;
-		const { token, domain, mail } = req.body;
-		if (!token || !domain || !mail)
-			throw new ValidationError('Token, Mail and Domain required.');
-
-		user.jiraApiToken = AES.encrypt(token, SECRET).toString();
-		user.jiraApiDomain = domain;
-		user.jiraApiMail = mail;
-
-		await user.save();
-
-		return await sendResponse.data(res, 200, userService.mapToDto(user));
-	}
-
-	public async deleteJiraAPIToken(
-		req: Request,
-		res: Response
-	): Promise<Response> {
-		const user = req.user as UserDocument;
-		user.jiraApiToken = undefined;
-		user.jiraApiDomain = undefined;
-		user.jiraApiMail = undefined;
-		await user.save();
-
-		return await sendResponse.data(res, 200, userService.mapToDto(user));
 	}
 
 	public async activateUser(

@@ -1,5 +1,5 @@
-import { JIRA_API_URL } from '@/config';
-import { JiraGetProjectResponse } from '@/interfaces/jira-project.interface';
+import { JIRA_API_URL } from '../config';
+import { JiraGetProjectResponse } from '../interfaces/jira-project.interface';
 import HttpClient from '../utility/http';
 
 export class JiraApiService {
@@ -20,7 +20,9 @@ export class JiraApiService {
 	private getAuthHeaders() {
 		return {
 			headers: {
-				Authorization: `Basic ${btoa(this.mail + ':' + this.token).toString()}`,
+				Authorization: `Basic ${Buffer.from(
+					this.mail + ':' + this.token
+				).toString('base64')}`,
 			},
 		};
 	}
