@@ -35,6 +35,14 @@ export const useAuthStore = defineStore('auth', {
 		async logout() {
 			await authService.logout().then((_) => this.setLoggedIn(false));
 		},
+		async addJiraApiToken(token: string, domain: string, mail: string) {
+			await authService
+				.addJiraApiToken(token, domain, mail)
+				.then((user) => (this.user = user));
+		},
+		async deleteJiraApiToken() {
+			await authService.deleteJiraApiToken().then((user) => (this.user = user));
+		},
 		setLoggedIn(loggedIn: boolean) {
 			this.loggedIn = loggedIn;
 			storageService.setHasCookie(loggedIn);
