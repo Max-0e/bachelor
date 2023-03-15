@@ -50,10 +50,10 @@
 						Drag and Drop headers into and out of the table-headers to map.
 					</div>
 					<DropZone
-						class="flex bg-gray-300 dark:bg-dark-300 items-center justify-center m-5 gap-2"
+						class="flex bg-gray-200 dark:bg-dark-300 items-center justify-center m-5 gap-2"
 						@on-drop="droppedOutOfHeader($event)">
 						<DraggableItem
-							class="bg-gray-200 dark:bg-dark-700 rounded-md p-2 font-bold"
+							class="bg-gray-300 dark:bg-dark-700 rounded-md p-2 font-bold"
 							v-for="header of taskHeaders.filter(
 								(x) =>
 									!data.headers.some(
@@ -73,7 +73,7 @@
 								v-for="(header, index) in data.headers">
 								<DropZone @on-drop="droppedOnHeader($event, index)">
 									<DraggableItem
-										class="bg-gray-200 dark:bg-dark-700 rounded-md p-2"
+										class="bg-gray-300 dark:bg-dark-700 rounded-md p-2"
 										:data="header.name"
 										v-if="header.isMapped">
 										{{ header.name }}
@@ -103,7 +103,9 @@
 								'bg-dark-200': status.prototypeStatus === 'open',
 							}"
 							v-for="status in data.taskStatuses">
-							{{ status.name }}
+							<span class="text-white">
+								{{ status.name }}
+							</span>
 							<AppDropDownMenu
 								class="w-100"
 								v-model="status.prototypeStatus"
