@@ -1,56 +1,89 @@
 <template>
-	<AppModal ref="modal" @closed="formGroup.clear()">
-		<div class="flex flex-col">
-			<AppInputField
-				ref="name"
-				placeholder="name"
-				label="name"
-				id="name"
-				:validation-types="[validationType.required, validationType.name]">
-			</AppInputField>
-			<div v-for="project in jiraStore.projects">
-				{{ project.name }}
+	<AppModal ref="modal">
+		<div class="flex flex-col gap-10 w-[100vw]">
+			<div class="text-3xl">Import project from Jira</div>
+			<div class="flex items-center gap-5">
+				<img
+					class="max-w-10"
+					v-if="selectedProject"
+					:src="selectedProject.avatarUrls['16x16']" />
+				<AppDropDownMenu
+					class="w-full"
+					@update:model-value="selectedProject = $event"
+					selectText="Select project to import"
+					ref="epicDropdown"
+					:options="
+						jiraStore.projects.map((project) => ({
+							name: project.name,
+							value: project,
+						}))
+					"></AppDropDownMenu>
 			</div>
-			<AppButton @click="submit()"
-				>Create {{ levelStore.currentEntity?.name }}</AppButton
-			>
+			<div v-if="projectDetails" class="flex gap-10 text-left">
+				<div>
+					<div class="text-xl">found Task-Level Issue-Types</div>
+					<div
+						class="bg-gray-200 dark:bg-dark-700 p-2 rounded-md m-2 flex items-center gap-2"
+						v-for="issueType in projectDetails.issueTypes.filter(
+							(type) => type.hierarchyLevel === 0
+						)">
+						<img class="max-w-4" :src="issueType.iconUrl" />{{ issueType.name }}
+					</div>
+				</div>
+				<div>
+					<div class="text-xl">found Epic-Level Issue-Types</div>
+					<div
+						class="bg-gray-200 dark:bg-dark-700 p-2 rounded-md m-2 flex items-center gap-2"
+						v-for="issueType in projectDetails.issueTypes.filter(
+							(type) => type.hierarchyLevel === 1
+						)">
+						<img class="max-w-4" :src="issueType.iconUrl" />{{ issueType.name }}
+					</div>
+				</div>
+			</div>
+			<AppButton @click="submit()">Import Project</AppButton>
 		</div>
 	</AppModal>
 </template>
 <script lang="ts" setup>
-import { validationType } from '@/enums/validationType.enum';
-import { inputRef } from '@/interfaces/form.interface';
+import { JiraIssue } from '@/interfaces/jira-issue.interface';
+import {
+	JiraProject,
+	JiraProjectDetails,
+} from '@/interfaces/jira-project.interface';
 import { modalRef } from '@/interfaces/modal.interface';
-import { useGroupStore } from '@/store/entity-groups.store';
 import { useJiraStore } from '@/store/jira.store';
-import { useLevelStore } from '@/store/level.store';
+import { ref, watch } from 'vue';
 
-import { FormGroup } from '../shared/Input/formGroup';
-
-const groupStore = useGroupStore();
-const levelStore = useLevelStore();
+// const groupStore = useGroupStore();
+// const levelStore = useLevelStore();
 const jiraStore = useJiraStore();
 
 const modal = modalRef();
 
+const selectedProject = ref<JiraProject | undefined>();
+
+const projectDetails = ref<JiraProjectDetails | undefined>(undefined);
+const issues = ref<JiraIssue[] | undefined>(undefined);
+
+watch(selectedProject, async (project) => {
+	if (project) {
+		projectDetails.value = await jiraStore.loadProjectDetails(project);
+		issues.value = await jiraStore.loadProjectIssues(project);
+	}
+});
+
 const open = () => modal.value?.open();
 
-const name = inputRef();
-const formGroup = new FormGroup({ name });
-
-jiraStore.loadProjects();
-
 const submit = () => {
-	if (!formGroup.validate()) return;
+	// const currentLevel = levelStore.currentEntity;
+	// if (!currentLevel) return;
 
-	const currentLevel = levelStore.currentEntity;
-	if (!currentLevel) return;
-
-	groupStore.createEntity({
-		name: formGroup.formObjects.name.value,
-		levelId: currentLevel.id,
-		entityGroupIds: [],
-	});
+	// groupStore.createEntity({
+	// 	name: formGroup.formObjects.name.value,
+	// 	levelId: currentLevel.id,
+	// 	entityGroupIds: [],
+	// });
 
 	modal.value?.close();
 };

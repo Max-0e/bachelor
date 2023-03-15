@@ -15,6 +15,36 @@ class JiraController {
 		return await sendResponse.data(res, 200, project);
 	}
 
+	public async getProjectDetails(
+		req: Request,
+		res: Response
+	): Promise<Response> {
+		const service = makeJiraService(req.user as UserDocument);
+		const projectKey = req.params.projectKey;
+		const projectDetails = await service.getProjectDetails(projectKey);
+		return await sendResponse.data(res, 200, projectDetails);
+	}
+
+	public async getIssueStatusesForProject(
+		req: Request,
+		res: Response
+	): Promise<Response> {
+		const service = makeJiraService(req.user as UserDocument);
+		const projectId = req.params.projectId;
+		const statuses = await service.getIssueStatusesForProject(projectId);
+		return await sendResponse.data(res, 200, statuses);
+	}
+
+	public async getAllIssuesForProject(
+		req: Request,
+		res: Response
+	): Promise<Response> {
+		const service = makeJiraService(req.user as UserDocument);
+		const projectKey = req.params.projectKey;
+		const issues = await service.getAllIssuesForProject(projectKey);
+		return await sendResponse.data(res, 200, issues);
+	}
+
 	public async addJiraAPIToken(req: Request, res: Response): Promise<Response> {
 		const user = req.user as UserDocument;
 		const { token, domain, mail } = req.body;

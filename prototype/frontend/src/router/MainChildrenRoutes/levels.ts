@@ -8,6 +8,7 @@ import LevelView from '@/views/LevelView.vue';
 import EpicsVue from '@/views/Project/Epics.vue';
 import ProjectDashboardVue from '@/views/Project/ProjectDashboard.vue';
 import ProjectsVue from '@/views/Projects.vue';
+import { jiraProjectResolver } from '../resolver/jira-projects.resolver';
 
 const levelViewRoutes: Array<RouteRecordRaw> = [
 	{
@@ -21,6 +22,7 @@ const levelViewRoutes: Array<RouteRecordRaw> = [
 			{
 				path: '',
 				name: 'Projects',
+				beforeEnter: jiraProjectResolver,
 				component: ProjectsVue,
 			},
 			{
