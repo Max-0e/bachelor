@@ -53,7 +53,7 @@
 						class="flex bg-gray-300 dark:bg-dark-300 items-center justify-center m-5 gap-2"
 						@on-drop="droppedOutOfHeader($event)">
 						<DraggableItem
-							class="bg-gray-200 dark:bg-dark-700 rounded-md p-2 font-bold gap-1"
+							class="bg-gray-200 dark:bg-dark-700 rounded-md p-2 font-bold"
 							v-for="header of taskHeaders.filter(
 								(x) =>
 									!data.headers.some(
@@ -68,14 +68,17 @@
 					<table class="mx-auto">
 						<tr>
 							<th
-								class="border p-2"
+								class="border"
 								:class="{ 'border-successGreen': header.isMapped }"
 								v-for="(header, index) in data.headers">
 								<DropZone @on-drop="droppedOnHeader($event, index)">
-									<DraggableItem :data="header.name" v-if="header.isMapped">
+									<DraggableItem
+										class="bg-gray-200 dark:bg-dark-700 rounded-md p-2"
+										:data="header.name"
+										v-if="header.isMapped">
 										{{ header.name }}
 									</DraggableItem>
-									<span v-else>
+									<span class="p-2" v-else>
 										{{ header.name }}
 									</span>
 								</DropZone>
@@ -270,6 +273,7 @@ const extractData = () => {
 		),
 	}));
 };
+
 const droppedOnHeader = (name: string, index: number) => {
 	if (
 		data.value.headers.some((header) => header.name === name && header.isMapped)
@@ -279,6 +283,7 @@ const droppedOnHeader = (name: string, index: number) => {
 	data.value.headers[index].name = name;
 	data.value.headers[index].isMapped = true;
 };
+
 const droppedOutOfHeader = (name: string) => {
 	const index = data.value.headers.findIndex(
 		(header) => header.name === name && header.isMapped
@@ -354,9 +359,10 @@ const submit = async () => {
 				const epicId = epics.find((epic) => epic.name === epicFromTask)?.id;
 				entityGroupIds.push(epicId!);
 			}
-			const status = data.value.taskStatuses.find(
-				(status) => status.name === getDataByHeaderName(task, 'status')
-			)!.prototypeStatus;
+			const status =
+				data.value.taskStatuses.find(
+					(status) => status.name === getDataByHeaderName(task, 'status')
+				)?.prototypeStatus ?? 'open';
 
 			const storyPoints = parseInt(getDataByHeaderName(task, 'storypoints'));
 			return {
