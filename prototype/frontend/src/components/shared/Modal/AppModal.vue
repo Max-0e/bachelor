@@ -1,6 +1,6 @@
 <template>
 	<div
-		@click.self="dismissable ? close() : ''"
+		@click.self="dismissible ? close() : ''"
 		:class="isOpen ? 'bg-opacity-60' : 'invisible bg-opacity-0'"
 		class="transition-all bg-black absolute w-full h-full top-0 left-0 z-10 flex justify-center items-center">
 		<div
@@ -25,7 +25,7 @@ const close = () => {
 };
 
 defineProps({
-	dismissable: { Type: Boolean, default: true },
+	dismissible: { Type: Boolean, default: true },
 	large: { Type: Boolean, default: false },
 });
 

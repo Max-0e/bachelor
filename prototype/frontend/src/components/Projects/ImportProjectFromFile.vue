@@ -1,6 +1,6 @@
 <template>
-	<AppModal ref="modal">
-		<div class="flex flex-col gap-10 w-[100vw]">
+	<AppModal ref="modal" :dismissible="false">
+		<div class="flex flex-col gap-10 w-full">
 			<div class="text-3xl">Import project from File</div>
 			<AppStepper :step="currentStepperStep" :number-of-steps="4" minHeight>
 				<AppStepperStep :step="1" :current-step="currentStepperStep">
@@ -19,7 +19,9 @@
 							@drop="dropData($event)"
 							class="absolute z-10 h-full w-full cursor-pointer opacity-0"
 							@input="dropData($event)" />
-						<div class="absolute">
+						<div
+							class="absolute"
+							:class="{ 'text-successGreen': !!data.fileName }">
 							<span>
 								{{
 									data.fileName
@@ -44,13 +46,39 @@
 							">
 						</AppToggleInput>
 					</div>
+					<div>
+						Drag and Drop headers into and out of the table-headers to map.
+					</div>
+					<DropZone
+						class="flex bg-gray-300 dark:bg-dark-300 items-center justify-center m-5 gap-2"
+						@on-drop="droppedOutOfHeader($event)">
+						<DraggableItem
+							class="bg-gray-200 dark:bg-dark-700 rounded-md p-2 font-bold gap-1"
+							v-for="header of taskHeaders.filter(
+								(x) =>
+									!data.headers.some(
+										(header) =>
+											header.name.toLowerCase() === x && header.isMapped
+									)
+							)"
+							:data="header">
+							{{ header }}
+						</DraggableItem>
+					</DropZone>
 					<table class="mx-auto">
 						<tr>
 							<th
 								class="border p-2"
 								:class="{ 'border-successGreen': header.isMapped }"
-								v-for="header of data.headers">
-								{{ header.name }}
+								v-for="(header, index) in data.headers">
+								<DropZone @on-drop="droppedOnHeader($event, index)">
+									<DraggableItem :data="header.name" v-if="header.isMapped">
+										{{ header.name }}
+									</DraggableItem>
+									<span v-else>
+										{{ header.name }}
+									</span>
+								</DropZone>
 							</th>
 						</tr>
 						<tr v-for="dataRow of data.extractedData">
@@ -126,7 +154,10 @@
 					<div class="flex justify-between">
 						<AppButton @click="currentStepperStep -= 1">back</AppButton>
 						<AppButton
-							:disabled="data.headers.filter((x) => x.isMapped).length !== 5"
+							:disabled="
+								data.headers.filter((x) => x.isMapped).length !==
+								taskHeaders.length
+							"
 							@click="
 								currentStepperStep += 1;
 								extractStatuses();
@@ -239,6 +270,23 @@ const extractData = () => {
 		),
 	}));
 };
+const droppedOnHeader = (name: string, index: number) => {
+	if (
+		data.value.headers.some((header) => header.name === name && header.isMapped)
+	) {
+		droppedOutOfHeader(name);
+	}
+	data.value.headers[index].name = name;
+	data.value.headers[index].isMapped = true;
+};
+const droppedOutOfHeader = (name: string) => {
+	const index = data.value.headers.findIndex(
+		(header) => header.name === name && header.isMapped
+	);
+	if (index === -1) return;
+	data.value.headers[index].name = data.value.headers[index].key;
+	data.value.headers[index].isMapped = false;
+};
 
 const extractStatuses = () => {
 	data.value.taskStatuses = data.value.extractedData
@@ -251,7 +299,10 @@ const extractStatuses = () => {
 };
 
 const getEpics = (tasks: object[]) =>
-	tasks.map<string>((x) => getDataByHeaderName(x, 'epic')).filter(unique);
+	tasks
+		.map<string>((x) => getDataByHeaderName(x, 'epic'))
+		.filter((x) => !!x)
+		.filter(unique);
 
 const getDataByHeaderName = (x: any, key: string): string => {
 	const headerKey = getHeaderKeyFor<typeof x>(key);
@@ -265,7 +316,15 @@ function getHeaderKeyFor<T>(name: string): keyof T | undefined {
 }
 
 const open = () => modal.value?.open();
-const close = () => modal.value?.close();
+const close = () => {
+	data.value = {
+		fileName: '',
+		headers: [],
+		extractedData: [],
+		taskStatuses: [],
+	};
+	modal.value?.close();
+};
 
 const submit = async () => {
 	importingData.value = true;
