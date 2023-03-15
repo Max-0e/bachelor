@@ -5,11 +5,18 @@ import mainRoutes from '@/router/main';
 import { useAppStore } from '@/store/app';
 import { useAuthStore } from '@/store/auth';
 import Activate from '@/views/Auth/Activate.vue';
+import HomePageVue from '@/views/HomePage.vue';
 import NotFound from '@/views/NotFound.vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
 const routes: Array<RouteRecordRaw> = [
+	{
+		path: '/home',
+		name: 'Home',
+		component: HomePageVue,
+		meta: { noAuth: true },
+	},
 	{
 		path: '/app',
 		name: 'Main',
@@ -43,7 +50,7 @@ export const router = createRouter({
 
 router.beforeEach((to, _, next) => {
 	checkToShowToast();
-	if (to.path == '/') next({ name: 'Main' });
+	if (to.path == '/') next({ name: 'Home' });
 	if (to.matched.length === 0) next({ name: 'NotFound' });
 	if (!to.meta.noAuth && !useAuthStore().loggedIn) next({ name: 'Login' });
 	else if (to.meta.noAuth && useAuthStore().loggedIn) next({ name: 'Main' });
