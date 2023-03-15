@@ -8,7 +8,7 @@ export function makeLinkableEntityRouter<T>(
 
 	router.post(
 		'/:organizationId/link/:entityId/:entityToLinkToId',
-		linkableEntityController.linkEntityToEntityFromOtherhierarchy
+		linkableEntityController.linkEntityToEntityFromOtherHierarchy
 	);
 
 	return router;

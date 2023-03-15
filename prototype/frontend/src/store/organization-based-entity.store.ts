@@ -74,18 +74,35 @@ export function defineOrganizationBasedEntityStore<
 				state.entities = entities;
 				state.loadedOrganizations.push(organizationId);
 			},
-			createEntity(
+			async createEntity(
 				entityToCreate: EntityCreate<T>,
 				organizationId: string | undefined = useOrganizationStore()
 					.currentEntity?.id
 			) {
 				if (!organizationId) return;
-				entityService
-					.createEntity(organizationId, entityToCreate)
-					.then((entity) => {
-						this.$patch((state) => state.entities.push(ref(entity).value));
-						useToast().success('successfully created ' + storeName);
-					});
+				const entity = await entityService.createEntity(
+					organizationId,
+					entityToCreate
+				);
+				this.$patch((state) => state.entities.push(ref(entity).value));
+				useToast().success('successfully created ' + storeName);
+				return entity;
+			},
+			async createMultipleEntities(
+				entitiesToCreate: EntityCreate<T>[],
+				organizationId: string | undefined = useOrganizationStore()
+					.currentEntity?.id
+			) {
+				if (!organizationId) return;
+				const entities = await entityService.createMultipleEntities(
+					organizationId,
+					entitiesToCreate
+				);
+				entities.forEach((entity) =>
+					this.$patch((state) => state.entities.push(ref(entity).value))
+				);
+				useToast().success('successfully created ' + storeName);
+				return entities;
 			},
 			updateEntity(
 				entityId: string,

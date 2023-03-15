@@ -39,6 +39,16 @@ export abstract class OrganizationBasedEntityService<T> {
 			{ withCredentials: true }
 		);
 	}
+	public async createMultipleEntities(
+		organizationId: string,
+		entitiesToCreate: EntityCreate<T>[]
+	) {
+		return await HttpClient.post<Entity<OrganizationBasedEntity<T>>[]>(
+			`${API_URL}/organization/${this.entityName}/${organizationId}/multiple`,
+			entitiesToCreate,
+			{ withCredentials: true }
+		);
+	}
 
 	public async updateEntity(
 		organizationId: string,

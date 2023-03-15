@@ -80,7 +80,7 @@ export interface JiraProjectDetails {
 	insight: JiraInsight;
 }
 
-interface JiraIssueType {
+export interface JiraIssueType {
 	self: string;
 	id: string;
 	description: string;
@@ -100,7 +100,7 @@ interface JiraIssueType {
 	};
 }
 
-interface JiraUser {
+export interface JiraUser {
 	self: string;
 	key: string;
 	accountId: string;
@@ -111,14 +111,14 @@ interface JiraUser {
 	active: false;
 }
 
-interface AvatarUrls {
+export interface AvatarUrls {
 	'48x48': string;
 	'24x24': string;
 	'16x16': string;
 	'32x32': string;
 }
 
-interface JiraInsight {
+export interface JiraInsight {
 	totalIssueCount: number;
 	lastIssueUpdateTime: Date;
 }

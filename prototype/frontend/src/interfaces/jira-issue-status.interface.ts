@@ -10,7 +10,7 @@ export interface JiraIssueStatusResponse {
 export interface JiraIssueStatus {
 	id: string;
 	name: string;
-	statusCategory?: string;
+	statusCategory: string;
 	scope: {
 		type: string;
 		project: {

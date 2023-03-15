@@ -21,7 +21,7 @@ export abstract class LinkableEntityService<
 		this.LevelService = levelService;
 	}
 
-	async linkEntityToEntityFromOtherhierarchy(
+	async linkEntityToEntityFromOtherHierarchy(
 		organizationId: string,
 		entityId: string,
 		entityIdToLinkTo: string
@@ -38,18 +38,18 @@ export abstract class LinkableEntityService<
 			entityIdToLinkTo
 		);
 
-		const entityhierarchyLevel = this.isEntityGroup(entity)
+		const entityHierarchyLevel = this.isEntityGroup(entity)
 			? (await this.LevelService.getEntityById(entity.levelId)).hierarchyLevel
 			: -1;
-		const entitytoLinkToHirachyLevel = (
+		const entityToLinkToHierarchyLevel = (
 			await this.LevelService.getEntityById(entityToLinkTo.levelId)
 		).hierarchyLevel;
 
-		if (entityhierarchyLevel === entitytoLinkToHirachyLevel)
+		if (entityHierarchyLevel === entityToLinkToHierarchyLevel)
 			throw new ConflictError(
-				'Cannot link 2 entities of the same hierarchylevel.'
+				'Cannot link 2 entities of the same HierarchyLevel.'
 			);
-		if (entityhierarchyLevel > entitytoLinkToHirachyLevel)
+		if (entityHierarchyLevel > entityToLinkToHierarchyLevel)
 			throw new ConflictError('Cannot link to entities of lower hierarchy.');
 
 		entity.entityGroupIds.push(entityToLinkTo._id);

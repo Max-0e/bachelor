@@ -11,10 +11,10 @@ export abstract class LinkableEntityController<
 	constructor(service: LinkableEntityService<LinkableEntity<T>>) {
 		super(service);
 		this.linkableEntityService = service;
-		this.linkEntityToEntityFromOtherhierarchy =
-			this.linkEntityToEntityFromOtherhierarchy.bind(this);
+		this.linkEntityToEntityFromOtherHierarchy =
+			this.linkEntityToEntityFromOtherHierarchy.bind(this);
 	}
-	async linkEntityToEntityFromOtherhierarchy(
+	async linkEntityToEntityFromOtherHierarchy(
 		req: Request<{
 			organizationId: string;
 			entityId: string;
@@ -23,7 +23,7 @@ export abstract class LinkableEntityController<
 		res: Response
 	) {
 		const updatedEntity =
-			await this.linkableEntityService.linkEntityToEntityFromOtherhierarchy(
+			await this.linkableEntityService.linkEntityToEntityFromOtherHierarchy(
 				req.params.organizationId,
 				req.params.entityId,
 				req.params.entityToLinkToId

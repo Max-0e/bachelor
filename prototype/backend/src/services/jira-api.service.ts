@@ -41,7 +41,7 @@ export class JiraApiService {
 	}
 	public async getIssueStatusesForProject(projectId: string) {
 		const res = await HttpClient.get<JiraIssueStatusResponse>(
-			`https://${this.domain}${JIRA_API_URL}/statuses/search?project=${projectId}`,
+			`https://${this.domain}${JIRA_API_URL}/statuses/search?projectId=${projectId}`,
 			this.getAuthHeaders()
 		);
 		return res.values;
