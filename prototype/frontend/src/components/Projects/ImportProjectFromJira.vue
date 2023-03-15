@@ -64,7 +64,9 @@
 									'bg-dark-200': status.prototypeStatus === 'open',
 								}"
 								v-for="status in usedIssuesStatuses">
-								{{ status.name }}
+								<span class="text-white">
+									{{ status.name }}
+								</span>
 								<AppDropDownMenu
 									class="w-100"
 									v-model="status.prototypeStatus"
