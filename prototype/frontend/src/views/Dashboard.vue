@@ -16,7 +16,12 @@
 					fill="transparent" />
 			</Transition>
 		</svg>
-		<div v-for="level in levelStore.currentEntitiesFromOrganization">
+		<div
+			v-for="level in organizationStore.currentEntity?.useEpics
+				? levelStore.currentEntitiesFromOrganization.filter(
+						(level) => level.hierarchyLevel > 0
+				  )
+				: levelStore.currentEntitiesFromOrganization">
 			<div class="text-left">{{ level.name }}</div>
 			<div class="p-10 flex gap-5">
 				<DropZone
@@ -67,10 +72,12 @@
 import { EntityGroup } from '@/interfaces/entity-groups.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { computed, ref } from 'vue';
 
 const groupStore = useGroupStore();
 const levelStore = useLevelStore();
+const organizationStore = useOrganizationStore();
 
 const groups = ref(groupStore.currentEntitiesFromOrganization);
 
