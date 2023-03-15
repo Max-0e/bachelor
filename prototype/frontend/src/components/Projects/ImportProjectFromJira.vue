@@ -1,5 +1,5 @@
 <template>
-	<AppModal ref="modal">
+	<AppModal ref="modal" :dismissible="false">
 		<div class="flex flex-col gap-10 w-[100vw]">
 			<div class="text-3xl">Import project from Jira</div>
 			<AppStepper :step="currentStepperStep" :number-of-steps="3" minHeight>
