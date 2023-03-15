@@ -40,14 +40,15 @@ const makeTaskGetters = () => ({
 		return (entityGroupId: string) => {
 			const groupsFromLevelBelow =
 				useGroupStore().getEntitiesLinkedToEntityGroupId(entityGroupId);
-			const tasks = groupsFromLevelBelow.flatMap(({ id }) =>
-				//TODO: fix typing
-				(this as any).getEntitiesLinkedToEntityGroupId(id)
+			const tasks = (this as any).getEntitiesLinkedToEntityGroupId(
+				entityGroupId
 			);
-			if (tasks.length === 0) {
-				return groupsFromLevelBelow
-					.flatMap(({ id }) =>
-						(this as any).getTasksLinkedToEntityGroupIdRecursive(id)
+			if (groupsFromLevelBelow.length > 0) {
+				return tasks
+					.concat(
+						groupsFromLevelBelow.flatMap(({ id }) =>
+							(this as any).getTasksLinkedToEntityGroupIdRecursive(id)
+						)
 					)
 					.filter(unique) as Task[];
 			} else {
