@@ -24,6 +24,8 @@ declare module '@vue/runtime-core' {
     AppLabel: typeof import('./src/components/shared/Input/AppLabel.vue')['default']
     AppModal: typeof import('./src/components/shared/Modal/AppModal.vue')['default']
     AppProgressBar: typeof import('./src/components/shared/UI/AppProgressBar.vue')['default']
+    AppStepper: typeof import('./src/components/shared/UI/AppStepper.vue')['default']
+    AppStepperStep: typeof import('./src/components/shared/UI/AppStepperStep.vue')['default']
     AppToggleInput: typeof import('./src/components/shared/Input/AppToggleInput.vue')['default']
     AppToolTip: typeof import('./src/components/shared/UI/AppToolTip.vue')['default']
     AppYesNoModal: typeof import('./src/components/shared/Modal/AppYesNoModal.vue')['default']

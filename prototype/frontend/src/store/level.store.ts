@@ -26,7 +26,7 @@ const makeLevelGetters = () => ({
 		return state.entities.find(
 			(x) =>
 				x.organizationId === currentLevel.organizationId &&
-				x.hirarchyLevel === currentLevel.hirarchyLevel - 1
+				x.hierarchyLevel === currentLevel.hierarchyLevel - 1
 		);
 	},
 });

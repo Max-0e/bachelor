@@ -31,7 +31,7 @@ export interface JiraProjectDetails {
 	key: string;
 	description: string;
 	lead: {
-		self: string;
+		self: URL;
 		key: string;
 		accountId: string;
 		accountType: string;
@@ -42,7 +42,7 @@ export interface JiraProjectDetails {
 	};
 	components: [
 		{
-			self: string;
+			self: URL;
 			id: string;
 			name: string;
 			description: string;
@@ -80,11 +80,11 @@ export interface JiraProjectDetails {
 	insight: JiraInsight;
 }
 
-export interface JiraIssueType {
-	self: string;
+interface JiraIssueType {
+	self: URL;
 	id: string;
 	description: string;
-	iconUrl: string;
+	iconUrl: URL;
 	name: string;
 	subtask: boolean;
 	avatarId: number;
@@ -100,7 +100,7 @@ export interface JiraIssueType {
 	};
 }
 
-export interface JiraUser {
+interface JiraUser {
 	self: string;
 	key: string;
 	accountId: string;
@@ -111,14 +111,14 @@ export interface JiraUser {
 	active: false;
 }
 
-export interface AvatarUrls {
-	'48x48': string;
-	'24x24': string;
-	'16x16': string;
-	'32x32': string;
+interface AvatarUrls {
+	'48x48': URL;
+	'24x24': URL;
+	'16x16': URL;
+	'32x32': URL;
 }
 
-export interface JiraInsight {
+interface JiraInsight {
 	totalIssueCount: number;
 	lastIssueUpdateTime: Date;
 }

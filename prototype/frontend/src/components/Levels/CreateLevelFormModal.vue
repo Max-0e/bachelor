@@ -37,7 +37,7 @@ const submit = () => {
 	if (!organization) return;
 	levelStore.createEntity({
 		name: formGroup.formObjects.name.value,
-		hirarchyLevel: levelStore.getNextHirachyLevel,
+		hierarchyLevel: levelStore.getNextHirachyLevel,
 	});
 	modal.value?.close();
 };

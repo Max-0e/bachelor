@@ -10,7 +10,7 @@
 				<AppProgressBar
 					v-for="groupMetrics in linkedGroupsMetrics"
 					class="my-5"
-					:progress="metrics.progress">
+					:progress="groupMetrics.metrics.value.progress">
 					{{ groupMetrics.group.name }}
 				</AppProgressBar>
 			</div>

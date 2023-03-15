@@ -58,6 +58,25 @@ export abstract class OrganizationBasedEntityService<T> extends EntityService<
 			newEntity._id
 		);
 	}
+	public async createMultipleOrganizationBasedEntities(
+		organizationId: string,
+		entities: EntityCreateDto<T>[]
+	): Promise<EntityDocument<OrganizationBasedEntity<T>>[]> {
+		await this.getOrganizationById(organizationId);
+		const newEntities = await Promise.all(
+			entities.map(async (entity) => {
+				const newEntity = await this.createEntity({
+					organizationId,
+					...entity,
+				});
+				return await this.getOrganizationBasedEntityById(
+					organizationId,
+					newEntity._id
+				);
+			})
+		);
+		return newEntities;
+	}
 
 	public async updateOrganizationBasedEntity(
 		organizationId: string,

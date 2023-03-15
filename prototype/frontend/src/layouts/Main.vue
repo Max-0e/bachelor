@@ -23,12 +23,12 @@
 				>
 				<div
 					v-for="level of levelStore.entities.sort(
-						(a, b) => b.hirarchyLevel - a.hirarchyLevel
+						(a, b) => b.hierarchyLevel - a.hierarchyLevel
 					)">
 					<router-link
 						v-if="
-							level.hirarchyLevel > 1 ||
-							(level.hirarchyLevel === 1 &&
+							level.hierarchyLevel > 1 ||
+							(level.hierarchyLevel === 1 &&
 								!organizationStore.currentEntity?.useEpics)
 						"
 						:to="{ name: 'LevelView', params: { levelId: level.id } }"
@@ -37,7 +37,7 @@
 					>
 					<router-link
 						v-else-if="
-							level.hirarchyLevel > 0 ||
+							level.hierarchyLevel > 0 ||
 							!organizationStore.currentEntity?.useEpics
 						"
 						class="transition-all rounded-md px-2 m-2"

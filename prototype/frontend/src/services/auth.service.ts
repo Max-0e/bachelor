@@ -72,7 +72,7 @@ class AuthService {
 
 	public async addJiraApiToken(token: string, domain: string, mail: string) {
 		return await HttpClient.put<User>(
-			`${API_URL}/auth/addJiraApiToken/`,
+			`${API_URL}/jira/addApiToken/`,
 			{
 				token,
 				domain,
@@ -82,12 +82,9 @@ class AuthService {
 		);
 	}
 	public async deleteJiraApiToken() {
-		return await HttpClient.delete<User>(
-			`${API_URL}/auth/deleteJiraApiToken/`,
-			{
-				withCredentials: true,
-			}
-		);
+		return await HttpClient.delete<User>(`${API_URL}/jira/deleteApiToken/`, {
+			withCredentials: true,
+		});
 	}
 }
 

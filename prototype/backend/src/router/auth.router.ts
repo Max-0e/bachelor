@@ -13,12 +13,6 @@ export function makeAuthRouter() {
 	router.post('/activate', AuthController.activateUser);
 	router.post('/forgot-password', AuthController.requestPasswordReset);
 	router.post('/reset-password/', AuthController.resetPassword);
-	router.put('/addJiraApiToken/', isAuth, AuthController.addJiraAPIToken);
-	router.delete(
-		'/deleteJiraApiToken/',
-		isAuth,
-		AuthController.deleteJiraAPIToken
-	);
 
 	return router;
 }

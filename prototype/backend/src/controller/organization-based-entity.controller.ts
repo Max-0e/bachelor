@@ -14,11 +14,12 @@ export abstract class OrganizationBasedEntityController<T> {
 		this.getEntities = this.getEntities.bind(this);
 		this.getEntityById = this.getEntityById.bind(this);
 		this.createEntity = this.createEntity.bind(this);
+		this.createMultipleEntities = this.createMultipleEntities.bind(this);
 		this.updateEntity = this.updateEntity.bind(this);
 		this.deleteEntity = this.deleteEntity.bind(this);
 	}
 
-	public async getEntities(req: Request<OrganizationIdReqest>, res: Response) {
+	public async getEntities(req: Request<OrganizationIdRequest>, res: Response) {
 		const entities = await this.entityService.getOrganizationBasedEntities(
 			req.params.organizationId
 		);
@@ -30,7 +31,7 @@ export abstract class OrganizationBasedEntityController<T> {
 	}
 
 	public async getEntityById(
-		req: Request<OrganizationIdReqest & IdRequest>,
+		req: Request<OrganizationIdRequest & IdRequest>,
 		res: Response
 	) {
 		const entity = await this.entityService.getOrganizationBasedEntityById(
@@ -46,7 +47,7 @@ export abstract class OrganizationBasedEntityController<T> {
 
 	public async createEntity(
 		req: Request<
-			OrganizationIdReqest,
+			OrganizationIdRequest,
 			EntityReadDto<OrganizationBasedEntity<T>>,
 			EntityCreateDto<OrganizationBasedEntity<T>>
 		>,
@@ -64,9 +65,29 @@ export abstract class OrganizationBasedEntityController<T> {
 		);
 	}
 
+	public async createMultipleEntities(
+		req: Request<
+			OrganizationIdRequest,
+			EntityReadDto<OrganizationBasedEntity<T>>[],
+			EntityCreateDto<OrganizationBasedEntity<T>>[]
+		>,
+		res: Response
+	) {
+		const createdEntities =
+			await this.entityService.createMultipleOrganizationBasedEntities(
+				req.params.organizationId,
+				req.body
+			);
+		return await sendResponse.data<EntityReadDto<OrganizationBasedEntity<T>>[]>(
+			res,
+			201,
+			this.entityService.mapArrayToDtoArray(createdEntities)
+		);
+	}
+
 	public async updateEntity(
 		req: Request<
-			OrganizationIdReqest & IdRequest,
+			OrganizationIdRequest & IdRequest,
 			EntityCreateDto<OrganizationBasedEntity<T>>
 		>,
 		res: Response
@@ -85,7 +106,7 @@ export abstract class OrganizationBasedEntityController<T> {
 	}
 
 	public async deleteEntity(
-		req: Request<OrganizationIdReqest & IdRequest>,
+		req: Request<OrganizationIdRequest & IdRequest>,
 		res: Response
 	): Promise<Response> {
 		await this.entityService.deleteOrganizationBasedEntityById(
@@ -96,7 +117,7 @@ export abstract class OrganizationBasedEntityController<T> {
 	}
 }
 
-type OrganizationIdReqest = {
+type OrganizationIdRequest = {
 	organizationId: string;
 };
 

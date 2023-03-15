@@ -11,7 +11,7 @@ class LevelService extends OrganizationBasedEntityService<ILevel> {
 
 	validateEntityCreateDto(entity: EntityCreateDto<ILevel>): void {
 		const errors: string[] = [];
-		if (entity.hirarchyLevel === undefined) errors.push('hirarchyLevel');
+		if (entity.hierarchyLevel === undefined) errors.push('hierarchyLevel');
 		if (!entity.name) errors.push('name');
 
 		if (errors.length > 0) {
@@ -21,7 +21,7 @@ class LevelService extends OrganizationBasedEntityService<ILevel> {
 
 	validateEntityUpdateDto(entity: EntityCreateDto<ILevel>): void {
 		const errors: string[] = [];
-		if (entity.hirarchyLevel === undefined) errors.push('hirarchyLevel');
+		if (entity.hierarchyLevel === undefined) errors.push('hierarchyLevel');
 		if (!entity.name) errors.push('name');
 
 		if (errors.length > 0) {
