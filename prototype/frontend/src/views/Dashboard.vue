@@ -25,7 +25,7 @@
 			<div class="text-left">{{ level.name }}</div>
 			<div class="p-10 flex gap-5">
 				<DropZone
-					class="border border-2 flex-grow relative"
+					class="border border-2 flex-grow relative cursor-pointer"
 					v-for="group in groups.filter((x) => x.levelId === level.id)"
 					@on-drop="link(group.id, $event)"
 					:class="
@@ -36,7 +36,7 @@
 					@mouseenter="markGroup(group)"
 					@mouseleave="unMark()"
 					@click="goToGroupDetails(group)">
-					<div class="transition-all rounded-md cursor-pointer">
+					<div class="transition-all rounded-md">
 						<DashboardGroupCardContent
 							:group="group"></DashboardGroupCardContent>
 						<div

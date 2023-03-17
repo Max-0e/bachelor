@@ -38,22 +38,21 @@ const makeTaskGetters = () => ({
 	},
 	getTasksLinkedToEntityGroupIdRecursive(this: LinkableEntityStore<ITask>) {
 		return (entityGroupId: string) => {
-			const groupsFromLevelBelow = computed(() =>
-				useGroupStore().getEntitiesLinkedToEntityGroupId(entityGroupId)
+			const groupsFromLevelBelow =
+				useGroupStore().getEntitiesLinkedToEntityGroupId(entityGroupId);
+			const tasks = (this as any).getEntitiesLinkedToEntityGroupId(
+				entityGroupId
 			);
-			const tasks = computed(() =>
-				(this as any).getEntitiesLinkedToEntityGroupId(entityGroupId)
-			);
-			if (groupsFromLevelBelow.value.length > 0) {
-				return tasks.value
+			if (groupsFromLevelBelow.length > 0) {
+				return tasks
 					.concat(
-						groupsFromLevelBelow.value.flatMap(({ id }) =>
+						groupsFromLevelBelow.flatMap(({ id }) =>
 							(this as any).getTasksLinkedToEntityGroupIdRecursive(id)
 						)
 					)
 					.filter(unique) as Task[];
 			} else {
-				return tasks.value as Task[];
+				return tasks as Task[];
 			}
 		};
 	},
