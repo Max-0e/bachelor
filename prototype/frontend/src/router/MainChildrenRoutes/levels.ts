@@ -1,9 +1,9 @@
 import { RouteRecordRaw } from 'vue-router';
 
+import GroupView from '@/components/Groups/GroupView.vue';
 import AlternativeTaskListVue from '@/components/Tasks/AlternativeTaskList.vue';
 import TaskListVue from '@/components/Tasks/TaskList.vue';
 import ProjectLayoutVue from '@/layouts/ProjectLayout.vue';
-import GroupView from '@/views/GroupView.vue';
 import LevelView from '@/views/LevelView.vue';
 import EpicsVue from '@/views/Project/Epics.vue';
 import ProjectDashboardVue from '@/views/Project/ProjectDashboard.vue';

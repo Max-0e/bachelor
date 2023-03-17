@@ -7,7 +7,7 @@ export const getDoughnutChartOptions = (
 	maintainAspectRatio: true,
 	animation: {
 		animateRotate: true,
-		animateScale: true,
+		// animateScale: true,
 	},
 	plugins: {
 		legend: {

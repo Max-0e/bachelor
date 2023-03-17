@@ -10,12 +10,23 @@ import {
 import { useOrganizationStore } from './organization.store';
 
 const makeLevelGetters = () => ({
-	getNextHirachyLevel(state: OrganizationBasedEntityState<ILevel>) {
+	getNextHierarchyLevel(state: OrganizationBasedEntityState<ILevel>) {
 		const currentOrganization = useOrganizationStore().currentEntity;
 		if (!currentOrganization) return 0;
 		return state.entities.filter(
 			({ organizationId }) => organizationId === currentOrganization.id
 		).length;
+	},
+	isProjectLevel(state: OrganizationBasedEntityState<ILevel>) {
+		return (levelId: string) => {
+			const projectLevel = useOrganizationStore().currentEntity?.useEpics
+				? 1
+				: 0;
+			return (
+				state.entities.find((level) => level.id === levelId)?.hierarchyLevel ===
+				projectLevel
+			);
+		};
 	},
 	getLowerLevel(state: OrganizationBasedEntityState<ILevel>) {
 		const currentLevel: Entity<OrganizationBasedEntity<ILevel>> = (this as any)

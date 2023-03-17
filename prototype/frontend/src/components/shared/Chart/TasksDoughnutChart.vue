@@ -16,12 +16,18 @@ import {
 } from '@/components/chartoptions/projectDoughnutChartOptions';
 import { Task } from '@/interfaces/task.interface';
 import { useTaskStore } from '@/store/tasks.store';
-import { computed, PropType, ref } from 'vue';
+import { computed, onMounted, PropType, ref } from 'vue';
 import { Doughnut } from 'vue-chartjs';
 
 const props = defineProps({
 	tasks: { type: Object as PropType<Task[]>, required: true },
 	name: { type: String, default: 'Project' },
+});
+
+const fade = ref(true);
+
+onMounted(() => {
+	fade.value = false;
 });
 
 const metrics = computed(() => useTaskStore().computeMetrics(ref(props.tasks)));
