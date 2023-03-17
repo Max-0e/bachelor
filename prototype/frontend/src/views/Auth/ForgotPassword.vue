@@ -27,6 +27,8 @@ import { useRouter } from 'vue-router';
 const usernameOrEmail = inputRef();
 const formGroup = new FormGroup({ usernameOrEmail });
 
+const router = useRouter();
+
 async function requestResetLink() {
 	if (!formGroup.validate()) return;
 
@@ -38,7 +40,7 @@ async function requestResetLink() {
 				toastContent:
 					'The user with the given E-Mail-Address received his reset Link if he exists.',
 			};
-			useRouter().push('login');
+			router.push('login');
 		})
 		.catch((_) => {
 			return;

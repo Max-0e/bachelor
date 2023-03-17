@@ -11,7 +11,8 @@ class UserService {
 			$or: [{ email: usernameOrEmail }, { username: usernameOrEmail }],
 		});
 		if (!user) throw new NotFoundError('This User does not exists.');
-		if (!user.activated) throw new NotFoundError('This User was not activated');
+		if (!user.activated)
+			throw new NotFoundError('This User was not activated.');
 
 		return user;
 	}
@@ -19,7 +20,8 @@ class UserService {
 	public async getUserById(id: string) {
 		const user: UserDocument | null = await UserModel.findOne({ _id: id });
 		if (!user) throw new NotFoundError('This User does not exists.');
-		if (!user.activated) throw new NotFoundError('This User was not activated');
+		if (!user.activated)
+			throw new NotFoundError('This User was not activated.');
 
 		return user;
 	}
