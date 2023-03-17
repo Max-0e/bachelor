@@ -1,13 +1,14 @@
 import { ChartData, ChartOptions } from 'chart.js';
 
 export const getDoughnutChartOptions = (
-	name: string
+	name: string,
+	displayTitle: boolean = true
 ): ChartOptions<'doughnut'> => ({
 	responsive: true,
 	maintainAspectRatio: true,
 	animation: {
 		animateRotate: true,
-		// animateScale: true,
+		animateScale: true,
 	},
 	plugins: {
 		legend: {
@@ -15,7 +16,7 @@ export const getDoughnutChartOptions = (
 			display: false,
 		},
 		title: {
-			display: true,
+			display: displayTitle,
 			text: name + ' Progress',
 		},
 	},

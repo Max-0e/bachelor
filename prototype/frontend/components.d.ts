@@ -34,6 +34,7 @@ declare module '@vue/runtime-core' {
     CreateLevelFormModal: typeof import('./src/components/Levels/CreateLevelFormModal.vue')['default']
     CreateOrganizationFormModal: typeof import('./src/components/Organizations/CreateOrganizationFormModal.vue')['default']
     Dashboard: typeof import('./src/views/Dashboard.vue')['default']
+    DashboardGroupCardContent: typeof import('./src/views/DashboardGroupCardContent.vue')['default']
     DraggableItem: typeof import('./src/components/shared/DragAndDrop/DraggableItem.vue')['default']
     DropZone: typeof import('./src/components/shared/DragAndDrop/DropZone.vue')['default']
     EpicCard: typeof import('./src/components/Epics/EpicCard.vue')['default']

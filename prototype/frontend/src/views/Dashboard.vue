@@ -11,7 +11,7 @@
 					v-if="showLink"
 					ref="path"
 					:d="`M ${startPosition.x} ${startPosition.y}, ${currentMousePosition.x} ${currentMousePosition.y}`"
-					stroke="black"
+					:stroke="appStore.darkMode ? 'white' : 'black'"
 					stroke-width="5"
 					fill="transparent" />
 			</Transition>
@@ -25,7 +25,6 @@
 			<div class="text-left">{{ level.name }}</div>
 			<div class="p-10 flex gap-5">
 				<DropZone
-					v-if="linkingEnabled"
 					class="border border-2 flex-grow relative"
 					v-for="group in groups.filter((x) => x.levelId === level.id)"
 					@on-drop="link(group.id, $event)"
@@ -33,14 +32,16 @@
 						markedGroup === group || markedGroups.includes(group)
 							? '!border-blue-500'
 							: 'border-transparent'
-					">
-					<div
-						class="transition-all rounded-md"
-						@mouseenter="markGroup(group)"
-						@mouseleave="unmark()">
-						{{ group.name }}
-						<div>some fancy Data</div>
-						<div class="flex justify-center absolute top-[-40px] left-0 w-full">
+					"
+					@mouseenter="markGroup(group)"
+					@mouseleave="unMark()"
+					@click="goToGroupDetails(group)">
+					<div class="transition-all rounded-md cursor-pointer">
+						<DashboardGroupCardContent
+							:group="group"></DashboardGroupCardContent>
+						<div
+							v-if="linkingEnabled"
+							class="flex justify-center absolute top-[-40px] left-0 w-full">
 							<DraggableItem
 								@dragstart="startLinkage($event)"
 								@dragend="stopLinkage()"
@@ -50,31 +51,22 @@
 						</div>
 					</div>
 				</DropZone>
-				<div
-					v-else
-					class="transition-all flex-grow bg-gray-200 p-5 dark:bg-dark-100 rounded-md border border-2 cursor-pointer"
-					v-for="group in groups.filter((x) => x.levelId === level.id)"
-					:class="
-						markedGroup === group || markedGroups.includes(group)
-							? '!border-blue-500'
-							: '!border-transparent'
-					"
-					@mouseenter="markGroup(group)"
-					@mouseleave="unmark()">
-					{{ group.name }}
-					<div>some fancy Data</div>
-				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script setup lang="ts">
 import { EntityGroup } from '@/interfaces/entity-groups.interface';
+import { useAppStore } from '@/store/app';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 import { useOrganizationStore } from '@/store/organization.store';
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+
+const appStore = useAppStore();
 const groupStore = useGroupStore();
 const levelStore = useLevelStore();
 const organizationStore = useOrganizationStore();
@@ -83,14 +75,21 @@ const groups = ref(groupStore.currentEntitiesFromOrganization);
 
 const markedGroup = ref<EntityGroup | undefined>(undefined);
 const markedGroups = computed(() => {
-	const groupsstuff = groups.value;
-	groupsstuff;
 	return markedGroup.value
 		? getLinkedGroupsUp(markedGroup.value).concat(
 				getLinkedGroupsDown(markedGroup.value)
 		  )
 		: [];
 });
+
+const goToGroupDetails = (group: EntityGroup) => {
+	router.push({
+		name: levelStore.isProjectLevel(group.levelId)
+			? 'ProjectDashboard'
+			: 'GroupView',
+		params: { levelId: group.levelId, groupId: group.id },
+	});
+};
 
 const linkingEnabled = ref(false);
 
@@ -131,7 +130,7 @@ function markGroup(group: EntityGroup) {
 	markedGroup.value = group;
 }
 
-function unmark() {
+function unMark() {
 	markedGroup.value = undefined;
 }
 
@@ -145,6 +144,7 @@ function stopLinkage() {
 }
 
 function link(entityToLinkToId: string, entityId: string) {
+	// TODO: fix typing
 	(groupStore as any).link(entityId, entityToLinkToId);
 }
 </script>

@@ -7,13 +7,13 @@
 				metrics.value.doneLength,
 			])
 		"
-		:options="getDoughnutChartOptions(name)" />
+		:options="getDoughnutChartOptions(name, !hideTitle)" />
 </template>
 <script setup lang="ts">
 import {
 	getDoughnutChartOptions,
 	getProjectChartData,
-} from '@/components/chartoptions/projectDoughnutChartOptions';
+} from '@/components/chart-options/projectDoughnutChartOptions';
 import { Task } from '@/interfaces/task.interface';
 import { useTaskStore } from '@/store/tasks.store';
 import { computed, onMounted, PropType, ref } from 'vue';
@@ -22,6 +22,7 @@ import { Doughnut } from 'vue-chartjs';
 const props = defineProps({
 	tasks: { type: Object as PropType<Task[]>, required: true },
 	name: { type: String, default: 'Project' },
+	hideTitle: { type: Boolean, default: false },
 });
 
 const fade = ref(true);
