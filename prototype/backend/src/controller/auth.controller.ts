@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidV4 } from 'uuid';
 import { UserDocument, UserModel } from '../models/user.model';
 
 import mailerService from '../services/mailer.service';
@@ -40,7 +40,7 @@ class AuthController {
 		res: Response,
 		next: NextFunction
 	): Promise<Response> {
-		const activationToken = uuidv4();
+		const activationToken = uuidV4();
 
 		const user = new UserModel({
 			_id: new mongoose.Types.ObjectId(),
@@ -56,7 +56,7 @@ class AuthController {
 			text: 'Click on the Link to activate your account.',
 			html: `<h4>Finish Registration</h4>
 			<p>Click on the Link to activate your account..</p>
-			<a href="${CLIENT_APP_URL}/activate/${activationToken}">Confirm E-Mail-Address</a>`,
+			<a href="${CLIENT_APP_URL}/#/activate/${activationToken}">Confirm E-Mail-Address</a>`,
 		};
 		await userService.createUser(user);
 		mailerService.sendMail(config);
@@ -94,7 +94,7 @@ class AuthController {
 		try {
 			const user = await userService.findUserByUsernameOrEmail(req.body.email);
 			if (user) {
-				const resetToken = uuidv4();
+				const resetToken = uuidV4();
 				const config = {
 					recipientEmail: user.email,
 					subject: 'Reset your Password',
