@@ -1,13 +1,26 @@
 <template>
 	<div :class="useAppStore().darkMode ? 'dark' : ''">
-		<div class="text-gray-600 dark:(text-white bg-dark-200)">
+		<div class="relative text-gray-600 dark:(text-white bg-dark-200)">
 			<router-view />
+			<div
+				class="absolute z-102 w-screen h-screen bg-gray-200 dark:bg-black opacity-80 top-0 left-0 transition-all delay-75 flex items-center justify-center"
+				:class="{ '!opacity-0 invisible': !isRouting }">
+				<AppIcon class="animate-spin"> autorenew </AppIcon>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { useAppStore } from '@/store/app';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const isRouting = ref(false);
+router.beforeEach((_) => (isRouting.value = true));
+router.afterEach((_) => (isRouting.value = false));
 </script>
 
 <style>

@@ -3,18 +3,13 @@
 		{{ useLevelStore().currentEntity?.name }}
 	</div>
 	<div class="flex flex-wrap gap-5">
-		<TransitionGroup>
-			<GroupCard
-				@click="
-					$router.push(
-						$router.currentRoute.value.fullPath.toString() +
-							'/group/' +
-							group.id
-					)
-				"
-				v-for="group of groupStore.currentGroups"
-				:group="group" />
-		</TransitionGroup>
+		<GroupCard
+			class="flex-grow"
+			@click="
+				$router.push({ name: 'GroupView', params: { groupId: group.id } })
+			"
+			v-for="group of groupStore.currentGroups"
+			:group="group" />
 	</div>
 	<div v-if="groupStore.currentGroups.length === 0" class="italic">
 		no {{ useLevelStore().currentEntity?.name }}

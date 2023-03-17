@@ -41,7 +41,7 @@ declare module '@vue/runtime-core' {
     Epics: typeof import('./src/views/Project/Epics.vue')['default']
     ForgotPassword: typeof import('./src/views/Auth/ForgotPassword.vue')['default']
     GroupCard: typeof import('./src/components/Groups/GroupCard.vue')['default']
-    GroupView: typeof import('./src/views/GroupView.vue')['default']
+    GroupView: typeof import('./src/components/Groups/GroupView.vue')['default']
     HomePage: typeof import('./src/views/HomePage.vue')['default']
     ImportProjectFromFile: typeof import('./src/components/Projects/ImportProjectFromFile.vue')['default']
     ImportProjectFromJira: typeof import('./src/components/Projects/ImportProjectFromJira.vue')['default']
