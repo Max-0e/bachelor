@@ -63,20 +63,21 @@ export function defineLinkableEntityStore<
 export type LinkableEntityStore<
 	T,
 	AdditionalGetters = {},
-	AdditionalActions = {}
+	AdditionalActions = {},
+	Id extends string = string
 > = OrganizationBasedEntityStore<
-	T,
+	LinkableEntity<T>,
 	{
-		getEntitiesLinkedToEntityGroupId: () => (
+		getEntitiesLinkedToEntityGroupId: (
 			entityGroupId: string
 		) => Entity<OrganizationBasedEntity<LinkableEntity<T>>>[];
 	} & AdditionalGetters,
 	{
 		link: (
-			this: LinkableEntityStore<T>,
 			entityId: string,
 			entityIdToLinkTo: string,
 			organizationId?: string | undefined
 		) => void;
-	} & AdditionalActions
+	} & AdditionalActions,
+	Id
 >;

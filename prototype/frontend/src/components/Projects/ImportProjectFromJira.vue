@@ -3,7 +3,17 @@
 		<div class="flex flex-col gap-10 w-[100vw]">
 			<div class="text-3xl">Import project from Jira</div>
 			<AppStepper :step="currentStepperStep" :number-of-steps="3" minHeight>
-				<AppStepperStep :step="1" :current-step="currentStepperStep">
+				<AppStepperStep
+					class="relative"
+					:step="1"
+					:current-step="currentStepperStep">
+					<div
+						class="absolute flex items-center cursor-not-allowed justify-center w-full h-full opacity-80 z-100 bg-gray-300 dark:bg-dark-600"
+						v-if="!jiraStore.isLoaded">
+						<span class="!opacity-100 text-red-700 text-3xl">
+							import not available
+						</span>
+					</div>
 					<div class="flex flex-col gap-5">
 						<div class="text-xl text-left">Choose your project</div>
 						<div class="flex items-center gap-5">

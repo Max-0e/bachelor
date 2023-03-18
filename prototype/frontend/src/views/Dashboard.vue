@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { EntityGroup } from '@/interfaces/entity-groups.interface';
 import { useAppStore } from '@/store/app';
-import { useGroupStore } from '@/store/entity-groups.store';
+import { EntityGroupStore, useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 import { useOrganizationStore } from '@/store/organization.store';
 import { computed, ref } from 'vue';
@@ -144,7 +144,7 @@ function stopLinkage() {
 }
 
 function link(entityToLinkToId: string, entityId: string) {
-	// TODO: fix typing
-	(groupStore as any).link(entityId, entityToLinkToId);
+	// TODO: there must be an even better way
+	(groupStore as unknown as EntityGroupStore).link(entityId, entityToLinkToId);
 }
 </script>

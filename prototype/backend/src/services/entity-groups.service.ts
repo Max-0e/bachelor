@@ -8,6 +8,7 @@ class EntityGroupsService extends LinkableEntityService<IEntityGroup> {
 	constructor() {
 		super(EntityGroupModel);
 	}
+
 	validateEntityCreateDto(entity: EntityCreateDto<IEntityGroup>): void {
 		const errors: string[] = [];
 		if (!entity.levelId) errors.push('hierarchyLevel');
