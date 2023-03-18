@@ -89,7 +89,9 @@ export abstract class LinkableEntityService<
 			(!organization.useEpics && entityHierarchyLevel === 0);
 		await Promise.all(
 			groups.map(async (group) => {
-				const index = group.entityGroupIds.findIndex((id) => id === entity.id);
+				const index = group.entityGroupIds.findIndex(
+					(id) => id.toString() === entity.id
+				);
 				if (index !== -1) {
 					if (entityIsProject) {
 						return await group.delete();

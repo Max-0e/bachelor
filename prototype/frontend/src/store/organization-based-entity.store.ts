@@ -119,7 +119,10 @@ export function defineOrganizationBasedEntityStore<
 					});
 			},
 			updateEntityInState(entity: Entity<OrganizationBasedEntity<T>>) {
-				state.entities[this.findEntityIndexInState(entity.id)] = entity;
+				this.$patch((state) => {
+					state.entities[this.findEntityIndexInState(entity.id)] =
+						ref(entity).value;
+				});
 			},
 			deleteEntity(
 				entity: Entity<T>,
