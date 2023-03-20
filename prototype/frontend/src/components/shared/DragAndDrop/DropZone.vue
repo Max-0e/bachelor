@@ -30,6 +30,8 @@ const markAsTarget = ref(false);
 
 defineEmits(['onDrop']);
 
+defineExpose({ markAsTarget });
+
 defineProps({
 	disable: { type: Boolean, default: false },
 	disableMessage: String,

@@ -43,6 +43,7 @@
 			<div class="text-left">{{ level.name }}</div>
 			<div class="p-10 flex gap-5">
 				<DropZone
+					ref="dropZones"
 					class="border border-2 flex-grow relative cursor-pointer"
 					v-for="group in groups.filter((x) => x.levelId === level.id)"
 					@on-drop="link(group.id, $event)"
@@ -55,8 +56,7 @@
 					@mouseleave="unMark()"
 					@click="goToGroupDetails(group)">
 					<div class="transition-all rounded-md">
-						<DashboardGroupCardContent
-							:group="group"></DashboardGroupCardContent>
+						<DashboardGroupCardContent :group="group" />
 						<div
 							v-if="linkingEnabled"
 							class="flex justify-center absolute top-[-40px] left-0 w-full">
@@ -74,6 +74,7 @@
 	</div>
 </template>
 <script setup lang="ts">
+import DropZone from '@/components/shared/DragAndDrop/DropZone.vue';
 import { EntityGroup } from '@/interfaces/entity-groups.interface';
 import { useAppStore } from '@/store/app';
 import { EntityGroupStore, useGroupStore } from '@/store/entity-groups.store';
@@ -90,6 +91,7 @@ const levelStore = useLevelStore();
 const organizationStore = useOrganizationStore();
 
 const container = ref<HTMLDivElement>();
+const dropZones = ref<InstanceType<typeof DropZone>[]>([]);
 
 const groups = computed(() => groupStore.currentEntitiesFromOrganization);
 
@@ -158,8 +160,10 @@ function startLinkage(event: DragEvent) {
 	showLink.value = true;
 	startPosition.value.x = event.pageX - 20;
 	startPosition.value.y = event.pageY - 130;
+	markedGroup.value = undefined;
 }
 function stopLinkage() {
+	dropZones.value.forEach((dropZone) => (dropZone.markAsTarget = false));
 	showLink.value = false;
 }
 
