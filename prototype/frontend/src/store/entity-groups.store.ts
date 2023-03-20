@@ -47,3 +47,5 @@ export const useGroupStore = defineLinkableEntityStore<
 	makeEntityGroupGetters(),
 	makeEntityGroupActions()
 );
+
+export type EntityGroupStore = LinkableEntityStore<IEntityGroup>;

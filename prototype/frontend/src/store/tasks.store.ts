@@ -1,3 +1,6 @@
+import { Entity } from '@/interfaces/entity.interface';
+import { LinkableEntity } from '@/interfaces/linkable-entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
 import { ITask, Task } from '@/interfaces/task.interface';
 import { taskService } from '@/services/task.service';
 import { unique } from '@/utility/unique';
@@ -36,18 +39,16 @@ const makeTaskGetters = () => ({
 				};
 			});
 	},
-	getTasksLinkedToEntityGroupIdRecursive(this: LinkableEntityStore<ITask>) {
+	getTasksLinkedToEntityGroupIdRecursive(this: TaskStore) {
 		return (entityGroupId: string) => {
 			const groupsFromLevelBelow =
 				useGroupStore().getEntitiesLinkedToEntityGroupId(entityGroupId);
-			const tasks = (this as any).getEntitiesLinkedToEntityGroupId(
-				entityGroupId
-			);
+			const tasks = this.getEntitiesLinkedToEntityGroupId(entityGroupId);
 			if (groupsFromLevelBelow.length > 0) {
 				return tasks
 					.concat(
 						groupsFromLevelBelow.flatMap(({ id }) =>
-							(this as any).getTasksLinkedToEntityGroupIdRecursive(id)
+							this.getTasksLinkedToEntityGroupIdRecursive(id)
 						)
 					)
 					.filter(unique) as Task[];
@@ -71,3 +72,16 @@ export const useTaskStore = defineLinkableEntityStore<
 	makeTaskGetters(),
 	makeTaskActions()
 );
+
+export type TaskStore = LinkableEntityStore<
+	ITask,
+	{
+		computeMetrics: (
+			entityGroupId: string
+		) => Entity<OrganizationBasedEntity<LinkableEntity<ITask>>>[];
+		getTasksLinkedToEntityGroupIdRecursive: (
+			entityGroupId: string
+		) => Entity<OrganizationBasedEntity<LinkableEntity<ITask>>>[];
+	},
+	{}
+>;

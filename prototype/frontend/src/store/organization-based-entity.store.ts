@@ -2,7 +2,7 @@ import { Entity, EntityCreate } from '@/interfaces/entity.interface';
 import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
 
 import { OrganizationBasedEntityService } from '@/services/organization-based-entity.service';
-import { defineStore } from 'pinia';
+import { defineStore, Store } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
@@ -119,7 +119,10 @@ export function defineOrganizationBasedEntityStore<
 					});
 			},
 			updateEntityInState(entity: Entity<OrganizationBasedEntity<T>>) {
-				state.entities[this.findEntityIndexInState(entity.id)] = entity;
+				this.$patch((state) => {
+					state.entities[this.findEntityIndexInState(entity.id)] =
+						ref(entity).value;
+				});
 			},
 			deleteEntity(
 				entity: Entity<T>,
@@ -150,23 +153,34 @@ export function defineOrganizationBasedEntityStore<
 export type OrganizationBasedEntityStore<
 	T,
 	AdditionalGetters,
-	AdditionalActions
-> = OrganizationBasedEntityState<T> & {
-	currentEntity(state: EntityState<T>): Entity<T> | undefined;
-	currentEntitiesFromOrganization(state: EntityState<T>): Entity<T>[];
-} & AdditionalGetters & {
-		loadEntities(organizationId: string | undefined): Promise<void>;
-		createEntity(
-			entityToCreate: EntityCreate<T>,
-			organizationId: string | undefined
-		): void;
-		updateEntity(
-			entityId: string,
-			entityToUpdate: EntityCreate<T>,
-			organizationId: string | undefined
-		): void;
-		updateEntityInState(entity: Entity<T>): void;
-		deleteEntity(entity: Entity<T>, organizationId: string | undefined): void;
-		deleteEntityInState(entity: Entity<T>): void;
-		findEntityIndexInState(entityId: string): number;
-	} & AdditionalActions;
+	AdditionalActions,
+	Id extends string = string
+> = Store<
+	Id,
+	OrganizationBasedEntityState<T> & {
+		currentEntity(
+			state: EntityState<OrganizationBasedEntity<T>>
+		): Entity<OrganizationBasedEntity<T>> | undefined;
+		currentEntitiesFromOrganization(
+			state: EntityState<OrganizationBasedEntity<T>>
+		): Entity<OrganizationBasedEntity<T>>[];
+	} & AdditionalGetters & {
+			loadEntities(organizationId: string | undefined): Promise<void>;
+			createEntity(
+				entityToCreate: EntityCreate<OrganizationBasedEntity<T>>,
+				organizationId: string | undefined
+			): void;
+			updateEntity(
+				entityId: string,
+				entityToUpdate: EntityCreate<OrganizationBasedEntity<T>>,
+				organizationId: string | undefined
+			): void;
+			updateEntityInState(entity: Entity<OrganizationBasedEntity<T>>): void;
+			deleteEntity(
+				entity: Entity<OrganizationBasedEntity<T>>,
+				organizationId: string | undefined
+			): void;
+			deleteEntityInState(entity: Entity<OrganizationBasedEntity<T>>): void;
+			findEntityIndexInState(entityId: string): number;
+		} & AdditionalActions
+>;
