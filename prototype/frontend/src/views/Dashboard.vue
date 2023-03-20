@@ -4,17 +4,35 @@
 		:initial-value="linkingEnabled"
 		@change="linkingEnabled = !linkingEnabled"
 		label="Enable Linking"></AppToggleInput>
-	<div class="relative">
-		<svg v-if="linkingEnabled" ref="svg" class="absolute h-full w-full">
+	<div class="relative" ref="container">
+		<svg ref="svg" class="absolute h-full w-full">
 			<Transition>
 				<path
-					v-if="showLink"
+					v-if="showLink && linkingEnabled"
 					ref="path"
 					:d="`M ${startPosition.x} ${startPosition.y}, ${currentMousePosition.x} ${currentMousePosition.y}`"
 					:stroke="appStore.darkMode ? 'white' : 'black'"
 					stroke-width="5"
 					fill="transparent" />
 			</Transition>
+			<g v-for="group in groups">
+				<path
+					class="transition-all"
+					:class="{ 'opacity-40': linkingEnabled }"
+					v-for="linkedGroupId in group.entityGroupIds"
+					:d="getPathString(group.id, linkedGroupId)"
+					:stroke="
+						(markedGroup === group || markedGroups.includes(group)) &&
+						(markedGroups.some((x) => x.id === linkedGroupId) ||
+							markedGroup?.id === linkedGroupId)
+							? 'rgb(59, 130, 246)'
+							: appStore.darkMode
+							? 'white'
+							: 'black'
+					"
+					stroke-width="2"
+					fill="transparent"></path>
+			</g>
 		</svg>
 		<div
 			v-for="level in organizationStore.currentEntity?.useEpics
@@ -71,7 +89,9 @@ const groupStore = useGroupStore();
 const levelStore = useLevelStore();
 const organizationStore = useOrganizationStore();
 
-const groups = ref(groupStore.currentEntitiesFromOrganization);
+const container = ref<HTMLDivElement>();
+
+const groups = computed(() => groupStore.currentEntitiesFromOrganization);
 
 const markedGroup = ref<EntityGroup | undefined>(undefined);
 const markedGroups = computed(() => {
@@ -147,4 +167,61 @@ function link(entityToLinkToId: string, entityId: string) {
 	// TODO: there must be an even better way
 	(groupStore as unknown as EntityGroupStore).link(entityId, entityToLinkToId);
 }
+
+const groupCoordinates = computed(() => {
+	if (!container.value) return;
+	const groupsByLevel = levelStore.currentEntitiesFromOrganization.map(
+		(level) => ({
+			level,
+			groups: groups.value.filter((group) => group.levelId === level.id),
+		})
+	);
+
+	if (organizationStore.currentEntity!.useEpics) {
+		groupsByLevel.splice(
+			groupsByLevel.findIndex((x) => x.level.hierarchyLevel === 0),
+			1
+		);
+	}
+
+	const offset = 20;
+	const padding = 40;
+	const cardHeight = 152;
+	const yOffset = 24;
+	const width = container.value.clientWidth - padding * 2;
+
+	return groupsByLevel.flatMap((x, levelIndex) => {
+		const groupCardWidth =
+			(width - offset * (x.groups.length - 1)) / x.groups.length;
+		return x.groups.map((group, groupIndex) => ({
+			id: group.id,
+			x:
+				groupCardWidth * (groupIndex + 1) -
+				(1 / 2) * groupCardWidth +
+				offset * groupIndex +
+				padding,
+			yBottom:
+				cardHeight * (levelIndex + 1) +
+				yOffset * levelIndex +
+				2 * padding * (levelIndex + 1) -
+				10,
+			yTop:
+				cardHeight * levelIndex +
+				yOffset * (levelIndex + 1) +
+				2 * padding * levelIndex +
+				35,
+		}));
+	});
+});
+
+const getPathString = (groupId: string, linkedGroupId: string) => {
+	if (!groupCoordinates.value) return '';
+	const coordinates = groupCoordinates.value.find((x) => x.id === groupId);
+	const linkedCoordinates = groupCoordinates.value.find(
+		(x) => x.id === linkedGroupId
+	);
+	if (!coordinates) return '';
+	if (!linkedCoordinates) return '';
+	return `M ${coordinates.x} ${coordinates.yTop}, ${linkedCoordinates.x} ${linkedCoordinates.yBottom}`;
+};
 </script>
