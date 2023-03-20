@@ -1,23 +1,14 @@
 Betreff: 0% - BA Konzeption und Entwicklung eines Systems zur softwaregestützten Dokumentation von Unternehmensstrukturen für automatisierte Fortschrittsmessung und Werteorientierung
 
 In dieser Woche erledigt:
-- Kapitel Analyse
--- warum agil?
-- Kapitel Konzeption
--- Prozessdefinition 100%
-- fachliche Konzeption
-- technische Konzeption
-- Implementierung
--- Datenimport/Jira-Integration
---- Jira-Connection
---- einige Bugfixes und visuelle Optimierungen
+-Implementierung
+-- Datenimport
+-- Bugfixes
 
 Für die kommende Woche geplant:
 - Kapitel Analyse
 - Kapitel Agile Unternehmensführung
 - Kapitel Konzeption
--Implementierung
--- Datenimport
 
 
 Meilensteinplan:
@@ -31,9 +22,9 @@ Meilensteinplan:
 -- Flight-Level 100%
 - Schreiben 15% 27.03.2023
 -- Kapitel Einleitung 0% 27.03.2023
--- Kapitel Agile Unternehmensführung 30% 20.03.2023
--- Kapitel Analyse 40% 20.03.2023
--- Kapitel Konzeption 30% 20.02.2023
+-- Kapitel Agile Unternehmensführung 30% 27.03.2023
+-- Kapitel Analyse 40% 27.03.2023
+-- Kapitel Konzeption 30% 27.02.2023
 -- Kapitel Implementierung 0% 27.03.2023
 -- Kapitel Evaluation 0% 27.03.2023
 -- Kapitel Fazit 0% 27.03.2023
@@ -48,7 +39,7 @@ Meilensteinplan:
 --- Frontend-Architektur 100%
 --- Datenvisualisierung 100%
 --- DevOps(Pipeline/Githubactions für CI/CD) 100%
-- Implementierung der Software 95% 20.03.2023
+- Implementierung der Software 100% 20.03.2023
 -- Authentifizierung 100%
 -- Design REST-Interface 100%
 -- Implementierung REST-Interface 100%
@@ -56,8 +47,7 @@ Meilensteinplan:
 -- Frontend States und Store 100%
 -- Datenvisualisierung 100%
 -- App-Navigation 100%
--- Daten-Import/Jira-Integration 80%
--- tba
+-- Daten-Import/Jira-Integration 100%
 - Test 20% 16.03.2023
 -- Testdaten/Demo-Projekt erstellen 0% 10.03.2023
 -- Termine mit Experten vereinbaren 80% 27.02.2023
