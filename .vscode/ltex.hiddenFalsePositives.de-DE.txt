@@ -1,1 +1,2 @@
 {"rule":"DE_SUBJECT_VERB_AGREEMENT","sentence":"^\\QDer Fortschritt eines Planungselements, welches keine Aufgabe oder Projekt ist, wird durch den Gesamtfortschritt der verknüpften Elemente aus der darunterliegenden Ebene aggregiert.\\E$"}
+{"rule":"DE_AGREEMENT","sentence":"^\\QUm den Userflow innerhalb des Prototypen darzustellen wurde ein UX-Entwurf entwickelt, welcher alle Funktionalitäten der Anwendung visuell abbildet und als Grundlage für das Design der Benutzeroberfläche dient.\\E$"}
