@@ -52,6 +52,8 @@ import authService from '@/services/auth.service';
 import { useAppStore } from '@/store/app';
 import { RouterLink, useRouter } from 'vue-router';
 
+const router = useRouter();
+
 const email = inputRef();
 const username = inputRef();
 const password = inputRef();
@@ -65,9 +67,9 @@ async function register() {
 			useAppStore().showToastOnRouting = {
 				toastType: ToastType.SUCCESS,
 				toastContent:
-					'Registration Successfull. Please confirm your E-Mail-Adress',
+					'Registration Successful. Please confirm your E-Mail-Address',
 			};
-			useRouter().push('login');
+			router.push({ name: 'Login' });
 		});
 }
 </script>

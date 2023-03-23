@@ -1,9 +1,9 @@
 import { Model } from 'mongoose';
-import { OrganizationBasedEntity } from 'src/interfaces/organization-based-entity.interface';
 import { ConflictError } from '../error/conflict.error';
 import { Entity, EntityDocument } from '../interfaces/entity.interface';
 import { IEntityGroup } from '../interfaces/entityGroup.interface';
 import { LinkableEntity } from '../interfaces/linkable-entity.interface';
+import { OrganizationBasedEntity } from '../interfaces/organization-based-entity.interface';
 import { entityGroupsService } from './entity-groups.service';
 import { levelService } from './level.service';
 import { OrganizationBasedEntityService } from './organization-based-entity.service';
@@ -67,6 +67,41 @@ export abstract class LinkableEntityService<
 					organizationId,
 					entityIdToLinkTo
 			  );
+	}
+
+	public async unlinkOrDeleteRelatedEntities(
+		organizationId: string,
+		entity: EntityDocument<OrganizationBasedEntity<LinkableEntity<T>>>
+	) {
+		const organization = await this.organizationService.getEntityById(
+			organizationId
+		);
+		if (!this.isEntityGroup(entity)) return;
+
+		const entityHierarchyLevel = (
+			await this.LevelService.getEntityById(entity.levelId)
+		).hierarchyLevel;
+		if (organization.useEpics && entityHierarchyLevel === 0) return;
+
+		const groups = await this.getEntities();
+		const entityIsProject =
+			(organization.useEpics && entityHierarchyLevel === 1) ||
+			(!organization.useEpics && entityHierarchyLevel === 0);
+		await Promise.all(
+			groups.map(async (group) => {
+				const index = group.entityGroupIds.findIndex(
+					(id) => id.toString() === entity.id
+				);
+				if (index !== -1) {
+					if (entityIsProject) {
+						return await group.delete();
+					}
+					group.entityGroupIds.splice(1, index);
+					return await group.save();
+				}
+			})
+		);
+		return entityIsProject;
 	}
 
 	private isEntityGroup(

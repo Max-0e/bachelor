@@ -1,7 +1,8 @@
 import { ChartData, ChartOptions } from 'chart.js';
 
 export const getDoughnutChartOptions = (
-	name: string
+	name: string,
+	displayTitle: boolean = true
 ): ChartOptions<'doughnut'> => ({
 	responsive: true,
 	maintainAspectRatio: true,
@@ -15,7 +16,7 @@ export const getDoughnutChartOptions = (
 			display: false,
 		},
 		title: {
-			display: true,
+			display: displayTitle,
 			text: name + ' Progress',
 		},
 	},

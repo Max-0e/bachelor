@@ -95,6 +95,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/store/auth';
 import { useGroupStore } from '@/store/entity-groups.store';
+import { useJiraStore } from '@/store/jira.store';
 import { useLevelStore } from '@/store/level.store';
 import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
@@ -107,6 +108,7 @@ const organizationStore = useOrganizationStore();
 const groupStore = useGroupStore();
 const taskStore = useTaskStore();
 const levelStore = useLevelStore();
+const jiraStore = useJiraStore();
 const router = useRouter();
 const authStore = useAuthStore();
 const toast = useToast();
@@ -122,6 +124,7 @@ async function refreshData() {
 	await taskStore.loadEntities();
 	await groupStore.loadEntities();
 	await levelStore.loadEntities();
+	await jiraStore.loadProjects();
 	toast.info('you are up to date', { timeout: 1500 });
 	refreshing.value = false;
 }

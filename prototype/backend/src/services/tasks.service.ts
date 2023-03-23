@@ -19,6 +19,7 @@ class TasksService extends LinkableEntityService<ITask> {
 			throw new ValidationError(errors.join(',') + ' required.');
 		}
 	}
+
 	validateEntityUpdateDto(entity: EntityCreateDto<ITask>): void {
 		const errors: string[] = [];
 		if (!entity.status) errors.push('hierarchyLevel');
@@ -28,6 +29,18 @@ class TasksService extends LinkableEntityService<ITask> {
 		if (errors.length > 0) {
 			throw new ValidationError(errors.join(',') + ' required.');
 		}
+	}
+
+	public async deleteAllTasksForProject(projectId: string) {
+		const tasks = await this.getEntities();
+		const tasksInProject = tasks.filter((task) =>
+			task.entityGroupIds.includes(projectId)
+		);
+		await Promise.all(
+			tasksInProject.map(async (task) => {
+				return await this.deleteEntityById(task.id);
+			})
+		);
 	}
 }
 

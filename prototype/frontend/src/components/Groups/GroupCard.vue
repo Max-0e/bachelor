@@ -1,18 +1,23 @@
 <template>
 	<div
-		class="bg-gray-200 hover:bg-gray-100 dark:(bg-dark-50) dark:hover:(bg-dark-400) transition-all p-5 shadow-lg rounded-md"
+		class="bg-gray-200 hover:bg-gray-100 cursor-pointer dark:(bg-dark-50) dark:hover:(bg-dark-400) transition-all p-5 shadow-lg rounded-md"
 		:class="metrics.progress === 100 ? 'border border-green-500' : ''">
 		<div class="text-2xl">{{ group.name }}</div>
 		<div>Tasks: {{ metrics.totalLength }}</div>
-		<div class="h-100 w-200 flex items-start">
-			<TasksDoughnutChart name="Group" :tasks="tasks" />
-			<div class="w-100">
+		<div class="h-100 min-w-170 flex items-start justify-between">
+			<div class="h-100 w-100">
+				<TasksDoughnutChart name="Group" :tasks="tasks" />
+			</div>
+			<div class="w-1/2">
 				<AppProgressBar
-					v-for="groupMetrics in linkedGroupsMetrics"
+					v-for="groupMetrics in linkedGroupsMetrics.slice(0, 7)"
 					class="my-5"
 					:progress="groupMetrics.metrics.value.progress">
 					{{ groupMetrics.group.name }}
 				</AppProgressBar>
+				<div v-if="linkedGroupsMetrics.length > 7" class="italic">
+					+ {{ linkedGroupsMetrics.length - 7 }} linked Groups
+				</div>
 			</div>
 		</div>
 		<div>
@@ -33,8 +38,10 @@ const props = defineProps({
 	group: { type: Object as PropType<EntityGroup>, required: true },
 });
 
+const taskStore = useTaskStore();
+
 const tasks = computed(() =>
-	useTaskStore().getTasksLinkedToEntityGroupIdRecursive(props.group.id)
+	taskStore.getTasksLinkedToEntityGroupIdRecursive(props.group.id)
 );
 
 const linkedGroupsMetrics = computed(() =>
@@ -42,11 +49,11 @@ const linkedGroupsMetrics = computed(() =>
 		.getEntitiesLinkedToEntityGroupId(props.group.id)
 		.map((group) => ({
 			group: group,
-			metrics: useTaskStore().computeMetrics(
-				ref(useTaskStore().getTasksLinkedToEntityGroupIdRecursive(group.id))
+			metrics: taskStore.computeMetrics(
+				ref(taskStore.getTasksLinkedToEntityGroupIdRecursive(group.id))
 			),
 		}))
 );
 
-const metrics = useTaskStore().computeMetrics(tasks);
+const metrics = taskStore.computeMetrics(tasks);
 </script>

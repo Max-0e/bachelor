@@ -117,10 +117,10 @@ export abstract class OrganizationBasedEntityController<T> {
 	}
 }
 
-type OrganizationIdRequest = {
+export type OrganizationIdRequest = {
 	organizationId: string;
 };
 
-type IdRequest = {
+export type IdRequest = {
 	id: string;
 };

@@ -101,6 +101,7 @@ export abstract class OrganizationBasedEntityService<T> extends EntityService<
 			organizationId,
 			id
 		);
-		return entity.delete();
+		await entity.delete();
+		return entity;
 	}
 }

@@ -1,5 +1,5 @@
-import passportLocal from 'passport-local';
 import { compareSync } from 'bcrypt';
+import passportLocal, { IVerifyOptions } from 'passport-local';
 
 import UserService from '../services/user.service';
 
@@ -10,12 +10,18 @@ const LocalStrategy = passportLocal.Strategy;
 export const localStrategy = new LocalStrategy(async function (
 	username: string,
 	password: string,
-	done: any
+	done: (
+		error: any,
+		user?: Express.User | false,
+		options?: IVerifyOptions
+	) => void
 ) {
 	try {
-		// scince passport needs the attribute to be named username a convertion to clear up
+		// since passport needs the attribute to be named username a conversion to clear up
 		const usernameOrEmail = username;
-		const user: IUser = await UserService.findUserByUsernameOrEmail(usernameOrEmail);
+		const user: IUser = await UserService.findUserByUsernameOrEmail(
+			usernameOrEmail
+		);
 		if (!compareSync(password, user.pwdHash)) {
 			return done(null, false, { message: 'Incorrect password.' });
 		}

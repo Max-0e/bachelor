@@ -1,6 +1,8 @@
 import { JiraProject } from '@/interfaces/jira-project.interface';
 import jiraService from '@/services/jira.service';
 import { defineStore } from 'pinia';
+import { useToast } from 'vue-toastification';
+import { useAuthStore } from './auth';
 
 interface IJiraState {
 	projects: JiraProject[];
@@ -15,8 +17,15 @@ export const useJiraStore = defineStore('jira', {
 	getters: {},
 	actions: {
 		async loadProjects() {
-			this.projects = await jiraService.loadProjects();
-			this.isLoaded = true;
+			const user = useAuthStore().user;
+			if (!user?.jiraApiDomain || !user?.jiraApiMail || !user?.jiraApiToken)
+				return;
+			try {
+				this.projects = await jiraService.loadProjects();
+				this.isLoaded = true;
+			} catch (e: any) {
+				useToast().error('Jira connection error import not available.');
+			}
 		},
 		async loadProjectDetails(project: JiraProject) {
 			return await jiraService.loadProjectDetails(project);

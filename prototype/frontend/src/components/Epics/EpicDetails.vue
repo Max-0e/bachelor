@@ -15,7 +15,11 @@
 			</AppToolTip>
 		</div>
 		<div class="h-48">
-			<TasksDoughnutChart name="Epic" :tasks="tasks" />
+			<TasksDoughnutChart
+				name="Epic"
+				:tasks="
+					tasks.filter((task) => task.entityGroupIds.includes(epic.id))
+				" />
 		</div>
 		<div>
 			<div class="flex gap-5">
