@@ -1,11 +1,19 @@
 <template>
 	<Doughnut
 		:data="
-			getProjectChartData([
-				metrics.value.openLength,
-				metrics.value.inProgressLength,
-				metrics.value.doneLength,
-			])
+			getProjectChartData(
+				appStore.relativeProgress
+					? [
+							metrics.value.openStoryPoints,
+							metrics.value.inProgressStoryPoints,
+							metrics.value.doneStoryPoints,
+					  ]
+					: [
+							metrics.value.openLength,
+							metrics.value.inProgressLength,
+							metrics.value.doneLength,
+					  ]
+			)
 		"
 		:options="getDoughnutChartOptions(name, !hideTitle)" />
 </template>
@@ -15,8 +23,9 @@ import {
 	getProjectChartData,
 } from '@/components/chart-options/projectDoughnutChartOptions';
 import { Task } from '@/interfaces/task.interface';
+import { useAppStore } from '@/store/app';
 import { useTaskStore } from '@/store/tasks.store';
-import { computed, onMounted, PropType, ref } from 'vue';
+import { computed, PropType, ref } from 'vue';
 import { Doughnut } from 'vue-chartjs';
 
 const props = defineProps({
@@ -25,11 +34,7 @@ const props = defineProps({
 	hideTitle: { type: Boolean, default: false },
 });
 
-const fade = ref(true);
-
-onMounted(() => {
-	fade.value = false;
-});
+const appStore = useAppStore();
 
 const metrics = computed(() => useTaskStore().computeMetrics(ref(props.tasks)));
 </script>

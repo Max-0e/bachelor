@@ -11,7 +11,7 @@
 				$emit('update:modelValue', ($event.target as HTMLInputElement).value);
 				changeShowSaveAndCancel(true);
 			"
-			class="p-3 pr-12 bg-dark-50 bg-opacity-0 w-full block transition-all outline-none dark:hover:bg-opacity-40 focus-visible:(outline-transparent border-b border-gray-600) hover:(bg-opacity-40)"
+			class="p-3 pr-12 bg-dark-50 rounded-md bg-opacity-0 w-full block transition-all outline-none dark:hover:bg-opacity-40 focus-visible:(outline-transparent border-b border-gray-600) hover:(bg-opacity-40)"
 			:value="modelValue"
 			:type="type"
 			:name="name"

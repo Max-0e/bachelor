@@ -113,7 +113,7 @@ function createTask() {
 
 	taskStore.createEntity({
 		entityGroupIds,
-		storyPoints: 0,
+		storyPoints: 1,
 		name: formGroup.formObjects.name.value,
 		status: status.value,
 		description: '',

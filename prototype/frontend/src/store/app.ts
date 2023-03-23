@@ -6,6 +6,7 @@ export const useAppStore = defineStore('app', {
 	state: () => ({
 		showToastOnRouting: null as IToastConfig | null,
 		darkMode: true as boolean,
+		relativeProgress: false as boolean,
 	}),
 
 	getters: {},
@@ -17,6 +18,13 @@ export const useAppStore = defineStore('app', {
 		setDarkMode() {
 			this.darkMode = !this.darkMode;
 			storageService.setDarkMode(this.darkMode);
+		},
+		setRelativeProgressFromLocalStorage() {
+			this.relativeProgress = storageService.getRelativeProgress();
+		},
+		setRelativeProgress() {
+			this.relativeProgress = !this.relativeProgress;
+			storageService.setRelativeProgress(this.relativeProgress);
 		},
 	},
 });

@@ -51,7 +51,13 @@
 			</div>
 		</div>
 		<div class="flex">
-			<div class="flex justify-center items-center">
+			<div class="flex justify-center items-center gap-2">
+				<div
+					class="cursor-pointer p-2 rounded-full border border-successGreen transition-all"
+					:class="{ 'bg-successGreen': appStore.relativeProgress }"
+					@click="appStore.setRelativeProgress()">
+					relative Progress
+				</div>
 				<AppIcon @click="refreshData()" :class="{ 'animate-spin': refreshing }">
 					autorenew
 				</AppIcon>
@@ -93,6 +99,7 @@
 </template>
 
 <script setup lang="ts">
+import { useAppStore } from '@/store/app';
 import { useAuthStore } from '@/store/auth';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useJiraStore } from '@/store/jira.store';
@@ -111,6 +118,7 @@ const levelStore = useLevelStore();
 const jiraStore = useJiraStore();
 const router = useRouter();
 const authStore = useAuthStore();
+const appStore = useAppStore();
 const toast = useToast();
 
 async function logout() {
