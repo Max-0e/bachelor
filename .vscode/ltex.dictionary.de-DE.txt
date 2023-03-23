@@ -1,2 +1,11 @@
 Storypoints
 Epics
+Flight-Level
+Marketable
+Feedbackprozess
+User-Stories
+Kommunikations-Frameworks
+Userflow
+Dark-Mode
+Verlinkungsmodus
+Epic
