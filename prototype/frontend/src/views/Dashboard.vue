@@ -1,6 +1,7 @@
 <template>
 	Dashboard
 	<AppToggleInput
+		class="mb-5"
 		:initial-value="linkingEnabled"
 		@change="linkingEnabled = !linkingEnabled"
 		label="Enable Linking"></AppToggleInput>

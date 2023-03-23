@@ -5,6 +5,7 @@ import { ITask, Task } from '@/interfaces/task.interface';
 import { taskService } from '@/services/task.service';
 import { unique } from '@/utility/unique';
 import { computed, Ref } from 'vue';
+import { useAppStore } from './app';
 import { useGroupStore } from './entity-groups.store';
 
 import {
@@ -19,23 +20,52 @@ const makeTaskGetters = () => ({
 			computed(() => {
 				const refTasks = tasks.value;
 				const totalLength = refTasks.length;
-				const openLength = refTasks.filter(
-					({ status }) => status === 'open'
-				).length;
-				const inProgressLength = refTasks.filter(
+				const totalStoryPoints = refTasks.reduce(
+					(partialSum, task) => partialSum + task.storyPoints,
+					0
+				);
+
+				const openTasks = refTasks.filter(({ status }) => status === 'open');
+				const openLength = openTasks.length;
+				const openStoryPoints = openTasks.reduce(
+					(partialSum, task) => partialSum + task.storyPoints,
+					0
+				);
+
+				const inProgressTasks = refTasks.filter(
 					({ status }) => status === 'inProgress'
-				).length;
-				const doneLength = refTasks.filter(
-					({ status }) => status === 'done'
-				).length;
+				);
+				const inProgressLength = inProgressTasks.length;
+				const inProgressStoryPoints = inProgressTasks.reduce(
+					(partialSum, task) => partialSum + task.storyPoints,
+					0
+				);
+
+				const doneTasks = refTasks.filter(({ status }) => status === 'done');
+				const doneLength = doneTasks.length;
+				const doneStoryPoints = doneTasks.reduce(
+					(partialSum, task) => partialSum + task.storyPoints,
+					0
+				);
+
+				const progress = Math.floor((doneLength / totalLength) * 100);
+				const relativeProgress = Math.floor(
+					(doneStoryPoints / totalStoryPoints) * 100
+				);
 
 				return {
 					tasks,
 					totalLength,
+					totalStoryPoints,
 					openLength,
+					openStoryPoints,
 					inProgressLength,
+					inProgressStoryPoints,
 					doneLength,
-					progress: Math.floor((doneLength / totalLength) * 100),
+					doneStoryPoints,
+					progress: useAppStore().relativeProgress
+						? relativeProgress
+						: progress,
 				};
 			});
 	},

@@ -17,12 +17,23 @@ class StorageService {
 	// get darkMode from local storage
 	getDarkMode(): boolean {
 		const obj = this.readObject();
-		return obj.darkMode !== undefined ? obj.darkMode : false;
+		return obj.darkMode !== undefined ? obj.darkMode : true;
 	}
 	// set darkMode
 	setDarkMode(darkMode: boolean): void {
 		const obj = this.readObject();
 		obj.darkMode = darkMode;
+		this.writeObject(obj);
+	}
+	// get darkMode from local storage
+	getRelativeProgress(): boolean {
+		const obj = this.readObject();
+		return obj.relativeProgress !== undefined ? obj.relativeProgress : false;
+	}
+	// set darkMode
+	setRelativeProgress(relativeProgress: boolean): void {
+		const obj = this.readObject();
+		obj.relativeProgress = relativeProgress;
 		this.writeObject(obj);
 	}
 	// readObject -> get object from storage

@@ -1,5 +1,5 @@
 <template>
-	<label for="toggle" class="flex items-center cursor-pointer relative mb-4">
+	<label for="toggle" class="flex items-center cursor-pointer relative">
 		<input
 			type="checkbox"
 			id="toggle"

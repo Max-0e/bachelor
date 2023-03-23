@@ -4,7 +4,7 @@
 			><slot></slot>: {{ progress }}%</span
 		>
 		<div
-			class="bg-successGreen rounded-md gridArea h-full w-full"
+			class="bg-successGreen rounded-md gridArea h-full w-full transition-all"
 			:style="`width:${progress}%`"></div>
 	</div>
 </template>

@@ -19,6 +19,7 @@ app.use(createPinia());
 
 await useAuthStore().checkAuthorization();
 useAppStore().setDarkModeFromLocalStorage();
+useAppStore().setRelativeProgressFromLocalStorage();
 
 const toastOptions: PluginOptions = {};
 app.use(Toast, toastOptions);
