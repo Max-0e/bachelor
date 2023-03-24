@@ -14,7 +14,6 @@ class MailerService {
 				pass: SMTP_PASS,
 			},
 		});
-		console.log(SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS);
 		const message = {
 			from: '<maximilian.oedinger@hsrw.org>',
 			to: `<${config.recipientEmail}>`,
