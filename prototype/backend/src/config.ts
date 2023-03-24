@@ -5,7 +5,7 @@ dotenv.config();
 export const PORT: number = parseInt(process.env.PORT || '3000');
 export const SECRET: string = process.env.SECRET || 'DiesDasAnanas';
 export const CLIENT_APP_URL: string =
-	process.env.CLIENT_APP_URL || 'http://localhost:8080';
+	process.env.CLIENT_APP_URL || 'http://localhost:8080/#';
 
 export const JIRA_API_URL: string = '.atlassian.net/rest/api/3';
 

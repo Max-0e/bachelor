@@ -56,7 +56,7 @@ class AuthController {
 			text: 'Click on the Link to activate your account.',
 			html: `<h4>Finish Registration</h4>
 			<p>Click on the Link to activate your account..</p>
-			<a href="${CLIENT_APP_URL}/#/activate/${activationToken}">Confirm E-Mail-Address</a>`,
+			<a href="${CLIENT_APP_URL}/activate/${activationToken}">Confirm E-Mail-Address</a>`,
 		};
 		await userService.createUser(user);
 		mailerService.sendMail(config);
