@@ -20,6 +20,9 @@ jobs:
       MONGO_DB: ${{ vars.MONGO_DB }}
       MONGO_URL: ${{ vars.MONGO_URL }}
       MONGO_USER: ${{ vars.MONGO_USER }}
+      SMTP_HOST: ${{ vars.SMTP_HOST }}
+      SMTP_PORT: ${{ vars.SMTP_PORT }}
+      SMTP_USER: ${{ vars.SMTP_USER }}
       VITE_API_URL: ${{ vars.VITE_API_URL }}
       VITE_APP_DEV_MODE: ${{ vars.VITE_APP_DEV_MODE }}
     steps:
@@ -55,7 +58,7 @@ jobs:
       SMTP_HOST: ${{ vars.SMTP_HOST }}
       SMTP_PORT: ${{ vars.SMTP_PORT }}
       SMTP_USER: ${{ vars.SMTP_USER }}
-      SMTP_PASS: ${{ vars.SMTP_PASS }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
     steps:
       - name: Deploy the newest Docker image
         run: docker compose -f "prototype/docker-compose.ci.yml" up -d
