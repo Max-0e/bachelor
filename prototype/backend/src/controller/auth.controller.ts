@@ -55,7 +55,7 @@ class AuthController {
 			subject: 'Activate your account',
 			text: 'Click on the Link to activate your account.',
 			html: `<h4>Finish Registration</h4>
-			<p>Click on the Link to activate your account..</p>
+			<p>Click on the Link to activate your account.</p>
 			<a href="${CLIENT_APP_URL}/activate/${activationToken}">Confirm E-Mail-Address</a>`,
 		};
 		await userService.createUser(user);
@@ -102,7 +102,7 @@ class AuthController {
 					html: `<h4>Password Reset</h4>
 					<p>Click on the Link to reset your password. \n
 					Your Link will only be active for 2 hours!</p>
-					<a href="${CLIENT_APP_URL}/resetPassword/${resetToken}">Reset Password</a>`,
+					<a href="${CLIENT_APP_URL}/auth/resetPassword/${resetToken}">Reset Password</a>`,
 				};
 				await userService.requestPasswordReset(user.email, resetToken);
 				mailerService.sendMail(config);
