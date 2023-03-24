@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-import { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } from '../config';
+import { SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_USER } from '../config';
 
 import { IMailerConfig } from '../interfaces/mailerConfig.interface';
 
@@ -15,7 +15,7 @@ class MailerService {
 			},
 		});
 		const message = {
-			from: '<noreply@frontend.de>',
+			from: '<maximilian.oedinger@hsrw.org>',
 			to: `<${config.recipientEmail}>`,
 			subject: config.subject,
 			text: config.text,
