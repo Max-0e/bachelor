@@ -39,8 +39,7 @@ const router = useRouter();
 
 async function resetPassword() {
 	if (!formGroup.validate()) return;
-	const pwdResetToken = useRouter().currentRoute.value.params
-		.resetToken as string;
+	const pwdResetToken = router.currentRoute.value.params.resetToken as string;
 
 	await authService
 		.resetPassword({
@@ -52,7 +51,7 @@ async function resetPassword() {
 				toastType: ToastType.SUCCESS,
 				toastContent: 'Your Password was successfully reset.',
 			};
-			router.push('login');
+			router.push({ name: 'Login' });
 		})
 		.catch((_) => {
 			return;
