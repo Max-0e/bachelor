@@ -34,6 +34,10 @@ jobs:
         --build-arg MONGO_DB=${{ env.MONGO_DB }}
         --build-arg MONGO_URL=${{ env.MONGO_URL }}
         --build-arg MONGO_USER=${{ env.MONGO_USER }}
+        --build-arg SMTP_HOST=${{ env.SMTP_HOST }}
+        --build-arg SMTP_PORT=${{ env.SMTP_PORT }}
+        --build-arg SMTP_USER=${{ env.SMTP_USER }}
+        --build-arg SMTP_PASS=${{ env.SMTP_PASS }}
         --build-arg VITE_API_URL=${{ env.VITE_API_URL }}
         --build-arg VITE_DEV_MODE=${{ env.VITE_APP_DEV_MODE }}
   deploy:
@@ -48,6 +52,10 @@ jobs:
       MONGO_DB: ${{ vars.MONGO_DB }}
       MONGO_URL: ${{ vars.MONGO_URL }}
       MONGO_USER: ${{ vars.MONGO_USER }}
+      SMTP_HOST: ${{ vars.SMTP_HOST }}
+      SMTP_PORT: ${{ vars.SMTP_PORT }}
+      SMTP_USER: ${{ vars.SMTP_USER }}
+      SMTP_PASS: ${{ vars.SMTP_PASS }}
     steps:
       - name: Deploy the newest Docker image
         run: docker compose -f "prototype/docker-compose.ci.yml" up -d

@@ -33,6 +33,10 @@ services:
         - MONGO_DB
         - MONGO_URL
         - MONGO_USER
+        - SMTP_HOST
+        - SMTP_PORT
+        - SMTP_USER
+        - SMTP_PASS
     labels:
         - traefik.enable=true
         - traefik.http.routers.bachelor.rule=Host(`116.203.140.167.nip.io`)
