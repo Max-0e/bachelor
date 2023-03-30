@@ -20,14 +20,16 @@
 			<g v-for="group in groups">
 				<path
 					class="transition-all hover:cursor-pointer"
-					:class="{ 'opacity-40': linkingEnabled }"
+					:class="{
+						'opacity-40':
+							linkingEnabled ||
+							(!!markedGroup && !isMarkedLink(group, linkedGroupId)),
+					}"
 					v-for="linkedGroupId in group.entityGroupIds"
 					:d="getPathString(group.id, linkedGroupId)"
 					stroke-linecap="round"
 					:stroke="
-						(markedGroup === group || markedGroups.includes(group)) &&
-						(markedGroups.some((x) => x.id === linkedGroupId) ||
-							markedGroup?.id === linkedGroupId)
+						isMarkedLink(group, linkedGroupId)
 							? 'rgb(59, 130, 246)'
 							: appStore.darkMode
 							? 'white'
@@ -136,6 +138,15 @@ const goToGroupDetails = (group: EntityGroup) => {
 			: 'GroupView',
 		params: { levelId: group.levelId, groupId: group.id },
 	});
+};
+
+const isMarkedLink = (group: EntityGroup, linkedGroupId: string) => {
+	const groupIsMarked =
+		markedGroup.value === group || markedGroups.value.includes(group);
+	const linkedGroupIsMarked =
+		markedGroup.value?.id === linkedGroupId ||
+		markedGroups.value.some(({ id }) => id === linkedGroupId);
+	return groupIsMarked && linkedGroupIsMarked;
 };
 
 const linkingEnabled = ref(false);
