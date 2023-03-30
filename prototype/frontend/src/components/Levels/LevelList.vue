@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="flex items-center justify-between p-10 bg-gray-200 dark:bg-dark-500 m-10 text-left rounded-md"
-		v-for="level in levelStore.entities">
+		v-for="level in levelStore.currentEntitiesFromOrganization">
 		<div class="w-1/3 text-3xl font-bold">{{ level.name }}</div>
 		<div class="w-1/3 text-3xl">{{ level.hierarchyLevel }}</div>
 		<div class="w-1/3 flex justify-end">

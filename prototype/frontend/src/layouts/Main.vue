@@ -22,7 +22,7 @@
 					>Levels</router-link
 				>
 				<div
-					v-for="level of levelStore.entities.sort(
+					v-for="level of levelStore.currentEntitiesFromOrganization.sort(
 						(a, b) => b.hierarchyLevel - a.hierarchyLevel
 					)">
 					<router-link
