@@ -1,14 +1,13 @@
 Betreff: 0% - BA Konzeption und Entwicklung eines Systems zur softwaregestützten Dokumentation von Unternehmensstrukturen für automatisierte Fortschrittsmessung und Werteorientierung
 
 In dieser Woche erledigt:
--Implementierung
--- Datenimport
--- Bugfixes
+- Kapitel Konzeption
 
 Für die kommende Woche geplant:
 - Kapitel Analyse
 - Kapitel Agile Unternehmensführung
-- Kapitel Konzeption
+- Implementierung
+- Testdaten/Demo-Projekt erstellen
 
 
 Meilensteinplan:
@@ -20,16 +19,16 @@ Meilensteinplan:
 -- agiles Portfoliomanagement 100%
 -- value based Software-Engineering 100%
 -- Flight-Level 100%
-- Schreiben 15% 27.03.2023
--- Kapitel Einleitung 0% 27.03.2023
--- Kapitel Agile Unternehmensführung 30% 27.03.2023
--- Kapitel Analyse 40% 27.03.2023
--- Kapitel Konzeption 30% 27.02.2023
--- Kapitel Implementierung 0% 27.03.2023
--- Kapitel Evaluation 0% 27.03.2023
--- Kapitel Fazit 0% 27.03.2023
+- Schreiben 40% 13.04.2023
+-- Kapitel Einleitung 0% 13.04.2023
+-- Kapitel Agile Unternehmensführung 50% 06.04.2023
+-- Kapitel Analyse 40% 06.04.2023
+-- Kapitel Konzeption 100% 27.02.2023
+-- Kapitel Implementierung 20% 06.04.2023
+-- Kapitel Evaluation 0% 13.04.2023
+-- Kapitel Fazit 0% 13.04.2023
 - Konzeption 100% 13.03.2023
--- fachliches Konzeption 100%
+-- fachliche Konzeption 100%
 --- Prozessdefinition 100%
 --- Anforderungs-Formulierung 100%
 --- UX-Prototyp 100%
@@ -48,7 +47,7 @@ Meilensteinplan:
 -- Datenvisualisierung 100%
 -- App-Navigation 100%
 -- Daten-Import/Jira-Integration 100%
-- Test 20% 16.03.2023
--- Testdaten/Demo-Projekt erstellen 0% 10.03.2023
--- Termine mit Experten vereinbaren 80% 27.02.2023
--- Test durchführen 0% 27.03.2023
+- Test 20% 13.04.2023
+-- Testdaten/Demo-Projekt erstellen 0% 06.04.2023
+-- Termine mit Experten vereinbaren 80% 06.04.2023
+-- Test durchführen 0% 13.04.2023
