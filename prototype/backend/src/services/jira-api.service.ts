@@ -1,11 +1,11 @@
 import { JIRA_API_URL } from '../config';
-import { JiraIssueField } from '../interfaces/jira-issue-field';
-import { JiraIssueStatusResponse } from '../interfaces/jira-issue-status.interface';
-import { JiraIssueRequest } from '../interfaces/jira-issue.interface';
+import { JiraIssueField } from '../interfaces/jira/jira-issue-field';
+import { JiraIssueStatusResponse } from '../interfaces/jira/jira-issue-status.interface';
+import { JiraIssueRequest } from '../interfaces/jira/jira-issue.interface';
 import {
 	JiraGetProjectResponse,
 	JiraProjectDetails,
-} from '../interfaces/jira-project.interface';
+} from '../interfaces/jira/jira-project.interface';
 import HttpClient from '../utility/http';
 
 export class JiraApiService {

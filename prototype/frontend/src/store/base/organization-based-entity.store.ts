@@ -1,13 +1,13 @@
-import { Entity, EntityCreate } from '@/interfaces/entity.interface';
-import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
+import { Entity, EntityCreate } from '@/interfaces/base/entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
 
-import { OrganizationBasedEntityService } from '@/services/organization-based-entity.service';
+import { OrganizationBasedEntityService } from '@/services/base/organization-based-entity.service';
 import { defineStore, Store } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
+import { useOrganizationStore } from '../organization.store';
 import { EntityState } from './entity.store';
-import { useOrganizationStore } from './organization.store';
 
 export interface OrganizationBasedEntityState<T> {
 	entities: Entity<OrganizationBasedEntity<T>>[];

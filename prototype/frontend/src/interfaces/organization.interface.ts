@@ -1,4 +1,4 @@
-import { Entity } from './entity.interface';
+import { Entity } from './base/entity.interface';
 
 export interface IOrganization {
 	useEpics: boolean;

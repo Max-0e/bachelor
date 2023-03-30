@@ -1,5 +1,5 @@
-import { Entity } from './entity.interface';
-import { LinkableEntity } from './linkable-entity.interface';
+import { Entity } from './base/entity.interface';
+import { LinkableEntity } from './base/linkable-entity.interface';
 
 export interface IEntityGroup {
 	levelId: string;

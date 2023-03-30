@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { LinkableEntity } from '../interfaces/linkable-entity.interface';
-import { LinkableEntityService } from '../services/linkable-entity.service';
-import { taskService } from '../services/tasks.service';
-import sendResponse from '../utility/sendResponse';
+import { LinkableEntity } from '../../interfaces/base/linkable-entity.interface';
+import { LinkableEntityService } from '../../services/base/linkable-entity.service';
+import { taskService } from '../../services/tasks.service';
+import sendResponse from '../../utility/sendResponse';
 import {
 	IdRequest,
 	OrganizationBasedEntityController,

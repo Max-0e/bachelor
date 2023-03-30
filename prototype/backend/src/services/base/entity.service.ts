@@ -1,10 +1,10 @@
 import { Model } from 'mongoose';
-import { NotFoundError } from '../error/not-found.error';
+import { NotFoundError } from '../../error/not-found.error';
+import { Entity, EntityDocument } from '../../interfaces/base/entity.interface';
 import {
 	EntityCreateDto,
 	EntityReadDto,
-} from '../interfaces/dtos/entityDto.interface';
-import { Entity, EntityDocument } from '../interfaces/entity.interface';
+} from '../../interfaces/dtos/entityDto.interface';
 
 export abstract class EntityService<T> {
 	public readonly EntityModel;

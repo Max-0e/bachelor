@@ -9,7 +9,7 @@ import {
 	IdRequest,
 	OrganizationBasedEntityController,
 	OrganizationIdRequest,
-} from './organization-based-entity.controller';
+} from './base/organization-based-entity.controller';
 
 class LevelController extends OrganizationBasedEntityController<ILevel> {
 	entityGroupService;

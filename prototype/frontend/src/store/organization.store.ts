@@ -1,6 +1,6 @@
 import { IOrganization } from '@/interfaces/organization.interface';
 import { organizationService } from '@/services/organization.service';
-import { defineEntityStore, getEntityStateDefaults } from './entity.store';
+import { defineEntityStore, getEntityStateDefaults } from './base/entity.store';
 
 const makeOrganizationGetters = () => ({});
 

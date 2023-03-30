@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { OrganizationBasedEntity } from 'src/interfaces/organization-based-entity.interface';
-import { OrganizationBasedEntityService } from 'src/services/organization-based-entity.service';
+import { OrganizationBasedEntity } from '../../interfaces/base/organization-based-entity.interface';
 import {
 	EntityCreateDto,
 	EntityReadDto,
-} from '../interfaces/dtos/entityDto.interface';
-import sendResponse from '../utility/sendResponse';
+} from '../../interfaces/dtos/entityDto.interface';
+import { OrganizationBasedEntityService } from '../../services/base/organization-based-entity.service';
+import sendResponse from '../../utility/sendResponse';
 
 export abstract class OrganizationBasedEntityController<T> {
 	public readonly entityService;

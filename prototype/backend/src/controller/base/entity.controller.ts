@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 import {
 	EntityCreateDto,
 	EntityReadDto,
-} from '../interfaces/dtos/entityDto.interface';
-import { EntityService } from '../services/entity.service';
-import sendResponse from '../utility/sendResponse';
+} from '../../interfaces/dtos/entityDto.interface';
+import { EntityService } from '../../services/base/entity.service';
+import sendResponse from '../../utility/sendResponse';
 
 export abstract class EntityController<T> {
 	public readonly entityService;

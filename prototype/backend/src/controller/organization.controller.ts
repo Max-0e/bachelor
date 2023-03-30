@@ -9,8 +9,8 @@ import { levelService } from '../services/level.service';
 import { organizationService } from '../services/organization.service';
 import { taskService } from '../services/tasks.service';
 import sendResponse from '../utility/sendResponse';
-import { EntityController } from './entity.controller';
-import { IdRequest } from './organization-based-entity.controller';
+import { EntityController } from './base/entity.controller';
+import { IdRequest } from './base/organization-based-entity.controller';
 
 class OrganizationController extends EntityController<IOrganization> {
 	levelService;

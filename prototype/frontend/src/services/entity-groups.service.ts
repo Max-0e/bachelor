@@ -1,5 +1,5 @@
 import { IEntityGroup } from '@/interfaces/entity-groups.interface';
-import { LinkableEntityService } from './linkable-entity.service';
+import { LinkableEntityService } from './base/linkable-entity.service';
 
 class EntityGroupsService extends LinkableEntityService<IEntityGroup> {}
 

@@ -1,14 +1,14 @@
-import { Entity } from '@/interfaces/entity.interface';
-import { LinkableEntity } from '@/interfaces/linkable-entity.interface';
-import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
-import { LinkableEntityService } from '@/services/linkable-entity.service';
+import { Entity } from '@/interfaces/base/entity.interface';
+import { LinkableEntity } from '@/interfaces/base/linkable-entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
+import { LinkableEntityService } from '@/services/base/linkable-entity.service';
 import { useToast } from 'vue-toastification';
+import { useOrganizationStore } from '../organization.store';
 import {
 	defineOrganizationBasedEntityStore,
 	OrganizationBasedEntityState,
 	OrganizationBasedEntityStore,
 } from './organization-based-entity.store';
-import { useOrganizationStore } from './organization.store';
 
 export function defineLinkableEntityStore<
 	T,

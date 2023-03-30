@@ -1,5 +1,5 @@
 import { Schema, SchemaDefinition } from 'mongoose';
-import { OrganizationBasedEntity } from '../interfaces/organization-based-entity.interface';
+import { OrganizationBasedEntity } from '../../interfaces/base/organization-based-entity.interface';
 import { makeEntityModel } from './entity.model';
 
 export function makeOrganizationBasedEntityModel<T>(

@@ -1,6 +1,6 @@
-import { Entity, EntityCreate } from '@/interfaces/entity.interface';
+import { Entity, EntityCreate } from '@/interfaces/base/entity.interface';
 import { router } from '@/router';
-import { EntityService } from '@/services/entity.service';
+import { EntityService } from '@/services/base/entity.service';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';

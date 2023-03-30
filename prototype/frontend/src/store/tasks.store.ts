@@ -1,6 +1,6 @@
-import { Entity } from '@/interfaces/entity.interface';
-import { LinkableEntity } from '@/interfaces/linkable-entity.interface';
-import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
+import { Entity } from '@/interfaces/base/entity.interface';
+import { LinkableEntity } from '@/interfaces/base/linkable-entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
 import { ITask, Task } from '@/interfaces/task.interface';
 import { taskService } from '@/services/task.service';
 import { unique } from '@/utility/unique';
@@ -11,8 +11,8 @@ import { useGroupStore } from './entity-groups.store';
 import {
 	defineLinkableEntityStore,
 	LinkableEntityStore,
-} from './linkable-entity.store';
-import { getOrganizationBasedEntityStateDefaults } from './organization-based-entity.store';
+} from './base/linkable-entity.store';
+import { getOrganizationBasedEntityStateDefaults } from './base/organization-based-entity.store';
 
 const makeTaskGetters = () => ({
 	computeMetrics() {

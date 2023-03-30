@@ -1,12 +1,12 @@
-import { Entity } from '@/interfaces/entity.interface';
+import { Entity } from '@/interfaces/base/entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
 import { ILevel } from '@/interfaces/level.interface';
-import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
 import { levelService } from '@/services/level.service';
 import {
 	defineOrganizationBasedEntityStore,
 	getOrganizationBasedEntityStateDefaults,
 	OrganizationBasedEntityState,
-} from './organization-based-entity.store';
+} from './base/organization-based-entity.store';
 import { useOrganizationStore } from './organization.store';
 
 const makeLevelGetters = () => ({

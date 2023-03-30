@@ -1,6 +1,6 @@
-import { Entity } from './entity.interface';
-import { LinkableEntity } from './linkable-entity.interface';
-import { OrganizationBasedEntity } from './organization-based-entity.interface';
+import { Entity } from './base/entity.interface';
+import { LinkableEntity } from './base/linkable-entity.interface';
+import { OrganizationBasedEntity } from './base/organization-based-entity.interface';
 
 export interface IEntityGroup {
 	levelId: string;

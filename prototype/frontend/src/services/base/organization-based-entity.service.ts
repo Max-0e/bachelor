@@ -1,7 +1,7 @@
-import { Entity, EntityCreate } from '@/interfaces/entity.interface';
-import { OrganizationBasedEntity } from '@/interfaces/organization-based-entity.interface';
-import { API_URL } from '../config';
-import HttpClient from '../utility/http';
+import { Entity, EntityCreate } from '@/interfaces/base/entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
+import { API_URL } from '../../config';
+import HttpClient from '../../utility/http';
 
 export abstract class OrganizationBasedEntityService<T> {
 	public readonly entityName: string;

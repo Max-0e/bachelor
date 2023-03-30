@@ -1,17 +1,17 @@
+import { LinkableEntity } from '@/interfaces/base/linkable-entity.interface';
 import { IEntityGroup } from '@/interfaces/entity-groups.interface';
-import { LinkableEntity } from '@/interfaces/linkable-entity.interface';
 
 import { entityGroupsService } from '@/services/entity-groups.service';
 import { useRouter } from 'vue-router';
-import { useLevelStore } from './level.store';
 import {
 	defineLinkableEntityStore,
 	LinkableEntityStore,
-} from './linkable-entity.store';
+} from './base/linkable-entity.store';
 import {
 	getOrganizationBasedEntityStateDefaults,
 	OrganizationBasedEntityState,
-} from './organization-based-entity.store';
+} from './base/organization-based-entity.store';
+import { useLevelStore } from './level.store';
 
 const makeEntityGroupGetters = () => ({
 	currentGroups(
