@@ -35,6 +35,12 @@ class JiraController {
 		return await sendResponse.data(res, 200, statuses);
 	}
 
+	public async getCustomFields(req: Request, res: Response): Promise<Response> {
+		const service = makeJiraService(req.user as UserDocument);
+		const fields = await service.getCustomFields();
+		return await sendResponse.data(res, 200, fields);
+	}
+
 	public async getAllIssuesForProject(
 		req: Request,
 		res: Response

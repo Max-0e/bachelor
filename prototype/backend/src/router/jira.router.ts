@@ -10,6 +10,7 @@ export function makeJiraRouter() {
 		'/projects/:projectKey/issues',
 		jiraController.getAllIssuesForProject
 	);
+	router.get('/customFields', jiraController.getCustomFields);
 	router.get(
 		'/projects/:projectId/statuses',
 		jiraController.getIssueStatusesForProject

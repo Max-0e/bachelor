@@ -33,6 +33,9 @@ export const useJiraStore = defineStore('jira', {
 		async loadProjectIssueStatuses(project: JiraProject) {
 			return await jiraService.loadProjectIssueStatuses(project);
 		},
+		async loadIssueCustomFields() {
+			return await jiraService.loadIssueCustomFields();
+		},
 		async loadProjectIssues(project: JiraProject) {
 			return await jiraService.loadProjectIssues(project);
 		},

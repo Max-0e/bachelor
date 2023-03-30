@@ -1,4 +1,5 @@
 import { JIRA_API_URL } from '../config';
+import { JiraIssueField } from '../interfaces/jira-issue-field';
 import { JiraIssueStatusResponse } from '../interfaces/jira-issue-status.interface';
 import { JiraIssueRequest } from '../interfaces/jira-issue.interface';
 import {
@@ -28,6 +29,21 @@ export class JiraApiService {
 		);
 	}
 
+	public async getIssueStatusesForProject(projectId: string) {
+		const res = await HttpClient.get<JiraIssueStatusResponse>(
+			`https://${this.domain}${JIRA_API_URL}/statuses/search?projectId=${projectId}`,
+			this.getAuthHeaders()
+		);
+		return res.values;
+	}
+
+	public async getCustomFields() {
+		return await HttpClient.get<JiraIssueField[]>(
+			`https://${this.domain}${JIRA_API_URL}/field`,
+			this.getAuthHeaders()
+		);
+	}
+
 	public async getAllIssuesForProject(projectKey: string) {
 		const firstRes = await this.getIssuesForProject(projectKey);
 		const issues = [firstRes.issues];
@@ -38,13 +54,6 @@ export class JiraApiService {
 		}
 
 		return issues.flat();
-	}
-	public async getIssueStatusesForProject(projectId: string) {
-		const res = await HttpClient.get<JiraIssueStatusResponse>(
-			`https://${this.domain}${JIRA_API_URL}/statuses/search?projectId=${projectId}`,
-			this.getAuthHeaders()
-		);
-		return res.values;
 	}
 
 	public async getIssuesForProject(projectKey: string, startAt: number = 0) {

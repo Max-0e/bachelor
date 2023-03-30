@@ -84,6 +84,53 @@
 									:options="statusOptions"></AppDropDownMenu>
 							</div>
 						</div>
+						<div class="text-xl text-left">
+							Map Story Points and Value Fields
+						</div>
+						<div class="flex gap-5 justify-center">
+							<DropZone
+								class="w-48 h-48 flex flex-col justify-center items-center !bg-gray-200 !dark:bg-dark-300"
+								@on-drop="storyPointFieldId = $event">
+								<AppIcon>token</AppIcon>
+								Story Points
+								<div
+									v-if="storyPointFieldId"
+									class="bg-gray-200 dark:bg-dark-600 rounded-md p-2">
+									{{
+										customFields.find((field) => field.id === storyPointFieldId)
+											?.name
+									}}
+								</div>
+							</DropZone>
+							<DropZone
+								class="w-48 h-48 flex flex-col items-center justify-center !bg-gray-200 !dark:bg-dark-300"
+								@on-drop="valueFieldId = $event">
+								<AppIcon>diamond</AppIcon>
+								Value
+								<div
+									v-if="valueFieldId"
+									class="bg-gray-200 dark:bg-dark-600 rounded-md p-2">
+									{{
+										customFields.find((field) => field.id === valueFieldId)
+											?.name
+									}}
+								</div>
+							</DropZone>
+						</div>
+						<div class="flex flex-wrap gap-2 p-5">
+							<DraggableItem
+								v-for="field in customFields.filter(
+									(x) =>
+										x.schema?.type === 'number' &&
+										x.id !== storyPointFieldId &&
+										x.id !== valueFieldId
+								)"
+								:data="field.id">
+								<div class="bg-gray-200 dark:bg-dark-600 rounded-md p-2">
+									{{ field.name }}
+								</div>
+							</DraggableItem>
+						</div>
 					</div>
 					<div v-else>
 						<div
@@ -206,6 +253,7 @@
 	</AppModal>
 </template>
 <script lang="ts" setup>
+import { JiraIssueField } from '@/interfaces/jira-issue-field';
 import { JiraIssueStatus } from '@/interfaces/jira-issue-status.interface';
 import { JiraIssue } from '@/interfaces/jira-issue.interface';
 import {
@@ -250,6 +298,9 @@ const issues = ref<JiraIssue[]>([]);
 const usedIssuesStatuses = ref<
 	(JiraIssueStatus & { prototypeStatus: Status })[]
 >([]);
+const customFields = ref<JiraIssueField[]>([]);
+const storyPointFieldId = ref('');
+const valueFieldId = ref('');
 
 watch(selectedProject, async (project) => {
 	if (project) {
@@ -273,6 +324,8 @@ const loadRelatedData = async (project: JiraProject) => {
 					: 'done';
 			return { ...x, prototypeStatus };
 		});
+
+	customFields.value = await jiraStore.loadIssueCustomFields();
 	loadingData.value = false;
 };
 
@@ -331,12 +384,11 @@ const submit = async () => {
 				)!.prototypeStatus;
 				return {
 					name: task.fields.summary,
-					description:
-						typeof task.fields.description === 'string'
-							? task.fields.description
-							: '',
-					storyPoints: 1,
-					value: 1,
+					// the task.fields.description contains weird JSON-Data that is nowhere to be explained in the JIRA-docs
+					// due to this a description-import is not supported
+					description: '',
+					storyPoints: task.fields[storyPointFieldId.value] ?? 1,
+					value: task.fields[valueFieldId.value] ?? 1,
 					status,
 					entityGroupIds,
 				};
