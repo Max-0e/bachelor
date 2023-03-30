@@ -1,7 +1,7 @@
 <template>
 	<div class="w-full flex justify-between">
 		<AppInlineInputField
-			class="mr-5 mt-2 mb-5"
+			class="mr-5 mt-2 mb-5 text-3xl"
 			v-model="task.name"
 			type="text"
 			name="name"
@@ -41,6 +41,7 @@
 				" />
 		</div>
 		<AppDropDownMenu
+			v-if="organizationStore.currentEntity?.useEpics"
 			@update:model-value="addTaskToEpic(task, $event)"
 			selectText="select Epic"
 			ref="epicDropdown"
@@ -60,6 +61,7 @@
 <script setup lang="ts">
 import { Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { computed, ref, toRef } from '@vue/reactivity';
 import { onMounted, PropType, watch } from 'vue';
@@ -71,6 +73,7 @@ const options = [
 	{ name: 'done', value: 'done' },
 ];
 
+const organizationStore = useOrganizationStore();
 const groupStore = useGroupStore();
 const taskStore = useTaskStore();
 

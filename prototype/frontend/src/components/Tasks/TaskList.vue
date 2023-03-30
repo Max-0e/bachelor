@@ -54,10 +54,14 @@
 			</b>
 		</span>
 		<span class="w-1/8">
-			<b class="flex h-full items-center justify-center">Epic</b>
+			<b
+				v-if="organizationStore.currentEntity?.useEpics"
+				class="flex h-full items-center justify-center"
+				>Epic</b
+			>
 		</span>
 		<span class="w-1/8 text-right pr-6">
-			<b class="flex h-full items-center justify-center">Actions</b>
+			<b class="flex h-full items-center justify-end">Actions</b>
 		</span>
 	</div>
 	<!-- Task List -->
@@ -113,7 +117,7 @@
 			</span>
 			<span class="w-1/8">
 				<AppDropDownMenu
-					v-if="!epic"
+					v-if="organizationStore.currentEntity?.useEpics && !epic"
 					v-model="selectedEpicId"
 					selectText="select Epic"
 					ref="epicDropdown"
@@ -152,6 +156,7 @@ import { EntityGroup } from '@/interfaces/entity-groups.interface';
 import { inputRef } from '@/interfaces/form.interface';
 import { Status, Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { sortByNumber, sortByString } from '@/utility/sort';
 import { computed, PropType, ref } from 'vue';
@@ -163,6 +168,7 @@ const options = [
 	{ name: 'done', value: 'done' },
 ];
 
+const organizationStore = useOrganizationStore();
 const taskStore = useTaskStore();
 const groupStore = useGroupStore();
 

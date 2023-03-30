@@ -55,6 +55,7 @@
 		</span>
 		<span class="w-1/8">
 			<AppDropDownMenu
+				v-if="organizationStore.currentEntity?.useEpics"
 				@update:model-value="addTaskToEpic(task, $event)"
 				selectText="select Epic"
 				ref="epicDropdown"
@@ -87,6 +88,7 @@
 import { modalRef } from '@/interfaces/modal.interface';
 import { Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { computed, onMounted, PropType, ref, toRef, watch } from 'vue';
 import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
@@ -97,6 +99,7 @@ const options = [
 	{ name: 'done', value: 'done' },
 ];
 
+const organizationStore = useOrganizationStore();
 const taskStore = useTaskStore();
 const groupStore = useGroupStore();
 const deleteModal = modalRef();

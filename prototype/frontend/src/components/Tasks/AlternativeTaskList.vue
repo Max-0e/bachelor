@@ -1,15 +1,19 @@
 <template>
 	<div class="flex items-center justify-between">
 		<div class="text-3xl font-bold">Task-Board</div>
-		<AppDropDownMenu
-			selectText="sort by"
-			@update:model-value="sortBy($event)"
-			:options="[
-				{ name: 'name', value: 'name' },
-				{ name: 'story points', value: 'storyPoints' },
-				{ name: 'value', value: 'value' },
-			]">
-		</AppDropDownMenu>
+		<div class="flex items-center gap-2">
+			<AppIcon>sort</AppIcon>
+			<AppDropDownMenu
+				class="w-48"
+				selectText="select sort by"
+				@update:model-value="sortBy($event)"
+				:options="[
+					{ name: 'name', value: 'name' },
+					{ name: 'story points', value: 'storyPoints' },
+					{ name: 'value', value: 'value' },
+				]">
+			</AppDropDownMenu>
+		</div>
 	</div>
 	<div class="flex w-full gap-6 text-2xl py-5">
 		<div class="w-1/3">Open</div>
