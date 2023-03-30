@@ -6,7 +6,8 @@
 			button
 			>remove</AppIcon
 		>
-		<div class="bg-dark-700 rounded-lg py-3 px-4 cursor-pointer">
+		<div
+			class="bg-gray-200 dark:bg-dark-700 rounded-lg py-3 px-4 cursor-pointer">
 			{{ valueToShow }}
 		</div>
 		<AppIcon

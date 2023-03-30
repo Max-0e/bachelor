@@ -20,52 +20,55 @@ const makeTaskGetters = () => ({
 			computed(() => {
 				const refTasks = tasks.value;
 				const totalLength = refTasks.length;
-				const totalStoryPoints = refTasks.reduce(
-					(partialSum, task) => partialSum + task.storyPoints,
-					0
-				);
+				const totalStoryPoints = sumByProperty(refTasks, 'storyPoints');
+				const totalValue = sumByProperty(refTasks, 'value');
 
 				const openTasks = refTasks.filter(({ status }) => status === 'open');
 				const openLength = openTasks.length;
-				const openStoryPoints = openTasks.reduce(
-					(partialSum, task) => partialSum + task.storyPoints,
-					0
-				);
+				const openStoryPoints = sumByProperty(openTasks, 'storyPoints');
+				const openValue = sumByProperty(openTasks, 'value');
 
 				const inProgressTasks = refTasks.filter(
 					({ status }) => status === 'inProgress'
 				);
 				const inProgressLength = inProgressTasks.length;
-				const inProgressStoryPoints = inProgressTasks.reduce(
-					(partialSum, task) => partialSum + task.storyPoints,
-					0
+				const inProgressStoryPoints = sumByProperty(
+					inProgressTasks,
+					'storyPoints'
 				);
+				const inProgressValue = sumByProperty(inProgressTasks, 'value');
 
 				const doneTasks = refTasks.filter(({ status }) => status === 'done');
 				const doneLength = doneTasks.length;
-				const doneStoryPoints = doneTasks.reduce(
-					(partialSum, task) => partialSum + task.storyPoints,
-					0
-				);
+				const doneStoryPoints = sumByProperty(doneTasks, 'storyPoints');
+				const doneValue = sumByProperty(doneTasks, 'value');
 
 				const progress = Math.floor((doneLength / totalLength) * 100);
-				const relativeProgress = Math.floor(
+				const storyPointProgress = Math.floor(
 					(doneStoryPoints / totalStoryPoints) * 100
 				);
+				const valueProgress = Math.floor((doneValue / totalValue) * 100);
 
 				return {
 					tasks,
 					totalLength,
 					totalStoryPoints,
+					totalValue,
 					openLength,
 					openStoryPoints,
+					openValue,
 					inProgressLength,
 					inProgressStoryPoints,
+					inProgressValue,
 					doneLength,
 					doneStoryPoints,
-					progress: useAppStore().relativeProgress
-						? relativeProgress
-						: progress,
+					doneValue,
+					progress:
+						useAppStore().progressType === 'absolute'
+							? progress
+							: useAppStore().progressType === 'storyPoints'
+							? storyPointProgress
+							: valueProgress,
 				};
 			});
 	},
@@ -115,3 +118,9 @@ export type TaskStore = LinkableEntityStore<
 	},
 	{}
 >;
+
+const sumByProperty = <T>(tasks: T[], property: keyof T) =>
+	tasks.reduce(
+		(partialSum, task) => partialSum + (task[property] as number),
+		0
+	);

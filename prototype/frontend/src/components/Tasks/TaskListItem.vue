@@ -16,9 +16,9 @@
 			<AppDropDownMenu
 				:bg-color="
 					task.status === 'done'
-						? 'bg-successGreen'
+						? 'bg-successGreen text-white'
 						: task.status === 'inProgress'
-						? 'bg-blue-800'
+						? 'bg-blue-800 text-white'
 						: undefined
 				"
 				v-model="task.status"

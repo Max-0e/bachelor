@@ -3,7 +3,7 @@
 		OrganizationView
 		<div
 			v-for="organization in useOrganizationStore().entities"
-			class="bg-dark-700 p-10 cursor-pointer"
+			class="bg-gray-100 dark:bg-dark-700 rounded-md p-10 cursor-pointer"
 			@click="
 				$router.push('/app/organization/' + organization.id + '/dashboard')
 			">

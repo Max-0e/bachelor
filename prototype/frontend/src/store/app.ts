@@ -6,7 +6,7 @@ export const useAppStore = defineStore('app', {
 	state: () => ({
 		showToastOnRouting: null as IToastConfig | null,
 		darkMode: true as boolean,
-		relativeProgress: false as boolean,
+		progressType: 'absolute' as ProgressType,
 	}),
 
 	getters: {},
@@ -19,12 +19,14 @@ export const useAppStore = defineStore('app', {
 			this.darkMode = !this.darkMode;
 			storageService.setDarkMode(this.darkMode);
 		},
-		setRelativeProgressFromLocalStorage() {
-			this.relativeProgress = storageService.getRelativeProgress();
+		setProgressTypeFromLocalStorage() {
+			this.progressType = storageService.getProgressType();
 		},
-		setRelativeProgress() {
-			this.relativeProgress = !this.relativeProgress;
-			storageService.setRelativeProgress(this.relativeProgress);
+		setProgressType(type: ProgressType) {
+			this.progressType = type;
+			storageService.setProgressType(this.progressType);
 		},
 	},
 });
+
+export type ProgressType = 'absolute' | 'storyPoints' | 'value';

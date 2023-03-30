@@ -1,3 +1,5 @@
+import { ProgressType } from '@/store/app';
+
 class StorageService {
 	private objectName = 'App';
 
@@ -26,14 +28,14 @@ class StorageService {
 		this.writeObject(obj);
 	}
 	// get darkMode from local storage
-	getRelativeProgress(): boolean {
+	getProgressType(): ProgressType {
 		const obj = this.readObject();
-		return obj.relativeProgress !== undefined ? obj.relativeProgress : false;
+		return obj.progressType !== undefined ? obj.progressType : 'absolute';
 	}
 	// set darkMode
-	setRelativeProgress(relativeProgress: boolean): void {
+	setProgressType(type: ProgressType): void {
 		const obj = this.readObject();
-		obj.relativeProgress = relativeProgress;
+		obj.progressType = type;
 		this.writeObject(obj);
 	}
 	// readObject -> get object from storage

@@ -12,7 +12,6 @@ export function sortByNumber<T>(sortedBy: keyof T): (a: T, b: T) => number {
 	return (a: T, b: T) => {
 		const val_a = a[sortedBy] as number;
 		const val_b = b[sortedBy] as number;
-		console.log(val_a);
 
 		if (val_a === undefined) return 1;
 		if (val_b === undefined) return -1;

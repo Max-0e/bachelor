@@ -14,6 +14,7 @@
 					:d="`M ${startPosition.x} ${startPosition.y}, ${currentMousePosition.x} ${currentMousePosition.y}`"
 					:stroke="appStore.darkMode ? 'white' : 'black'"
 					stroke-width="5"
+					stroke-linecap="round"
 					fill="transparent" />
 			</Transition>
 			<g v-for="group in groups">
@@ -22,6 +23,7 @@
 					:class="{ 'opacity-40': linkingEnabled }"
 					v-for="linkedGroupId in group.entityGroupIds"
 					:d="getPathString(group.id, linkedGroupId)"
+					stroke-linecap="round"
 					:stroke="
 						(markedGroup === group || markedGroups.includes(group)) &&
 						(markedGroups.some((x) => x.id === linkedGroupId) ||
@@ -38,7 +40,7 @@
 					:stroke-width="
 						hoveredLink[0] === group.id && hoveredLink[1] === linkedGroupId
 							? 8
-							: 2
+							: 3
 					"
 					fill="transparent"></path>
 			</g>
@@ -75,7 +77,11 @@
 					<div class="transition-all rounded-md">
 						<DashboardGroupCardContent :group="group" />
 						<div
-							v-if="linkingEnabled"
+							v-if="
+								linkingEnabled &&
+								level.hierarchyLevel <
+									levelStore.currentEntitiesFromOrganization.length - 1
+							"
 							class="flex justify-center absolute top-[-40px] left-0 w-full">
 							<DraggableItem
 								@dragstart="startLinkage($event)"

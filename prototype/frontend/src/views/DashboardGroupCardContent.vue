@@ -6,7 +6,11 @@
 		<div class="h-20 w-20">
 			<TasksDoughnutChart hide-title name="Group" :tasks="tasks" />
 		</div>
-		Tasks: {{ metrics.totalLength }}
+		<div class="flex flex-col items-start">
+			<span> Tasks: {{ metrics.totalLength }} </span>
+			<span> Story Points: {{ metrics.totalStoryPoints }} </span>
+			<span> Value: {{ metrics.totalValue }} </span>
+		</div>
 		<AppProgressBar class="flex-grow" :progress="metrics.progress"
 			>Progress</AppProgressBar
 		>

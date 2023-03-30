@@ -2,16 +2,22 @@
 	<Doughnut
 		:data="
 			getProjectChartData(
-				appStore.relativeProgress
+				appStore.progressType === 'absolute'
+					? [
+							metrics.value.openLength,
+							metrics.value.inProgressLength,
+							metrics.value.doneLength,
+					  ]
+					: appStore.progressType === 'storyPoints'
 					? [
 							metrics.value.openStoryPoints,
 							metrics.value.inProgressStoryPoints,
 							metrics.value.doneStoryPoints,
 					  ]
 					: [
-							metrics.value.openLength,
-							metrics.value.inProgressLength,
-							metrics.value.doneLength,
+							metrics.value.openValue,
+							metrics.value.inProgressValue,
+							metrics.value.doneValue,
 					  ]
 			)
 		"

@@ -52,12 +52,33 @@
 		</div>
 		<div class="flex">
 			<div class="flex justify-center items-center gap-2">
-				<div
-					class="cursor-pointer p-2 rounded-full border border-successGreen transition-all"
-					:class="{ 'bg-successGreen': appStore.relativeProgress }"
-					@click="appStore.setRelativeProgress()">
-					relative Progress
-				</div>
+				<AppIcon>
+					{{
+						appStore.progressType === 'storyPoints'
+							? 'token'
+							: appStore.progressType === 'value'
+							? 'diamond'
+							: 'incomplete_circle'
+					}}
+				</AppIcon>
+				<AppDropDownMenu
+					class="min-w-48"
+					selectText="select progress type"
+					:bgColor="
+						appStore.progressType === 'storyPoints'
+							? 'bg-blue-800 text-white'
+							: appStore.progressType === 'value'
+							? 'bg-successGreen text-white'
+							: undefined
+					"
+					@update:model-value="appStore.setProgressType($event)"
+					:defaultValueName="appStore.progressType"
+					:options="[
+						{ name: 'absolute', value: 'absolute' },
+						{ name: 'storyPoints', value: 'storyPoints' },
+						{ name: 'value', value: 'value' },
+					]">
+				</AppDropDownMenu>
 				<AppIcon @click="refreshData()" :class="{ 'animate-spin': refreshing }">
 					autorenew
 				</AppIcon>
