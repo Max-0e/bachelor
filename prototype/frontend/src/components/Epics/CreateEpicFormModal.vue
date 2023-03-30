@@ -1,7 +1,7 @@
 <template>
 	<AppModal ref="modal" @closed="formGroup.clear()">
 		<div class="flex flex-col gap-10">
-			<div class="text-3xl font-bold px-10">Create new Level</div>
+			<div class="text-3xl font-bold px-10">Create new Epic</div>
 			<AppInputField
 				ref="name"
 				placeholder="Name"
@@ -9,7 +9,7 @@
 				id="name"
 				:validation-types="[validationType.required, validationType.name]">
 			</AppInputField>
-			<AppButton @click="submit()">Create Level</AppButton>
+			<AppButton @click="submit()">Create Epic</AppButton>
 		</div>
 	</AppModal>
 </template>
@@ -17,11 +17,12 @@
 import { validationType } from '@/enums/validationType.enum';
 import { inputRef } from '@/interfaces/form.interface';
 import { modalRef } from '@/interfaces/modal.interface';
+import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
-import { useOrganizationStore } from '@/store/organization.store';
 
 import { FormGroup } from '../shared/Input/formGroup';
 
+const groupStore = useGroupStore();
 const levelStore = useLevelStore();
 
 const modal = modalRef();
@@ -33,12 +34,17 @@ const formGroup = new FormGroup({ name });
 
 const submit = () => {
 	if (!formGroup.validate()) return;
-	const organization = useOrganizationStore().currentEntity;
-	if (!organization) return;
-	levelStore.createEntity({
+
+	const lowerLevel = levelStore.getLowerLevel;
+	const currentGroup = groupStore.currentEntity;
+	if (!lowerLevel || !currentGroup) return;
+
+	groupStore.createEntity({
 		name: formGroup.formObjects.name.value,
-		hierarchyLevel: levelStore.getNextHierarchyLevel,
+		levelId: lowerLevel.id,
+		entityGroupIds: [currentGroup.id],
 	});
+
 	modal.value?.close();
 };
 

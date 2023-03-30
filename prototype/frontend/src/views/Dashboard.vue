@@ -14,27 +14,47 @@
 					:d="`M ${startPosition.x} ${startPosition.y}, ${currentMousePosition.x} ${currentMousePosition.y}`"
 					:stroke="appStore.darkMode ? 'white' : 'black'"
 					stroke-width="5"
+					stroke-linecap="round"
 					fill="transparent" />
 			</Transition>
 			<g v-for="group in groups">
 				<path
-					class="transition-all"
-					:class="{ 'opacity-40': linkingEnabled }"
+					class="transition-all hover:cursor-pointer"
+					:class="{
+						'opacity-40':
+							linkingEnabled ||
+							(!!markedGroup && !isMarkedLink(group, linkedGroupId)),
+					}"
 					v-for="linkedGroupId in group.entityGroupIds"
 					:d="getPathString(group.id, linkedGroupId)"
+					stroke-linecap="round"
 					:stroke="
-						(markedGroup === group || markedGroups.includes(group)) &&
-						(markedGroups.some((x) => x.id === linkedGroupId) ||
-							markedGroup?.id === linkedGroupId)
+						isMarkedLink(group, linkedGroupId)
 							? 'rgb(59, 130, 246)'
 							: appStore.darkMode
 							? 'white'
 							: 'black'
 					"
-					stroke-width="2"
+					@mouseenter="hoveredLink = [group.id, linkedGroupId]"
+					@mousemove="mouseMoveOnLink($event)"
+					@click="deleteLink(group, linkedGroupId)"
+					@mouseleave="hoveredLink = ['', '']"
+					:stroke-width="
+						hoveredLink[0] === group.id && hoveredLink[1] === linkedGroupId
+							? 8
+							: 3
+					"
 					fill="transparent"></path>
 			</g>
 		</svg>
+		<div
+			class="rounded-md absolute bg-light-200 dark:bg-dark-600 z-100 transition-all transform"
+			:class="{ 'scale-0': !hoveredLink[0] }"
+			:style="`left: ${currentMousePosition.x - 20}px; top: ${
+				currentMousePosition.y - 60
+			}px;`">
+			<AppIcon class="text-red-500">delete</AppIcon>
+		</div>
 		<div
 			v-for="level in organizationStore.currentEntity?.useEpics
 				? levelStore.currentEntitiesFromOrganization.filter(
@@ -59,7 +79,11 @@
 					<div class="transition-all rounded-md">
 						<DashboardGroupCardContent :group="group" />
 						<div
-							v-if="linkingEnabled"
+							v-if="
+								linkingEnabled &&
+								level.hierarchyLevel <
+									levelStore.currentEntitiesFromOrganization.length - 1
+							"
 							class="flex justify-center absolute top-[-40px] left-0 w-full">
 							<DraggableItem
 								@dragstart="startLinkage($event)"
@@ -94,6 +118,8 @@ const organizationStore = useOrganizationStore();
 const container = ref<HTMLDivElement>();
 const dropZones = ref<InstanceType<typeof DropZone>[]>([]);
 
+const hoveredLink = ref<[string, string]>(['', '']);
+
 const groups = computed(() => groupStore.currentEntitiesFromOrganization);
 
 const markedGroup = ref<EntityGroup | undefined>(undefined);
@@ -114,6 +140,15 @@ const goToGroupDetails = (group: EntityGroup) => {
 	});
 };
 
+const isMarkedLink = (group: EntityGroup, linkedGroupId: string) => {
+	const groupIsMarked =
+		markedGroup.value === group || markedGroups.value.includes(group);
+	const linkedGroupIsMarked =
+		markedGroup.value?.id === linkedGroupId ||
+		markedGroups.value.some(({ id }) => id === linkedGroupId);
+	return groupIsMarked && linkedGroupIsMarked;
+};
+
 const linkingEnabled = ref(false);
 
 const path = ref<SVGPathElement | null>(null);
@@ -124,15 +159,33 @@ const startPosition = ref({
 	x: 0,
 	y: 0,
 });
+
 const currentMousePosition = ref({
 	x: 0,
 	y: 0,
 });
 
+const resized = ref(0);
+const resizeTimeOut = ref<NodeJS.Timeout | null>(null);
+
 document.addEventListener('drag', (e) => {
 	currentMousePosition.value.x = e.pageX - 20;
 	currentMousePosition.value.y = e.pageY - 130;
 });
+
+window.addEventListener('resize', onResize);
+
+function onResize(_e: Event) {
+	if (!!resizeTimeOut.value) clearTimeout(resizeTimeOut.value);
+	resizeTimeOut.value = setTimeout(() => {
+		resized.value += 1;
+	}, 100);
+}
+
+function mouseMoveOnLink(e: MouseEvent) {
+	currentMousePosition.value.x = e.pageX - 20;
+	currentMousePosition.value.y = e.pageY - 130;
+}
 
 function getLinkedGroupsUp(group: EntityGroup): EntityGroup[] {
 	const linkedGroups = groups.value.filter((x) =>
@@ -173,8 +226,19 @@ function link(entityToLinkToId: string, entityId: string) {
 	(groupStore as unknown as EntityGroupStore).link(entityId, entityToLinkToId);
 }
 
+function deleteLink(group: EntityGroup, linkedGroupId: string) {
+	group.entityGroupIds.splice(
+		group.entityGroupIds.findIndex((id) => id === linkedGroupId),
+		1
+	);
+	groupStore.updateEntity(group.id, group);
+	hoveredLink.value = ['', ''];
+}
+
 const groupCoordinates = computed(() => {
 	if (!container.value) return;
+	// reference of resized to make computation reactive if this value changed
+	resized.value;
 	const groupsByLevel = levelStore.currentEntitiesFromOrganization.map(
 		(level) => ({
 			level,

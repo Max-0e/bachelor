@@ -71,7 +71,7 @@ export function defineOrganizationBasedEntityStore<
 					return;
 				}
 				const entities = await entityService.getEntities(organizationId);
-				state.entities = entities;
+				state.entities = state.entities.concat(entities);
 				state.loadedOrganizations.push(organizationId);
 			},
 			async createEntity(

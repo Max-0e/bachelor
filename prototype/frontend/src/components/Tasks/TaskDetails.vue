@@ -1,7 +1,7 @@
 <template>
 	<div class="w-full flex justify-between">
 		<AppInlineInputField
-			class="mr-5 mt-2 mb-5"
+			class="mr-5 mt-2 mb-5 text-3xl"
 			v-model="task.name"
 			type="text"
 			name="name"
@@ -9,7 +9,7 @@
 			placeholder="Description"
 			label="Description"
 			@save="taskStore.updateEntity(task.id, task)" />
-		<AppIcon @click="$emit('deleteTask', task)">delete</AppIcon>
+		<AppIcon button @click="$emit('deleteTask', task)">delete</AppIcon>
 	</div>
 	<div class="w-full flex justify-left items-center gap-10 px-4">
 		<AppDropDownMenu
@@ -19,11 +19,29 @@
 			:defaultValueName="task.status"
 			:options="options"></AppDropDownMenu>
 		<div class="flex items-center">
-			<AppIcon @click="editStoryPoints(task, false)" button>remove</AppIcon>
-			<div class="bg-dark-700 rounded-lg py-3 px-4">{{ task.storyPoints }}</div>
-			<AppIcon button @click="editStoryPoints(task, true)">add</AppIcon>
+			<AppIcon> token </AppIcon>
+			<AppNumberInput
+				:value="task.storyPoints"
+				:min-number="1"
+				debounce
+				@change="
+					task.storyPoints = $event;
+					taskStore.updateEntity(task.id, task);
+				" />
+		</div>
+		<div class="flex items-center">
+			<AppIcon> diamond </AppIcon>
+			<AppNumberInput
+				:value="task.value"
+				:min-number="1"
+				debounce
+				@change="
+					task.value = $event;
+					taskStore.updateEntity(task.id, task);
+				" />
 		</div>
 		<AppDropDownMenu
+			v-if="organizationStore.currentEntity?.useEpics"
 			@update:model-value="addTaskToEpic(task, $event)"
 			selectText="select Epic"
 			ref="epicDropdown"
@@ -43,6 +61,7 @@
 <script setup lang="ts">
 import { Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { computed, ref, toRef } from '@vue/reactivity';
 import { onMounted, PropType, watch } from 'vue';
@@ -54,6 +73,7 @@ const options = [
 	{ name: 'done', value: 'done' },
 ];
 
+const organizationStore = useOrganizationStore();
 const groupStore = useGroupStore();
 const taskStore = useTaskStore();
 
@@ -73,20 +93,6 @@ watch(_task, (x) => {
 onMounted(() => {
 	changeSelectedEpic(props.task);
 });
-
-const changingStoryPoints = ref<boolean[]>([]);
-const editStoryPoints = async (task: Task, add: boolean) => {
-	if (task.storyPoints === 1 && !add) return;
-	add ? (task.storyPoints += 1) : (task.storyPoints -= 1);
-	const index = changingStoryPoints.value.push(true) - 1;
-	setTimeout(() => {
-		changingStoryPoints.value[index] = false;
-		if (changingStoryPoints.value.every((value) => !value)) {
-			taskStore.updateEntity(task.id, task);
-			changingStoryPoints.value = [];
-		}
-	}, 500);
-};
 
 const changeSelectedEpic = (currentTask: Task) => {
 	const selectedEpic = availableEpics.value.find((epic) =>

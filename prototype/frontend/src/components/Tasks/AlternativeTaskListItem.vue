@@ -8,18 +8,21 @@
 				? 'bg-blue-800 dark:bg-blue-800'
 				: 'bg-dark-200 dark:bg-dark-200'
 		">
-		<span class="flex-grow text-left p-5">
+		<div class="text-left p-3 w-1/2 truncate">
 			{{ task.name }}
-			<!-- <AppInlineInputField
-				v-model="task.name"
-				type="text"
-				name="name"
-				id="name"
-				placeholder="Task-Name"
-				label="Task-Name"
-				:with-label="false"
-				@save="taskStore.updateEntity(task.id, task)" /> -->
-		</span>
+		</div>
+		<AppToolTip text="story points" position="top">
+			<span class="flex items-center">
+				<AppIcon>token</AppIcon>
+				{{ task.storyPoints }}
+			</span>
+		</AppToolTip>
+		<AppToolTip text="value" position="top">
+			<span class="flex items-center">
+				<AppIcon>diamond</AppIcon>
+				{{ task.value }}
+			</span>
+		</AppToolTip>
 		<span>
 			<div class="float-right">
 				<AppToolTip text="delete Task" position="left">

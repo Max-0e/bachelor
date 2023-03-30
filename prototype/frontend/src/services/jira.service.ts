@@ -1,4 +1,5 @@
 import { API_URL } from '@/config';
+import { JiraIssueField } from '@/interfaces/jira-issue-field';
 import { JiraIssueStatus } from '@/interfaces/jira-issue-status.interface';
 import { JiraIssue } from '@/interfaces/jira-issue.interface';
 import {
@@ -28,6 +29,14 @@ class JiraService {
 	public async loadProjectIssueStatuses(project: JiraProject) {
 		return await HttpClient.get<JiraIssueStatus[]>(
 			`${API_URL}/jira/projects/${project.id}/statuses`,
+			{
+				withCredentials: true,
+			}
+		);
+	}
+	public async loadIssueCustomFields() {
+		return await HttpClient.get<JiraIssueField[]>(
+			`${API_URL}/jira/customFields`,
 			{
 				withCredentials: true,
 			}
