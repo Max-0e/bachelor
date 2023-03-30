@@ -1,11 +1,11 @@
 <template>
 	<AppModal ref="modal" @closed="formGroup.clear()">
 		<div class="flex flex-col gap-10">
-			<div class="text-3xl">Create new Organization</div>
+			<div class="text-3xl font-bold px-10">Create new Organization</div>
 			<AppInputField
 				ref="name"
-				placeholder="name"
-				label="name"
+				placeholder="Name"
+				label="Name"
 				id="name"
 				:validation-types="[validationType.required, validationType.name]">
 			</AppInputField>

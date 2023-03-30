@@ -98,8 +98,7 @@
 							class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between"
 							:class="{
 								'bg-successGreen': status.prototypeStatus === 'done',
-								'bg-blue-800 dark:bg-blue-800':
-									status.prototypeStatus === 'inProgress',
+								'bg-blue-800': status.prototypeStatus === 'inProgress',
 								'bg-dark-200': status.prototypeStatus === 'open',
 							}"
 							v-for="status in data.taskStatuses">
@@ -208,7 +207,14 @@ const statusOptions = [
 	{ name: 'done', value: 'done' },
 ];
 
-const taskHeaders = ['name', 'description', 'status', 'storypoints', 'epic'];
+const taskHeaders = [
+	'name',
+	'description',
+	'status',
+	'storypoints',
+	'epic',
+	'value',
+];
 
 const taskStore = useTaskStore();
 const groupStore = useGroupStore();
@@ -367,10 +373,12 @@ const submit = async () => {
 				)?.prototypeStatus ?? 'open';
 
 			const storyPoints = parseInt(getDataByHeaderName(task, 'storypoints'));
+			const value = parseInt(getDataByHeaderName(task, 'value'));
 			return {
 				name: getDataByHeaderName(task, 'name'),
 				description: getDataByHeaderName(task, 'description'),
 				storyPoints: typeof storyPoints === 'number' ? storyPoints : 1,
+				value: typeof value === 'number' ? value : 1,
 				status,
 				entityGroupIds,
 			};

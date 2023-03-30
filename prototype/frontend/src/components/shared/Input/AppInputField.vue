@@ -4,6 +4,7 @@
 		<div class="mx-5 mt-2 mb-5 relative rounded-md shadow-md">
 			<input
 				@input="inputValue = ($event.target as HTMLInputElement).value"
+				:value="inputValue"
 				@focusout="showValidation = true"
 				class="p-3 pl-7 pr-12 block w-full dark:bg-dark-50 sm:text-sm rounded-md focus-visible:(outline outline-2)"
 				:class="

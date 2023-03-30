@@ -19,9 +19,26 @@
 			:defaultValueName="task.status"
 			:options="options"></AppDropDownMenu>
 		<div class="flex items-center">
-			<AppIcon @click="editStoryPoints(task, false)" button>remove</AppIcon>
-			<div class="bg-dark-700 rounded-lg py-3 px-4">{{ task.storyPoints }}</div>
-			<AppIcon button @click="editStoryPoints(task, true)">add</AppIcon>
+			<AppIcon> token </AppIcon>
+			<AppNumberInput
+				:value="task.storyPoints"
+				:min-number="1"
+				debounce
+				@change="
+					task.storyPoints = $event;
+					taskStore.updateEntity(task.id, task);
+				" />
+		</div>
+		<div class="flex items-center">
+			<AppIcon> diamond </AppIcon>
+			<AppNumberInput
+				:value="task.value"
+				:min-number="1"
+				debounce
+				@change="
+					task.value = $event;
+					taskStore.updateEntity(task.id, task);
+				" />
 		</div>
 		<AppDropDownMenu
 			@update:model-value="addTaskToEpic(task, $event)"
@@ -73,20 +90,6 @@ watch(_task, (x) => {
 onMounted(() => {
 	changeSelectedEpic(props.task);
 });
-
-const changingStoryPoints = ref<boolean[]>([]);
-const editStoryPoints = async (task: Task, add: boolean) => {
-	if (task.storyPoints === 1 && !add) return;
-	add ? (task.storyPoints += 1) : (task.storyPoints -= 1);
-	const index = changingStoryPoints.value.push(true) - 1;
-	setTimeout(() => {
-		changingStoryPoints.value[index] = false;
-		if (changingStoryPoints.value.every((value) => !value)) {
-			taskStore.updateEntity(task.id, task);
-			changingStoryPoints.value = [];
-		}
-	}, 500);
-};
 
 const changeSelectedEpic = (currentTask: Task) => {
 	const selectedEpic = availableEpics.value.find((epic) =>

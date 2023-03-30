@@ -1,7 +1,8 @@
 <template>
 	<div class="relative" @focusout="expanded = false" tabindex="0">
 		<div
-			class="p-1 w-full bg-gray-200 dark:bg-dark-50 rounded-lg cursor-pointer"
+			class="p-1 w-full rounded-lg cursor-pointer"
+			:class="bgColor"
 			@click="expanded = !expanded">
 			<div class="flex pl-4 items-center justify-between">
 				<span class="pr-5">
@@ -33,6 +34,7 @@ import { onMounted, PropType, ref, toRef, watch } from 'vue';
 const props = defineProps({
 	selectText: { type: String, required: true },
 	defaultValueName: String,
+	bgColor: { type: String, default: 'bg-gray-200 dark:bg-dark-50' },
 	options: {
 		type: Object as PropType<
 			{

@@ -11,8 +11,9 @@ class TasksService extends LinkableEntityService<ITask> {
 
 	validateEntityCreateDto(entity: EntityCreateDto<ITask>): void {
 		const errors: string[] = [];
-		if (!entity.status) errors.push('hierarchyLevel');
-		if (entity.storyPoints === undefined) errors.push('hierarchyLevel');
+		if (!entity.status) errors.push('status');
+		if (entity.storyPoints === undefined) errors.push('storyPoints');
+		if (entity.value === undefined) errors.push('value');
 		if (!entity.name) errors.push('name');
 
 		if (errors.length > 0) {
@@ -22,8 +23,9 @@ class TasksService extends LinkableEntityService<ITask> {
 
 	validateEntityUpdateDto(entity: EntityCreateDto<ITask>): void {
 		const errors: string[] = [];
-		if (!entity.status) errors.push('hierarchyLevel');
-		if (entity.storyPoints === undefined) errors.push('hierarchyLevel');
+		if (!entity.status) errors.push('status');
+		if (entity.storyPoints === undefined) errors.push('storyPoints');
+		if (entity.value === undefined) errors.push('value');
 		if (!entity.name) errors.push('name');
 
 		if (errors.length > 0) {

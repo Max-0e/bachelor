@@ -5,6 +5,7 @@ export interface ITask {
 	status: Status;
 	description: string;
 	storyPoints: number;
+	value: number;
 }
 
 export type Task = Entity<LinkableEntity<ITask>>;

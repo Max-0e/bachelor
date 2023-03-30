@@ -1,19 +1,71 @@
 <template>
 	<!-- Table Header -->
-	<div class="w-full flex justify-between p-5 m-2">
-		<span class="w-1/3 text-left">
-			<b>Name</b>
+	<div class="w-full flex p-5 m-2 p-1 m-1">
+		<span class="w-1/4">
+			<b
+				@click="
+					sortingFn = sortByString<Task>('name');
+					sortedBy = 'name';
+				"
+				class="flex items-center justify-center cursor-pointer"
+				:class="{
+					'text-blue-600': sortedBy === 'name',
+				}">
+				<AppIcon>sort</AppIcon>Name
+			</b>
 		</span>
-		<span class="w-1/3 text-left">
-			<b>Status</b>
+		<span class="w-1/4">
+			<b
+				@click="
+					sortingFn = sortByString<Task>('status');
+					sortedBy = 'status';
+				"
+				class="flex items-center justify-center cursor-pointer"
+				:class="{
+					'text-blue-600': sortedBy === 'status',
+				}">
+				<AppIcon>sort</AppIcon>Status
+			</b>
 		</span>
-		<span class="w-1/3 text-right">
-			<b>Actions</b>
+		<span class="w-1/8">
+			<b
+				@click="
+					sortingFn = sortByNumber<Task>('storyPoints');
+					sortedBy = 'storyPoints';
+				"
+				class="flex items-center justify-center cursor-pointer"
+				:class="{
+					'text-blue-600': sortedBy === 'storyPoints',
+				}">
+				<AppIcon>sort</AppIcon>Story Points
+			</b>
+		</span>
+		<span class="w-1/8">
+			<b
+				@click="
+					sortingFn = sortByNumber<Task>('value');
+					sortedBy = 'value';
+				"
+				class="flex items-center justify-center cursor-pointer"
+				:class="{
+					'text-blue-600': sortedBy === 'value',
+				}">
+				<AppIcon>sort</AppIcon>Value
+			</b>
+		</span>
+		<span class="w-1/8">
+			<b class="flex h-full items-center justify-center">Epic</b>
+		</span>
+		<span class="w-1/8 text-right pr-6">
+			<b class="flex h-full items-center justify-center">Actions</b>
 		</span>
 	</div>
 	<!-- Task List -->
 	<TransitionGroup>
-		<div class="flex items-center" v-for="task in tasks" :key="task.id">
+		<div
+			class="flex items-center"
+			v-for="task in tasks.sort(sortingFn)"
+			:key="task.id">
 			<TaskListItem :task="task" />
 			<AppToolTip text="remove from epic" position="left" v-if="!!epic">
 				<AppIcon class="text-red-600" button @click="removeFromEpic(task)"
@@ -27,37 +79,60 @@
 		<div
 			class="border dark:border-dark-800 w-full rounded-md flex justify-between items-center p-1 m-1"
 			v-if="createNewTask">
-			<span class="w-1/3 text-left px-5">
+			<span class="w-1/4 text-left items-center pt-3">
 				<AppInputField
 					ref="name"
 					placeholder="name"
-					label="name"
 					id="name"
 					:validation-types="[validationType.required, validationType.name]">
 				</AppInputField>
 			</span>
-			<span class="w-1/3 text-left px-5">
+			<span class="w-1/4 text-left px-5">
 				<AppDropDownMenu
 					v-model="status"
 					selectText="select Status"
 					:options="options"></AppDropDownMenu>
 			</span>
-			<span class="w-1/3 px-5">
-				<AppButton
-					iconButton
-					color="red"
-					slim
-					class="px-2 m-1 float-right"
+			<span class="w-1/8 text-left px-5 flex justify-evenly items-center">
+				<AppToolTip position="top" text="Story Points">
+					<AppIcon>token</AppIcon>
+				</AppToolTip>
+				<AppNumberInput
+					:min-number="1"
+					:value="storyPoints"
+					@change="storyPoints = $event" />
+			</span>
+			<span class="w-1/8 text-left px-5 flex justify-evenly items-center">
+				<AppToolTip position="top" text="value">
+					<AppIcon>diamond</AppIcon>
+				</AppToolTip>
+				<AppNumberInput
+					:min-number="1"
+					:value="value"
+					@change="value = $event" />
+			</span>
+			<span class="w-1/8">
+				<AppDropDownMenu
+					v-if="!epic"
+					v-model="selectedEpicId"
+					selectText="select Epic"
+					ref="epicDropdown"
+					:options="
+						availableEpics.map((epic) => ({ name: epic.name, value: epic.id }))
+					"></AppDropDownMenu>
+			</span>
+			<span class="w-1/8 px-5">
+				<AppIcon
+					button
+					class="px-2 m-1 float-right text-red-600"
 					@click="setDefaults()"
-					>clear</AppButton
+					>clear</AppIcon
 				>
-				<AppButton
-					iconButton
-					color="blue"
-					slim
-					class="px-2 m-1 float-right"
+				<AppIcon
+					button
+					class="px-2 m-1 text-successGreen float-right"
 					@click="createTask()"
-					>done</AppButton
+					>done</AppIcon
 				>
 			</span>
 		</div>
@@ -78,6 +153,7 @@ import { inputRef } from '@/interfaces/form.interface';
 import { Status, Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useTaskStore } from '@/store/tasks.store';
+import { sortByNumber, sortByString } from '@/utility/sort';
 import { computed, PropType, ref } from 'vue';
 import { FormGroup } from '../shared/Input/formGroup';
 
@@ -87,14 +163,18 @@ const options = [
 	{ name: 'done', value: 'done' },
 ];
 
-const currentProject = ref(useGroupStore().currentEntity);
+const taskStore = useTaskStore();
+const groupStore = useGroupStore();
+
+const sortingFn = ref();
+const sortedBy = ref('');
+
+const currentProject = ref(groupStore.currentEntity);
 const props = defineProps({
 	epic: { type: Object as PropType<EntityGroup>, required: false },
 });
 
 const createNewTask = ref(false);
-
-const taskStore = useTaskStore();
 
 const tasks = computed(() => {
 	const groupId = props.epic?.id ?? currentProject.value!.id;
@@ -102,18 +182,27 @@ const tasks = computed(() => {
 });
 
 const status = ref<Status>('open');
+const storyPoints = ref<number>(1);
+const value = ref<number>(1);
+const selectedEpicId = ref<string>('');
 const name = inputRef();
 const formGroup = new FormGroup({ name });
+
+const availableEpics = computed(() =>
+	groupStore.downwardsLinkedGroupsForCurrentGroup.filter((x) => !!x?.levelId)
+);
 
 function createTask() {
 	if (!formGroup.validate()) return;
 
 	const entityGroupIds = [currentProject.value!.id];
 	if (!!props.epic) entityGroupIds.push(props.epic.id);
+	if (!!selectedEpicId.value) entityGroupIds.push(selectedEpicId.value);
 
 	taskStore.createEntity({
 		entityGroupIds,
-		storyPoints: 1,
+		storyPoints: storyPoints.value,
+		value: value.value,
 		name: formGroup.formObjects.name.value,
 		status: status.value,
 		description: '',
@@ -136,5 +225,8 @@ function setDefaults() {
 	status.value = 'open';
 	name.value?.patchValue('');
 	createNewTask.value = false;
+	storyPoints.value = 1;
+	value.value = 1;
+	selectedEpicId.value = '';
 }
 </script>

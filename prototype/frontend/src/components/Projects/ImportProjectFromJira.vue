@@ -69,8 +69,7 @@
 								class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between"
 								:class="{
 									'bg-successGreen': status.prototypeStatus === 'done',
-									'bg-blue-800 dark:bg-blue-800':
-										status.prototypeStatus === 'inProgress',
+									'bg-blue-800': status.prototypeStatus === 'inProgress',
 									'bg-dark-200': status.prototypeStatus === 'open',
 								}"
 								v-for="status in usedIssuesStatuses">
@@ -98,7 +97,7 @@
 									class="h-12 w-1/2 bg-gray-200 dark:bg-dark-600 rounded-md"></div>
 							</div>
 							<div
-								class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between bg-blue-800 dark:bg-blue-800 animate-pulse">
+								class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between bg-blue-800 animate-pulse">
 								<div
 									class="h-10 w-1/4 bg-gray-200 dark:bg-dark-600 rounded-md"></div>
 								<div
@@ -316,6 +315,7 @@ const submit = async () => {
 							? task.fields.description
 							: '',
 					storyPoints: 1,
+					value: 1,
 					status,
 					entityGroupIds,
 				};
