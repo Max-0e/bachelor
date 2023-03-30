@@ -45,7 +45,8 @@ export abstract class EntityService<T> {
 
 	public async deleteEntityById(id: string) {
 		const entity = await this.getEntityById(id);
-		return entity.delete();
+		await entity.delete();
+		return entity;
 	}
 
 	public mapToDto(entity: EntityDocument<T>) {
