@@ -46,7 +46,7 @@
 									}}
 								</div>
 							</div>
-							<div>
+							<div v-if="organizationStore.currentEntity?.useEpics">
 								<div class="text-xl">found Epic-Level Issue-Types</div>
 								<div
 									class="bg-gray-200 dark:bg-dark-700 p-2 rounded-md m-2 flex items-center gap-2"
@@ -115,42 +115,57 @@
 				</AppStepperStep>
 				<AppStepperStep :step="3" :current-step="currentStepperStep">
 					<div v-if="!importingData">
-						<div class="text-xl font-bold italic">Issues with epic</div>
-						<div class="flex flex-wrap gap-2 justify-center my-2">
-							<span
-								class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
-								v-for="issue of issues.filter(
-									(issue) =>
-										!!issue.fields.parent &&
-										issue.fields.issuetype.hierarchyLevel === 0
-								)">
-								<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
-								{{ issue.fields.summary }}
-							</span>
+						<div v-if="organizationStore.currentEntity?.useEpics">
+							<div class="text-xl font-bold italic">Issues with epic</div>
+							<div class="flex flex-wrap gap-2 justify-center my-2">
+								<span
+									class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+									v-for="issue of issues.filter(
+										(issue) =>
+											!!issue.fields.parent &&
+											issue.fields.issuetype.hierarchyLevel === 0
+									)">
+									<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
+									{{ issue.fields.summary }}
+								</span>
+							</div>
+							<div class="text-xl font-bold italic">Issues without Epics</div>
+							<div class="flex flex-wrap gap-2 justify-center my-2">
+								<span
+									class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+									v-for="issue of issues.filter(
+										(issue) =>
+											!issue.fields.parent &&
+											issue.fields.issuetype.hierarchyLevel === 0
+									)">
+									<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
+									{{ issue.fields.summary }}
+								</span>
+							</div>
+							<div class="text-xl font-bold italic">Epics</div>
+							<div class="flex flex-wrap gap-2 justify-center my-2">
+								<span
+									class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+									v-for="issue of issues.filter(
+										(issue) => issue.fields.issuetype.hierarchyLevel === 1
+									)">
+									<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
+									{{ issue.fields.summary }}
+								</span>
+							</div>
 						</div>
-						<div class="text-xl font-bold italic">Issues without Epics</div>
-						<div class="flex flex-wrap gap-2 justify-center my-2">
-							<span
-								class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
-								v-for="issue of issues.filter(
-									(issue) =>
-										!issue.fields.parent &&
-										issue.fields.issuetype.hierarchyLevel === 0
-								)">
-								<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
-								{{ issue.fields.summary }}
-							</span>
-						</div>
-						<div class="text-xl font-bold italic">Epics</div>
-						<div class="flex flex-wrap gap-2 justify-center my-2">
-							<span
-								class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
-								v-for="issue of issues.filter(
-									(issue) => issue.fields.issuetype.hierarchyLevel === 1
-								)">
-								<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
-								{{ issue.fields.summary }}
-							</span>
+						<div v-else>
+							<div class="text-xl font-bold italic">Issues</div>
+							<div class="flex flex-wrap gap-2 justify-center my-2">
+								<span
+									class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+									v-for="issue of issues.filter(
+										(issue) => issue.fields.issuetype.hierarchyLevel === 0
+									)">
+									<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
+									{{ issue.fields.summary }}
+								</span>
+							</div>
 						</div>
 					</div>
 					<div v-else>
@@ -202,6 +217,7 @@ import { Status } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useJiraStore } from '@/store/jira.store';
 import { useLevelStore } from '@/store/level.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
@@ -213,6 +229,7 @@ const statusOptions = [
 	{ name: 'done', value: 'done' },
 ];
 
+const organizationStore = useOrganizationStore();
 const taskStore = useTaskStore();
 const groupStore = useGroupStore();
 const levelStore = useLevelStore();
@@ -263,11 +280,12 @@ const open = () => modal.value?.open();
 const close = () => modal.value?.close();
 
 const submit = async () => {
+	const useEpics = !!organizationStore.currentEntity?.useEpics;
 	importingData.value = true;
 	const currentLevel = levelStore.currentEntity;
 	const epicLevel = levelStore.getLowerLevel;
 	const projectName = selectedProject.value?.name;
-	if (!currentLevel || !epicLevel || !projectName) return;
+	if (!currentLevel || !projectName) return;
 
 	const project = await groupStore.createEntity({
 		name: projectName,
@@ -277,15 +295,18 @@ const submit = async () => {
 
 	if (!project) return;
 
-	const epics = await groupStore.createMultipleEntities(
-		issues.value
-			.filter((issue) => issue.fields.issuetype.hierarchyLevel === 1)
-			.map((epic) => ({
-				name: epic.fields.summary,
-				levelId: epicLevel.id,
-				entityGroupIds: [project.id],
-			}))
-	);
+	const epics =
+		useEpics && !!epicLevel
+			? await groupStore.createMultipleEntities(
+					issues.value
+						.filter((issue) => issue.fields.issuetype.hierarchyLevel === 1)
+						.map((epic) => ({
+							name: epic.fields.summary,
+							levelId: epicLevel.id,
+							entityGroupIds: [project.id],
+						}))
+			  )
+			: [];
 
 	if (!epics) return;
 	const mappedEpics = epics.map((epic) => ({

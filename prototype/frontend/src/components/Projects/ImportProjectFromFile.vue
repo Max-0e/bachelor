@@ -124,8 +124,14 @@
 								{{ getDataByHeaderName(task, 'name') }}
 							</span>
 						</div>
-						<div class="text-xl font-bold italic">Epics</div>
-						<div class="flex flex-wrap gap-2 justify-center my-2">
+						<div
+							v-if="organizationStore.currentEntity?.useEpics"
+							class="text-xl font-bold italic">
+							Epics
+						</div>
+						<div
+							v-if="organizationStore.currentEntity?.useEpics"
+							class="flex flex-wrap gap-2 justify-center my-2">
 							<span
 								class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
 								v-for="epic of getEpics(data.extractedData)">
@@ -193,6 +199,7 @@ import { modalRef } from '@/interfaces/modal.interface';
 import { Status } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
+import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { unique } from '@/utility/unique';
 import { Ref, ref } from 'vue';
@@ -207,19 +214,16 @@ const statusOptions = [
 	{ name: 'done', value: 'done' },
 ];
 
-const taskHeaders = [
-	'name',
-	'description',
-	'status',
-	'storypoints',
-	'epic',
-	'value',
-];
-
+const organizationStore = useOrganizationStore();
 const taskStore = useTaskStore();
 const groupStore = useGroupStore();
 const levelStore = useLevelStore();
 
+const taskHeaders = ['name', 'description', 'status', 'storypoints', 'value'];
+
+if (organizationStore.currentEntity?.useEpics) {
+	taskHeaders.push('epic');
+}
 const router = useRouter();
 
 const data: Ref<{
@@ -341,24 +345,29 @@ const close = () => {
 
 const submit = async () => {
 	importingData.value = true;
+	const useEpics = !!organizationStore.currentEntity?.useEpics;
 	const currentLevel = levelStore.currentEntity;
 	const epicLevel = levelStore.getLowerLevel;
 	const projectName = formGroup.formObjects.name.value;
-	if (!currentLevel || !epicLevel || !projectName) return;
+	if (!currentLevel || !projectName) return;
 	const project = await groupStore.createEntity({
 		name: projectName,
 		levelId: currentLevel.id,
 		entityGroupIds: [],
 	});
 	if (!project) return;
-	const epics = await groupStore.createMultipleEntities(
-		getEpics(data.value.extractedData).map((epic) => ({
-			name: epic,
-			levelId: epicLevel.id,
-			entityGroupIds: [project.id],
-		}))
-	);
+	const epics =
+		useEpics && epicLevel
+			? await groupStore.createMultipleEntities(
+					getEpics(data.value.extractedData).map((epic) => ({
+						name: epic,
+						levelId: epicLevel.id,
+						entityGroupIds: [project.id],
+					}))
+			  )
+			: [];
 	if (!epics) return;
+	console.log(epics);
 	const tasks = await taskStore.createMultipleEntities(
 		data.value.extractedData.map((task) => {
 			const entityGroupIds = [project.id];

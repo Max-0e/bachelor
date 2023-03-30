@@ -9,7 +9,7 @@
 			placeholder="Description"
 			label="Description"
 			@save="taskStore.updateEntity(task.id, task)" />
-		<AppIcon @click="$emit('deleteTask', task)">delete</AppIcon>
+		<AppIcon button @click="$emit('deleteTask', task)">delete</AppIcon>
 	</div>
 	<div class="w-full flex justify-left items-center gap-10 px-4">
 		<AppDropDownMenu
