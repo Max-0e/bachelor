@@ -26,7 +26,7 @@ export function defineEntityStore<
 	getters: Getters,
 	actions: Actions
 ) {
-	// for some reason pinia doesnt like typeannotations for the state with Generics
+	// for some reason pinia doesn't like typeannotations for the state with Generics
 	// so we need to convert stateParameter for getters of type EntityState<T> to any
 	type PiniaReadyGetters = {
 		[Getter in keyof Getters]: (state: any) => ReturnType<Getters[Getter]>;
@@ -83,16 +83,3 @@ export function defineEntityStore<
 		},
 	});
 }
-
-export type EntityStore<T, AdditionalGetters, AdditionalActions> =
-	EntityState<T> & {
-		currentEntity(state: EntityState<T>): Entity<T> | undefined;
-	} & AdditionalGetters & {
-			loadEntities(): Promise<void>;
-			createEntity(entityToCreate: EntityCreate<T>): void;
-			updateEntity(entityId: string, entityToUpdate: EntityCreate<T>): void;
-			updateEntityInState(entity: Entity<T>): void;
-			deleteEntity(entity: Entity<T>): void;
-			deleteEntityInState(entity: Entity<T>): void;
-			findEntityIndexInState(entityId: string): number;
-		} & AdditionalActions;

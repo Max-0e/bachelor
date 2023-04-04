@@ -1,9 +1,9 @@
-interface IEntity {
+export interface IEntity {
 	id: string;
 	name: string;
 }
 
-interface IEntityCreate {
+export interface IEntityCreate {
 	name: string;
 }
 
