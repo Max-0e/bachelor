@@ -1,51 +1,63 @@
+import { Entity } from '@/interfaces/base/entity.interface';
 import { LinkableEntity } from '@/interfaces/base/linkable-entity.interface';
+import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
 import { IEntityGroup } from '@/interfaces/entity-groups.interface';
-
 import { entityGroupsService } from '@/services/entity-groups.service';
+import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
+import { makeLinkableEntityActions } from './base/linkable-entity.store/linkable-entity.actions';
 import {
-	defineLinkableEntityStore,
+	LinkableEntityGetters,
+	makeLinkableEntityGetters,
+} from './base/linkable-entity.store/linkable-entity.getters';
+import { makeLinkableEntityState } from './base/linkable-entity.store/linkable-entity.state';
+import {
 	LinkableEntityStore,
-} from './base/linkable-entity.store';
-import {
-	getOrganizationBasedEntityStateDefaults,
-	OrganizationBasedEntityState,
-} from './base/organization-based-entity.store';
+	LinkableEntityStoreDefinition,
+} from './base/linkable-entity.store/linkable-entity.store';
+import { PiniaStore } from './base/piniaTypes';
 import { useLevelStore } from './level.store';
 
-const makeEntityGroupGetters = () => ({
-	currentGroups(
-		state: OrganizationBasedEntityState<LinkableEntity<IEntityGroup>>
-	) {
-		const currentLevelId = useRouter().currentRoute.value.params['levelId'];
-		return state.entities.filter((entity) => entity.levelId === currentLevelId);
-	},
-	downwardsLinkedGroupsForCurrentGroup(
-		this: LinkableEntityStore<IEntityGroup>,
-		state: OrganizationBasedEntityState<LinkableEntity<IEntityGroup>>
-	) {
-		const levelBelow = useLevelStore().getLowerLevel;
-		if (!levelBelow) return [];
-		return state.entities.filter(
-			(entity) =>
-				entity.levelId === levelBelow.id &&
-				entity.entityGroupIds.includes((this.currentEntity as any)?.id)
-		);
-	},
-});
+interface GroupGetters extends LinkableEntityGetters<IEntityGroup> {
+	currentGroups(): Entity<
+		OrganizationBasedEntity<LinkableEntity<IEntityGroup>>
+	>[];
+	downwardsLinkedGroupsForCurrentGroup(): Entity<
+		OrganizationBasedEntity<LinkableEntity<IEntityGroup>>
+	>[];
+}
 
-const makeEntityGroupActions = () => ({});
-
-export const useGroupStore = defineLinkableEntityStore<
+type GroupStore = LinkableEntityStore<IEntityGroup, 'group', GroupGetters>;
+type GroupStoreDefinition = LinkableEntityStoreDefinition<
 	IEntityGroup,
-	ReturnType<typeof makeEntityGroupGetters>,
-	ReturnType<typeof makeEntityGroupActions>
->(
 	'group',
-	entityGroupsService,
-	getOrganizationBasedEntityStateDefaults(),
-	makeEntityGroupGetters(),
-	makeEntityGroupActions()
-);
+	GroupGetters
+>;
 
-export type EntityGroupStore = LinkableEntityStore<IEntityGroup>;
+const groupStore: PiniaStore<GroupStore> = {
+	state: makeLinkableEntityState<IEntityGroup>(entityGroupsService),
+	getters: {
+		...makeLinkableEntityGetters<IEntityGroup>(),
+		currentGroups(state) {
+			const currentLevelId = useRouter().currentRoute.value.params['levelId'];
+			return state.entities.filter(
+				(entity) => entity.levelId === currentLevelId
+			);
+		},
+		downwardsLinkedGroupsForCurrentGroup(state) {
+			const levelBelow = useLevelStore().getLowerLevel;
+			if (!levelBelow) return [];
+			return state.entities.filter(
+				(entity) =>
+					entity.levelId === levelBelow.id &&
+					entity.entityGroupIds.includes(state.currentEntity?.id)
+			);
+		},
+	},
+	actions: makeLinkableEntityActions<IEntityGroup>(),
+};
+
+export const useGroupStore: GroupStoreDefinition = defineStore(
+	'group',
+	groupStore
+);

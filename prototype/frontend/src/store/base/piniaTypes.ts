@@ -30,10 +30,12 @@ export type PickGetters<TStore extends Store> = TStore extends Store<
 	: never;
 
 export type CompatiblePiniaState<TState> = () => TState;
+
 export type CompatiblePiniaGetter<
 	TGetter extends (...args: any) => any,
 	TStore extends Store
 > = (this: TStore, state: PickState<TStore>) => ReturnType<TGetter>;
+
 export type CompatiblePiniaGetters<
 	TGetters extends PiniaGetterTree,
 	TStore extends Store
@@ -48,6 +50,7 @@ export type CompatiblePiniaAction<
 	TAction extends (...args: any) => any,
 	TStore extends Store
 > = (this: TStore, ...args: Parameters<TAction>) => ReturnType<TAction>;
+
 export type CompatiblePiniaActions<
 	TActions extends PiniaActionTree,
 	TStore extends Store

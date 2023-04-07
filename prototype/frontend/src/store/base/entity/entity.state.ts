@@ -1,16 +1,18 @@
-import { Entity, IEntity } from '@/interfaces/base/entity.interface';
+import { Entity } from '@/interfaces/base/entity.interface';
 import { EntityService } from '@/services/base/entity.service';
 import { PiniaState, PiniaStateTree } from '../piniaTypes';
 import { EntityStore } from './entity.store';
 
-export interface EntityState<T extends IEntity> extends PiniaStateTree {
+export interface EntityState<T> extends PiniaStateTree {
 	isLoaded: boolean;
-	entities: T[];
+	entities: Entity<T>[];
 	service: EntityService<T>;
 }
 
-export const entityState: PiniaState<EntityStore<Entity<unknown>>> = () => ({
-	isLoaded: false,
-	entities: [],
-	service: {} as EntityService<IEntity>,
-});
+export const makeEntityState =
+	<T>(entityService: EntityService<T>): PiniaState<EntityStore<T>> =>
+	() => ({
+		isLoaded: false,
+		entities: [],
+		service: entityService,
+	});

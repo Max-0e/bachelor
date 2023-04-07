@@ -2,125 +2,125 @@ import { Entity } from '@/interfaces/base/entity.interface';
 import { LinkableEntity } from '@/interfaces/base/linkable-entity.interface';
 import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
 import { ITask, Task } from '@/interfaces/task.interface';
-import { taskService } from '@/services/task.service';
 import { unique } from '@/utility/unique';
-import { computed, Ref } from 'vue';
+import { ComputedRef, Ref, computed } from 'vue';
 import { useAppStore } from './app';
 import { useGroupStore } from './entity-groups.store';
 
+import { taskService } from '@/services/task.service';
+import { defineStore } from 'pinia';
+import { makeLinkableEntityActions } from './base/linkable-entity.store/linkable-entity.actions';
 import {
-	defineLinkableEntityStore,
+	LinkableEntityGetters,
+	makeLinkableEntityGetters,
+} from './base/linkable-entity.store/linkable-entity.getters';
+import { makeLinkableEntityState } from './base/linkable-entity.store/linkable-entity.state';
+import {
 	LinkableEntityStore,
-} from './base/linkable-entity.store';
-import { getOrganizationBasedEntityStateDefaults } from './base/organization-based-entity.store';
+	LinkableEntityStoreDefinition,
+} from './base/linkable-entity.store/linkable-entity.store';
+import { PiniaStore } from './base/piniaTypes';
 
-const makeTaskGetters = () => ({
-	computeMetrics() {
-		return (tasks: Ref<Task[]>) =>
-			computed(() => {
-				const refTasks = tasks.value;
-				const totalLength = refTasks.length;
-				const totalStoryPoints = sumByProperty(refTasks, 'storyPoints');
-				const totalValue = sumByProperty(refTasks, 'value');
+interface TaskGetters extends LinkableEntityGetters<ITask> {
+	computeMetrics(): (tasks: Ref<Task[]>) => ComputedRef<TaskMetrics>;
+	getTasksLinkedToEntityGroupIdRecursive(): (
+		entityGroupId: string
+	) => Entity<OrganizationBasedEntity<LinkableEntity<ITask>>>[];
+}
 
-				const openTasks = refTasks.filter(({ status }) => status === 'open');
-				const openLength = openTasks.length;
-				const openStoryPoints = sumByProperty(openTasks, 'storyPoints');
-				const openValue = sumByProperty(openTasks, 'value');
-
-				const inProgressTasks = refTasks.filter(
-					({ status }) => status === 'inProgress'
-				);
-				const inProgressLength = inProgressTasks.length;
-				const inProgressStoryPoints = sumByProperty(
-					inProgressTasks,
-					'storyPoints'
-				);
-				const inProgressValue = sumByProperty(inProgressTasks, 'value');
-
-				const doneTasks = refTasks.filter(({ status }) => status === 'done');
-				const doneLength = doneTasks.length;
-				const doneStoryPoints = sumByProperty(doneTasks, 'storyPoints');
-				const doneValue = sumByProperty(doneTasks, 'value');
-
-				const progress = Math.floor((doneLength / totalLength) * 100);
-				const storyPointProgress = Math.floor(
-					(doneStoryPoints / totalStoryPoints) * 100
-				);
-				const valueProgress = Math.floor((doneValue / totalValue) * 100);
-
-				return {
-					tasks,
-					totalLength,
-					totalStoryPoints,
-					totalValue,
-					openLength,
-					openStoryPoints,
-					openValue,
-					inProgressLength,
-					inProgressStoryPoints,
-					inProgressValue,
-					doneLength,
-					doneStoryPoints,
-					doneValue,
-					progress:
-						useAppStore().progressType === 'absolute'
-							? progress
-							: useAppStore().progressType === 'storyPoints'
-							? storyPointProgress
-							: valueProgress,
-				};
-			});
-	},
-	getTasksLinkedToEntityGroupIdRecursive(this: TaskStore) {
-		return (entityGroupId: string) => {
-			const groupsFromLevelBelow =
-				useGroupStore().getEntitiesLinkedToEntityGroupId(entityGroupId);
-			const tasks = this.getEntitiesLinkedToEntityGroupId(entityGroupId);
-			if (groupsFromLevelBelow.length > 0) {
-				return tasks
-					.concat(
-						groupsFromLevelBelow.flatMap(({ id }) =>
-							this.getTasksLinkedToEntityGroupIdRecursive(id)
-						)
-					)
-					.filter(unique) as Task[];
-			} else {
-				return tasks as Task[];
-			}
-		};
-	},
-});
-
-const makeTaskActions = () => ({});
-
-export const useTaskStore = defineLinkableEntityStore<
+type TaskStore = LinkableEntityStore<ITask, 'task', TaskGetters>;
+type TaskStoreDefinition = LinkableEntityStoreDefinition<
 	ITask,
-	ReturnType<typeof makeTaskGetters>,
-	ReturnType<typeof makeTaskActions>
->(
 	'task',
-	taskService,
-	getOrganizationBasedEntityStateDefaults(),
-	makeTaskGetters(),
-	makeTaskActions()
-);
-
-export type TaskStore = LinkableEntityStore<
-	ITask,
-	{
-		computeMetrics: (
-			entityGroupId: string
-		) => Entity<OrganizationBasedEntity<LinkableEntity<ITask>>>[];
-		getTasksLinkedToEntityGroupIdRecursive: (
-			entityGroupId: string
-		) => Entity<OrganizationBasedEntity<LinkableEntity<ITask>>>[];
-	},
-	{}
+	TaskGetters
 >;
 
-const sumByProperty = <T>(tasks: T[], property: keyof T) =>
-	tasks.reduce(
+const taskStore: PiniaStore<TaskStore> = {
+	state: makeLinkableEntityState<ITask>(taskService),
+	getters: {
+		...makeLinkableEntityGetters<ITask>(),
+		computeMetrics() {
+			return (tasks: Ref<Task[]>) =>
+				computed((): TaskMetrics => {
+					const refTasks = tasks.value;
+					const openTasks = refTasks.filter(({ status }) => status === 'open');
+					const inProgressTasks = refTasks.filter(
+						({ status }) => status === 'inProgress'
+					);
+					const doneTasks = refTasks.filter(({ status }) => status === 'done');
+
+					return {
+						tasks,
+						totalLength: refTasks.length,
+						totalStoryPoints: sumByProperty(refTasks, 'storyPoints'),
+						totalValue: sumByProperty(refTasks, 'value'),
+						openLength: openTasks.length,
+						openStoryPoints: sumByProperty(openTasks, 'storyPoints'),
+						openValue: sumByProperty(openTasks, 'value'),
+						inProgressLength: inProgressTasks.length,
+						inProgressStoryPoints: sumByProperty(
+							inProgressTasks,
+							'storyPoints'
+						),
+						inProgressValue: sumByProperty(inProgressTasks, 'value'),
+						doneLength: doneTasks.length,
+						doneStoryPoints: sumByProperty(doneTasks, 'storyPoints'),
+						doneValue: sumByProperty(doneTasks, 'value'),
+						progress:
+							useAppStore().progressType === 'absolute'
+								? Math.floor((this.doneLength / this.totalLength) * 100)
+								: useAppStore().progressType === 'storyPoints'
+								? Math.floor(
+										(this.doneStoryPoints / this.totalStoryPoints) * 100
+								  )
+								: Math.floor((this.doneValue / this.totalValue) * 100),
+					};
+				});
+		},
+		getTasksLinkedToEntityGroupIdRecursive(_state) {
+			return (entityGroupId: string) => {
+				const groupsFromLevelBelow =
+					useGroupStore().getEntitiesLinkedToEntityGroupId(entityGroupId);
+				const tasks = this.getEntitiesLinkedToEntityGroupId(entityGroupId);
+				if (groupsFromLevelBelow.length > 0) {
+					return tasks
+						.concat(
+							groupsFromLevelBelow.flatMap(({ id }) =>
+								this.getTasksLinkedToEntityGroupIdRecursive(id)
+							)
+						)
+						.filter(unique);
+				} else {
+					return tasks;
+				}
+			};
+		},
+	},
+	actions: makeLinkableEntityActions<ITask>(),
+};
+
+export const useTaskStore: TaskStoreDefinition = defineStore('task', taskStore);
+
+const sumByProperty = <T>(tasks: T[], property: keyof T) => {
+	return tasks.reduce(
 		(partialSum, task) => partialSum + (task[property] as number),
 		0
 	);
+};
+
+export type TaskMetrics = {
+	tasks: Ref<Task[]>;
+	totalLength: number;
+	totalStoryPoints: number;
+	totalValue: number;
+	openLength: number;
+	openStoryPoints: number;
+	openValue: number;
+	inProgressLength: number;
+	inProgressStoryPoints: number;
+	inProgressValue: number;
+	doneLength: number;
+	doneStoryPoints: number;
+	doneValue: number;
+	progress: number;
+};

@@ -1,19 +1,16 @@
 import { IOrganization } from '@/interfaces/organization.interface';
 import { organizationService } from '@/services/organization.service';
-import { defineEntityStore, getEntityStateDefaults } from './base/entity.store';
+import { defineStore } from 'pinia';
+import { makeEntityActions } from './base/entity/entity.actions';
+import { makeEntityGetters } from './base/entity/entity.getters';
+import { makeEntityState } from './base/entity/entity.state';
+import { EntityStoreDefinition } from './base/entity/entity.store';
 
-const makeOrganizationGetters = () => ({});
-
-const makeOrganizationActions = () => ({});
-
-export const useOrganizationStore = defineEntityStore<
+export const useOrganizationStore: EntityStoreDefinition<
 	IOrganization,
-	ReturnType<typeof makeOrganizationGetters>,
-	ReturnType<typeof makeOrganizationActions>
->(
-	'organization',
-	organizationService,
-	getEntityStateDefaults(),
-	makeOrganizationGetters(),
-	makeOrganizationActions()
-);
+	'organization'
+> = defineStore('organization', {
+	state: makeEntityState<IOrganization>(organizationService),
+	getters: makeEntityGetters<IOrganization>(),
+	actions: makeEntityActions<IOrganization>(),
+});
