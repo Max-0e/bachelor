@@ -9,7 +9,9 @@ export interface EntityGetters<T> extends PiniaGetterTree {
 
 export const makeEntityGetters = <T>() => {
 	// TODO: fix types
-	//@ts-ignore
+	// for some reason not using an absolute type breaks the state-parameter from the the PiniaGetters-type
+	// that is injected into the getter functions resulting in a heavily complex union type
+	// @ts-ignore
 	const getters: PiniaGetters<EntityStore<T>> = {
 		currentEntity(state) {
 			const currentEntityId = router.currentRoute.value.params[this.$id + 'Id'];

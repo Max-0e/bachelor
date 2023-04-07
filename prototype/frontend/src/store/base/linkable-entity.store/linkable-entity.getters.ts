@@ -16,6 +16,9 @@ export interface LinkableEntityGetters<T>
 }
 
 export const makeLinkableEntityGetters = <T>() => {
+	// TODO: fix types
+	// for some reason not using an absolute type breaks the state-parameter from the the PiniaGetters-type
+	// that is injected into the getter functions resulting in a heavily complex union type
 	// @ts-ignore
 	const getters: PiniaGetters<LinkableEntityStore<T>> = {
 		getEntitiesLinkedToEntityGroupId(state) {
