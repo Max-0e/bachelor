@@ -1,7 +1,7 @@
-import { Entity } from '@/interfaces/base/entity.interface';
-import { LinkableEntity } from '@/interfaces/base/linkable-entity.interface';
-import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
-import { IEntityGroup } from '@/interfaces/entity-groups.interface';
+import {
+	EntityGroup,
+	IEntityGroup,
+} from '@/interfaces/entity-groups.interface';
 import { entityGroupsService } from '@/services/entity-groups.service';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
@@ -19,12 +19,8 @@ import { PiniaStore } from './base/piniaTypes';
 import { useLevelStore } from './level.store';
 
 interface GroupGetters extends LinkableEntityGetters<IEntityGroup> {
-	currentGroups(): Entity<
-		OrganizationBasedEntity<LinkableEntity<IEntityGroup>>
-	>[];
-	downwardsLinkedGroupsForCurrentGroup(): Entity<
-		OrganizationBasedEntity<LinkableEntity<IEntityGroup>>
-	>[];
+	currentGroups(): EntityGroup[];
+	downwardsLinkedGroupsForCurrentGroup(): EntityGroup[];
 }
 
 type GroupStore = LinkableEntityStore<IEntityGroup, 'group', GroupGetters>;
