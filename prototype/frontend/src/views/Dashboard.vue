@@ -17,7 +17,7 @@
 					stroke-linecap="round"
 					fill="transparent" />
 			</Transition>
-			<g v-for="group in groups">
+			<g v-for="group in sortedGroups">
 				<path
 					class="transition-all hover:cursor-pointer"
 					:class="{
@@ -66,7 +66,7 @@
 				<DropZone
 					ref="dropZones"
 					class="border border-2 flex-grow relative cursor-pointer"
-					v-for="group in groups.filter((x) => x.levelId === level.id)"
+					v-for="group in sortedGroups.filter((x) => x.levelId === level.id)"
 					@on-drop="link(group.id, $event)"
 					:class="
 						markedGroup === group || markedGroups.includes(group)
@@ -120,7 +120,40 @@ const dropZones = ref<InstanceType<typeof DropZone>[]>([]);
 
 const hoveredLink = ref<[string, string]>(['', '']);
 
-const groups = computed(() => groupStore.currentEntitiesFromOrganization);
+const _groups = computed(() => groupStore.currentEntitiesFromOrganization);
+
+const sortedGroups = computed(() => {
+	const sortedGroups: EntityGroup[] = [];
+	levelStore.currentEntitiesFromOrganization.forEach((level, index) => {
+		const groupsInLevel = _groups.value.filter(
+			(group) => group.levelId === level.id
+		);
+		if (
+			level.hierarchyLevel ===
+			levelStore.currentEntitiesFromOrganization.length - 1
+		) {
+			sortedGroups.push(...groupsInLevel);
+			return;
+		}
+		const groupsInPreviousLevel = sortedGroups.filter(
+			(group) =>
+				group.levelId ===
+				levelStore.currentEntitiesFromOrganization[index - 1].id
+		);
+		groupsInLevel.sort((a, b) => {
+			const aFirstIndexOnPreviousLevel = groupsInPreviousLevel.findIndex(
+				(group) => group.id === a.entityGroupIds[0]
+			);
+			const bFirstIndexOnPreviousLevel = groupsInPreviousLevel.findIndex(
+				(group) => group.id === b.entityGroupIds[0]
+			);
+			return aFirstIndexOnPreviousLevel - bFirstIndexOnPreviousLevel;
+		});
+		sortedGroups.push(...groupsInLevel);
+	});
+	console.log(sortedGroups);
+	return sortedGroups;
+});
 
 const markedGroup = ref<EntityGroup | undefined>(undefined);
 const markedGroups = computed(() => {
@@ -188,13 +221,13 @@ function mouseMoveOnLink(e: MouseEvent) {
 }
 
 function getLinkedGroupsUp(group: EntityGroup): EntityGroup[] {
-	const linkedGroups = groups.value.filter((x) =>
+	const linkedGroups = sortedGroups.value.filter((x) =>
 		group.entityGroupIds.includes(x.id)
 	);
 	return linkedGroups.concat(linkedGroups.flatMap((x) => getLinkedGroupsUp(x)));
 }
 function getLinkedGroupsDown(group: EntityGroup): EntityGroup[] {
-	const linkedGroups = groups.value.filter((x) =>
+	const linkedGroups = sortedGroups.value.filter((x) =>
 		x.entityGroupIds.includes(group.id)
 	);
 	return linkedGroups.concat(
@@ -241,7 +274,7 @@ const groupCoordinates = computed(() => {
 	const groupsByLevel = levelStore.currentEntitiesFromOrganization.map(
 		(level) => ({
 			level,
-			groups: groups.value.filter((group) => group.levelId === level.id),
+			groups: sortedGroups.value.filter((group) => group.levelId === level.id),
 		})
 	);
 
