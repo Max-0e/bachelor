@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex items-center justify-between px-10 py-5 bg-gray-200 dark:bg-dark-500 m-10 rounded-md"
+		class="flex items-center justify-between px-10 py-5 bg-gray-200 dark:bg-dark-500 m-10 rounded-md shadow-lg"
 		v-for="level in levelStore.currentEntitiesFromOrganization">
 		<div class="w-1/3 text-3xl font-bold text-left">
 			<AppInlineInputField
