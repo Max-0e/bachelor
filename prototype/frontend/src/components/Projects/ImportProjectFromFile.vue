@@ -205,7 +205,7 @@ import { unique } from '@/utility/unique';
 import { Ref, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
-import { read, Sheet2JSONOpts, utils, WorkSheet } from 'xlsx';
+import { Sheet2JSONOpts, WorkSheet, read, utils } from 'xlsx';
 import { FormGroup } from '../shared/Input/formGroup';
 
 const statusOptions = [
@@ -354,6 +354,7 @@ const submit = async () => {
 		name: projectName,
 		levelId: currentLevel.id,
 		entityGroupIds: [],
+		description: '',
 	});
 	if (!project) return;
 	const epics =
@@ -363,6 +364,7 @@ const submit = async () => {
 						name: epic,
 						levelId: epicLevel.id,
 						entityGroupIds: [project.id],
+						description: '',
 					}))
 			  )
 			: [];

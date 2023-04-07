@@ -41,6 +41,7 @@ const submit = () => {
 	organizationStore.createEntity({
 		name: formGroup.formObjects.name.value,
 		useEpics: useEpics.value,
+		description: '',
 	});
 	modal.value?.close();
 };

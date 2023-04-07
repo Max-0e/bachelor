@@ -61,14 +61,18 @@ const taskStore: PiniaStore<TaskStore> = {
 						doneLength: doneTasks.length,
 						doneStoryPoints: sumByProperty(doneTasks, 'storyPoints'),
 						doneValue: sumByProperty(doneTasks, 'value'),
-						progress:
-							useAppStore().progressType === 'absolute'
-								? Math.floor((this.doneLength / this.totalLength) * 100)
-								: useAppStore().progressType === 'storyPoints'
-								? Math.floor(
+						get progress() {
+							switch (useAppStore().progressType) {
+								case 'absolute':
+									return Math.floor((this.doneLength / this.totalLength) * 100);
+								case 'storyPoints':
+									return Math.floor(
 										(this.doneStoryPoints / this.totalStoryPoints) * 100
-								  )
-								: Math.floor((this.doneValue / this.totalValue) * 100),
+									);
+								case 'value':
+									return Math.floor((this.doneValue / this.totalValue) * 100);
+							}
+						},
 					};
 				});
 		},

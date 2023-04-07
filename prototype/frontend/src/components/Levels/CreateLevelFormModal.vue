@@ -9,6 +9,13 @@
 				id="name"
 				:validation-types="[validationType.required, validationType.name]">
 			</AppInputField>
+			<AppInlineTextArea
+				class="w-full"
+				v-model="description"
+				name="description"
+				id="description"
+				placeholder="Description"
+				label="Description" />
 			<AppButton @click="submit()">Create Level</AppButton>
 		</div>
 	</AppModal>
@@ -20,6 +27,7 @@ import { modalRef } from '@/interfaces/modal.interface';
 import { useLevelStore } from '@/store/level.store';
 import { useOrganizationStore } from '@/store/organization.store';
 
+import { ref } from 'vue';
 import { FormGroup } from '../shared/Input/formGroup';
 
 const levelStore = useLevelStore();
@@ -28,6 +36,7 @@ const modal = modalRef();
 
 const open = () => modal.value?.open();
 
+const description = ref('');
 const name = inputRef();
 const formGroup = new FormGroup({ name });
 
@@ -38,6 +47,7 @@ const submit = () => {
 	levelStore.createEntity({
 		name: formGroup.formObjects.name.value,
 		hierarchyLevel: levelStore.getNextHierarchyLevel,
+		description: description.value,
 	});
 	modal.value?.close();
 };

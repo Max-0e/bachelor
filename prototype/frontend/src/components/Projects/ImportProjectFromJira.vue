@@ -344,6 +344,7 @@ const submit = async () => {
 		name: projectName,
 		levelId: currentLevel.id,
 		entityGroupIds: [],
+		description: '',
 	});
 
 	if (!project) return;
@@ -357,6 +358,7 @@ const submit = async () => {
 							name: epic.fields.summary,
 							levelId: epicLevel.id,
 							entityGroupIds: [project.id],
+							description: '',
 						}))
 			  )
 			: [];

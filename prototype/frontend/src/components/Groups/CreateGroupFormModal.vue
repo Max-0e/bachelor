@@ -9,6 +9,14 @@
 				id="name"
 				:validation-types="[validationType.required, validationType.name]">
 			</AppInputField>
+			<AppInlineTextArea
+				class="w-full"
+				v-model="description"
+				name="description"
+				id="description"
+				placeholder="Description"
+				label="Description">
+			</AppInlineTextArea>
 			<AppButton @click="submit()"
 				>Create {{ levelStore.currentEntity?.name }}</AppButton
 			>
@@ -22,6 +30,7 @@ import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 
+import { ref } from 'vue';
 import { FormGroup } from '../shared/Input/formGroup';
 
 const groupStore = useGroupStore();
@@ -31,6 +40,7 @@ const modal = modalRef();
 
 const open = () => modal.value?.open();
 
+const description = ref('');
 const name = inputRef();
 const formGroup = new FormGroup({ name });
 
@@ -44,6 +54,7 @@ const submit = () => {
 		name: formGroup.formObjects.name.value,
 		levelId: currentLevel.id,
 		entityGroupIds: [],
+		description: description.value,
 	});
 
 	modal.value?.close();

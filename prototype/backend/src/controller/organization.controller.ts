@@ -38,17 +38,20 @@ class OrganizationController extends EntityController<IOrganization> {
 				name: 'Projects',
 				hierarchyLevel: 1,
 				organizationId,
+				description: '',
 			});
 			await this.levelService.createEntity({
 				name: 'Epics',
 				hierarchyLevel: 0,
 				organizationId,
+				description: '',
 			});
 		} else {
 			await this.levelService.createEntity({
 				name: 'Projects',
 				hierarchyLevel: 0,
 				organizationId,
+				description: '',
 			});
 		}
 

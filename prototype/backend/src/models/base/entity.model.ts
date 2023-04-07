@@ -7,6 +7,7 @@ export function makeEntityModel<T>(
 ) {
 	const definition = {
 		name: { type: String, required: true },
+		description: { type: String, required: false },
 		...props,
 	};
 
