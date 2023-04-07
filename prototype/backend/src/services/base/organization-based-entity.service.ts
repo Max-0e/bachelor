@@ -1,10 +1,10 @@
 import { Model } from 'mongoose';
-import { NotFoundError } from '../error/not-found.error';
-import { EntityCreateDto } from '../interfaces/dtos/entityDto.interface';
-import { Entity, EntityDocument } from '../interfaces/entity.interface';
-import { OrganizationBasedEntity } from '../interfaces/organization-based-entity.interface';
+import { NotFoundError } from '../../error/not-found.error';
+import { Entity, EntityDocument } from '../../interfaces/base/entity.interface';
+import { OrganizationBasedEntity } from '../../interfaces/base/organization-based-entity.interface';
+import { EntityCreateDto } from '../../interfaces/dtos/entityDto.interface';
+import { organizationService } from '../organization.service';
 import { EntityService } from './entity.service';
-import { organizationService } from './organization.service';
 
 export abstract class OrganizationBasedEntityService<T> extends EntityService<
 	OrganizationBasedEntity<T>

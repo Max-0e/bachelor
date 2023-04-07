@@ -2,7 +2,7 @@ import { ValidationError } from '../error/validation.error';
 import { EntityCreateDto } from '../interfaces/dtos/entityDto.interface';
 import { ITask } from '../interfaces/task.interface';
 import { TaskModel } from '../models/task-model';
-import { LinkableEntityService } from './linkable-entity.service';
+import { LinkableEntityService } from './base/linkable-entity.service';
 
 class TasksService extends LinkableEntityService<ITask> {
 	constructor() {

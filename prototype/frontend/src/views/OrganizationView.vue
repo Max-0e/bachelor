@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col gap-10">
-		OrganizationView
+		Organization View
 		<div
 			v-for="organization in useOrganizationStore().entities"
 			class="bg-gray-100 dark:bg-dark-700 rounded-md p-10 cursor-pointer relative"

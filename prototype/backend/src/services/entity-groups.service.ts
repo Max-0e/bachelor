@@ -2,7 +2,7 @@ import { ValidationError } from '../error/validation.error';
 import { EntityCreateDto } from '../interfaces/dtos/entityDto.interface';
 import { IEntityGroup } from '../interfaces/entityGroup.interface';
 import { EntityGroupModel } from '../models/entity-group.model';
-import { LinkableEntityService } from './linkable-entity.service';
+import { LinkableEntityService } from './base/linkable-entity.service';
 
 class EntityGroupsService extends LinkableEntityService<IEntityGroup> {
 	constructor() {

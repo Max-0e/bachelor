@@ -2,7 +2,7 @@ import { ValidationError } from '../error/validation.error';
 import { EntityCreateDto } from '../interfaces/dtos/entityDto.interface';
 import { IOrganization } from '../interfaces/organization.interface';
 import { OrganizationModel } from '../models/organization.model';
-import { EntityService } from './entity.service';
+import { EntityService } from './base/entity.service';
 
 class OrganizationService extends EntityService<IOrganization> {
 	constructor() {

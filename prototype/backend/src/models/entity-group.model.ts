@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 import { IEntityGroup } from '../interfaces/entityGroup.interface';
-import { makeLinkableEntityModel } from './linkable-entity.model';
+import { makeLinkableEntityModel } from './base/linkable-entity.model';
 
 export const EntityGroupModel = makeLinkableEntityModel<IEntityGroup>(
 	'EntityGroup',

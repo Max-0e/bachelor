@@ -1,4 +1,4 @@
-import { LinkableEntityController } from '../controller/linkable-entity.controller';
+import { LinkableEntityController } from '../../controller/base/linkable-entity.controller';
 import { makeOrganizationBasedEntityRouter } from './organization-based-entity.router';
 
 export function makeLinkableEntityRouter<T>(

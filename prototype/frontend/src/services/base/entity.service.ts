@@ -1,6 +1,6 @@
-import { Entity, EntityCreate } from '@/interfaces/entity.interface';
-import { API_URL } from '../config';
-import HttpClient from '../utility/http';
+import { Entity, EntityCreate } from '@/interfaces/base/entity.interface';
+import { API_URL } from '../../config';
+import HttpClient from '../../utility/http';
 
 export abstract class EntityService<T> {
 	public readonly entityName: string;

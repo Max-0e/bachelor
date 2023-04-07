@@ -1,4 +1,4 @@
-import { JiraProject } from '@/interfaces/jira-project.interface';
+import { JiraProject } from '@/interfaces/jira/jira-project.interface';
 import jiraService from '@/services/jira.service';
 import { defineStore } from 'pinia';
 import { useToast } from 'vue-toastification';

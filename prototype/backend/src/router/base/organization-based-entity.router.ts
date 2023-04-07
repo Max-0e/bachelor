@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { OrganizationBasedEntityController } from 'src/controller/organization-based-entity.controller';
+import { OrganizationBasedEntityController } from '../../controller/base/organization-based-entity.controller';
 
 export function makeOrganizationBasedEntityRouter<T>(
 	controller: OrganizationBasedEntityController<T>

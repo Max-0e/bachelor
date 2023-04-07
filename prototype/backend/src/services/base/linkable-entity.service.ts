@@ -1,11 +1,11 @@
 import { Model } from 'mongoose';
-import { ConflictError } from '../error/conflict.error';
-import { Entity, EntityDocument } from '../interfaces/entity.interface';
-import { IEntityGroup } from '../interfaces/entityGroup.interface';
-import { LinkableEntity } from '../interfaces/linkable-entity.interface';
-import { OrganizationBasedEntity } from '../interfaces/organization-based-entity.interface';
-import { entityGroupsService } from './entity-groups.service';
-import { levelService } from './level.service';
+import { ConflictError } from '../../error/conflict.error';
+import { Entity, EntityDocument } from '../../interfaces/base/entity.interface';
+import { LinkableEntity } from '../../interfaces/base/linkable-entity.interface';
+import { OrganizationBasedEntity } from '../../interfaces/base/organization-based-entity.interface';
+import { IEntityGroup } from '../../interfaces/entityGroup.interface';
+import { entityGroupsService } from '../entity-groups.service';
+import { levelService } from '../level.service';
 import { OrganizationBasedEntityService } from './organization-based-entity.service';
 
 export abstract class LinkableEntityService<

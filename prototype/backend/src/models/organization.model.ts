@@ -1,5 +1,5 @@
 import { IOrganization } from '../interfaces/organization.interface';
-import { makeEntityModel } from './entity.model';
+import { makeEntityModel } from './base/entity.model';
 
 export const OrganizationModel = makeEntityModel<IOrganization>(
 	'Organization',
