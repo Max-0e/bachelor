@@ -1,6 +1,3 @@
-import { Entity } from '@/interfaces/base/entity.interface';
-import { LinkableEntity } from '@/interfaces/base/linkable-entity.interface';
-import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
 import { ITask, Task } from '@/interfaces/task.interface';
 import { unique } from '@/utility/unique';
 import { ComputedRef, Ref, computed } from 'vue';
@@ -23,9 +20,7 @@ import { PiniaStore } from './base/piniaTypes';
 
 interface TaskGetters extends LinkableEntityGetters<ITask> {
 	computeMetrics(): (tasks: Ref<Task[]>) => ComputedRef<TaskMetrics>;
-	getTasksLinkedToEntityGroupIdRecursive(): (
-		entityGroupId: string
-	) => Entity<OrganizationBasedEntity<LinkableEntity<ITask>>>[];
+	getTasksLinkedToEntityGroupIdRecursive(): (entityGroupId: string) => Task[];
 }
 
 type TaskStore = LinkableEntityStore<ITask, 'task', TaskGetters>;

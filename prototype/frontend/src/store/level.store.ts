@@ -1,6 +1,6 @@
 import { Entity } from '@/interfaces/base/entity.interface';
 import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
-import { ILevel } from '@/interfaces/level.interface';
+import { ILevel, Level } from '@/interfaces/level.interface';
 import { levelService } from '@/services/level.service';
 import { defineStore } from 'pinia';
 import { makeOrganizationBasedEntityActions } from './base/organization-based-entity/organization-based-entity.action';
@@ -22,7 +22,7 @@ import { useOrganizationStore } from './organization.store';
 interface LevelGetters extends OrganizationBasedEntityGetters<ILevel> {
 	getNextHierarchyLevel(): number;
 	isProjectLevel(): (levelId: string) => boolean;
-	getLowerLevel(): Entity<OrganizationBasedEntity<ILevel>> | undefined;
+	getLowerLevel(): Level | undefined;
 }
 
 type LevelStore = OrganizationBasedEntityStore<
