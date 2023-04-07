@@ -8,7 +8,14 @@ import { OrganizationBasedEntityStore } from './organization-based-entity.store'
 
 export interface OrganizationBasedEntityActions<T> extends PiniaActionTree {
 	loadEntities(organizationId?: string): Promise<void>;
-	createEntity(entityToCreate: EntityCreate<T>, organizationId?: string): void;
+	createEntity(
+		entityToCreate: EntityCreate<T>,
+		organizationId?: string
+	): Promise<Entity<OrganizationBasedEntity<T>> | undefined>;
+	createMultipleEntities(
+		entityToCreate: EntityCreate<T>[],
+		organizationId?: string
+	): Promise<Entity<OrganizationBasedEntity<T>>[] | undefined>;
 	updateEntity(
 		entityId: string,
 		entityToUpdate: EntityCreate<OrganizationBasedEntity<T>>,
