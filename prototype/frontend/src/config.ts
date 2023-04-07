@@ -5,4 +5,4 @@ export const DEV_MODE: boolean =
 
 export const emailRegex =
 	/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-export const nameRegex = /^([a-zA-Z])([ a-zA-Z])*$/;
+export const nameRegex = /[a-zA-Z\x7f-\xff -]*/;

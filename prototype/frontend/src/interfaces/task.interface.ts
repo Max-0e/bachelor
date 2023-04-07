@@ -4,7 +4,6 @@ import { OrganizationBasedEntity } from './base/organization-based-entity.interf
 
 export interface ITask {
 	status: Status;
-	description: string;
 	storyPoints: number;
 	value: number;
 }

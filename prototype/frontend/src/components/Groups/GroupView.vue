@@ -17,10 +17,15 @@
 		</AppToolTip>
 	</div>
 	<div class="h-100 flex gap-20">
+		<AppInlineTextArea
+			v-model="currentGroup.description"
+			placeholder="Description"
+			label="Description"
+			@save="groupStore.updateEntity(currentGroup.id, currentGroup)" />
 		<TasksDoughnutChart name="Group" :tasks="tasks"></TasksDoughnutChart>
 		<div class="flex justify-center items-center text-xl text-left">
 			<div
-				class="flex flex-col justify-center gap-2 text-left bg-gray-200 dark:bg-dark-500 p-5 rounded-l-md">
+				class="flex whitespace-nowrap flex-col justify-center gap-2 text-left bg-gray-200 dark:bg-dark-500 p-5 rounded-l-md">
 				<span> total Tasks: </span>
 				<span> total open Tasks: </span>
 				<span class="text-blue-800"> total in Progress Tasks: </span>

@@ -9,6 +9,12 @@
 				id="name"
 				:validation-types="[validationType.required, validationType.name]">
 			</AppInputField>
+			<AppInlineInputField
+				v-model="description"
+				name="description"
+				id="description"
+				placeholder="Description"
+				label="Description" />
 			<AppButton @click="submit()">Create Epic</AppButton>
 		</div>
 	</AppModal>
@@ -20,6 +26,7 @@ import { modalRef } from '@/interfaces/modal.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useLevelStore } from '@/store/level.store';
 
+import { ref } from 'vue';
 import { FormGroup } from '../shared/Input/formGroup';
 
 const groupStore = useGroupStore();
@@ -29,6 +36,7 @@ const modal = modalRef();
 
 const open = () => modal.value?.open();
 
+const description = ref('');
 const name = inputRef();
 const formGroup = new FormGroup({ name });
 
@@ -43,6 +51,7 @@ const submit = () => {
 		name: formGroup.formObjects.name.value,
 		levelId: lowerLevel.id,
 		entityGroupIds: [currentGroup.id],
+		description: description.value,
 	});
 
 	modal.value?.close();
