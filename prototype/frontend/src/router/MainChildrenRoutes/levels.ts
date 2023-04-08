@@ -20,7 +20,7 @@ const levelViewRoutes: Array<RouteRecordRaw> = [
 			{
 				path: ':groupId',
 				name: 'ProjectDetails',
-				component: () => import('@/views/ProjectLayout.vue'),
+				component: () => import('@/layouts/ProjectLayout.vue'),
 				children: [
 					{
 						path: 'dashboard',
