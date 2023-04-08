@@ -44,6 +44,11 @@ export const makeOrganizationBasedEntityActions = <T>() => {
 			}
 			const entities = await this.service.getEntities(organizationId);
 			this.$patch((state) => {
+				if (state.loadedOrganizations.includes(organizationId)) {
+					state.entities = (
+						state.entities as UnwrapRef<Entity<OrganizationBasedEntity<T>>[]>
+					).filter((x) => x.organizationId !== organizationId);
+				}
 				state.entities = (
 					state.entities as UnwrapRef<Entity<OrganizationBasedEntity<T>>[]>
 				).concat(ref(entities).value);

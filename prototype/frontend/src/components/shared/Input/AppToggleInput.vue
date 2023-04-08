@@ -7,7 +7,7 @@
 			:checked="initialValue"
 			@change="$emit('change')" />
 		<div
-			class="toggle-bg after:(absolute shadow-sm) left-0.5 top-0.5 h-5 h-6 w-11 w-5 rounded-full rounded-full border border-2 border-gray-200 border-gray-300 bg-gray-200 bg-white transition"></div>
+			class="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full after:(absolute top-0.5 left-0.5 bg-white border border-gray-300 rounded-full h-5 w-5 transition shadow-sm)"></div>
 		<span class="ml-3 text-sm font-medium">{{ label }}</span>
 	</label>
 </template>

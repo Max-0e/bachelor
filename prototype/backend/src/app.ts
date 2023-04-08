@@ -19,6 +19,9 @@ export function makeApp(): Application {
 
 	const app = express();
 
+	app.use(express.json({ limit: '50mb' }));
+	app.use(express.urlencoded({ limit: '50mb' }));
+
 	app.use(makeSessionStore(db.getClient()));
 
 	app.use(express.json());

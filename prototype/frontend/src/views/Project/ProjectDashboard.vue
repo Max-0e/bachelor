@@ -39,7 +39,7 @@
 					<span> {{ metrics.openLength }} </span>
 					<span class="text-blue-800"> {{ metrics.inProgressLength }} </span>
 					<span class="text-successGreen">
-						{{ metrics.inProgressLength }}
+						{{ metrics.doneLength }}
 					</span>
 				</div>
 			</div>

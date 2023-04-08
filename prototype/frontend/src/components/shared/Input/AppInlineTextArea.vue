@@ -15,8 +15,9 @@
 				$emit('update:modelValue', ($event.target as HTMLInputElement).value);
 				changeShowSaveAndCancel(true);
 			"
-			class="gridArea bg-dark-50 focus-visible:(outline-transparent border-gray-600) hover:(bg-opacity-40) block w-full resize-none overflow-hidden rounded-md border-b bg-opacity-0 p-3 pr-12 outline-none transition-all dark:hover:bg-opacity-40"
+			class="gridArea bg-dark-50 focus-visible:(border-b outline-transparent border-gray-600) hover:(bg-opacity-40) block w-full resize-none overflow-hidden rounded-md bg-opacity-0 p-3 pr-12 outline-none transition-all dark:hover:bg-opacity-40"
 			:value="modelValue"
+			ref="textArea"
 			:name="name"
 			:id="id"
 			:placeholder="placeholder"></textarea>
@@ -65,6 +66,7 @@ const props = defineProps({
 
 defineEmits(['update:modelValue', 'save']);
 
+const textArea = ref<HTMLTextAreaElement | null>(null);
 const show = ref(false);
 const focus = ref(false);
 const initialModelValue = ref(props.modelValue);
@@ -75,7 +77,7 @@ function changeShowSaveAndCancel(newValue: boolean) {
 }
 
 function blurInput() {
-	document.getElementById(props.id!)?.blur();
+	textArea.value?.blur();
 }
 </script>
 <style scoped>
