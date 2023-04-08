@@ -1,7 +1,9 @@
 import { Entity } from '@/interfaces/base/entity.interface';
 import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
 import { useRouter } from 'vue-router';
+import { isState } from '../entity/entity.store';
 import { PiniaGetterTree, PiniaGetters } from '../piniaTypes';
+import { OrganizationBasedEntityState } from './organization-based-entity.state';
 import { OrganizationBasedEntityStore } from './organization-based-entity.store';
 
 export interface OrganizationBasedEntityGetters<T> extends PiniaGetterTree {
@@ -10,20 +12,18 @@ export interface OrganizationBasedEntityGetters<T> extends PiniaGetterTree {
 }
 
 export const makeOrganizationBasedEntityGetters = <T>() => {
-	// TODO: fix types
-	//@ts-ignore
 	const getters: PiniaGetters<OrganizationBasedEntityStore<T>> = {
 		currentEntity(state) {
+			if (!isState<OrganizationBasedEntityState<T>>(state)) return;
 			const currentEntityId =
 				useRouter().currentRoute.value.params[this.$id + 'Id'];
-			return (state.entities as Entity<OrganizationBasedEntity<T>>[]).find(
-				(entity) => entity.id === currentEntityId
-			);
+			return state.entities.find((entity) => entity.id === currentEntityId);
 		},
 		currentEntitiesFromOrganization(state) {
+			if (!isState<OrganizationBasedEntityState<T>>(state)) return [];
 			const currentOrganizationId =
 				useRouter().currentRoute.value.params['organizationId'];
-			return (state.entities as Entity<OrganizationBasedEntity<T>>[]).filter(
+			return state.entities.filter(
 				(entity) => entity.organizationId === currentOrganizationId
 			);
 		},
