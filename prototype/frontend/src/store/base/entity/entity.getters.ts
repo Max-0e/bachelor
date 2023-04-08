@@ -1,5 +1,5 @@
 import { Entity } from '@/interfaces/base/entity.interface';
-import { router } from '@/router';
+import { useRouter } from 'vue-router';
 import { PiniaGetterTree, PiniaGetters } from '../piniaTypes';
 import { EntityStore } from './entity.store';
 
@@ -12,7 +12,8 @@ export const makeEntityGetters = <T>() => {
 	//@ts-ignore
 	const getters: PiniaGetters<EntityStore<T>> = {
 		currentEntity(state) {
-			const currentEntityId = router.currentRoute.value.params[this.$id + 'Id'];
+			const currentEntityId =
+				useRouter().currentRoute.value.params[this.$id + 'Id'];
 			return (state.entities as Entity<T>[]).find(
 				(entity) => entity.id === currentEntityId
 			);
