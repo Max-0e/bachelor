@@ -1,8 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import Dashboard from '@/views/Dashboard.vue';
-import Levels from '@/views/Levels.vue';
-import OrganizationView from '@/views/OrganizationView.vue';
 import { groupsResolver } from '../resolver/groups.resolver';
 import { levelsResolver } from '../resolver/level.resolver';
 import { tasksResolver } from '../resolver/tasks.resolver';
@@ -12,7 +9,7 @@ export const organizationRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '',
 		name: 'Organization',
-		component: OrganizationView,
+		component: () => import('@/views/OrganizationView.vue'),
 	},
 	{
 		path: ':organizationId',
@@ -26,12 +23,12 @@ export const organizationRoutes: Array<RouteRecordRaw> = [
 			{
 				path: 'dashboard',
 				name: 'Dashboard',
-				component: Dashboard,
+				component: () => import('@/views/Dashboard.vue'),
 			},
 			{
 				path: 'levels',
 				name: 'Levels',
-				component: Levels,
+				component: () => import('@/views/Levels.vue'),
 			},
 			{
 				path: 'levelView/:levelId',
