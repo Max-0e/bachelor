@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="bg-gray-200 hover:bg-gray-100 cursor-pointer dark:(bg-dark-50) dark:hover:(bg-dark-400) transition-all p-5 shadow-lg rounded-md"
+		class="dark:(bg-dark-50) dark:hover:(bg-dark-400) cursor-pointer rounded-md bg-gray-200 p-5 shadow-lg transition-all hover:bg-gray-100"
 		:class="metrics.progress === 100 ? 'border border-green-500' : ''">
 		<div class="text-2xl">{{ group.name }}</div>
 		<div>Tasks: {{ metrics.totalLength }}</div>

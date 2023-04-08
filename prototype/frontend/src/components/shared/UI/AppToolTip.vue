@@ -1,21 +1,21 @@
 <template>
 	<div>
 		<div class="itemForToolTip relative">
-			<div class="w-full my-auto">
+			<div class="my-auto w-full">
 				<slot></slot>
 			</div>
 			<div
 				v-if="!!text"
-				class="toolTip z-50 text-center transition-all absolute mx-auto bg-gray-200 dark:bg-dark-800 p-2 rounded-md w-40 h-10 origin"
+				class="toolTip dark:bg-dark-800 origin absolute z-50 mx-auto h-10 w-40 rounded-md bg-gray-200 p-2 text-center transition-all"
 				:class="
 					position === 'bottom'
-						? 'top-4/3 origin-top center-vertical'
+						? 'top-4/3 center-vertical origin-top'
 						: position === 'top'
-						? 'bottom-4/3 origin-bottom center-vertical'
+						? 'bottom-4/3 center-vertical origin-bottom'
 						: position === 'right'
-						? ' top-0 left-4/3 origin-left center-horizontal'
+						? ' left-4/3 center-horizontal top-0 origin-left'
 						: position === 'left'
-						? ' top-0 right-4/3 origin-right center-horizontal'
+						? ' right-4/3 center-horizontal top-0 origin-right'
 						: ''
 				">
 				{{ text }}

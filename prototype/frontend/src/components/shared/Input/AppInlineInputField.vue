@@ -11,7 +11,7 @@
 				$emit('update:modelValue', ($event.target as HTMLInputElement).value);
 				changeShowSaveAndCancel(true);
 			"
-			class="p-3 pr-12 bg-dark-50 rounded-md bg-opacity-0 w-full block transition-all outline-none dark:hover:bg-opacity-40 focus-visible:(outline-transparent border-b border-gray-600) hover:(bg-opacity-40)"
+			class="bg-dark-50 focus-visible:(outline-transparent border-gray-600) hover:(bg-opacity-40) block w-full rounded-md border-b bg-opacity-0 p-3 pr-12 outline-none transition-all dark:hover:bg-opacity-40"
 			:value="modelValue"
 			:type="type"
 			:name="name"
@@ -19,7 +19,7 @@
 			:placeholder="placeholder" />
 		<div
 			v-if="show"
-			class="pr-2 absolute right-0 flex gap-2 items-center"
+			class="absolute right-0 flex items-center gap-2 pr-2"
 			:class="withLabel ? '' : 'bottom-1/5'">
 			<span
 				@click="

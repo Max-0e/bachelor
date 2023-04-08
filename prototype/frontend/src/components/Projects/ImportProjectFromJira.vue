@@ -1,6 +1,6 @@
 <template>
 	<AppModal ref="modal" :dismissible="false">
-		<div class="flex flex-col gap-10 w-[100vw]">
+		<div class="flex w-[100vw] flex-col gap-10">
 			<div class="text-3xl">Import project from Jira</div>
 			<AppStepper :step="currentStepperStep" :number-of-steps="3" minHeight>
 				<AppStepperStep
@@ -8,14 +8,14 @@
 					:step="1"
 					:current-step="currentStepperStep">
 					<div
-						class="absolute flex items-center cursor-not-allowed justify-center w-full h-full opacity-80 z-100 bg-gray-300 dark:bg-dark-600"
+						class="z-100 dark:bg-dark-600 absolute flex h-full w-full cursor-not-allowed items-center justify-center bg-gray-300 opacity-80"
 						v-if="!jiraStore.isLoaded">
-						<span class="!opacity-100 text-red-700 text-3xl">
+						<span class="text-3xl text-red-700 !opacity-100">
 							import not available
 						</span>
 					</div>
 					<div class="flex flex-col gap-5">
-						<div class="text-xl text-left">Choose your project</div>
+						<div class="text-left text-xl">Choose your project</div>
 						<div class="flex items-center gap-5">
 							<img
 								class="max-w-10"
@@ -37,7 +37,7 @@
 							<div>
 								<div class="text-xl">found Task-Level Issue-Types</div>
 								<div
-									class="bg-gray-200 dark:bg-dark-700 p-2 rounded-md m-2 flex items-center gap-2"
+									class="dark:bg-dark-700 m-2 flex items-center gap-2 rounded-md bg-gray-200 p-2"
 									v-for="issueType in projectDetails.issueTypes.filter(
 										(type) => type.hierarchyLevel === 0
 									)">
@@ -49,7 +49,7 @@
 							<div v-if="organizationStore.currentEntity?.useEpics">
 								<div class="text-xl">found Epic-Level Issue-Types</div>
 								<div
-									class="bg-gray-200 dark:bg-dark-700 p-2 rounded-md m-2 flex items-center gap-2"
+									class="dark:bg-dark-700 m-2 flex items-center gap-2 rounded-md bg-gray-200 p-2"
 									v-for="issueType in projectDetails.issueTypes.filter(
 										(type) => type.hierarchyLevel === 1
 									)">
@@ -63,10 +63,10 @@
 				</AppStepperStep>
 				<AppStepperStep :step="2" :current-step="currentStepperStep">
 					<div v-if="!loadingData">
-						<div class="text-xl text-left">Map your statuses</div>
-						<div class="flex flex-col gap-2 mb-20">
+						<div class="text-left text-xl">Map your statuses</div>
+						<div class="mb-20 flex flex-col gap-2">
 							<div
-								class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between"
+								class="m-2 flex items-center justify-between gap-10 rounded-md p-2 px-10"
 								:class="{
 									'bg-successGreen': status.prototypeStatus === 'done',
 									'bg-blue-800': status.prototypeStatus === 'inProgress',
@@ -84,18 +84,18 @@
 									:options="statusOptions"></AppDropDownMenu>
 							</div>
 						</div>
-						<div class="text-xl text-left">
+						<div class="text-left text-xl">
 							Map Story Points and Value Fields
 						</div>
-						<div class="flex gap-5 justify-center">
+						<div class="flex justify-center gap-5">
 							<DropZone
-								class="w-48 h-48 flex flex-col justify-center items-center !bg-gray-200 !dark:bg-dark-300"
+								class="!dark:bg-dark-300 flex h-48 w-48 flex-col items-center justify-center !bg-gray-200"
 								@on-drop="storyPointFieldId = $event">
 								<AppIcon>token</AppIcon>
 								Story Points
 								<div
 									v-if="storyPointFieldId"
-									class="bg-gray-200 dark:bg-dark-600 rounded-md p-2">
+									class="dark:bg-dark-600 rounded-md bg-gray-200 p-2">
 									{{
 										customFields.find((field) => field.id === storyPointFieldId)
 											?.name
@@ -103,13 +103,13 @@
 								</div>
 							</DropZone>
 							<DropZone
-								class="w-48 h-48 flex flex-col items-center justify-center !bg-gray-200 !dark:bg-dark-300"
+								class="!dark:bg-dark-300 flex h-48 w-48 flex-col items-center justify-center !bg-gray-200"
 								@on-drop="valueFieldId = $event">
 								<AppIcon>diamond</AppIcon>
 								Value
 								<div
 									v-if="valueFieldId"
-									class="bg-gray-200 dark:bg-dark-600 rounded-md p-2">
+									class="dark:bg-dark-600 rounded-md bg-gray-200 p-2">
 									{{
 										customFields.find((field) => field.id === valueFieldId)
 											?.name
@@ -126,7 +126,7 @@
 										x.id !== valueFieldId
 								)"
 								:data="field.id">
-								<div class="bg-gray-200 dark:bg-dark-600 rounded-md p-2">
+								<div class="dark:bg-dark-600 rounded-md bg-gray-200 p-2">
 									{{ field.name }}
 								</div>
 							</DraggableItem>
@@ -134,28 +134,28 @@
 					</div>
 					<div v-else>
 						<div
-							class="h-10 w-1/2 bg-gray-200 dark:bg-dark-600 animate-pulse rounded-md"></div>
-						<div class="flex flex-col gap-2 mb-20">
+							class="dark:bg-dark-600 h-10 w-1/2 animate-pulse rounded-md bg-gray-200"></div>
+						<div class="mb-20 flex flex-col gap-2">
 							<div
-								class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between bg-dark-200 animate-pulse">
+								class="bg-dark-200 m-2 flex animate-pulse items-center justify-between gap-10 rounded-md p-2 px-10">
 								<div
-									class="h-10 w-1/4 bg-gray-200 dark:bg-dark-600 rounded-md"></div>
+									class="dark:bg-dark-600 h-10 w-1/4 rounded-md bg-gray-200"></div>
 								<div
-									class="h-12 w-1/2 bg-gray-200 dark:bg-dark-600 rounded-md"></div>
+									class="dark:bg-dark-600 h-12 w-1/2 rounded-md bg-gray-200"></div>
 							</div>
 							<div
-								class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between bg-blue-800 animate-pulse">
+								class="m-2 flex animate-pulse items-center justify-between gap-10 rounded-md bg-blue-800 p-2 px-10">
 								<div
-									class="h-10 w-1/4 bg-gray-200 dark:bg-dark-600 rounded-md"></div>
+									class="dark:bg-dark-600 h-10 w-1/4 rounded-md bg-gray-200"></div>
 								<div
-									class="h-12 w-1/2 bg-gray-200 dark:bg-dark-600 rounded-md"></div>
+									class="dark:bg-dark-600 h-12 w-1/2 rounded-md bg-gray-200"></div>
 							</div>
 							<div
-								class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between bg-successGreen animate-pulse">
+								class="bg-successGreen m-2 flex animate-pulse items-center justify-between gap-10 rounded-md p-2 px-10">
 								<div
-									class="h-10 w-1/4 bg-gray-200 dark:bg-dark-600 rounded-md"></div>
+									class="dark:bg-dark-600 h-10 w-1/4 rounded-md bg-gray-200"></div>
 								<div
-									class="h-12 w-1/2 bg-gray-200 dark:bg-dark-600 rounded-md"></div>
+									class="dark:bg-dark-600 h-12 w-1/2 rounded-md bg-gray-200"></div>
 							</div>
 						</div>
 					</div>
@@ -164,9 +164,9 @@
 					<div v-if="!importingData">
 						<div v-if="organizationStore.currentEntity?.useEpics">
 							<div class="text-xl font-bold italic">Issues with epic</div>
-							<div class="flex flex-wrap gap-2 justify-center my-2">
+							<div class="my-2 flex flex-wrap justify-center gap-2">
 								<span
-									class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+									class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
 									v-for="issue of issues.filter(
 										(issue) =>
 											!!issue.fields.parent &&
@@ -177,9 +177,9 @@
 								</span>
 							</div>
 							<div class="text-xl font-bold italic">Issues without Epics</div>
-							<div class="flex flex-wrap gap-2 justify-center my-2">
+							<div class="my-2 flex flex-wrap justify-center gap-2">
 								<span
-									class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+									class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
 									v-for="issue of issues.filter(
 										(issue) =>
 											!issue.fields.parent &&
@@ -190,9 +190,9 @@
 								</span>
 							</div>
 							<div class="text-xl font-bold italic">Epics</div>
-							<div class="flex flex-wrap gap-2 justify-center my-2">
+							<div class="my-2 flex flex-wrap justify-center gap-2">
 								<span
-									class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+									class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
 									v-for="issue of issues.filter(
 										(issue) => issue.fields.issuetype.hierarchyLevel === 1
 									)">
@@ -203,9 +203,9 @@
 						</div>
 						<div v-else>
 							<div class="text-xl font-bold italic">Issues</div>
-							<div class="flex flex-wrap gap-2 justify-center my-2">
+							<div class="my-2 flex flex-wrap justify-center gap-2">
 								<span
-									class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+									class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
 									v-for="issue of issues.filter(
 										(issue) => issue.fields.issuetype.hierarchyLevel === 0
 									)">

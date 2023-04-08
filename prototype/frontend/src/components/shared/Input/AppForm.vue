@@ -1,8 +1,6 @@
 <template>
-    <form>
-        <slot></slot>
-    </form>
+	<form>
+		<slot></slot>
+	</form>
 </template>
-<script lang="ts" setup>
-
-</script>
+<script lang="ts" setup></script>

@@ -1,9 +1,9 @@
 <template>
 	<nav
-		class="w-full relative h-15 top-0 shadow-md flex justify-between z-99 bg-white dark:(bg-dark-700)">
+		class="h-15 z-99 dark:(bg-dark-700) relative top-0 flex w-full justify-between bg-white shadow-md">
 		<div class="flex flex-wrap">
 			<h1
-				class="text-3xl my-auto ml-5 content-center cursor-pointer"
+				class="my-auto ml-5 cursor-pointer content-center text-3xl"
 				@click="router.push({ name: 'Organization' })">
 				{{ organizationStore.currentEntity?.name ?? 'Prototype' }}
 			</h1>
@@ -12,13 +12,13 @@
 				class="ml-5 flex items-center">
 				<router-link
 					:to="{ name: 'Dashboard' }"
-					class="transition-all rounded-md px-2"
+					class="rounded-md px-2 transition-all"
 					>Dashboard</router-link
 				>
 				<span class="cursor-default px-1">|</span>
 				<router-link
 					:to="{ name: 'Levels' }"
-					class="transition-all rounded-md px-2"
+					class="rounded-md px-2 transition-all"
 					>Levels</router-link
 				>
 				<div
@@ -32,7 +32,7 @@
 								!organizationStore.currentEntity?.useEpics)
 						"
 						:to="{ name: 'LevelView', params: { levelId: level.id } }"
-						class="transition-all rounded-md px-2 m-2"
+						class="m-2 rounded-md px-2 transition-all"
 						>{{ level.name }}</router-link
 					>
 					<router-link
@@ -40,7 +40,7 @@
 							level.hierarchyLevel > 0 ||
 							!organizationStore.currentEntity?.useEpics
 						"
-						class="transition-all rounded-md px-2 m-2"
+						class="m-2 rounded-md px-2 transition-all"
 						:to="{
 							name: 'Projects',
 							params: { levelId: level.id },
@@ -51,7 +51,7 @@
 			</div>
 		</div>
 		<div class="flex">
-			<div class="flex justify-center items-center gap-2">
+			<div class="flex items-center justify-center gap-2">
 				<AppIcon>
 					{{
 						appStore.progressType === 'storyPoints'
@@ -83,22 +83,22 @@
 					autorenew
 				</AppIcon>
 			</div>
-			<div class="flex relative items-center p-2 hoverForContextMenu">
+			<div class="hoverForContextMenu relative flex items-center p-2">
 				<AppChip>person</AppChip>
 				<div
-					class="contextMenu transition-all absolute top-15 right-3 w-25 z-50">
+					class="contextMenu top-15 w-25 absolute right-3 z-50 transition-all">
 					<div
-						class="cursor-pointer w-full px-3 py-1 rounded-t-lg bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
+						class="dark:bg-dark-400 dark:hover:bg-dark-100 w-full cursor-pointer rounded-t-lg bg-gray-300 px-3 py-1 hover:bg-gray-400"
 						@click="router.push({ name: 'Profile' })">
 						Profile
 					</div>
 					<div
-						class="cursor-pointer w-full px-3 py-1 bg-gray-300 hover:bg-gray-400 dark:bg-dark-400 dark:hover:bg-dark-100"
+						class="dark:bg-dark-400 dark:hover:bg-dark-100 w-full cursor-pointer bg-gray-300 px-3 py-1 hover:bg-gray-400"
 						@click="router.push({ name: 'Settings' })">
 						Settings
 					</div>
 					<div
-						class="cursor-pointer text-white w-full px-3 py-1 rounded-b-lg bg-red-500 hover:bg-red-400 dark:bg-red-900 dark:hover:bg-red-700"
+						class="w-full cursor-pointer rounded-b-lg bg-red-500 px-3 py-1 text-white hover:bg-red-400 dark:bg-red-900 dark:hover:bg-red-700"
 						@click="logout()">
 						Logout
 					</div>
@@ -106,13 +106,13 @@
 			</div>
 		</div>
 	</nav>
-	<div class="w-full p-5 content-container overflow-scroll overflow-x-hidden">
+	<div class="content-container w-full overflow-scroll overflow-x-hidden p-5">
 		<!-- <Transition> -->
 		<router-view />
 		<!-- </Transition> -->
 	</div>
 	<footer
-		class="w-full relative h-8 p-1 flex justify-between shadow-md bg-gray-100 dark:(bg-dark-100)">
+		class="dark:(bg-dark-100) relative flex h-8 w-full justify-between bg-gray-100 p-1 shadow-md">
 		<div class="flex justify-evenly">
 			<span>Welcome {{ authStore.user?.username }}</span>
 		</div>

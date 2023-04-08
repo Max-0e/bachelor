@@ -1,13 +1,13 @@
 <template>
 	<div
-		class="relative w-full grid"
+		class="relative grid w-full"
 		@keydown.enter.shift.exact="
 			changeShowSaveAndCancel(false);
 			$emit('save');
 			blurInput();
 		">
 		<span
-			class="gridArea text-left invisible grid whitespace-pre-wrap break-all w-full p-3 pr-12">
+			class="gridArea invisible grid w-full whitespace-pre-wrap break-all p-3 pr-12 text-left">
 			{{ modelValue || 'filler' }}
 		</span>
 		<textarea
@@ -15,14 +15,14 @@
 				$emit('update:modelValue', ($event.target as HTMLInputElement).value);
 				changeShowSaveAndCancel(true);
 			"
-			class="gridArea rounded-md p-3 pr-12 resize-none bg-dark-50 bg-opacity-0 overflow-hidden w-full block transition-all outline-none dark:hover:bg-opacity-40 focus-visible:(outline-transparent border-b border-gray-600) hover:(bg-opacity-40)"
+			class="gridArea bg-dark-50 focus-visible:(outline-transparent border-gray-600) hover:(bg-opacity-40) block w-full resize-none overflow-hidden rounded-md border-b bg-opacity-0 p-3 pr-12 outline-none transition-all dark:hover:bg-opacity-40"
 			:value="modelValue"
 			:name="name"
 			:id="id"
 			:placeholder="placeholder"></textarea>
 		<div
 			v-if="show"
-			class="pr-2 absolute right-0 -bottom-6 flex gap-2 items-center"
+			class="absolute -bottom-6 right-0 flex items-center gap-2 pr-2"
 			:class="withLabel ? '' : 'bottom-1/5'">
 			<span
 				@click="
@@ -43,7 +43,7 @@
 			>
 		</div>
 		<AppLabel
-			class="absolute -top-5 -left-5 text-sm"
+			class="absolute -left-5 -top-5 text-sm"
 			v-if="show && withLabel"
 			:for="name">
 			{{ label }}

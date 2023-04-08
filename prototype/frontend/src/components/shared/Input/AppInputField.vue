@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<AppLabel :for="name">{{ label }}</AppLabel>
-		<div class="mx-5 mt-2 mb-5 relative rounded-md shadow-md">
+		<div class="relative mx-5 mb-5 mt-2 rounded-md shadow-md">
 			<input
 				@input="inputValue = ($event.target as HTMLInputElement).value"
 				:value="inputValue"
 				@focusout="showValidation = true"
-				class="p-3 pl-7 pr-12 block w-full dark:bg-dark-50 sm:text-sm rounded-md focus-visible:(outline outline-2)"
+				class="dark:bg-dark-50 focus-visible:(outline outline-2) block w-full rounded-md p-3 pl-7 pr-12 sm:text-sm"
 				:class="
 					!!validationText && showValidation
 						? 'outline outline-2 outline-red-500'
@@ -19,7 +19,7 @@
 				:placeholder="placeholder" />
 			<TransitionGroup>
 				<div
-					class="absolute text-red-500 text-sm ml-7 mt-1"
+					class="absolute ml-7 mt-1 text-sm text-red-500"
 					v-if="!!validationText && !!showValidation">
 					{{ validationText }}
 				</div>

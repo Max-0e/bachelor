@@ -1,8 +1,8 @@
 <template>
 	<div
-		class="flex items-center justify-between px-10 py-5 bg-gray-200 dark:bg-dark-500 m-10 rounded-md shadow-lg"
+		class="dark:bg-dark-500 m-10 flex items-center justify-between rounded-md bg-gray-200 px-10 py-5 shadow-lg"
 		v-for="level in levelStore.currentEntitiesFromOrganization">
-		<div class="w-1/3 text-3xl font-bold text-left">
+		<div class="w-1/3 text-left text-3xl font-bold">
 			<AppInlineInputField
 				v-model="level.name"
 				placeholder="Name"
@@ -15,7 +15,7 @@
 				placeholder="Description"
 				@save="levelStore.updateEntity(level.id, level)" />
 		</div>
-		<div class="w-1/6 flex justify-end">
+		<div class="flex w-1/6 justify-end">
 			<AppToolTip
 				v-if="
 					level.hierarchyLevel >

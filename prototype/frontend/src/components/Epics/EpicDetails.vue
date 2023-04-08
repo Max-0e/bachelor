@@ -2,7 +2,7 @@
 	<div class="flex w-screen flex-col gap-10">
 		<div class="flex justify-between">
 			<AppInlineInputField
-				class="mr-5 mt-2 mb-5 text-3xl"
+				class="mb-5 mr-5 mt-2 text-3xl"
 				v-model="epic.name"
 				type="text"
 				name="epicName"

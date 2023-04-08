@@ -1,7 +1,7 @@
 <template>
 	<div class="flex items-center gap-10">
 		<AppInlineInputField
-			class="mr-5 my-2 text-4xl"
+			class="my-2 mr-5 text-4xl"
 			v-model="currentGroup.name"
 			type="text"
 			name="name"
@@ -23,16 +23,16 @@
 			label="Description"
 			@save="groupStore.updateEntity(currentGroup.id, currentGroup)" />
 		<TasksDoughnutChart name="Group" :tasks="tasks"></TasksDoughnutChart>
-		<div class="flex justify-center items-center text-xl text-left">
+		<div class="flex items-center justify-center text-left text-xl">
 			<div
-				class="flex whitespace-nowrap flex-col justify-center gap-2 text-left bg-gray-200 dark:bg-dark-500 p-5 rounded-l-md">
+				class="dark:bg-dark-500 flex flex-col justify-center gap-2 whitespace-nowrap rounded-l-md bg-gray-200 p-5 text-left">
 				<span> total Tasks: </span>
 				<span> total open Tasks: </span>
 				<span class="text-blue-800"> total in Progress Tasks: </span>
 				<span class="text-successGreen"> total done Tasks: </span>
 			</div>
 			<div
-				class="flex flex-col justify-center gap-2 text-left pl-10 p-5 bg-gray-200 dark:bg-dark-500 rounded-r-md">
+				class="dark:bg-dark-500 flex flex-col justify-center gap-2 rounded-r-md bg-gray-200 p-5 pl-10 text-left">
 				<span> {{ metrics.totalLength }} </span>
 				<span> {{ metrics.openLength }} </span>
 				<span class="text-blue-800"> {{ metrics.inProgressLength }} </span>
@@ -41,7 +41,7 @@
 		</div>
 	</div>
 	<div>
-		<div class="text-2xl text-left my-10">linked Groups:</div>
+		<div class="my-10 text-left text-2xl">linked Groups:</div>
 		<div class="flex flex-wrap gap-5">
 			<TransitionGroup>
 				<GroupCard

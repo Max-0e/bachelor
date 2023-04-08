@@ -1,17 +1,17 @@
 <template>
-	<div class="flex items-center group">
+	<div class="group flex items-center">
 		<AppIcon
-			class="transform select-none transition-all scale-0 group-hover:(!scale-100)"
+			class="group-hover:(!scale-100) scale-0 transform select-none transition-all"
 			@click="editValue(false)"
 			button
 			>remove</AppIcon
 		>
 		<div
-			class="bg-gray-200 dark:bg-dark-700 rounded-lg py-3 px-4 cursor-pointer">
+			class="dark:bg-dark-700 cursor-pointer rounded-lg bg-gray-200 px-4 py-3">
 			{{ valueToShow }}
 		</div>
 		<AppIcon
-			class="transform select-none transition-all scale-0 group-hover:(!scale-100)"
+			class="group-hover:(!scale-100) scale-0 transform select-none transition-all"
 			button
 			@click="editValue(true)"
 			>add</AppIcon

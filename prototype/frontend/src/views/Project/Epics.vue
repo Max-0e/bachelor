@@ -1,5 +1,5 @@
 <template>
-	<div v-if="!!groupStore.currentEntity" class="w-full flex gap-5 flex-wrap">
+	<div v-if="!!groupStore.currentEntity" class="flex w-full flex-wrap gap-5">
 		<EpicCard
 			@click="openDetailsModal(epic)"
 			@deleteEpic="openDeleteModal(epic)"

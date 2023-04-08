@@ -1,9 +1,9 @@
 <template>
 	<AppModal ref="modal">
-		<div class="font-bold text-xl w-full text-left">
+		<div class="w-full text-left text-xl font-bold">
 			<slot></slot>
 		</div>
-		<div class="w-full flex justify-end gap-5">
+		<div class="flex w-full justify-end gap-5">
 			<AppButton
 				color="red"
 				@click="

@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="w-full text-white cursor-move rounded-md flex justify-between items-center p-1 m-1"
+		class="m-1 flex w-full cursor-move items-center justify-between rounded-md p-1 text-white"
 		:class="
 			task.status === 'done'
 				? 'bg-successGreen dark:bg-successGreen'
@@ -8,7 +8,7 @@
 				? 'bg-blue-800 dark:bg-blue-800'
 				: 'bg-dark-200 dark:bg-dark-200'
 		">
-		<div class="text-left p-3 w-1/2 truncate">
+		<div class="w-1/2 truncate p-3 text-left">
 			{{ task.name }}
 		</div>
 		<AppToolTip text="story points" position="top">

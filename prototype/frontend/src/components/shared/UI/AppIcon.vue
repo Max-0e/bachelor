@@ -1,9 +1,9 @@
 <template>
 	<div
-		class="flex cursor-pointer w-10 h-10 justify-center items-center transition-all rounded-full"
+		class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-all"
 		:class="{
-			'px-2 m-1 hover:bg-light-900 dark:hover:bg-dark-400': button,
-			'px-2 m-1 bg-light-600 dark:bg-dark-700': withBackground,
+			'hover:bg-light-900 dark:hover:bg-dark-400 m-1 px-2': button,
+			'bg-light-600 dark:bg-dark-700 m-1 px-2': withBackground,
 		}">
 		<span class="material-icons" :class="{ '!text-4xl': large }"
 			><slot></slot

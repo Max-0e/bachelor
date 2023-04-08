@@ -1,7 +1,7 @@
 <template>
 	<div
-		class="transition-all relative border border-transparent bg-gray-200 dark:bg-dark-100 rounded-md p-5"
-		:class="{ '!border-blue-500 bg-gray-200 dark:bg-dark-200': markAsTarget }"
+		class="dark:bg-dark-100 relative rounded-md border border-transparent bg-gray-200 p-5 transition-all"
+		:class="{ 'dark:bg-dark-200 !border-blue-500 bg-gray-200': markAsTarget }"
 		@drop="
 			if (!disable) $emit('onDrop', $event.dataTransfer?.getData('data'));
 			markAsTarget = false;
@@ -11,7 +11,7 @@
 		<slot></slot>
 		<div
 			@dragleave="markAsTarget = false"
-			class="absolute w-full h-full top-0 left-0 z-99 flex items-center justify-center opacity-50"
+			class="z-99 absolute left-0 top-0 flex h-full w-full items-center justify-center opacity-50"
 			:class="
 				markAsTarget
 					? 'visible ' + (disable ? 'bg-light-50 opacity-50' : '')
