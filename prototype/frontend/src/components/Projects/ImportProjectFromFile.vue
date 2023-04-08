@@ -1,6 +1,6 @@
 <template>
 	<AppModal ref="modal" :dismissible="false">
-		<div class="flex flex-col gap-10 w-full">
+		<div class="flex w-full flex-col gap-10">
 			<div class="text-3xl">Import project from File</div>
 			<AppStepper :step="currentStepperStep" :number-of-steps="4" minHeight>
 				<AppStepperStep :step="1" :current-step="currentStepperStep">
@@ -12,7 +12,7 @@
 						:validation-types="[validationType.required, validationType.name]">
 					</AppInputField>
 					<div
-						class="relative mx-5 mt-10 h-40 bg-light-200 dark:bg-dark-200 hover:bg-light-400 dark:hover:bg-dark-400 transition-all rounded-md flex items-center justify-center">
+						class="bg-light-200 dark:bg-dark-200 hover:bg-light-400 dark:hover:bg-dark-400 relative mx-5 mt-10 flex h-40 items-center justify-center rounded-md transition-all">
 						<input
 							type="file"
 							dropzone
@@ -50,10 +50,10 @@
 						Drag and Drop headers into and out of the table-headers to map.
 					</div>
 					<DropZone
-						class="flex bg-gray-200 dark:bg-dark-300 items-center justify-center m-5 gap-2"
+						class="dark:bg-dark-300 m-5 flex items-center justify-center gap-2 bg-gray-200"
 						@on-drop="droppedOutOfHeader($event)">
 						<DraggableItem
-							class="bg-gray-300 dark:bg-dark-700 rounded-md p-2 font-bold"
+							class="dark:bg-dark-700 rounded-md bg-gray-300 p-2 font-bold"
 							v-for="header of taskHeaders.filter(
 								(x) =>
 									!data.headers.some(
@@ -73,7 +73,7 @@
 								v-for="(header, index) in data.headers">
 								<DropZone @on-drop="droppedOnHeader($event, index)">
 									<DraggableItem
-										class="bg-gray-300 dark:bg-dark-700 rounded-md p-2"
+										class="dark:bg-dark-700 rounded-md bg-gray-300 p-2"
 										:data="header.name"
 										v-if="header.isMapped">
 										{{ header.name }}
@@ -92,10 +92,10 @@
 					</table>
 				</AppStepperStep>
 				<AppStepperStep :step="3" :current-step="currentStepperStep">
-					<div class="text-xl text-left">Map your statuses</div>
-					<div class="flex flex-col gap-2 mb-20">
+					<div class="text-left text-xl">Map your statuses</div>
+					<div class="mb-20 flex flex-col gap-2">
 						<div
-							class="p-2 rounded-md m-2 flex items-center gap-10 px-10 justify-between"
+							class="m-2 flex items-center justify-between gap-10 rounded-md p-2 px-10"
 							:class="{
 								'bg-successGreen': status.prototypeStatus === 'done',
 								'bg-blue-800': status.prototypeStatus === 'inProgress',
@@ -117,9 +117,9 @@
 				<AppStepperStep :step="4" :current-step="currentStepperStep">
 					<div v-if="!importingData">
 						<div class="text-xl font-bold italic">Tasks</div>
-						<div class="flex flex-wrap gap-2 justify-center my-2">
+						<div class="my-2 flex flex-wrap justify-center gap-2">
 							<span
-								class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+								class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
 								v-for="task of data.extractedData">
 								{{ getDataByHeaderName(task, 'name') }}
 							</span>
@@ -131,9 +131,9 @@
 						</div>
 						<div
 							v-if="organizationStore.currentEntity?.useEpics"
-							class="flex flex-wrap gap-2 justify-center my-2">
+							class="my-2 flex flex-wrap justify-center gap-2">
 							<span
-								class="flex items-center bg-gray-200 dark:bg-dark-700 rounded-md px-1 gap-1"
+								class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
 								v-for="epic of getEpics(data.extractedData)">
 								{{ epic }}
 							</span>

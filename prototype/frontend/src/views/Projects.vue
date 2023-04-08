@@ -1,5 +1,5 @@
 <template>
-	<div class="text-3xl my-5">
+	<div class="my-5 text-3xl">
 		{{ levelStore.currentEntity?.name }} (operative)
 	</div>
 	<div v-if="groupStore.currentGroups.length === 0" class="italic">
@@ -8,7 +8,7 @@
 	<div class="flex flex-wrap gap-5">
 		<TransitionGroup>
 			<ProjectCard
-				class="cursor-pointer flex-grow"
+				class="flex-grow cursor-pointer"
 				:key="project.name"
 				v-for="project in groupStore.currentGroups"
 				:project="project"

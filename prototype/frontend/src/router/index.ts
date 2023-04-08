@@ -4,9 +4,6 @@ import authRoutes from '@/router/auth';
 import mainRoutes from '@/router/main';
 import { useAppStore } from '@/store/app';
 import { useAuthStore } from '@/store/auth';
-import Activate from '@/views/Auth/Activate.vue';
-import HomePageVue from '@/views/HomePage.vue';
-import NotFound from '@/views/NotFound.vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
@@ -14,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/home',
 		name: 'Home',
-		component: HomePageVue,
+		component: () => import('@/views/HomePage.vue'),
 		meta: { noAuth: true },
 	},
 	{
@@ -33,13 +30,13 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/activate/:activationToken',
 		name: 'Activate',
-		component: Activate,
 		meta: { noAuth: true },
+		component: () => import('@/views/Auth/Activate.vue'),
 	},
 	{
 		path: '/notFound',
 		name: 'NotFound',
-		component: NotFound,
+		component: () => import('@/views/NotFound.vue'),
 	},
 ];
 

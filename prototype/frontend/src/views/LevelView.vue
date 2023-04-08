@@ -1,5 +1,5 @@
 <template>
-	<div class="text-3xl my-5">
+	<div class="my-5 text-3xl">
 		{{ useLevelStore().currentEntity?.name }}
 	</div>
 	<div class="flex flex-wrap gap-5">

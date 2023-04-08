@@ -1,12 +1,12 @@
 <template>
 	<AppIcon button large @click="router.back()">arrow_back</AppIcon>
-	<div class="text-4xl text-left flex content-center gap-10 m-10">
+	<div class="m-10 flex content-center gap-10 text-left text-4xl">
 		<AppChip> person </AppChip>
 		<div>
 			{{ authStore.user?.username }}
 		</div>
 	</div>
-	<div class="text-4xl text-left flex content-center gap-10 m-10">
+	<div class="m-10 flex content-center gap-10 text-left text-4xl">
 		<AppChip> mail </AppChip>
 		<div>
 			{{ authStore.user?.email }}
@@ -14,9 +14,9 @@
 	</div>
 	<div v-if="authStore.user?.jiraApiToken">
 		<div class="m-10 flex items-center gap-5">
-			<span class="text-2xl text-left">
+			<span class="text-left text-2xl">
 				You have a Jira Token for Domain
-				<span class="bold bg-gray-200 dark:bg-dark-900 p-2 rounded-md">
+				<span class="bold dark:bg-dark-900 rounded-md bg-gray-200 p-2">
 					{{ authStore.user.jiraApiDomain }}.atlassian.net
 				</span>
 			</span>
@@ -29,7 +29,7 @@
 				{{ showToken ? 'visibility' : 'visibility_off' }}</AppIcon
 			>
 		</div>
-		<div class="w-1/4 text-left m-10" v-if="showToken">
+		<div class="m-10 w-1/4 text-left" v-if="showToken">
 			{{ authStore.user.jiraApiToken }}
 		</div>
 	</div>
@@ -55,7 +55,7 @@
 					ref="mail"
 					label="Jira-Mail">
 				</AppInputField>
-				<span class="pt-2 pr-4 flex items-center">
+				<span class="flex items-center pr-4 pt-2">
 					<AppIcon @click="showInput = !showInput">
 						{{ showInput ? 'visibility' : 'visibility_off' }}</AppIcon
 					>
@@ -83,7 +83,7 @@
 			<span>
 				To generate a Token go to
 				<a
-					class="text-blue-400 hover:text-blue-600 transition-all"
+					class="text-blue-400 transition-all hover:text-blue-600"
 					href="https://id.atlassian.com/manage-profile/security/api-tokens"
 					target="_blank"
 					>this page</a

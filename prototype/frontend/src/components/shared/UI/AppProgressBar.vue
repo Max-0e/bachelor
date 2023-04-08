@@ -1,10 +1,10 @@
 <template>
-	<div class="grid border rounded-md border-dark-100 dark:border-white">
+	<div class="border-dark-100 grid rounded-md border dark:border-white">
 		<span class="gridArea z-2 text-black dark:text-white"
 			><slot></slot>: {{ progress }}%</span
 		>
 		<div
-			class="bg-successGreen rounded-md gridArea h-full w-full transition-all"
+			class="bg-successGreen gridArea h-full w-full rounded-md transition-all"
 			:style="`width:${progress}%`"></div>
 	</div>
 </template>

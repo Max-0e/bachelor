@@ -1,25 +1,25 @@
 <template>
 	<div class="relative" @focusout="expanded = false" tabindex="0">
 		<div
-			class="p-1 w-full rounded-lg cursor-pointer shadow-lg"
+			class="w-full cursor-pointer rounded-lg p-1 shadow-lg"
 			:class="bgColor"
 			@click="expanded = !expanded">
-			<div class="flex pl-4 items-center justify-between">
+			<div class="flex items-center justify-between pl-4">
 				<span class="pr-5">
 					{{ selectedOption.name }}
 				</span>
-				<AppIcon :class="expanded ? 'transform rotate-180' : ''">
+				<AppIcon :class="expanded ? 'rotate-180 transform' : ''">
 					expand_more
 				</AppIcon>
 			</div>
 		</div>
 		<div
-			class="transition-all w-full absolute bg-gray-300 z-50 dark:bg-dark-400 rounded-md overflow-hidden transform origin-top shadow-lg"
+			class="dark:bg-dark-400 absolute z-50 w-full origin-top transform overflow-hidden rounded-md bg-gray-300 shadow-lg transition-all"
 			:class="expanded ? 'transform-none' : 'scale-y-0'">
 			<div
 				v-for="option in options"
-				class="cursor-pointer w-full px-3 py-1 hover:bg-gray-400 dark:hover:bg-dark-200"
-				:class="option.disabled ? 'bg-gray-200 dark:bg-dark-200' : ''"
+				class="dark:hover:bg-dark-200 w-full cursor-pointer px-3 py-1 hover:bg-gray-400"
+				:class="option.disabled ? 'dark:bg-dark-200 bg-gray-200' : ''"
 				@click="selectOption(option)">
 				<AppToolTip :text="option.disabled ? option.disabledTooltip : ''">
 					{{ option.name }}

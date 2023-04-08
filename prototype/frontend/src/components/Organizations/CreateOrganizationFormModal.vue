@@ -1,7 +1,7 @@
 <template>
 	<AppModal ref="modal" @closed="formGroup.clear()">
 		<div class="flex flex-col gap-10">
-			<div class="text-3xl font-bold px-10">Create new Organization</div>
+			<div class="px-10 text-3xl font-bold">Create new Organization</div>
 			<AppInputField
 				ref="name"
 				placeholder="Name"

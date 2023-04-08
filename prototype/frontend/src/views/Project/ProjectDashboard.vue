@@ -1,9 +1,9 @@
 <template>
 	<div v-if="!!currentProject">
-		<div class="flex justify-between m-5">
-			<div class="text-2xl w-1/2">
+		<div class="m-5 flex justify-between">
+			<div class="w-1/2 text-2xl">
 				<AppInlineInputField
-					class="mr-5 mt-2 mb-5"
+					class="mb-5 mr-5 mt-2"
 					v-model="currentProject.name"
 					type="text"
 					name="name"
@@ -25,16 +25,16 @@
 				label="Description"
 				@save="groupStore.updateEntity(currentProject!.id, currentProject!)" />
 			<TasksDoughnutChart name="Group" :tasks="tasks"></TasksDoughnutChart>
-			<div class="flex justify-center items-center text-xl text-left">
+			<div class="flex items-center justify-center text-left text-xl">
 				<div
-					class="flex whitespace-nowrap flex-col justify-center gap-2 text-left bg-gray-200 dark:bg-dark-500 p-5 rounded-l-md">
+					class="dark:bg-dark-500 flex flex-col justify-center gap-2 whitespace-nowrap rounded-l-md bg-gray-200 p-5 text-left">
 					<span> total Tasks: </span>
 					<span> total open Tasks: </span>
 					<span class="text-blue-800"> total in Progress Tasks: </span>
 					<span class="text-successGreen"> total done Tasks: </span>
 				</div>
 				<div
-					class="flex flex-col justify-center gap-2 text-left pl-10 p-5 bg-gray-200 dark:bg-dark-500 rounded-r-md">
+					class="dark:bg-dark-500 flex flex-col justify-center gap-2 rounded-r-md bg-gray-200 p-5 pl-10 text-left">
 					<span> {{ metrics.totalLength }} </span>
 					<span> {{ metrics.openLength }} </span>
 					<span class="text-blue-800"> {{ metrics.inProgressLength }} </span>

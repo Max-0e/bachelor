@@ -10,4 +10,4 @@ export interface ITask {
 
 export type Task = Entity<LinkableEntity<OrganizationBasedEntity<ITask>>>;
 export const statusEnum = ['open', 'inProgress', 'done'] as const;
-export type Status = typeof statusEnum[number];
+export type Status = (typeof statusEnum)[number];

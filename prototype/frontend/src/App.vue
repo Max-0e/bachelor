@@ -1,11 +1,11 @@
 <template>
 	<div :class="useAppStore().darkMode ? 'dark' : ''">
 		<div
-			class="relative overflow-hidden text-gray-600 dark:(text-white bg-dark-200)">
+			class="dark:(text-white bg-dark-200) relative overflow-hidden text-gray-600">
 			<router-view />
 			<div
-				class="absolute z-102 w-screen h-screen overflow-hidden bg-gray-200 dark:bg-black opacity-80 top-0 left-0 transition-all delay-75 flex items-center justify-center"
-				:class="{ '!opacity-0 invisible': !isRouting }">
+				class="z-102 absolute left-0 top-0 flex h-screen w-screen items-center justify-center overflow-hidden bg-gray-200 opacity-80 transition-all delay-75 dark:bg-black"
+				:class="{ 'invisible !opacity-0': !isRouting }">
 				<AppIcon class="animate-spin"> autorenew </AppIcon>
 			</div>
 		</div>

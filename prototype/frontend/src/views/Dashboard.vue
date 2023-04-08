@@ -48,7 +48,7 @@
 			</g>
 		</svg>
 		<div
-			class="rounded-md absolute bg-light-200 dark:bg-dark-600 z-100 transition-all transform"
+			class="bg-light-200 dark:bg-dark-600 z-100 absolute transform rounded-md transition-all"
 			:class="{ 'scale-0': !hoveredLink[0] }"
 			:style="`left: ${currentMousePosition.x - 20}px; top: ${
 				currentMousePosition.y - 60
@@ -62,10 +62,10 @@
 				  )
 				: levelStore.currentEntitiesFromOrganization">
 			<div class="text-left">{{ level.name }}</div>
-			<div class="p-10 flex gap-5">
+			<div class="flex gap-5 p-10">
 				<DropZone
 					ref="dropZones"
-					class="border border-2 flex-grow relative cursor-pointer shadow-lg"
+					class="relative flex-grow cursor-pointer border border-2 shadow-lg"
 					v-for="group in sortedGroups.filter((x) => x.levelId === level.id)"
 					@on-drop="link(group.id, $event)"
 					:class="
@@ -76,7 +76,7 @@
 					@mouseenter="markGroup(group)"
 					@mouseleave="unMark()"
 					@click="goToGroupDetails(group)">
-					<div class="transition-all rounded-md">
+					<div class="rounded-md transition-all">
 						<DashboardGroupCardContent :group="group" />
 						<div
 							v-if="
@@ -84,7 +84,7 @@
 								level.hierarchyLevel <
 									levelStore.currentEntitiesFromOrganization.length - 1
 							"
-							class="flex justify-center absolute top-[-40px] left-0 w-full">
+							class="absolute left-0 top-[-40px] flex w-full justify-center">
 							<DraggableItem
 								@dragstart="startLinkage($event)"
 								@dragend="stopLinkage()"

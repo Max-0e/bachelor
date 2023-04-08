@@ -1,5 +1,5 @@
 <template>
-	<label class="pl-7 text-left block text-md font-medium">
+	<label class="text-md block pl-7 text-left font-medium">
 		<slot></slot>
 	</label>
 </template>

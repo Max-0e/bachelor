@@ -1,6 +1,6 @@
 <template>
-	<div class="w-screen h-screen flex justify-center items-center">
-		<div class="flex flex-col max-w-md">
+	<div class="flex h-screen w-screen items-center justify-center">
+		<div class="flex max-w-md flex-col">
 			<span>Looks like this Page doesn't exist</span>
 			<br />
 			<br />

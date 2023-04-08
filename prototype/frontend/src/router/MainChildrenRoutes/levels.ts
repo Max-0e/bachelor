@@ -1,20 +1,12 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import GroupView from '@/components/Groups/GroupView.vue';
-import AlternativeTaskListVue from '@/components/Tasks/AlternativeTaskList.vue';
-import TaskListVue from '@/components/Tasks/TaskList.vue';
-import ProjectLayoutVue from '@/layouts/ProjectLayout.vue';
-import LevelView from '@/views/LevelView.vue';
-import EpicsVue from '@/views/Project/Epics.vue';
-import ProjectDashboardVue from '@/views/Project/ProjectDashboard.vue';
-import ProjectsVue from '@/views/Projects.vue';
 import { jiraProjectResolver } from '../resolver/jira-projects.resolver';
 
 const levelViewRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '',
 		name: 'LevelView',
-		component: LevelView,
+		component: () => import('@/views/LevelView.vue'),
 	},
 	{
 		path: 'projects',
@@ -23,32 +15,33 @@ const levelViewRoutes: Array<RouteRecordRaw> = [
 				path: '',
 				name: 'Projects',
 				beforeEnter: jiraProjectResolver,
-				component: ProjectsVue,
+				component: () => import('@/views/Projects.vue'),
 			},
 			{
 				path: ':groupId',
-				name: 'ProjectDatails',
-				component: ProjectLayoutVue,
+				name: 'ProjectDetails',
+				component: () => import('@/layouts/ProjectLayout.vue'),
 				children: [
 					{
 						path: 'dashboard',
 						name: 'ProjectDashboard',
-						component: ProjectDashboardVue,
+						component: () => import('@/views/Project/ProjectDashboard.vue'),
 					},
 					{
 						path: 'board',
 						name: 'ProjectBoard',
-						component: AlternativeTaskListVue,
+						component: () =>
+							import('@/components/Tasks/AlternativeTaskList.vue'),
 					},
 					{
 						path: 'backlog',
 						name: 'ProjectBacklog',
-						component: TaskListVue,
+						component: () => import('@/components/Tasks/TaskList.vue'),
 					},
 					{
 						path: 'epics',
 						name: 'Epics',
-						component: EpicsVue,
+						component: () => import('@/views/Project/Epics.vue'),
 					},
 				],
 			},
@@ -57,7 +50,7 @@ const levelViewRoutes: Array<RouteRecordRaw> = [
 	{
 		path: 'group/:groupId',
 		name: 'GroupView',
-		component: GroupView,
+		component: () => import('@/components/Groups/GroupView.vue'),
 	},
 ];
 

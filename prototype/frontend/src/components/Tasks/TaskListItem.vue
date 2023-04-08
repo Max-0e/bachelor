@@ -1,7 +1,7 @@
 <template>
 	<div
-		class="border dark:border-dark-800 w-full rounded-md flex items-center p-1 m-1">
-		<span class="w-1/4 text-left px-5">
+		class="dark:border-dark-800 m-1 flex w-full items-center rounded-md border p-1">
+		<span class="w-1/4 px-5 text-left">
 			<AppInlineInputField
 				v-model="task.name"
 				type="text"
@@ -12,7 +12,7 @@
 				:with-label="false"
 				@save="taskStore.updateEntity(task.id, task)" />
 		</span>
-		<span class="w-1/4 text-left px-5">
+		<span class="w-1/4 px-5 text-left">
 			<AppDropDownMenu
 				:bg-color="
 					task.status === 'done'
@@ -27,7 +27,7 @@
 				:defaultValueName="task.status"
 				:options="options"></AppDropDownMenu>
 		</span>
-		<span class="w-1/8 text-left px-5 flex justify-evenly items-center">
+		<span class="w-1/8 flex items-center justify-evenly px-5 text-left">
 			<AppToolTip position="top" text="Story Points">
 				<AppIcon>token</AppIcon>
 			</AppToolTip>
@@ -40,7 +40,7 @@
 					taskStore.updateEntity(task.id, task);
 				" />
 		</span>
-		<span class="w-1/8 text-left px-5 flex justify-evenly items-center">
+		<span class="w-1/8 flex items-center justify-evenly px-5 text-left">
 			<AppToolTip position="top" text="value">
 				<AppIcon>diamond</AppIcon>
 			</AppToolTip>
@@ -67,7 +67,7 @@
 			<div class="float-right">
 				<AppToolTip text="delete Task" position="left">
 					<AppIcon
-						class="px-2 m-1 hover:bg-light-900 dark:hover:bg-dark-400"
+						class="hover:bg-light-900 dark:hover:bg-dark-400 m-1 px-2"
 						@click="deleteModal!.open()"
 						>delete</AppIcon
 					>

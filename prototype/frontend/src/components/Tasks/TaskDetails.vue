@@ -1,7 +1,7 @@
 <template>
-	<div class="w-full flex justify-between">
+	<div class="flex w-full justify-between">
 		<AppInlineInputField
-			class="mr-5 mt-2 mb-5 text-3xl"
+			class="mb-5 mr-5 mt-2 text-3xl"
 			v-model="task.name"
 			type="text"
 			name="name"
@@ -11,7 +11,7 @@
 			@save="taskStore.updateEntity(task.id, task)" />
 		<AppIcon button @click="$emit('deleteTask', task)">delete</AppIcon>
 	</div>
-	<div class="w-full flex justify-left items-center gap-10 px-4">
+	<div class="justify-left flex w-full items-center gap-10 px-4">
 		<AppDropDownMenu
 			v-model="task.status"
 			@update:model-value="taskStore.updateEntity(task.id, task)"
@@ -64,7 +64,7 @@ import { useGroupStore } from '@/store/entity-groups.store';
 import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { computed, ref, toRef } from '@vue/reactivity';
-import { onMounted, PropType, watch } from 'vue';
+import { PropType, onMounted, watch } from 'vue';
 import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
 
 const options = [

@@ -1,7 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import Profile from '@/views/Profile.vue';
-import Settings from '@/views/Settings.vue';
 import { organizationRoutes } from './MainChildrenRoutes/organization';
 import { organizationsResolver } from './resolver/organizations.resolver';
 
@@ -19,12 +17,12 @@ const mainRoutes: Array<RouteRecordRaw> = [
 	{
 		path: 'profile',
 		name: 'Profile',
-		component: Profile,
+		component: () => import('@/views/Profile.vue'),
 	},
 	{
 		path: 'settings',
 		name: 'Settings',
-		component: Settings,
+		component: () => import('@/views/Settings.vue'),
 	},
 ];
 

@@ -2,10 +2,10 @@
 	<div
 		@click.self="dismissible ? close() : ''"
 		:class="isOpen ? 'bg-opacity-60' : 'invisible bg-opacity-0'"
-		class="transition-all bg-black absolute w-full h-full top-0 left-0 z-100 flex justify-center items-center">
+		class="z-100 absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black transition-all">
 		<div
-			:class="{ 'invisible modaloffset': !isOpen, '!min-w-2/3': large }"
-			class="transition-all bg-white dark:bg-dark-100 max-w-2/3 z-101 p-10 flex flex-wrap content-between gap-5 rounded-lg">
+			:class="{ 'modaloffset invisible': !isOpen, '!min-w-2/3': large }"
+			class="dark:bg-dark-100 max-w-2/3 z-101 flex flex-wrap content-between gap-5 rounded-lg bg-white p-10 transition-all">
 			<slot></slot>
 		</div>
 	</div>

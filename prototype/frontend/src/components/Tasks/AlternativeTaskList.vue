@@ -15,13 +15,13 @@
 			</AppDropDownMenu>
 		</div>
 	</div>
-	<div class="flex w-full gap-6 text-2xl py-5">
+	<div class="flex w-full gap-6 py-5 text-2xl">
 		<div class="w-1/3">Open</div>
 		<div class="w-1/3">In Progress</div>
 		<div class="w-1/3">Done</div>
 	</div>
 	<div class="flex w-full gap-6">
-		<DropZone class="w-1/3 min-h-50" @onDrop="onDrop($event, 'open')">
+		<DropZone class="min-h-50 w-1/3" @onDrop="onDrop($event, 'open')">
 			<TransitionGroup>
 				<DraggableItem
 					:data="task.id"
@@ -40,7 +40,7 @@
 				</DraggableItem>
 			</TransitionGroup>
 		</DropZone>
-		<DropZone class="w-1/3 min-h-50" @onDrop="onDrop($event, 'inProgress')">
+		<DropZone class="min-h-50 w-1/3" @onDrop="onDrop($event, 'inProgress')">
 			<TransitionGroup>
 				<DraggableItem
 					:data="task.id"
@@ -59,7 +59,7 @@
 				</DraggableItem>
 			</TransitionGroup>
 		</DropZone>
-		<DropZone class="w-1/3 min-h-50" @onDrop="onDrop($event, 'done')">
+		<DropZone class="min-h-50 w-1/3" @onDrop="onDrop($event, 'done')">
 			<TransitionGroup>
 				<DraggableItem
 					:key="task.id"
@@ -96,7 +96,7 @@ import { Status, Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { sortByNumber, sortByString } from '@/utility/sort';
-import { computed, Ref, ref } from 'vue';
+import { Ref, computed, ref } from 'vue';
 
 const taskStore = useTaskStore();
 

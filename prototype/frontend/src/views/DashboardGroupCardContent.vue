@@ -2,7 +2,7 @@
 	<span class="text-xl">
 		{{ group.name }}
 	</span>
-	<div class="flex gap-10 items-center">
+	<div class="flex items-center gap-10">
 		<div class="h-20 w-20">
 			<TasksDoughnutChart hide-title name="Group" :tasks="tasks" />
 		</div>

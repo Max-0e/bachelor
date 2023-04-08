@@ -23,6 +23,9 @@
 	"devDependencies": {
 		"@types/node": "18.15.11",
 		"@vitejs/plugin-vue": "^4.1.0",
+		"prettier": "^2.8.7",
+		"prettier-plugin-organize-imports": "^3.2.2",
+		"prettier-plugin-tailwindcss": "^0.2.7",
 		"typescript": "5.0.4",
 		"unplugin-vue-components": "^0.24.1",
 		"vite": "^4.2.1",

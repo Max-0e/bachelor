@@ -1,7 +1,7 @@
 <template>
 	<div
-		class="transition-all cursor-pointer rounded-full w-12 h-12 flex items-center justify-around bg-light-600 hover:(shadow-md) dark:(bg-gray-600)">
-		<span class="text-3xl material-icons"><slot></slot></span>
+		class="bg-light-600 hover:(shadow-md) dark:(bg-gray-600) flex h-12 w-12 cursor-pointer items-center justify-around rounded-full transition-all">
+		<span class="material-icons text-3xl"><slot></slot></span>
 	</div>
 </template>
 <script setup lang="ts"></script>

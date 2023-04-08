@@ -1,9 +1,9 @@
 <template>
-	<div class="relative w-screen h-screen pt-40">
-		<router-link class="absolute top-5 left-5" to="/home">
+	<div class="relative h-screen w-screen pt-40">
+		<router-link class="absolute left-5 top-5" to="/home">
 			<AppButton>To Home Page</AppButton>
 		</router-link>
-		<div class="flex flex-col max-w-md mx-auto">
+		<div class="mx-auto flex max-w-md flex-col">
 			<form>
 				<router-view />
 			</form>

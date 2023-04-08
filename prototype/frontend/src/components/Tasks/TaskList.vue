@@ -1,13 +1,13 @@
 <template>
 	<!-- Table Header -->
-	<div class="w-full flex p-5 m-2 p-1 m-1">
+	<div class="m-1 m-2 flex w-full p-1 p-5">
 		<span class="w-1/4">
 			<b
 				@click="
 					sortingFn = sortByString<Task>('name');
 					sortedBy = 'name';
 				"
-				class="flex items-center justify-center cursor-pointer"
+				class="flex cursor-pointer items-center justify-center"
 				:class="{
 					'text-blue-600': sortedBy === 'name',
 				}">
@@ -20,7 +20,7 @@
 					sortingFn = sortByString<Task>('status');
 					sortedBy = 'status';
 				"
-				class="flex items-center justify-center cursor-pointer"
+				class="flex cursor-pointer items-center justify-center"
 				:class="{
 					'text-blue-600': sortedBy === 'status',
 				}">
@@ -33,7 +33,7 @@
 					sortingFn = sortByNumber<Task>('storyPoints');
 					sortedBy = 'storyPoints';
 				"
-				class="flex items-center justify-center cursor-pointer"
+				class="flex cursor-pointer items-center justify-center"
 				:class="{
 					'text-blue-600': sortedBy === 'storyPoints',
 				}">
@@ -46,7 +46,7 @@
 					sortingFn = sortByNumber<Task>('value');
 					sortedBy = 'value';
 				"
-				class="flex items-center justify-center cursor-pointer"
+				class="flex cursor-pointer items-center justify-center"
 				:class="{
 					'text-blue-600': sortedBy === 'value',
 				}">
@@ -60,7 +60,7 @@
 				>Epic</b
 			>
 		</span>
-		<span class="w-1/8 text-right pr-6">
+		<span class="w-1/8 pr-6 text-right">
 			<b class="flex h-full items-center justify-end">Actions</b>
 		</span>
 	</div>
@@ -81,9 +81,9 @@
 	<!-- Add Task Field -->
 	<div class="flex items-center">
 		<div
-			class="border dark:border-dark-800 w-full rounded-md flex justify-between items-center p-1 m-1"
+			class="dark:border-dark-800 m-1 flex w-full items-center justify-between rounded-md border p-1"
 			v-if="createNewTask">
-			<span class="w-1/4 text-left items-center pt-3">
+			<span class="w-1/4 items-center pt-3 text-left">
 				<AppInputField
 					ref="name"
 					placeholder="name"
@@ -91,13 +91,13 @@
 					:validation-types="[validationType.required, validationType.name]">
 				</AppInputField>
 			</span>
-			<span class="w-1/4 text-left px-5">
+			<span class="w-1/4 px-5 text-left">
 				<AppDropDownMenu
 					v-model="status"
 					selectText="select Status"
 					:options="options"></AppDropDownMenu>
 			</span>
-			<span class="w-1/8 text-left px-5 flex justify-evenly items-center">
+			<span class="w-1/8 flex items-center justify-evenly px-5 text-left">
 				<AppToolTip position="top" text="Story Points">
 					<AppIcon>token</AppIcon>
 				</AppToolTip>
@@ -106,7 +106,7 @@
 					:value="storyPoints"
 					@change="storyPoints = $event" />
 			</span>
-			<span class="w-1/8 text-left px-5 flex justify-evenly items-center">
+			<span class="w-1/8 flex items-center justify-evenly px-5 text-left">
 				<AppToolTip position="top" text="value">
 					<AppIcon>diamond</AppIcon>
 				</AppToolTip>
@@ -128,20 +128,20 @@
 			<span class="w-1/8 px-5">
 				<AppIcon
 					button
-					class="px-2 m-1 float-right text-red-600"
+					class="float-right m-1 px-2 text-red-600"
 					@click="setDefaults()"
 					>clear</AppIcon
 				>
 				<AppIcon
 					button
-					class="px-2 m-1 text-successGreen float-right"
+					class="text-successGreen float-right m-1 px-2"
 					@click="createTask()"
 					>done</AppIcon
 				>
 			</span>
 		</div>
 		<div
-			class="border dark:border-dark-800 w-full rounded-md flex justify-around items-center p-1 m-1"
+			class="dark:border-dark-800 m-1 flex w-full items-center justify-around rounded-md border p-1"
 			v-else>
 			<AppToolTip text="create new Task">
 				<AppIcon button @click="createNewTask = true"> add </AppIcon>
@@ -159,7 +159,7 @@ import { useGroupStore } from '@/store/entity-groups.store';
 import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { sortByNumber, sortByString } from '@/utility/sort';
-import { computed, PropType, ref } from 'vue';
+import { PropType, computed, ref } from 'vue';
 import { FormGroup } from '../shared/Input/formGroup';
 
 const options = [
