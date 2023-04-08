@@ -167,37 +167,96 @@
 							<div class="my-2 flex flex-wrap justify-center gap-2">
 								<span
 									class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
-									v-for="issue of issues.filter(
-										(issue) =>
-											!!issue.fields.parent &&
-											issue.fields.issuetype.hierarchyLevel === 0
-									)">
+									v-for="issue of issues
+										.filter(
+											(issue) =>
+												!!issue.fields.parent &&
+												issue.fields.issuetype.hierarchyLevel === 0
+										)
+										.slice(0, 20)">
 									<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
 									{{ issue.fields.summary }}
+								</span>
+								<span
+									v-if="
+										issues.filter(
+											(issue) =>
+												!!issue.fields.parent &&
+												issue.fields.issuetype.hierarchyLevel === 0
+										).length > 20
+									"
+									class="flex items-center gap-1 rounded-md bg-successGreen px-1">
+									+
+									{{
+										issues.filter(
+											(issue) =>
+												!!issue.fields.parent &&
+												issue.fields.issuetype.hierarchyLevel === 0
+										).length - 20
+									}}
+									additional issues
 								</span>
 							</div>
 							<div class="text-xl font-bold italic">Issues without Epics</div>
 							<div class="my-2 flex flex-wrap justify-center gap-2">
 								<span
 									class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
-									v-for="issue of issues.filter(
-										(issue) =>
-											!issue.fields.parent &&
-											issue.fields.issuetype.hierarchyLevel === 0
-									)">
+									v-for="issue of issues
+										.filter(
+											(issue) =>
+												!issue.fields.parent &&
+												issue.fields.issuetype.hierarchyLevel === 0
+										)
+										.slice(0, 20)">
 									<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
 									{{ issue.fields.summary }}
+								</span>
+								<span
+									v-if="
+										issues.filter(
+											(issue) =>
+												!issue.fields.parent &&
+												issue.fields.issuetype.hierarchyLevel === 0
+										).length > 20
+									"
+									class="flex items-center gap-1 rounded-md bg-successGreen px-1">
+									+
+									{{
+										issues.filter(
+											(issue) =>
+												!issue.fields.parent &&
+												issue.fields.issuetype.hierarchyLevel === 0
+										).length - 20
+									}}
+									additional issues
 								</span>
 							</div>
 							<div class="text-xl font-bold italic">Epics</div>
 							<div class="my-2 flex flex-wrap justify-center gap-2">
 								<span
 									class="dark:bg-dark-700 flex items-center gap-1 rounded-md bg-gray-200 px-1"
-									v-for="issue of issues.filter(
-										(issue) => issue.fields.issuetype.hierarchyLevel === 1
-									)">
+									v-for="issue of issues
+										.filter(
+											(issue) => issue.fields.issuetype.hierarchyLevel === 1
+										)
+										.slice(0, 20)">
 									<img :src="issue.fields.issuetype.iconUrl" />{{ issue.key }}
 									{{ issue.fields.summary }}
+								</span>
+								<span
+									v-if="
+										issues.filter(
+											(issue) => issue.fields.issuetype.hierarchyLevel === 1
+										).length > 20
+									"
+									class="flex items-center gap-1 rounded-md bg-successGreen px-1">
+									+
+									{{
+										issues.filter(
+											(issue) => issue.fields.issuetype.hierarchyLevel === 1
+										).length - 20
+									}}
+									additional issues
 								</span>
 							</div>
 						</div>

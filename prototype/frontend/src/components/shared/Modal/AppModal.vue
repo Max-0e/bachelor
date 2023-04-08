@@ -5,7 +5,7 @@
 		class="z-100 absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black transition-all">
 		<div
 			:class="{ 'modaloffset invisible': !isOpen, '!min-w-2/3': large }"
-			class="dark:bg-dark-100 max-w-2/3 z-101 flex flex-wrap content-between gap-5 rounded-lg bg-white p-10 transition-all">
+			class="dark:bg-dark-100 max-w-2/3 max-h-[90%] overflow-y-scroll z-101 flex flex-wrap content-between gap-5 rounded-lg bg-white p-10 transition-all">
 			<slot></slot>
 		</div>
 	</div>

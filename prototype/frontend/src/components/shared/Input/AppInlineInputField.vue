@@ -11,10 +11,11 @@
 				$emit('update:modelValue', ($event.target as HTMLInputElement).value);
 				changeShowSaveAndCancel(true);
 			"
-			class="bg-dark-50 focus-visible:(outline-transparent border-gray-600) hover:(bg-opacity-40) block w-full rounded-md border-b bg-opacity-0 p-3 pr-12 outline-none transition-all dark:hover:bg-opacity-40"
+			class="bg-dark-50 focus-visible:(border-gray-600 border-b outline-transparent) hover:(bg-opacity-40) block w-full rounded-md bg-opacity-0 p-3 pr-12 outline-none transition-all dark:hover:bg-opacity-40"
 			:value="modelValue"
 			:type="type"
 			:name="name"
+			ref="input"
 			:id="id"
 			:placeholder="placeholder" />
 		<div
@@ -60,6 +61,7 @@ const props = defineProps({
 
 defineEmits(['update:modelValue', 'save']);
 
+const input = ref<HTMLInputElement | null>(null);
 const show = ref(false);
 const focus = ref(false);
 const initialModelValue = ref(props.modelValue);
@@ -70,6 +72,6 @@ function changeShowSaveAndCancel(newValue: boolean) {
 }
 
 function blurInput() {
-	document.getElementById(props.id!)?.blur();
+	input.value?.blur();
 }
 </script>
