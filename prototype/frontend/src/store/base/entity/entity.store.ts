@@ -13,3 +13,5 @@ export type EntityStoreDefinition<
 	T,
 	Id extends string = string
 > = StoreDefinition<Id, EntityState<T>, EntityGetters<T>, EntityActions<T>>;
+
+export const isState = <T>(_state: any): _state is T => true;

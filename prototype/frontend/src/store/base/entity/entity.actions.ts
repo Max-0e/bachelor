@@ -2,7 +2,8 @@ import { Entity, EntityCreate } from '@/interfaces/base/entity.interface';
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { PiniaActionTree, PiniaActions } from '../piniaTypes';
-import { EntityStore } from './entity.store';
+import { EntityState } from './entity.state';
+import { EntityStore, isState } from './entity.store';
 
 export interface EntityActions<T> extends PiniaActionTree {
 	loadEntities(): Promise<void>;
@@ -18,12 +19,15 @@ export const makeEntityActions = <T>() => {
 	const actions: PiniaActions<EntityStore<T>> = {
 		async loadEntities() {
 			const entities = await this.service.getEntities();
-			this.entities = ref(entities).value;
+			this.entities = entities;
 			this.isLoaded = true;
 		},
 		createEntity(entityToCreate: EntityCreate<T>) {
 			this.service.createEntity(entityToCreate).then((entity) => {
-				this.$patch((state) => state.entities.push(ref(entity).value));
+				this.$patch((state) => {
+					if (!isState<EntityState<T>>(state)) return;
+					state.entities.push(entity);
+				});
 				useToast().success('successfully created ' + this.$id);
 			});
 		},

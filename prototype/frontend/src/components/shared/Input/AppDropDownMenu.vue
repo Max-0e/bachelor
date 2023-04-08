@@ -1,7 +1,7 @@
 <template>
 	<div class="relative" @focusout="expanded = false" tabindex="0">
 		<div
-			class="p-1 w-full rounded-lg cursor-pointer"
+			class="p-1 w-full rounded-lg cursor-pointer shadow-lg"
 			:class="bgColor"
 			@click="expanded = !expanded">
 			<div class="flex pl-4 items-center justify-between">
@@ -14,7 +14,7 @@
 			</div>
 		</div>
 		<div
-			class="transition-all w-full absolute bg-gray-300 z-50 dark:bg-dark-400 rounded-md overflow-hidden transform origin-top"
+			class="transition-all w-full absolute bg-gray-300 z-50 dark:bg-dark-400 rounded-md overflow-hidden transform origin-top shadow-lg"
 			:class="expanded ? 'transform-none' : 'scale-y-0'">
 			<div
 				v-for="option in options"

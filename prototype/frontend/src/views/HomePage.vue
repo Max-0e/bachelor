@@ -47,7 +47,7 @@
 		</div>
 		<embed
 			v-else
-			src="/src/assets/main.pdf"
+			src="/main.pdf"
 			class="w-full flex-grow shadow-lg shadow-gray-500 dark:shadow-dark-800" />
 	</div>
 </template>

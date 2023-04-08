@@ -65,7 +65,7 @@
 			<div class="p-10 flex gap-5">
 				<DropZone
 					ref="dropZones"
-					class="border border-2 flex-grow relative cursor-pointer"
+					class="border border-2 flex-grow relative cursor-pointer shadow-lg"
 					v-for="group in sortedGroups.filter((x) => x.levelId === level.id)"
 					@on-drop="link(group.id, $event)"
 					:class="
@@ -151,7 +151,6 @@ const sortedGroups = computed(() => {
 		});
 		sortedGroups.push(...groupsInLevel);
 	});
-	console.log(sortedGroups);
 	return sortedGroups;
 });
 

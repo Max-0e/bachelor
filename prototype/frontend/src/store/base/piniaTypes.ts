@@ -1,4 +1,14 @@
-import { StateTree, Store } from 'pinia';
+import { WatchOptions } from 'node:fs';
+import {
+	PiniaCustomProperties,
+	PiniaCustomStateProperties,
+	StateTree,
+	StoreOnActionListener,
+	StoreProperties,
+	SubscriptionCallback,
+	_ActionsTree,
+	_DeepPartial,
+} from 'pinia';
 
 export type PiniaStateTree = StateTree;
 export type PiniaGetterTree = Record<string, (...args: any) => any>;
@@ -86,3 +96,50 @@ export type PiniaStore<TStore extends Store> = {
 	getters: PiniaGetters<TStore>;
 	actions: PiniaActions<TStore>;
 };
+
+export type Store<
+	Id extends string = string,
+	S extends StateTree = {},
+	G = {},
+	A = {}
+> = _StoreWithState<Id, S, G, A> &
+	S &
+	StoreWithGetters<G> &
+	(_ActionsTree extends A ? {} : A) &
+	PiniaCustomProperties<Id, S, G, A> &
+	PiniaCustomStateProperties<S>;
+
+export type StoreWithGetters<G> = {
+	readonly [k in keyof G]: G[k] extends (...args: any[]) => infer R ? R : G[k];
+};
+
+export declare interface _StoreWithState<
+	Id extends string,
+	S extends StateTree,
+	G,
+	A
+> extends StoreProperties<Id> {
+	$state: S & PiniaCustomStateProperties<S>;
+
+	$patch(partialState: _DeepPartial<S>): void;
+
+	$patch<F extends (state: S) => any>(
+		stateMutator: ReturnType<F> extends Promise<any> ? never : F
+	): void;
+
+	$reset(): void;
+
+	$subscribe(
+		callback: SubscriptionCallback<S>,
+		options?: {
+			detached?: boolean;
+		} & WatchOptions
+	): () => void;
+
+	$onAction(
+		callback: StoreOnActionListener<Id, S, G, A>,
+		detached?: boolean
+	): () => void;
+
+	$dispose(): void;
+}
