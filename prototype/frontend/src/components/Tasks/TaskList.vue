@@ -159,7 +159,7 @@ import { useGroupStore } from '@/store/entity-groups.store';
 import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { sortByNumber, sortByString } from '@/utility/sort';
-import { computed, PropType, ref } from 'vue';
+import { PropType, computed, ref } from 'vue';
 import { FormGroup } from '../shared/Input/formGroup';
 
 const options = [

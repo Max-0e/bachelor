@@ -64,7 +64,7 @@ import { useGroupStore } from '@/store/entity-groups.store';
 import { useOrganizationStore } from '@/store/organization.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { computed, ref, toRef } from '@vue/reactivity';
-import { onMounted, PropType, watch } from 'vue';
+import { PropType, onMounted, watch } from 'vue';
 import AppDropDownMenu from '../shared/Input/AppDropDownMenu.vue';
 
 const options = [

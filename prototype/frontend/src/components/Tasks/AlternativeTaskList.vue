@@ -96,7 +96,7 @@ import { Status, Task } from '@/interfaces/task.interface';
 import { useGroupStore } from '@/store/entity-groups.store';
 import { useTaskStore } from '@/store/tasks.store';
 import { sortByNumber, sortByString } from '@/utility/sort';
-import { computed, Ref, ref } from 'vue';
+import { Ref, computed, ref } from 'vue';
 
 const taskStore = useTaskStore();
 

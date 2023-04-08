@@ -31,7 +31,7 @@ import {
 import { Task } from '@/interfaces/task.interface';
 import { useAppStore } from '@/store/app';
 import { useTaskStore } from '@/store/tasks.store';
-import { computed, PropType, ref } from 'vue';
+import { PropType, computed, ref } from 'vue';
 import { Doughnut } from 'vue-chartjs';
 
 const props = defineProps({

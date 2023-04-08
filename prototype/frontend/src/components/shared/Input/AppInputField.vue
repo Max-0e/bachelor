@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { emailRegex, nameRegex } from '@/config';
 import { validationType } from '@/enums/validationType.enum';
-import { computed, PropType, ref, toRefs, TransitionGroup } from 'vue';
+import { PropType, TransitionGroup, computed, ref, toRefs } from 'vue';
 
 const showValidation = ref(false);
 
