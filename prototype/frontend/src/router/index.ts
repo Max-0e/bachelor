@@ -50,7 +50,7 @@ router.beforeEach((to, _, next) => {
 	if (to.path == '/') next({ name: 'Home' });
 	if (to.matched.length === 0) next({ name: 'NotFound' });
 	if (!to.meta.noAuth && !useAuthStore().loggedIn) next({ name: 'Login' });
-	else if (to.meta.noAuth && useAuthStore().loggedIn) next({ name: 'Main' });
+	else if (to.meta.noAuth && useAuthStore().loggedIn) next({ name: 'Default' });
 	else next();
 });
 
