@@ -6,7 +6,7 @@ import { organizationsResolver } from './resolver/organizations.resolver';
 const mainRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '',
-		name: 'default',
+		name: 'Default',
 		redirect: '/app/organization',
 	},
 	{
