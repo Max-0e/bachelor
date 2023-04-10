@@ -6,7 +6,7 @@
 		@change="linkingEnabled = !linkingEnabled"
 		label="Enable Linking"></AppToggleInput>
 	<div class="relative" ref="container">
-		<svg ref="svg" class="absolute h-full w-full">
+		<svg ref="svg" class="absolute h-full w-full z-0">
 			<Transition>
 				<path
 					v-if="showLink && linkingEnabled"
@@ -62,10 +62,13 @@
 				  )
 				: levelStore.currentEntitiesFromOrganization">
 			<div class="text-left">{{ level.name }}</div>
-			<div class="flex gap-5 p-10">
+			<div
+				ref="levelContainers"
+				@scroll="onResize($event)"
+				class="flex gap-5 p-10 overflow-x-scroll">
 				<DropZone
 					ref="dropZones"
-					class="relative flex-grow cursor-pointer border border-2 shadow-lg"
+					class="relative flex-grow cursor-pointer border border-2 shadow-lg min-w-[450px]"
 					v-for="group in sortedGroups.filter((x) => x.levelId === level.id)"
 					@on-drop="link(group.id, $event)"
 					:class="
@@ -200,6 +203,8 @@ const currentMousePosition = ref({
 const resized = ref(0);
 const resizeTimeOut = ref<NodeJS.Timeout | null>(null);
 
+const levelContainers = ref<HTMLDivElement[]>([]);
+
 document.addEventListener('drag', (e) => {
 	currentMousePosition.value.x = e.pageX - 20;
 	currentMousePosition.value.y = e.pageY - 130;
@@ -211,7 +216,7 @@ function onResize(_e: Event) {
 	if (!!resizeTimeOut.value) clearTimeout(resizeTimeOut.value);
 	resizeTimeOut.value = setTimeout(() => {
 		resized.value += 1;
-	}, 100);
+	}, 10);
 }
 
 function mouseMoveOnLink(e: MouseEvent) {
@@ -291,20 +296,28 @@ const groupCoordinates = computed(() => {
 	const width = container.value.clientWidth - padding * 2;
 
 	return groupsByLevel.flatMap((x, levelIndex) => {
-		const groupCardWidth =
+		const previousContainerCanScroll =
+			levelContainers.value[levelIndex - 1]?.scrollWidth > width;
+		const xScrollOffset = levelContainers.value[levelIndex].scrollLeft;
+
+		const calculatedGroupCardWidth =
 			(width - offset * (x.groups.length - 1)) / x.groups.length;
+		const groupCardWidth =
+			calculatedGroupCardWidth < 450 ? 450 : calculatedGroupCardWidth;
 		return x.groups.map((group, groupIndex) => ({
 			id: group.id,
 			x:
 				groupCardWidth * (groupIndex + 1) -
 				(1 / 2) * groupCardWidth +
 				offset * groupIndex +
-				padding,
+				padding -
+				xScrollOffset,
 			yBottom:
 				cardHeight * (levelIndex + 1) +
 				yOffset * levelIndex +
 				2 * padding * (levelIndex + 1) -
-				10,
+				10 +
+				(previousContainerCanScroll ? 10 : 0),
 			yTop:
 				cardHeight * levelIndex +
 				yOffset * (levelIndex + 1) +
