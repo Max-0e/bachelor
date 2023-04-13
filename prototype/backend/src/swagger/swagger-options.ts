@@ -1,4 +1,5 @@
 import { Options } from 'swagger-jsdoc';
+import { DEV_MODE } from '../config';
 
 export const swaggerOptions: Options = {
 	definition: {
@@ -16,10 +17,9 @@ export const swaggerOptions: Options = {
 		},
 		servers: [
 			{
-				url: 'http://localhost:3000/api',
-			},
-			{
-				url: 'https://116.203.140.167.nip.io/api',
+				url: DEV_MODE
+					? 'http://localhost:3000/api'
+					: 'https://116.203.140.167.nip.io/api',
 			},
 		],
 	},
