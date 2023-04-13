@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-export const DEV_MODE: boolean = process.env.NODE_ENV !== 'production';
+export const DEV_MODE: boolean = process.env.DEV_MODE === 'true';
 export const PORT: number = parseInt(process.env.PORT || '3000');
 export const SECRET: string = process.env.SECRET || 'DiesDasAnanas';
 export const CLIENT_APP_URL: string =
