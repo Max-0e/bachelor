@@ -19,12 +19,20 @@ export function makeAuthRouter() {
 
 /**
  * @swagger
+ * components:
+ *   securitySchemes:
+ *     cookieAuth:
+ *       type: apiKey
+ *       in: cookie
+ *       name: connect.sid
  * tags:
  *   name: Auth
  *   description: The authorization of the API
  * /auth/authorize:
  *   get:
  *     summary: authorizes the user and updates the session
+ *     security:
+ *       - cookieAuth: []
  *     tags: [Auth]
  *     responses:
  *       200:
@@ -58,6 +66,11 @@ export function makeAuthRouter() {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
+ *         headers:
+ *           Set-Cookie:
+ *             schema:
+ *               type: string
+ *               example: connectsid=s%3AYK3zjMvcliFzzEYql0V3efHE0VBTnej4.k1YSwHMX5f3mKJ0itnEXiZO%2BtR4339f6jHbeOb8ZEB8; Expires=Fri, 14 Apr 2023 21:02:09 GMT; HttpOnly
  *       500:
  *         description: Some server error
  * /auth/logout:

@@ -20,6 +20,8 @@ export function makeOrganizationRouter() {
  *   description: API for CRUD operations on organizations
  * /organization:
  *   get:
+ *     security:
+ *       - cookieAuth: []
  *     summary: gets all organizations
  *     tags: [Organization]
  *     responses:
@@ -32,6 +34,8 @@ export function makeOrganizationRouter() {
  *               items:
  *                 $ref: '#/components/schemas/Organization'
  *   post:
+ *     security:
+ *       - cookieAuth: []
  *     summary: creates a new organization
  *     tags: [Organization]
  *     requestBody:
@@ -59,6 +63,8 @@ export function makeOrganizationRouter() {
  *               $ref: '#/components/schemas/Organization'
  * /organization/{id}:
  *   get:
+ *     security:
+ *       - cookieAuth: []
  *     summary: gets organization by id
  *     tags: [Organization]
  *     parameters:
@@ -75,6 +81,8 @@ export function makeOrganizationRouter() {
  *             schema:
  *               $ref: '#/components/schemas/Organization'
  *   put:
+ *     security:
+ *       - cookieAuth: []
  *     summary: updates organization by id
  *     tags: [Organization]
  *     parameters:
@@ -107,6 +115,8 @@ export function makeOrganizationRouter() {
  *             schema:
  *               $ref: '#/components/schemas/Organization'
  *   delete:
+ *     security:
+ *       - cookieAuth: []
  *     summary: deletes an organization and all its related Entities by id
  *     tags: [Organization]
  *     parameters:
