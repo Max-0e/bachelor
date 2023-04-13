@@ -4,6 +4,12 @@
 		<router-link class="absolute right-5 top-5" to="/app">
 			<AppButton>Zum Anwendungs-Prototypen</AppButton>
 		</router-link>
+		<a
+			target="_blank"
+			:href="SWAGGER_DOCS_URL"
+			class="absolute right-5 bottom-5">
+			<AppButton>Open API Documentation</AppButton>
+		</a>
 		<AppButton
 			class="absolute left-1/2 top-5 -translate-x-1/2 transform transition-all"
 			:class="{ 'scale-0': !showPdf }"
@@ -52,6 +58,7 @@
 	</div>
 </template>
 <script setup lang="ts">
+import { SWAGGER_DOCS_URL } from '@/config';
 import { ref } from 'vue';
 
 const showPdf = ref(false);

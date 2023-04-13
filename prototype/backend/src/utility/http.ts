@@ -57,7 +57,7 @@ class HttpClient {
 	): Promise<T> {
 		try {
 			const response = await axiosPromise;
-			Logger.debug('Http response', response?.data);
+			Logger.debug('Got Http response');
 			return response.data;
 		} catch (error: any) {
 			if (error?.response) {

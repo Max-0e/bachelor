@@ -1,3 +1,12 @@
+export interface UserDto {
+	id: string;
+	username: string;
+	email: string;
+	jiraApiToken?: string;
+	jiraApiDomain?: string;
+	jiraApiMail?: string;
+}
+
 /**
  * @swagger
  * components:
@@ -35,11 +44,3 @@
  *         jiraApiDomain: dowjohn
  *         jiraApiMail: johndoe@jira.com
  */
-export interface UserDto {
-	id: string;
-	username: string;
-	email: string;
-	jiraApiToken?: string;
-	jiraApiDomain?: string;
-	jiraApiMail?: string;
-}
