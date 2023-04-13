@@ -15,6 +15,8 @@ export function makeTasksRouter() {
  *   description: API for CRUD operations on tasks
  * /organization/tasks/{organizationId}:
  *   get:
+ *     security:
+ *       - cookieAuth: []
  *     summary: gets all tasks in the organization
  *     tags: [Task]
  *     parameters:
@@ -33,6 +35,8 @@ export function makeTasksRouter() {
  *               items:
  *                 $ref: '#/components/schemas/Task'
  *   post:
+ *     security:
+ *       - cookieAuth: []
  *     summary: creates a new task in the organization
  *     tags: [Task]
  *     parameters:
@@ -78,6 +82,8 @@ export function makeTasksRouter() {
  *               $ref: '#/components/schemas/Task'
  * /organization/tasks/{organizationId}/multiple:
  *   post:
+ *     security:
+ *       - cookieAuth: []
  *     summary: creates multiple new tasks in the organization
  *     tags: [Task]
  *     parameters:
@@ -127,6 +133,8 @@ export function makeTasksRouter() {
  *                 $ref: '#/components/schemas/Task'
  * /organization/tasks/{organizationId}/link/{entityId}/{entityToLinkToId}:
  *   post:
+ *     security:
+ *       - cookieAuth: []
  *     summary: links an entity to another entity in another hierarchy
  *     tags: [Task]
  *     parameters:
@@ -154,6 +162,8 @@ export function makeTasksRouter() {
  *               $ref: '#/components/schemas/Task'
  * /organization/tasks/{organizationId}/{id}:
  *   get:
+ *     security:
+ *       - cookieAuth: []
  *     summary: gets task in organization by id
  *     tags: [Task]
  *     parameters:
@@ -175,6 +185,8 @@ export function makeTasksRouter() {
  *             schema:
  *               $ref: '#/components/schemas/Task'
  *   put:
+ *     security:
+ *       - cookieAuth: []
  *     summary: updates task in organization by id
  *     tags: [Task]
  *     parameters:
@@ -224,6 +236,8 @@ export function makeTasksRouter() {
  *             schema:
  *               $ref: '#/components/schemas/Task'
  *   delete:
+ *     security:
+ *       - cookieAuth: []
  *     summary: deletes a task and all its related Entities by id
  *     tags: [Task]
  *     parameters:

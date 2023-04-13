@@ -7,8 +7,9 @@ export const swaggerOptions: Options = {
 		info: {
 			title: 'Prototype API',
 			version: '1.0.0',
-			description:
-				'This is a CRUD API application made with Express for the prototype of the Software developed for the bachelor thesis "Konzeption und Entwicklung eines Systems zur softwaregestützten Dokumentation von Unternehmensstrukturen für automatisierte Fortschrittsmessung und Werteorientierung"',
+			description: `This is a CRUD API application made with Express for the prototype of the Software developed for the bachelor thesis "Konzeption und Entwicklung eines Systems zur softwaregestützten Dokumentation von Unternehmensstrukturen für automatisierte Fortschrittsmessung und Werteorientierung".
+				
+			For Authorization paste existing valid session cookie with the "Authorize" button or use the "Try it out" button in the Login-Route to login once.`,
 			contact: {
 				name: 'Max Oedinger',
 				url: 'https://116.203.140.167.nip.io/#/home',

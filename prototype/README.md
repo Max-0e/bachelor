@@ -5,6 +5,7 @@
     PORT = 3000
     SECRET = 'DiesDasAnanas'
     MONGO_DB = 'templateApp'
+    DEV_MODE = 'true'
     CLIENT_APP_URL = 'http://localhost:8080'
 
 ### Starte das Projekt mit:

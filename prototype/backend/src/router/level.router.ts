@@ -13,6 +13,8 @@ export function makeLevelRouter() {
  *   description: API for CRUD operations on levels
  * /organization/levels/{organizationId}:
  *   get:
+ *     security:
+ *       - cookieAuth: []
  *     summary: gets all levels in the organization
  *     tags: [Level]
  *     parameters:
@@ -31,6 +33,8 @@ export function makeLevelRouter() {
  *               items:
  *                 $ref: '#/components/schemas/Level'
  *   post:
+ *     security:
+ *       - cookieAuth: []
  *     summary: creates a new level in the organization
  *     tags: [Level]
  *     parameters:
@@ -64,6 +68,8 @@ export function makeLevelRouter() {
  *               $ref: '#/components/schemas/Level'
  * /organization/levels/{organizationId}/{id}:
  *   get:
+ *     security:
+ *       - cookieAuth: []
  *     summary: gets level in organization by id
  *     tags: [Level]
  *     parameters:
@@ -85,6 +91,8 @@ export function makeLevelRouter() {
  *             schema:
  *               $ref: '#/components/schemas/Level'
  *   put:
+ *     security:
+ *       - cookieAuth: []
  *     summary: updates level in organization by id
  *     tags: [Level]
  *     parameters:
@@ -122,6 +130,8 @@ export function makeLevelRouter() {
  *             schema:
  *               $ref: '#/components/schemas/Level'
  *   delete:
+ *     security:
+ *       - cookieAuth: []
  *     summary: deletes a level and all its related Entities by id
  *     tags: [Level]
  *     parameters:

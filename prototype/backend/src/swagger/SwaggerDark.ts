@@ -1,3 +1,4 @@
+// from https://github.com/Amoenus/SwaggerDark
 export const swaggerDark = `
 a { color: #8c8cfa; }
 

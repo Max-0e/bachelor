@@ -13,6 +13,8 @@ export function makeEntityGroupsRouter() {
  *   description: API for CRUD operations on entity groups
  * /organization/groups/{organizationId}:
  *   get:
+ *     security:
+ *       - cookieAuth: []
  *     summary: gets all groups in the organization
  *     tags: [Group]
  *     parameters:
@@ -31,6 +33,8 @@ export function makeEntityGroupsRouter() {
  *               items:
  *                 $ref: '#/components/schemas/EntityGroup'
  *   post:
+ *     security:
+ *       - cookieAuth: []
  *     summary: creates a new group in the organization
  *     tags: [Group]
  *     parameters:
@@ -69,6 +73,8 @@ export function makeEntityGroupsRouter() {
  *               $ref: '#/components/schemas/EntityGroup'
  * /organization/groups/{organizationId}/multiple:
  *   post:
+ *     security:
+ *       - cookieAuth: []
  *     summary: creates multiple new groups in the organization
  *     tags: [Group]
  *     parameters:
@@ -111,6 +117,8 @@ export function makeEntityGroupsRouter() {
  *                 $ref: '#/components/schemas/EntityGroup'
  * /organization/groups/{organizationId}/link/{entityId}/{entityToLinkToId}:
  *   post:
+ *     security:
+ *       - cookieAuth: []
  *     summary: links an entity to another entity in another hierarchy
  *     tags: [Group]
  *     parameters:
@@ -138,6 +146,8 @@ export function makeEntityGroupsRouter() {
  *               $ref: '#/components/schemas/EntityGroup'
  * /organization/groups/{organizationId}/{id}:
  *   get:
+ *     security:
+ *       - cookieAuth: []
  *     summary: gets group in organization by id
  *     tags: [Group]
  *     parameters:
@@ -159,6 +169,8 @@ export function makeEntityGroupsRouter() {
  *             schema:
  *               $ref: '#/components/schemas/EntityGroup'
  *   put:
+ *     security:
+ *       - cookieAuth: []
  *     summary: updates group in organization by id
  *     tags: [Group]
  *     parameters:
@@ -201,6 +213,8 @@ export function makeEntityGroupsRouter() {
  *             schema:
  *               $ref: '#/components/schemas/EntityGroup'
  *   delete:
+ *     security:
+ *       - cookieAuth: []
  *     summary: deletes a group and all its related Entities by id
  *     tags: [Group]
  *     parameters:
