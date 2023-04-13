@@ -42,7 +42,14 @@ Der Aufbau des Backends gleicht dem Aufbau der Klassen-Abstraktion. Es gibt drei
 \emph{beschreibung de BE-Struktur}
 
 \subsection{Benutzeroberfläche}
+Zur initialen Planung wurde zunächst der UX-Entwurf verwendet um die grobe Struktur der Benutzeroberfläche zu entwickeln. Durch die spezifische Entwicklung verschiedener Features sind immer wieder Lücken im Entwurf aufgefallen und wurden duch weitere UI-Elemente erweitert um Funktionalitäten abzudecken, die zuvor nicht innerhalb des Prototypen bedacht wurden. Bis zum fertigen Prototypen haben sich viele der konkreten UI-Elemente verändert, allrdings blieb die Seitenstruktur also welche Informationen auf welches Seite dargestellt wurden identisch.
 
+Für die Implementierung wurde als Frontend-/UI-Framework Vue.js verwendet. Vue.js ist eine Framwork für die Entwicklung von Single-Page-Webanwendungen. Es ist ein JavaScript-Framework, welches auf dem Model-View-ViewModel (MVVM) basiert. Die UI wurde also in verschiedene Komponenten zerteilt. Die Komponenten werden in zwei Kategorien unterteilt: Views und Components. Views sind logisch voneinander getrennte Seiten der Anwendung, während Components kleinere Bestandteile der Views zur vereinfachung der in der View benötigten Logik oder wiederverwendbare UI-Elemente sind. Zur weiteren Strukturierung werden hier noch sogenannte Layouts verwendet. Layouts stellen die Grundstruktur der Anwendung dar, welche von mehreren Views verwendet wird.
+
+Die Anwendung teilt sich zunächst in zwei solcher Layouts: Authentifizierung und eigentliche Anwendung.
+
+Das Layout der Authentifizierung beschreibt nur die Positionierung der relevanten Elemente in der Mitte des Bildschirms, da sich alle Seiten der Authentifizierung diese Eigenschaft teilen.
+Das Layout der eigentlichen Seite teilt die Seite in drei Teile, den Header, den Inhalt und einen Footer. Der Header beinhaltet die Navigationsleiste, die den Nutzer durch die Anwendung führt und oben rechts ein Aktionsmenü mit dem der Nutzer sich jederzeit ausloggen kann oder in die Einstellungen bzw. sein Profil navigieren kann. Der Inhalt ist der Bereich in dem die verschiedenen Views dargestellt werden. Der Footer beinhaltet Informationen über den aktuell eingeloggten Nutzer.
 
 \subsection{Visualisierung/Datendarstellung}
 

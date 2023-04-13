@@ -9,19 +9,22 @@
 			</h1>
 			<div
 				v-if="!!organizationStore.currentEntity"
-				class="ml-5 flex items-center">
+				class="ml-5 flex items-stretch">
 				<router-link
 					:to="{ name: 'Dashboard' }"
-					class="rounded-md px-2 transition-all"
+					class="rounded-md px-2 m-2 transition-all flex items-center"
 					>Dashboard</router-link
 				>
-				<span class="cursor-default px-1">|</span>
+				<span class="cursor-default text-4xl font-bold px-2 my-auto pb-1"
+					>|</span
+				>
 				<router-link
 					:to="{ name: 'Levels' }"
-					class="rounded-md px-2 transition-all"
+					class="rounded-md px-2 m-2 transition-all flex items-center"
 					>Levels</router-link
 				>
 				<div
+					class="flex items-stretch"
 					v-for="level of levelStore.currentEntitiesFromOrganization.sort(
 						(a, b) => b.hierarchyLevel - a.hierarchyLevel
 					)">
@@ -32,7 +35,7 @@
 								!organizationStore.currentEntity?.useEpics)
 						"
 						:to="{ name: 'LevelView', params: { levelId: level.id } }"
-						class="m-2 rounded-md px-2 transition-all"
+						class="m-2 rounded-md px-2 transition-all flex items-center"
 						>{{ level.name }}</router-link
 					>
 					<router-link
@@ -40,7 +43,7 @@
 							level.hierarchyLevel > 0 ||
 							!organizationStore.currentEntity?.useEpics
 						"
-						class="m-2 rounded-md px-2 transition-all"
+						class="m-2 rounded-md px-2 transition-all flex items-center"
 						:to="{
 							name: 'Projects',
 							params: { levelId: level.id },
@@ -116,6 +119,22 @@
 		<div class="flex justify-evenly">
 			<span>Welcome {{ authStore.user?.username }}</span>
 		</div>
+		<span v-if="authStore.user?.jiraApiToken" class="flex items-center">
+			Jira connected with {{ authStore.user?.jiraApiDomain }}.attlasian.net
+			<AppIcon class="text-successGreen">check</AppIcon>
+		</span>
+		<span v-else class="flex items-center gap-5">
+			<div class="flex items-center">
+				Jira not connected
+				<AppIcon class="text-red-500">close</AppIcon>
+			</div>
+			<div
+				class="flex items-center cursor-pointer"
+				@click="$router.push({ name: 'Profile' })">
+				connect now
+				<AppIcon class="text-blue-500">link</AppIcon>
+			</div>
+		</span>
 	</footer>
 </template>
 
