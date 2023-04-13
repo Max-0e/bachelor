@@ -16,15 +16,25 @@ export const swaggerOptions: Options = {
 		},
 		servers: [
 			{
-				url: 'http://localhost:3000',
+				url: 'http://localhost:3000/api',
+			},
+			{
+				url: 'https://116.203.140.167.nip.io/api',
 			},
 		],
 	},
 	apis: [
+		// for development
 		'./src/router/*.ts',
 		'./src/router/base/*.ts',
 		'./src/interfaces/*.ts',
 		'./src/interfaces/dtos/*.ts',
 		'./src/interfaces/base/*.ts',
+		// for production
+		'./router/*.js',
+		'./router/base/*.js',
+		'./interfaces/*.js',
+		'./interfaces/dtos/*.js',
+		'./interfaces/base/*.js',
 	],
 };
