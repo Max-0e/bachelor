@@ -14,7 +14,8 @@ import { makeSerializeUser } from './passport/serializeUser';
 import { makeRouter } from './router';
 
 import { middlewares } from './middlewares';
-import { swaggerOptions } from './swagger-options';
+import { swaggerOptions } from './swagger/swagger-options';
+import { swaggerDark } from './swagger/SwaggerDark';
 
 export function makeApp(): Application {
 	require('express-async-errors');
@@ -26,7 +27,9 @@ export function makeApp(): Application {
 	app.use(
 		'/api-docs',
 		swaggerUi.serve,
-		swaggerUi.setup(swaggerJsdoc(swaggerOptions))
+		swaggerUi.setup(swaggerJsdoc(swaggerOptions), {
+			customCss: swaggerDark,
+		})
 	);
 
 	app.use(express.json({ limit: '50mb' }));
