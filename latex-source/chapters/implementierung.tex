@@ -30,35 +30,74 @@ Für die konkrete Kommunikation mit der REST-API werden zu den konkreten Datenob
 Der Aufbau des Backends gleicht dem Aufbau der Klassen-Abstraktion. Es gibt für jede abstrakte Klasse eine Struktur welche jeweils eine abstrakte Implementierung für Router, Controller, Services und Model beinhalten.
 Zudem gibt es fünf absolute Strukturen für jede der fünf absoluten Klassen, welche von den verschiedenen abstrakten Strukturen erben.
 
-
 \vspace{20pt}
 \begin{center}
-    \begin{minipage}{1\linewidth}
-        \includegraphics[width=\linewidth]{classDiagramm}
+    \begin{minipage}{0.7\linewidth}
+        \includegraphics[width=\linewidth]{BackendStruktur}
         \captionof{figure}{Abbildung der BE-Struktur}
     \end{minipage}
 \end{center}
 \vspace{20pt}
 
-hier noch eine detaillierte Beschreibung der Strukturen ????
+\emph{hier noch eine detaillierte Beschreibung der Strukturen ????}
 
-Eine vollständige Dokumentation der API im Swagger-Format ist unter \url{https://116.203.140.167.nip.io/api-docs/} verfügbar. Dort sind die für den Client zugänglichen Routen inklusive der benötigten Parameter und den zurückgegebenen Daten dokumentiert.
+Eine vollständige Dokumentation der API nach Open-API-Spezifikation-3.0.0 im Swagger-Format ist \href{https://116.203.140.167.nip.io/api-docs/}{hier} verfügbar. Dort sind die für den Client zugänglichen Routen inklusive der benötigten Parameter und den zurückgegebenen Daten dokumentiert.
 
 \subsection{Benutzeroberfläche}
-Zur initialen Planung wurde zunächst der UX-Entwurf verwendet um die grobe Struktur der Benutzeroberfläche zu entwickeln. Durch die spezifische Entwicklung verschiedener Features sind immer wieder Lücken im Entwurf aufgefallen und wurden duch weitere UI-Elemente erweitert um Funktionalitäten abzudecken, die zuvor nicht innerhalb des Prototypen bedacht wurden. Bis zum fertigen Prototypen haben sich viele der konkreten UI-Elemente verändert, allerdings blieb die Seitenstruktur also welche Informationen auf welches Seite dargestellt wurden identisch.
+Zur initialen Planung wurde zunächst der UX-Entwurf verwendet, um die grobe Struktur der Benutzeroberfläche zu entwickeln. Durch die spezifische Entwicklung verschiedener Features sind immer wieder Lücken im Entwurf aufgefallen und wurden durch weitere UI-Elemente erweitert, um Funktionalitäten abzudecken, die zuvor nicht innerhalb des Prototyps bedacht wurden. Bis zum fertigen Prototyp haben sich viele der konkreten UI-Elemente verändert, allerdings blieb die Seitenstruktur also welche Informationen auf, welches Seite dargestellt wurden identisch.
 
-Für die Implementierung wurde als Frontend-/UI-Framework Vue.js verwendet. Vue.js ist eine Framwork für die Entwicklung von Single-Page-Webanwendungen. Es ist ein JavaScript-Framework, welches auf dem Model-View-ViewModel (MVVM) basiert. Die UI wurde also in verschiedene Komponenten zerteilt. Die Komponenten werden in zwei Kategorien unterteilt: Views und Components. Views sind logisch voneinander getrennte Seiten der Anwendung, während Components kleinere Bestandteile der Views zur vereinfachung der in der View benötigten Logik oder wiederverwendbare UI-Elemente sind. Zur weiteren Strukturierung werden hier noch sogenannte Layouts verwendet. Layouts stellen die Grundstruktur der Anwendung dar, welche von mehreren Views verwendet wird.
+Für die Implementierung wurde als Frontend-/UI-Framework Vue.js verwendet. Vue.js ist eine Framework für die Entwicklung von Single-Page-Webanwendungen. Es ist ein JavaScript-Framework, welches auf dem Model-View-ViewModel (MVVM) basiert. Die UI wurde also in verschiedene Komponenten zerteilt. Die Komponenten werden in zwei Kategorien unterteilt: Views und Components. Views sind logisch voneinander getrennte Seiten der Anwendung, während Components kleinere Bestandteile der Views zur Vereinfachung der in der View benötigten Logik oder wiederverwendbare UI-Elemente sind. Zur weiteren Strukturierung werden hier noch sogenannte Layouts verwendet. Layouts stellen die Grundstruktur der Anwendung dar, welche von mehreren Views verwendet wird.
 
+\subsubsection{Layouts}
 Die Anwendung teilt sich zunächst in zwei solcher Layouts: Authentifizierung und eigentliche Anwendung.
 
 Das Layout der Authentifizierung beschreibt nur die Positionierung der relevanten Elemente in der Mitte des Bildschirms, da sich alle Seiten der Authentifizierung diese Eigenschaft teilen.
-Das Layout der eigentlichen Seite teilt die Seite in drei Teile, den Header, den Inhalt und einen Footer. Der Header beinhaltet die Navigationsleiste, die den Nutzer durch die Anwendung führt und oben rechts ein Aktionsmenü mit dem der Nutzer sich jederzeit ausloggen kann oder in die Einstellungen bzw. sein Profil navigieren kann. Der Inhalt ist der Bereich in dem die verschiedenen Views dargestellt werden. Der Footer beinhaltet Informationen über den aktuell eingeloggten Nutzer und seine Verbindung zu Jira.
+Das Layout der eigentlichen Seite teilt die Seite in drei Teile, den Header, den Inhalt und einen Footer. Der Header beinhaltet die Navigationsleiste, die den Nutzer durch die Anwendung führt und oben rechts ein Aktionsmenü mit dem der Nutzer sich jederzeit ausloggen kann oder in die Einstellungen bzw. sein Profil navigieren kann. Zudem kann der Nutzer links neben dem Aktionsmenü die Daten der Anwendung erneut laden und die Fortschrittsmessung zwischen Absolut, Storypoints und Value auswählen. Der Inhalt ist der Bereich in dem die verschiedenen Views dargestellt werden. Im Footer sind Informationen über den aktuell eingeloggten Nutzer und seine Verbindung zu Jira enthalten.
+
+\subsubsection{Views und Components}
+Die Views beinhalten die im UX-Entwurf beschriebenen Anwendungsteile: Login, Registrierung, Passwort vergessen, Passwort Reset, Dashboard, Einstellungen, Profil, Organisationen, Level-Übersicht, Gruppenansicht, Gruppendetailansicht, Projektübersicht, Projekt-Dashboard, Aufgaben-Board, Aufgaben-Backlog und Epic-Übersicht. Außerdem gibt es eine Not-Found-View welche dargestellt wird, wenn der Nutzer versucht eine nicht existierende Seite aufzurufen und eine Home-View, die als Homepage der Anwendung dient. Hier kann der Nutzer das Dokument der Bachelorarbeit sehen und die API-Dokumentation aufrufen.
+
+Die Components enthalten mehrfach verwendetet UI-Elemente, wie z. B. Buttons, Icons, Textfelder, Dropdowns, Drag-And-Drop-Elemente, Dialogfenster, etc.
+
+\emph{Detailliertere Beschreibung der Components?????}
+
+\subsubsection{Datenverwaltung}
+Für die anwendungsübergreifende Datenverwaltung wird das Framework Pinia als Store verwendet. Der Store dient dazu die Daten nicht Kontextspezifisch zu speichern, sondern in der gesamten Anwendung verfügbar zu machen. Somit müssen die Daten nicht nach jeden Seitenwechsel neu geladen werden, sondern können aus dem Store abgerufen werden. Dies verbessert die Performance der Anwendung. Außerdem werden alle Kommunikationen mit dem Backend über den Store abgewickelt und durch die Ergebnisse der Kommunikationen werden die Daten im Store aktualisiert. Daten, die aus dem Store abgerufen werden, sind reactive, das bedeutet, dass Änderungen der Daten ebenfalls in den Komponenten, welche die Daten verwenden, reflektiert werden. Ein Store besteht aus drei verschiedenen Teilen: State, Getters und Actions. Der State beschreibt den Zustand der Daten. Getters sind Funktionen, die Daten aus dem State für verschiedene Anwendungsfälle transformiert oder gefiltert zurückgeben. Actions sind Funktionen, welche die Kommunikation mit dem Backend abwickeln und mit den zurückgegebenen Daten den State mutieren.
+
+Es gibt mehrere Stores, die verschiedene Daten speichern. Für allgemeine Informationen gibt es den AppStore, welcher speichert welche Fortschrittsmessung ausgewählt wurde und ob der Light- oder Darkmode ausgewählt wurde. Der AppStore wird zusätzlich im Local-Storage des Browsers persistiert, was dafür sorgt, dass diese Informationen auch bei einem Neuladen der Seite erhalten bleiben.
+
+Im AuthStore wird der eingeloggte Nutzer gespeichert und ob der Nutzer eingeloggt ist und Login und Logout definiert.
+Für Daten, die in der Backend- und Datenstruktur als Entitäten bezeichnet werden gibt es auch hier eine Abstraktion der Stores für die Verwaltung dieser Entitäten. Es gibt also auch hier eine Abstraktion in EntityStore, OrganizationBasedEntity und LinkableEntity, von welchen die tatsächlich verwendeten Stores für die verschiedenen Datentypen erben. Anders als die Backendstruktur funktioniert die Vererbung hier aber nicht über Klassen, da Pinia einem funktionalen Implementierungsschema folgt. Also gibt es MakeFunktionen für jedes der drei verschiedenen Teile des Stores, welche mit Generischen-Type-Parametern State, Getter und Actions mit den richtigen Typen erzeugt. Für simlple Stores wie z. B. den OrganizationStore beschränkt sich die absolute implementierung dann wie folgt:
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{organizationStore}
+        \captionof{figure}{Implementierung des OrganizationStore}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Für Stores mit zusätzlichen Getters, werden die MakeFunktionen erweitert, wie beispielsweise im LevelStore:
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{levelStore}
+        \captionof{figure}{Implementierung des LevelStore}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Stores für Entitäten, haben in ihrem State zusätzlich ein Loaded Attribut in dem gespeichert wird, ob die Daten bereits von Server abgefragt wurde, bzw. wenn es sich um eine OrganizationBasedEntity handelt, ob die Daten für diese Organisation bereits geladen wurde, um mehrfache Requests für die gleichen Daten zu vermeiden und damit die Performance zu verbessern.
+
+Der Jira-Store speichert alle den Nutzer zugänglichen Projekte und bietet mit seinen Actions die Möglichkeit die relevanten Daten zu diesem Projekt zu holen, wenn der Nutzer den Import-Prozess für ein Jira-Projekt startet.
 
 \subsection{Visualisierung/Datendarstellung}
 Für die generelle Visualisierung der gesamten Daten einer Organisation dient das Dashboard, welches den komplexesten Teil der Anwendung darstellt.
 
 Hier werden alle Gruppen der Organisation Hierarchisch sortiert dargestellt und ihre Verknüpfungen untereinander visualisiert.
-Um die Übersicht bei vielen Gruppen beizubehalten werden die Gruppen innerhalb einer hierarchischen Ebene nach ihren Verbindungen zu den darüberliegenden Gruppen sortiert, sodass Gruppen die mit der gleichen Gruppe in der Ebene darüber verknüpft sind nebeneinander dargestellt werden und die Verbindungslinien somit möglichst kurz und übersichtlich dargestellt.
+Um die Übersicht bei vielen Gruppen beizubehalten werden die Gruppen innerhalb einer hierarchischen Ebene nach ihren Verbindungen zu den darüberliegenden Gruppen sortiert, sodass Gruppen, die mit der gleichen Gruppe in der Ebene darüber verknüpft sind, nebeneinander dargestellt werden. Die Verbindungslinien werden somit möglichst kurz und übersichtlich dargestellt.
 
 \vspace{20pt}
 \begin{center}
@@ -69,7 +108,7 @@ Um die Übersicht bei vielen Gruppen beizubehalten werden die Gruppen innerhalb 
 \end{center}
 \vspace{20pt}
 
-Um die Verbindungslinien darzustellen wurde ein svg-Element im Hintergrund der Seite verwendet, welches die Verbindungslinien unabhängig von anderen Elementen auf der Seite darstellen kann. Die Start- und Endkoordinaten der Linien werden durch Positionen der Gruppen innerhalb der Seite berechnet. Dabei muss zusätzlich beachtet werden, wenn ein Level so viele Gruppen beinhaltet, dass sich einige Gruppen außerhalb des sichtbaren Bereichs befinden und durch einen Scroll in den sichtbaren bereich bewegt werden können. In diesem Fall müssen die Koordinaten der Linien entsprechend der Scroll-Position der verschobenen Gruppen neu berechnet werden.
+Um die Verbindungslinien darzustellen wurde ein SVG-Element im Hintergrund der Seite verwendet, welches die Verbindungslinien unabhängig von anderen Elementen auf der Seite darstellen kann. Die Start- und Endkoordinaten der Linien werden durch Positionen der Gruppen innerhalb der Seite berechnet. Dabei muss zusätzlich beachtet werden, wenn ein Level so viele Gruppen beinhaltet, dass sich einige Gruppen außerhalb des sichtbaren Bereichs befinden und durch einen Scroll in den sichtbaren Bereich bewegt werden können. In diesem Fall müssen die Koordinaten der Linien entsprechend der Scroll-Position der verschobenen Gruppen neu berechnet werden.
 
 \vspace{20pt}
 \begin{center}
@@ -80,11 +119,10 @@ Um die Verbindungslinien darzustellen wurde ein svg-Element im Hintergrund der S
 \end{center}
 \vspace{20pt}
 
-Der Nutzer hat die Möglichkeit Verlinkung über ein Toggle zu aktivieren, wodurch über jeder Gruppe die verlinkt werden kann ein Punkt erscheint, den der Nutzer mit Drag and Drop verwenden kann um die Gruppe mit einer anderen Gruppe zu verbinden.
-Anhand der Start-Position und aktuellen Position des Mauszeigers wird währenddessen eine neue Linies dargestellt, die dem Nutzer zeigt wie die Verbindung aussieht die er erzeugt. Anschließend werden die Verbindungsli
-nien anhand der neuen Positionen der Gruppen erneut berechnet.
+Der Nutzer hat die Möglichkeit Verlinkung über ein Toggle zu aktivieren, wodurch über jeder Gruppe, die verlinkt werden kann, ein Punkt erscheint, den der Nutzer mit Drag-and-Drop verwenden kann, um die Gruppe mit einer anderen Gruppe zu verbinden.
+Anhand der Start-Position und aktuellen Position des Mauszeigers wird währenddessen eine neue Linie dargestellt, die dem Nutzer zeigt, wie die Verbindung aussieht die er erzeugt. Anschließend werden die Verbindungslinien anhand der neuen Positionen der Gruppen erneut berechnet.
 
-Zusätzlich zu den Linien kann der Nutzer den Mauszeiger über eine Gruppe bewegen, wodurch die Gruppe und die Gruppen die mit dieser Gruppe verknüpft sind, inklusieve aller relevanten Verbindungslinien blau hervorgehoben werden.
+Zusätzlich zu den Linien kann der Nutzer den Mauszeiger über eine Gruppe bewegen, wodurch die Gruppe und die Gruppen, die mit dieser Gruppe verknüpft sind, inklusive aller relevanten Verbindungslinien, blau hervorgehoben werden.
 
 \vspace{20pt}
 \begin{center}
@@ -95,8 +133,10 @@ Zusätzlich zu den Linien kann der Nutzer den Mauszeiger über eine Gruppe beweg
 \end{center}
 \vspace{20pt}
 
+Für die Erzeugung der Doughnut-Diagramme wird Chart.js verwendet, da es eine simple und visuell ansprechende Möglichkeit bietet einfache Diagramme zu erstellen. Durch das Plugin Vue-Chartjs gibt es die Möglichkeit die Diagramme in Vue.js direkt als Komponente einzubinden, was die Verwendung weiter erleichtert.
+
 \subsection{CI/CD}
-Für eine schnelle und einfache Möglichkeit die Anwendung als produktive Anwendung zu testen und verbesserungen zu deployen wurde eine CI/CD-Pipeline mit GitHub-Actions eingerichtet. Die GitHub-Action definiert, wann die Pipeline ausgeführt werden soll und welche Schritte in der Pipeline ausgeführt werden sollen. Der Trigger für die Pipeline ist hier das Mergen und daraus resultierenden Schließen eines Pullrequests der als Ziel den main-Branch des Repositories hat.
+Für eine schnelle und einfache Möglichkeit die Anwendung als produktive Anwendung zu testen und Verbesserungen zu deployen wurde eine CI/CD-Pipeline mit GitHub-Actions eingerichtet. Die GitHub-Action definiert, wann die Pipeline ausgeführt werden soll und welche Schritte in der Pipeline ausgeführt werden sollen. Der Trigger für die Pipeline ist hier das Mergen und daraus resultierenden Schließen eines Pullrequests der als Ziel den main-Branch des Repositories hat.
 
 \vspace{20pt}
 \begin{center}
@@ -108,7 +148,7 @@ Für eine schnelle und einfache Möglichkeit die Anwendung als produktive Anwend
 \vspace{20pt}
 
 Die Pipeline besteht aus zwei Teilen, sogenannten Jobs: Build und Deploy.
-Build erzeugt aus dem geupdateten Quellcode ein neues Docker-Image nach den konkreten Anweisungen die in dem Dockerfile im root-Verzeichnis des Prototypen definiert sind. Bei dem Dockerfile handlet es sich um ein multi-stage Dockerfile, welches in drei Schritten ein Image erzeugt. Diese drei Schritte sind:
+Build erzeugt aus dem geupdateten Quellcode ein neues Docker-Image nach den konkreten Anweisungen die in dem Dockerfile im root-Verzeichnis des Prototypen definiert sind. Bei dem Dockerfile handelt es sich um ein multi-stage Dockerfile, welches in drei Schritten ein Image erzeugt. Diese drei Schritte sind:
 frontend-build, backend-build, und production.
 
 \vspace{20pt}
@@ -120,7 +160,7 @@ frontend-build, backend-build, und production.
 \end{center}
 \vspace{20pt}
 
-Im ersten Schritt wird der Frontend-Code kompiliert. Im zweiten Schritt wird der Backend-Code kompiliert und das kompilierte Frontend aus dem ersten Schritt zur statischen auslieferung in einen bestimmten Ordner kopiert. Im dritten Schritt wird ein Node Image für die Produktivumgebung erzeugt welches das Kompilierte Backend inklusieve des Frontends enthält und mit einem Start-Befehl der Webserver gestartet wird.
+Im ersten Schritt wird der Frontend-Code kompiliert. Im zweiten Schritt wird der Backend-Code kompiliert und das kompilierte Frontend aus dem ersten Schritt zur statischen Auslieferung in einen bestimmten Ordner kopiert. Im dritten Schritt wird ein Node-Image für die Produktivumgebung erzeugt, welches das kompilierte Backend inklusive des Frontends enthält und mit einem Start-Befehl der Webserver gestartet wird.
 Das resultierende Image, welches nun eine lauffähige Version der Anwendung enthält, wird anschließend als neueste Version des Images getagt.
-Deploy führt ein Update der konkreten Produktivumgebung durch. Dazu wird das Image, welches im Build-Job erzeugt wurde, und das laufende Image ersetzt. Hierzu wird die Docker-Compose-Datei verwendet, welche die Konfiguration der Docker-Services der Produktivumgebung beschreibt. Diese Datei referenziert immer die neueste Version des gebauten Images und einen Reverse-Proxy-Service von "Traefik", welcher dazu dient das Portmapping auf dem Server zu übernehmen und ein SSL-Zertifikat für die angegebene Domain auszustellen.
+Deploy führt ein Update der konkreten Produktivumgebung durch. Dazu wird das Image, welches im Build-Job erzeugt wurde, und das laufende Image ersetzt. Hierzu wird die Docker-Compose-Datei verwendet, welche die Konfiguration der Docker-Services der Produktivumgebung beschreibt. Diese Datei referenziert immer die neueste Version des gebauten Images und einen Reverse-Proxy-Service von "Traefik", welcher dazu dient das Portmapping auf dem Server zu übernehmen und mithilfe von Letsencrypt ein SSL-Zertifikat für die angegebene Domain auszustellen.
 Zuletzt werden alle alten und unbenutzt Images gelöscht.

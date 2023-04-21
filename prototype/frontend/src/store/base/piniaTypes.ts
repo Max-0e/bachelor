@@ -10,6 +10,8 @@ import {
 	_DeepPartial,
 } from 'pinia';
 
+// additional PiniaTypes from https://github.com/vuejs/pinia/issues/802#issuecomment-1107925251
+// with some modifications
 export type PiniaStateTree = StateTree;
 export type PiniaGetterTree = Record<string, (...args: any) => any>;
 export type PiniaActionTree = Record<string, (...args: any) => any>;
