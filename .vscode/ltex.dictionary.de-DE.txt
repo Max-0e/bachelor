@@ -13,3 +13,5 @@ Kommunikations-Framework
 organisationsbasierende
 organisationsbasierenden
 Components
+VBSE
+wertezentiert
