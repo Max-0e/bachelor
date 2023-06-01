@@ -1,7 +1,7 @@
 \subsection{Agilität}
 Agilität im Kontext von Projektmanagement oder auch grundsätzlicher Unternehmensorganisation ist ein alternativer Ansatz für die Planung unternehmensinterner Prozesse, wie z. B. die Umsetzung eines Projekts und steht meist dem sogenannten traditionellen Ansatz gegenüber. Unter diesem traditionellen Ansatz wird für gewöhnlich der lineare Planungsprozess verstanden, welcher voraussetzt, dass alle Anforderungen vor der Umsetzung klar und eindeutig definiert und dokumentiert sind und somit Risiko minimiert wird. Diese Umstände sind allerdings häufig nicht gegeben, bevor ein geplanter Prozess beginnen muss, damit Konkurrenzfähigkeit für ein Unternehmen erhalten werden kann. Solche zeitkritischen Prozesse sind häufig aber maßgebend für den Erfolg eines Unternehmens, wodurch ein Bedarf für eine Methode entstand, die Anpassbarkeit an sich ändernde Anforderungen und Rahmenbedingungen während der Umsetzung eines Prozesses erlaubt \cite{agilismVsTranditionalApproaches}.
 
-Bei traditioneller Planung erhöht sich durch sich ändernde Anforderungen das Risiko die falschen Dinge zum falschen Zeitpunkt zu tun. Agile Methodik  dagegen erlaubt es diese Prozesse so effektiv wie möglich zu managen, da die Planung nicht linear, sondern iterativ stattfindet, sodass dieses Risiko immer nur für eine Iteration in Kauf genommen werden muss. Durch regelmäßige Feedbackschleifen mit Stakeholdern bleibt der Fokus auf Werteorientierung, da sich ändernde Anforderungen regelmäßig bereits in den Planungsprozess der nächsten Iteration einbezogen werden. \emph{Außerdem wird die Projektverantwortung von der Rolle des Projektmanagers ins Team gegeben.} \cite{TheRoleofProjectManagerinAgileSoftwareTeams}.
+Bei traditioneller Planung erhöht sich durch sich ändernde Anforderungen das Risiko die falschen Dinge zum falschen Zeitpunkt zu tun. Agile Methodik  dagegen erlaubt es diese Prozesse so effektiv wie möglich zu managen, da die Planung nicht linear, sondern iterativ stattfindet, sodass dieses Risiko immer nur für eine Iteration in Kauf genommen werden muss. Durch regelmäßige Feedbackschleifen mit Stakeholdern bleibt der Fokus auf Werteorientierung, da sich ändernde Anforderungen regelmäßig bereits in den Planungsprozess der nächsten Iteration einbezogen werden. In agilen Projektteams gibt es keinen Projektmanager. Dies bedeutet aber nicht das es nicht die Aufgaben gibt die typischwer weise von einer solchen Rolle übernommen würden, stattdessen werden Planungs- und Entscheidungsprozesse innerhalb des Teams von dem Team selbst übernommen. Dies setzt \emph{highly-skilled} und selbstorganisierte Teams vorraus. Somit werden die Aufgaben eines traditionellen Projektmanagers in das Team übergeben und unter den Mitgliedern aufgeteilt oder von allen gemeinsam übernommen. \cite{TheRoleofProjectManagerinAgileSoftwareTeams}.
 Somit entsteht eine Flexibilität und Anpassbarkeit, welche die Volatilität verringert. Dadurch, dass Dinge erst dann entschieden werden, wenn es notwendig ist, ist allerdings der Gesamtaufwand und die -dauer nicht zu Beginn einschätzbar, sondern immer nur der Aufwand und die Dauer der aktuellen Iteration \cite{agilismVsTranditionalApproaches}.
 
 Ziel bei der Wahl der Planungsmethode ist immer den Erfolg der Umsetzung des geplanten Prozesses zu maximieren.
@@ -49,7 +49,25 @@ Eine Studie zeigte ebenfalls, dass sich durch diese Implementierung (1) Transpar
 Für die Skalierung von Agilität auf die gesamte Unternehmensstruktur, gibt es, wie bereits erwähnt, verschiedene Frameworks. Diese werden im folgenden Abschnitt genauer beschrieben.
 
 \subsubsection{SAFe}
-SAFe ist ein Framework für agile Unternehmensstrukturierung. Es wurde von Dean Leffingwell entwickelt und ist eine der meistverbreiteten Methoden für agile Unternehmensstrukturierung. SAFe ist ein Framework, welches auf den Prinzipien von Lean und Agile basiert.
+Es wurde von Dean Leffingwell entwickelt und ist eine der meistverbreiteten Methoden für agile Unternehmensstrukturierung.
+SAFe unterteilt ein Unternehmen in drei bis 4 Ebenen. Diese Ebenen sind:
+
+\begin{itemize}
+    \item Team Level
+    \item Program Level
+    \item Value Stream Level (optional)
+    \item Portfolio-Level
+\end{itemize}
+
+Das Team-Level bildet die operative Ebene in welcher agile Teams agieren. Diese Teams können SCRUM oder Kanban verwenden, besonders wert wird aber darauf gelegt, dass alle Teams in einem einheitlichen Iterationsintervall arbeiten.
+
+Das Program Level fasst 5 bis 12 agile Teams aus dem Team-Level in ein virtuelles Programm zusammen, welches als Agile Release Train (ART) bezeichnet wird. Diese ARTs sind langlebige, selbstorganisierte Teams, welche gemeinsam für den Erfolg des ARTs verantwortlich sind.
+
+Das optionale Value Stream Level ist eine Ebene, die verwendet werden kann, wenn es mehrere ARTs gibt, welche einen gemeinsamen Wertestrom ergeben und deshalb zusätzliche Koordination benötigen.
+
+Das Portfolio-Level ist die Ebene, in der die Werteströme entweder aus dem Value Stream Level oder dem Program Level organisiert und finanziert werden. Dort finden Praktiken wie Lean-Agile Budgeting ihre Anwendung für die notwendige Kontrolle über die verschiedenen Werteströme.
+
+Zuletzt gibt es noch die sog. Foundation Layer, welche verschiedene Richtlinien definiert, welche als Grundlage der Prinzipien hinter SAFe dienen. Dazu gehören die 9 Lean-Agile Principles, Leitlinien für agile Führungsrollen, etc. \cite{leffingwell20safe}
 
 \subsubsection{Flight-Level}
 Flight-Level ist eine von Klaus Leopold entwickelte Methode, welche eine mögliche Form von agiler Unternehmensstrukturierung bietet. Die Methode Flight-Level wird hierbei von Leopold  als Kommunikations-Framework bezeichnet und unterteilt ein Unternehmen in 3 Ebenen oder auch Flight-Level, also Flughöhen bezeichnet:

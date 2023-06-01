@@ -1,13 +1,20 @@
 \babel@toc {ngerman}{}\relax 
 \contentsline {figure}{\numberline {1}{\ignorespaces Agile Projektsegmentierung\relax }}{4}{figure.1}%
-\contentsline {figure}{\numberline {2}{\ignorespaces Prozess für Fortschrittsaggregation\relax }}{14}{figure.2}%
-\contentsline {figure}{\numberline {3}{\ignorespaces UML-Diagramm der Datenstruktur\relax }}{15}{figure.3}%
-\contentsline {figure}{\numberline {4}{\ignorespaces Backend Architektur\relax }}{16}{figure.4}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Abbildung der BE-Struktur\relax }}{18}{figure.5}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Implementierung des OrganizationStore\relax }}{21}{figure.6}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Implementierung des LevelStore\relax }}{22}{figure.7}%
-\contentsline {figure}{\numberline {8}{\ignorespaces Dashboard\relax }}{23}{figure.8}%
-\contentsline {figure}{\numberline {9}{\ignorespaces Dashboard mit scrollbaren Gruppen\relax }}{24}{figure.9}%
-\contentsline {figure}{\numberline {10}{\ignorespaces Dashboard mit hervorgehobenen Gruppen\relax }}{25}{figure.10}%
-\contentsline {figure}{\numberline {11}{\ignorespaces GitHub-Action\relax }}{26}{figure.11}%
-\contentsline {figure}{\numberline {12}{\ignorespaces Dockerfile zum Bauen des Images\relax }}{27}{figure.12}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Prozess für Fortschrittsaggregation\relax }}{15}{figure.2}%
+\contentsline {figure}{\numberline {3}{\ignorespaces UML-Diagramm der Datenstruktur\relax }}{17}{figure.3}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Backend Architektur\relax }}{18}{figure.4}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Abbildung der BE-Struktur\relax }}{20}{figure.5}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Implementierung des OrganizationStore\relax }}{23}{figure.6}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Implementierung des LevelStore\relax }}{24}{figure.7}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Import Feld Mapping\relax }}{25}{figure.8}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Import Jira Projekt Auswahl\relax }}{26}{figure.9}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Import Jira Ansicht nach Projekt Auswahl\relax }}{26}{figure.10}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Import Jira Mapping\relax }}{27}{figure.11}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Import Status Mapping\relax }}{27}{figure.12}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Import Übersicht bei Excel Datei\relax }}{28}{figure.13}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Import Übersicht bei Jira Import\relax }}{28}{figure.14}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Dashboard\relax }}{29}{figure.15}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Dashboard mit scrollbaren Gruppen\relax }}{30}{figure.16}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Dashboard mit hervorgehobenen Gruppen\relax }}{31}{figure.17}%
+\contentsline {figure}{\numberline {18}{\ignorespaces GitHub-Action\relax }}{32}{figure.18}%
+\contentsline {figure}{\numberline {19}{\ignorespaces Dockerfile zum Bauen des Images\relax }}{33}{figure.19}%

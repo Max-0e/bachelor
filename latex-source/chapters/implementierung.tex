@@ -93,6 +93,82 @@ Stores für Entitäten, haben in ihrem State zusätzlich ein Loaded Attribut in 
 
 Der Jira-Store speichert alle den Nutzer zugänglichen Projekte und bietet mit seinen Actions die Möglichkeit die relevanten Daten zu diesem Projekt zu holen, wenn der Nutzer den Import-Prozess für ein Jira-Projekt startet.
 
+\subsection{Projekt-Import}
+Um die Verwendung der Anwendung insbesondere für Projekte, welche eine große Menge an Daten beinhalten können und meißt in externen Tools dokumentiert und verwaltet werden, zu vereinfachen, wurde ein Import-Prozess sowohl für Projektdaten in Excel-Dateien, als auch für Jira-Projekte implementiert. Dieser Import Prozess erlaubt ein individuelles Mapping der Daten aus den externen Tools auf die Datenstruktur der Anwendung. Das Mapping bei einer Excel-Tabelle erwartet eine Excel-Tabelle, welche alle Aufgaben eines Projekts enthält. Hierbei kann der Nutzer  die Felder aus der Anwendung mit Drag-and-Drop Spalten in der Tabelle zuordnen. Sollten Spalten bereits genauso wie Felder innerhalb der Anwendung heißen, werden diese Felder automatisch gemapped, können vom Nutzer aber auch wieder abgeändert werden.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{ImportExcel}
+        \captionof{figure}{Import Feld Mapping}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Anschließend wird für das Feld welches den Status der Aufgabe enthält einem Status innerhalb der Anwendung zuordnen, enthält das Feld für eine Aufgabe den gleichen Wert wie der Zugeordnete Status, wird dieser verwendet.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{ImportJiraProjectSelection}
+        \captionof{figure}{Import Jira Projekt Auswahl}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Importiert der Nutzer von Jira kann er zunächst ein Projekt auswählen.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{ImportJiraProjectSelected}
+        \captionof{figure}{Import Jira Ansicht nach Projekt Auswahl}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Für Jira-Projekte kann das Mapping der Felder größtenteils automatisch durchgeführt werden, das bedeutet, dass Aufgaben und Epics sofort erkannt werden. Die Stati der Aufgaben können anhand der Metadaten von JIRA auch automatisch ausgelesen werden, der Nutzer kann dennoch Für jeden Status aus JIRA ändern, welcher Status im Prototypen zugeordnet wird, falls die tatsächliche Verwendung von den Meta-Daten abweichen sollte.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{ImportJiraMapping}
+        \captionof{figure}{Import Jira Mapping}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Außerdem kann der Nutzer an dieser Stelle Custom-Fields für Issues aus Jira, welche Zahlenwerte enthalten auf Value und/oder Storypoints mappen.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{ImportStatusMapping}
+        \captionof{figure}{Import Status Mapping}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Zuletzt erhält der Nutzer nocheinmal eine Übersicht über die importierten Daten und kann den Import-Prozess starten.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{ImportUebersicht}
+        \captionof{figure}{Import Übersicht bei Excel Datei}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{ImportJiraUebersicht}
+        \captionof{figure}{Import Übersicht bei Jira Import}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
 \subsection{Visualisierung/Datendarstellung}
 Für die generelle Visualisierung der gesamten Daten einer Organisation dient das Dashboard, welches den komplexesten Teil der Anwendung darstellt.
 
