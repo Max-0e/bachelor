@@ -11,8 +11,8 @@ import sendResponse from '../utility/sendResponse';
 class JiraController {
 	public async getProjects(req: Request, res: Response): Promise<Response> {
 		const service = makeJiraService(req.user as UserDocument);
-		const project = await service.getProjects();
-		return await sendResponse.data(res, 200, project);
+		const projects = await service.getProjects();
+		return await sendResponse.data(res, 200, projects);
 	}
 
 	public async getProjectDetails(
