@@ -134,7 +134,7 @@
 				>
 				<AppIcon
 					button
-					class="text-successGreen float-right m-1 px-2"
+					class="text-successGreen dark:text-successGreenDark float-right m-1 px-2"
 					@click="createTask()"
 					>done</AppIcon
 				>

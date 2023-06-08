@@ -60,17 +60,27 @@ a {
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+.dark ::-webkit-scrollbar-track {
 	background: rgb(50, 50, 50);
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
+.dark ::-webkit-scrollbar-thumb {
 	background: rgb(10, 10, 10);
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+.dark ::-webkit-scrollbar-thumb:hover {
 	background: rgb(10, 10, 10);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(230, 230, 230);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(150, 150, 150);
 }
 </style>

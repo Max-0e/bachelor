@@ -21,7 +21,9 @@
 							@input="dropData($event)" />
 						<div
 							class="absolute"
-							:class="{ 'text-successGreen': !!data.fileName }">
+							:class="{
+								'text-successGreen dark:text-successGreenDark': !!data.fileName,
+							}">
 							<span>
 								{{
 									data.fileName
@@ -50,7 +52,7 @@
 						Drag and Drop headers into and out of the table-headers to map.
 					</div>
 					<DropZone
-						class="dark:bg-dark-300 m-5 flex items-center justify-center gap-2 bg-gray-200"
+						class="dark:bg-dark-300 m-5 flex items-center justify-center gap-2 bg-gray-100"
 						@on-drop="droppedOutOfHeader($event)">
 						<DraggableItem
 							class="dark:bg-dark-700 rounded-md bg-gray-300 p-2 font-bold"
@@ -68,10 +70,15 @@
 					<table class="mx-auto">
 						<tr>
 							<th
-								class="border"
-								:class="{ 'border-successGreen': header.isMapped }"
+								class="border bg-gray-100 dark:bg-dark-300"
+								:class="{
+									'border-successGreen dark:border-successGreenDark':
+										header.isMapped,
+								}"
 								v-for="(header, index) in data.headers">
-								<DropZone @on-drop="droppedOnHeader($event, index)">
+								<DropZone
+									@on-drop="droppedOnHeader($event, index)"
+									class="bg-transparent">
 									<DraggableItem
 										class="dark:bg-dark-700 rounded-md bg-gray-300 p-2"
 										:data="header.name"
@@ -97,16 +104,17 @@
 						<div
 							class="m-2 flex items-center justify-between gap-10 rounded-md p-2 px-10"
 							:class="{
-								'bg-successGreen': status.prototypeStatus === 'done',
-								'bg-blue-800': status.prototypeStatus === 'inProgress',
-								'bg-dark-200': status.prototypeStatus === 'open',
+								'text-white bg-successGreen dark:bg-successGreenDark':
+									status.prototypeStatus === 'done',
+								'text-white bg-blue-400 dark:bg-blue-800':
+									status.prototypeStatus === 'inProgress',
+								'text-gray-600 dark:text-white bg-gray-200 dark:bg-dark-200':
+									status.prototypeStatus === 'open',
 							}"
 							v-for="status in data.taskStatuses">
-							<span class="text-white">
-								{{ status.name }}
-							</span>
+							{{ status.name }}
 							<AppDropDownMenu
-								class="w-100"
+								class="w-100 text-gray-600 dark:text-white"
 								v-model="status.prototypeStatus"
 								:defaultValueName="status.prototypeStatus"
 								selectText="select Status"

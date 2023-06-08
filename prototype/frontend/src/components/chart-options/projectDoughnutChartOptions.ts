@@ -1,3 +1,4 @@
+import { useAppStore } from '@/store/app';
 import { ChartData, ChartOptions } from 'chart.js';
 
 export const getDoughnutChartOptions = (
@@ -28,7 +29,9 @@ export function getProjectChartData(data: number[]): ChartData<'doughnut'> {
 		datasets: [
 			{
 				data: data,
-				backgroundColor: ['#333333', '#2134A2', '#339933'],
+				backgroundColor: useAppStore().darkMode
+					? ['#333333', '#2134A2', '#339933']
+					: ['#e5e7eb', '#60a5fa', '#55BB55'],
 			},
 		],
 	};

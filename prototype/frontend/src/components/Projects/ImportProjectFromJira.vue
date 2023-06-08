@@ -68,16 +68,17 @@
 							<div
 								class="m-2 flex items-center justify-between gap-10 rounded-md p-2 px-10"
 								:class="{
-									'bg-successGreen': status.prototypeStatus === 'done',
-									'bg-blue-800': status.prototypeStatus === 'inProgress',
-									'bg-dark-200': status.prototypeStatus === 'open',
+									'text-white bg-successGreen dark:bg-successGreenDark':
+										status.prototypeStatus === 'done',
+									'text-white bg-blue-400 dark:bg-blue-800':
+										status.prototypeStatus === 'inProgress',
+									'text-gray-600 dark:text-white bg-gray-200 dark:bg-dark-200':
+										status.prototypeStatus === 'open',
 								}"
 								v-for="status in usedIssuesStatuses">
-								<span class="text-white">
-									{{ status.name }}
-								</span>
+								{{ status.name }}
 								<AppDropDownMenu
-									class="w-100"
+									class="w-100 text-gray-600 dark:text-white"
 									v-model="status.prototypeStatus"
 									:defaultValueName="status.prototypeStatus"
 									selectText="select Status"
@@ -137,21 +138,21 @@
 							class="dark:bg-dark-600 h-10 w-1/2 animate-pulse rounded-md bg-gray-200"></div>
 						<div class="mb-20 flex flex-col gap-2">
 							<div
-								class="bg-dark-200 m-2 flex animate-pulse items-center justify-between gap-10 rounded-md p-2 px-10">
+								class="bg-gray-300 dark:bg-dark-200 m-2 flex animate-pulse items-center justify-between gap-10 rounded-md p-2 px-10">
 								<div
 									class="dark:bg-dark-600 h-10 w-1/4 rounded-md bg-gray-200"></div>
 								<div
 									class="dark:bg-dark-600 h-12 w-1/2 rounded-md bg-gray-200"></div>
 							</div>
 							<div
-								class="m-2 flex animate-pulse items-center justify-between gap-10 rounded-md bg-blue-800 p-2 px-10">
+								class="m-2 flex animate-pulse items-center justify-between gap-10 rounded-md bg-blue-400 dark:bg-blue-800 p-2 px-10">
 								<div
 									class="dark:bg-dark-600 h-10 w-1/4 rounded-md bg-gray-200"></div>
 								<div
 									class="dark:bg-dark-600 h-12 w-1/2 rounded-md bg-gray-200"></div>
 							</div>
 							<div
-								class="bg-successGreen m-2 flex animate-pulse items-center justify-between gap-10 rounded-md p-2 px-10">
+								class="bg-successGreen dark:bg-successGreenDark m-2 flex animate-pulse items-center justify-between gap-10 rounded-md p-2 px-10">
 								<div
 									class="dark:bg-dark-600 h-10 w-1/4 rounded-md bg-gray-200"></div>
 								<div
@@ -185,7 +186,7 @@
 												issue.fields.issuetype.hierarchyLevel === 0
 										).length > 20
 									"
-									class="flex items-center gap-1 rounded-md bg-successGreen px-1">
+									class="flex items-center gap-1 rounded-md bg-successGreen dark:bg-successGreenDark px-1">
 									+
 									{{
 										issues.filter(
@@ -219,7 +220,7 @@
 												issue.fields.issuetype.hierarchyLevel === 0
 										).length > 20
 									"
-									class="flex items-center gap-1 rounded-md bg-successGreen px-1">
+									class="flex items-center gap-1 rounded-md bg-successGreen dark:bg-successGreenDark px-1">
 									+
 									{{
 										issues.filter(
@@ -249,7 +250,7 @@
 											(issue) => issue.fields.issuetype.hierarchyLevel === 1
 										).length > 20
 									"
-									class="flex items-center gap-1 rounded-md bg-successGreen px-1">
+									class="flex items-center gap-1 rounded-md bg-successGreen dark:bg-successGreenDark px-1">
 									+
 									{{
 										issues.filter(

@@ -28,7 +28,7 @@
 		</AppToolTip>
 		<AppToolTip text="Import from file" position="left">
 			<AppIcon
-				class="text-successGreen"
+				class="text-successGreen dark:text-successGreenDark"
 				button
 				with-background
 				@click="importProjectFromFileModal?.open()"

@@ -69,7 +69,10 @@
 								formGroup.formObjects.domain.value === '' ||
 								formGroup.formObjects.mail.value === '',
 						}">
-						<AppIcon class="text-successGreen" button @click="addJiraToken()">
+						<AppIcon
+							class="text-successGreen dark:text-successGreenDark"
+							button
+							@click="addJiraToken()">
 							check
 						</AppIcon>
 					</AppToolTip>
@@ -80,15 +83,18 @@
 			</div>
 		</AppCollapsible>
 		<AppModal ref="helpModal">
-			<span>
-				To generate a Token go to
-				<a
-					class="text-blue-400 transition-all hover:text-blue-600"
-					href="https://id.atlassian.com/manage-profile/security/api-tokens"
-					target="_blank"
-					>this page</a
-				>.
-			</span>
+			<div>
+				<div class="text-4xl mb-5">How to get a Token?</div>
+				<div>
+					To generate a Token go to
+					<a
+						class="text-blue-400 transition-all hover:text-blue-600"
+						href="https://id.atlassian.com/manage-profile/security/api-tokens"
+						target="_blank"
+						>this page</a
+					>.
+				</div>
+			</div>
 		</AppModal>
 	</div>
 	<AppYesNoModal ref="confirmDeleteModal" @yes="authStore.deleteJiraApiToken()">

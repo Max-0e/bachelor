@@ -25,15 +25,4 @@ useAppStore().setProgressTypeFromLocalStorage();
 const toastOptions: PluginOptions = {};
 app.use(Toast, toastOptions);
 app.use(router);
-// app.provide(useOrganizationStore().$id, useOrganizationStore());
 app.mount('#app');
-
-// if (import.meta.hot) {
-// 	import.meta.hot.accept('./store/organization.store', (nameSpace) => {
-// 		if (!nameSpace?.useOrganizationStore) return;
-// 		app.provide(
-// 			nameSpace.useOrganizationStore.$id,
-// 			nameSpace.useOrganizationStore()
-// 		);
-// 	});
-// }
