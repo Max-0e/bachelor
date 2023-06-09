@@ -26,28 +26,48 @@
 				Bachelor Arbeit Maximilian Oedinger (25208)
 			</div>
 			<div class="font-serif text-xl italic">Abstract</div>
-			<div class="mx-auto w-1/2 text-justify text-lg">
-				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-				eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-				voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-				clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-				amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-				nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-				sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-				rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-				ipsum dolor sit amet.
+			<div class="mx-auto w-1/2 text-lg">
+				Agility plays a big role in managing the complexity of volatile and
+				unpredictable environments, such as project management and project
+				portfolio management, by focussing on the value created for the
+				customer. This leads to the need of scaling agile practices to
+				enterprise level, which can be done by using i.e. the Scaled Agile
+				Framework (SAFe) or Flight Levels.
 				<br />
-				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-				eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-				voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-				clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-				amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit
-				esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at
-				vero eros et accumsan et iusto odio dignissim qui blandit praesent
-				luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-				Lorem ipsum dolor sit amet
+				<br />
+				For effective decision making in those environments, decisions should be
+				made with metrics in mind that are relevant for the Level in which the
+				decision must be made. This work presents an all in one customizable
+				software solution to aggregate such metrics to the level required and
+				present it in a meaningful manner, providing insights on progress from
+				levels below the one where the decision must be made and what
+				implications the decision will have on the levels above. Focus of this
+				work is the adaptability of the solution regardless of the framework
+				used to scale agile practices.
+				<br />
+				<br />
+				The solution was evaluated in a case study to determine its usefulness
+				of the software. The results show that tha adaptability of the solution
+				is given, but to be useful in a real world scenario, the solution needs
+				to be extended with time-based metrics like velocity, etc. and the
+				ability to not only import data from operational tools like Jira, but
+				also a synchronization of data between the tools, to make the solution
+				usable over time, since the data only represents a snapshot of the
+				current state of the organization, if the data is not updated regularly.
+				<br />
+				<br />
+				<b>Keywords:</b>
+				<br />
+				agile portfolio management, agile project management, progress tracking,
+				decision making, Flight Levels, Scaled Agile Framework, value based
+				software engineering, data aggregation, visualization, web development,
+				mevn stack
 			</div>
-			<AppButton @click="showPdf = true">
+			<AppButton
+				:disabled="true"
+				tooltip="coming soon!"
+				tooltip-position="top"
+				@click="showPdf = true">
 				Vollständigen Text anzeigen
 			</AppButton>
 		</div>

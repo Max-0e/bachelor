@@ -1,3 +1,6 @@
+Im folgenden Kapitel wird die Implementierung des Konzepts als webbasierte Anwendung beschrieben und dokumentiert.
+Dabei steht vor allem die Architektur der einzelnen Teile, aus denen die Anwendung besteht im Vordergrund.
+
 \subsection{Datenstruktur}
 Die Datenstruktur der Anwendung besteht grundsätzlich aus drei abstrakten und fünf konkreten Klassen. Die abstrakten Klassen sind Entitäten, organisationsbasierende Entitäten und verlinkbare Entitäten. Die absoluten Klassen sind Nutzer, Organisation, Level, Gruppe und Aufgabe.
 
@@ -10,7 +13,7 @@ Die Datenstruktur der Anwendung besteht grundsätzlich aus drei abstrakten und f
 \end{center}
 \vspace{20pt}
 
-Jede absolute Klasse, außer die Nutzer, erben von einer oder mehreren abstrakten Klassen. Entitäten sind allgemeine Objekte innerhalb der Anwendung und stellen die Grundlage der in der Datenbank gespeicherten Datenobjekte dar. Alle Klassen außer Nutzer sind solche Entitäten und implementieren das Interface \verb|IEntity|, welches eine ID zur eindeutigen Identifikation und einen Namen für die Darstellung für den Nutzer beinhaltet. Organisationen und Levels sind direkte Erben dieser Klasse. Die nächste Abstraktionsstufe sind die organisationsbasierenden Entitäten. Diese implementieren zu dem \verb|IEntity| Interface noch \verb|IOrganizationBasedEntity|, welches die ID einer Organisation voraussetzt und die Entität direkt von einer Organisation abhängig macht. Die letzte Abstraktionsstufe sind die verlinkbaren Entitäten. Diese implementieren zu dem \verb|IOrganizationBasedEntity| Interface noch \verb|ILinkableEntity|, welches eine Liste von IDs voraussetzt, mit dem gespeichert wird, mit welchen anderen verlinkbaren Entitäten das Objekt verlinkt ist. Aufgaben und Gruppen sind solche verlinkbare Entitäten.
+Jede absolute Klasse, außer die Nutzer, erben von einer oder mehreren abstrakten Klassen. Entitäten sind allgemeine Objekte innerhalb der Anwendung und stellen die Grundlage der in der Datenbank gespeicherten Datenobjekte dar. Alle Klassen außer Nutzer sind solche Entitäten und implementieren das Interface \verb|IEntity|, welches eine ID zur eindeutigen Identifikation, einen Namen und eine Beschreibung für die Darstellung für den Nutzer beinhaltet. Organisationen und Levels sind direkte Erben dieser Klasse. Die nächste Abstraktionsstufe sind die organisationsbasierenden Entitäten. Diese implementieren zu dem \verb|IEntity| Interface noch \verb|IOrganizationBasedEntity|, welches die ID einer Organisation voraussetzt und die Entität direkt von einer Organisation abhängig macht. Die letzte Abstraktionsstufe sind die verlinkbaren Entitäten. Diese implementieren zu dem \verb|IOrganizationBasedEntity| Interface noch \verb|ILinkableEntity|, welches eine Liste von IDs voraussetzt, mit dem gespeichert wird, mit welchen anderen verlinkbaren Entitäten das Objekt verlinkt ist. Aufgaben und Gruppen sind solche verlinkbare Entitäten.
 
 \subsection{Backend-Architektur}
 Das Backend ist eine REST-API, geschrieben mit Node.js und Express in TypeScript und verwendet mongoose als Datenbank-API für MongoDB. Die Architektur beschreibt den Datenfluss mit drei allgemeinen Komponenten: Router, Controller und Service.
@@ -43,6 +46,27 @@ Zudem gibt es fünf absolute Strukturen für jede der fünf absoluten Klassen, w
 
 Eine vollständige Dokumentation der API nach Open-API-Spezifikation-3.0.0 im Swagger-Format ist \href{https://116.203.140.167.nip.io/api-docs/}{hier} verfügbar. Dort sind die für den Client zugänglichen Routen inklusive der benötigten Parameter und den zurückgegebenen Daten dokumentiert.
 
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{0.8\linewidth}
+        \includegraphics[width=\linewidth]{Swagger1}
+        \captionof{figure}{API-Dokumentation Teil 1}
+    \end{minipage}
+\end{center}
+\begin{center}
+    \begin{minipage}{0.8\linewidth}
+        \includegraphics[width=\linewidth]{Swagger2}
+        \captionof{figure}{API-Dokumentation Teil 2}
+    \end{minipage}
+\end{center}
+\begin{center}
+    \begin{minipage}{0.8\linewidth}
+        \includegraphics[width=\linewidth]{Swagger3}
+        \captionof{figure}{API-Dokumentation Teil 2}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
 \subsection{Benutzeroberfläche}
 Zur initialen Planung wurde zunächst der UX-Entwurf verwendet, um die grobe Struktur der Benutzeroberfläche zu entwickeln. Durch die spezifische Entwicklung verschiedener Features sind immer wieder Lücken im Entwurf aufgefallen und wurden durch weitere UI-Elemente erweitert, um Funktionalitäten abzudecken, die zuvor nicht innerhalb des Prototyps bedacht wurden. Bis zum fertigen Prototyp haben sich viele der konkreten UI-Elemente verändert, allerdings blieb die Seitenstruktur also welche Informationen auf, welches Seite dargestellt wurden identisch.
 
@@ -69,25 +93,81 @@ Es gibt mehrere Stores, die verschiedene Daten speichern. Für allgemeine Inform
 Im AuthStore wird der eingeloggte Nutzer gespeichert und ob der Nutzer eingeloggt ist und Login und Logout definiert.
 Für Daten, die in der Backend- und Datenstruktur als Entitäten bezeichnet werden gibt es auch hier eine Abstraktion der Stores für die Verwaltung dieser Entitäten. Es gibt also auch hier eine Abstraktion in EntityStore, OrganizationBasedEntity und LinkableEntity, von welchen die tatsächlich verwendeten Stores für die verschiedenen Datentypen erben. Anders als die Backendstruktur funktioniert die Vererbung hier aber nicht über Klassen, da Pinia einem funktionalen Implementierungsschema folgt. Also gibt es MakeFunktionen für jedes der drei verschiedenen Teile des Stores, welche mit Generischen-Type-Parametern State, Getter und Actions mit den richtigen Typen erzeugt. Für simple Stores wie z. B. den OrganizationStore beschränkt sich die absolute Implementierung dann wie folgt:
 
-\vspace{20pt}
-\begin{center}
-    \begin{minipage}{1\linewidth}
-        \includegraphics[width=\linewidth]{organizationStore}
-        \captionof{figure}{Implementierung des OrganizationStore}
-    \end{minipage}
-\end{center}
-\vspace{20pt}
+\begin{lstlisting}[language=JavaScript, caption=Implementierung des OrganizationStores]
+export const useOrganizationStore: EntityStoreDefinition<
+    IOrganization,
+    'organization'
+> = defineStore('organization', {
+    state: makeEntityState<IOrganization>(organizationService),
+    getters: makeEntityGetters<IOrganization>(),
+    actions: makeEntityActions<IOrganization>(),
+});
+\end{lstlisting}
 
 Für Stores mit zusätzlichen Getters, werden die MakeFunktionen erweitert, wie beispielsweise im LevelStore:
 
-\vspace{20pt}
-\begin{center}
-    \begin{minipage}{1\linewidth}
-        \includegraphics[width=\linewidth]{levelStore}
-        \captionof{figure}{Implementierung des LevelStore}
-    \end{minipage}
-\end{center}
-\vspace{20pt}
+\begin{lstlisting}[language=JavaScript, caption=Implementierung des LevelStores]
+interface LevelGetters extends OrganizationBasedEntityGetters<ILevel> {
+    getNextHierarchyLevel(): number;
+    isProjectLevel(): (levelId: string) => boolean;
+    getLowerLevel(): Level | undefined;
+}
+
+type LevelStore = OrganizationBasedEntityStore<
+    ILevel,
+    'level',
+    OrganizationBasedEntityState<ILevel>,
+    LevelGetters
+>;
+type LevelStoreDefinition = OrganizationBasedEntityStoreDefinition<
+    ILevel,
+    'level',
+    OrganizationBasedEntityState<ILevel>,
+    LevelGetters
+>;
+
+const levelStore: PiniaStore<LevelStore> = {
+    state: makeOrganizationBasedEntityState<ILevel>(levelService),
+    getters: {
+        ...makeOrganizationBasedEntityGetters<ILevel>(),
+        getNextHierarchyLevel(state) {
+            const currentOrganization = useOrganizationStore().currentEntity;
+            if (!currentOrganization) return 0;
+            return state.entities.filter(
+                ({ organizationId }) => organizationId === currentOrganization.id
+            ).length;
+        },
+        isProjectLevel(state) {
+            return (levelId: string) => {
+                const projectLevel = useOrganizationStore().currentEntity?.useEpics
+                    ? 1
+                    : 0;
+                return (
+                    state.entities.find((level) => level.id === levelId)
+                        ?.hierarchyLevel === projectLevel
+                );
+            };
+        },
+        getLowerLevel(state) {
+            const currentLevel: Entity<OrganizationBasedEntity<ILevel>> =
+                state.currentEntity;
+            if (!currentLevel) return;
+
+            return state.entities.find(
+                (x) =>
+                    x.organizationId === currentLevel.organizationId &&
+                    x.hierarchyLevel === currentLevel.hierarchyLevel - 1
+            );
+        },
+    },
+    actions: makeOrganizationBasedEntityActions<ILevel>(),
+};
+
+export const useLevelStore: LevelStoreDefinition = defineStore(
+    'level',
+    levelStore
+);
+\end{lstlisting}
 
 Stores für Entitäten, haben in ihrem State zusätzlich ein Loaded Attribut in dem gespeichert wird, ob die Daten bereits von Server abgefragt wurde, bzw. wenn es sich um eine OrganizationBasedEntity handelt, ob die Daten für diese Organisation bereits geladen wurde, um mehrfache Requests für die gleichen Daten zu vermeiden und damit die Performance zu verbessern.
 
@@ -214,27 +294,112 @@ Für die Erzeugung der Doughnut-Diagramme wird Chart.js verwendet, da es eine si
 \subsection{CI/CD}
 Für eine schnelle und einfache Möglichkeit die Anwendung als produktive Anwendung zu testen und Verbesserungen zu deployen wurde eine CI/CD-Pipeline mit GitHub-Actions eingerichtet. Die GitHub-Action definiert, wann die Pipeline ausgeführt werden soll und welche Schritte in der Pipeline ausgeführt werden sollen. Der Trigger für die Pipeline ist hier das Mergen und daraus resultierenden Schließen eines Pullrequests der als Ziel den main-Branch des Repositories hat.
 
-\vspace{20pt}
-\begin{center}
-    \begin{minipage}{1\linewidth}
-        \includegraphics[width=\linewidth]{GitHubAction}
-        \captionof{figure}{GitHub-Action}
-    \end{minipage}
-\end{center}
-\vspace{20pt}
+\begin{lstlisting}[caption=GitHub-Action]
+name: Docker Image CI/CD Pipeline
+
+on:
+    pull_request:
+    types:
+        - closed
+    branches:
+        - main
+
+jobs:
+    build:
+    if: github.event.pull_request.merged == true
+    runs-on: self-hosted 
+    environment: 
+        name: production
+    env:
+        MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+        SECRET: ${{ secrets.SECRET }}
+        CLIENT_APP_URL: ${{ vars.CLIENT_APP_URL }}
+        MONGO_DB: ${{ vars.MONGO_DB }}
+        MONGO_URL: ${{ vars.MONGO_URL }}
+        MONGO_USER: ${{ vars.MONGO_USER }}
+        SMTP_HOST: ${{ vars.SMTP_HOST }}
+        SMTP_PORT: ${{ vars.SMTP_PORT }}
+        SMTP_USER: ${{ vars.SMTP_USER }}
+        VITE_API_URL: ${{ vars.VITE_API_URL }}
+        VITE_APP_DEV_MODE: ${{ vars.VITE_APP_DEV_MODE }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+        run: 
+        cd prototype && 
+        docker build . --file "Dockerfile" --tag bachelor:latest 
+        --build-arg MONGO_PASSWORD=${{ env.MONGO_PASSWORD }}
+        --build-arg SECRET=${{ env.SECRET }}
+        --build-arg CLIENT_APP_URL=${{ env.CLIENT_APP_URL }}
+        --build-arg MONGO_DB=${{ env.MONGO_DB }}
+        --build-arg MONGO_URL=${{ env.MONGO_URL }}
+        --build-arg MONGO_USER=${{ env.MONGO_USER }}
+        --build-arg SMTP_HOST=${{ env.SMTP_HOST }}
+        --build-arg SMTP_PORT=${{ env.SMTP_PORT }}
+        --build-arg SMTP_USER=${{ env.SMTP_USER }}
+        --build-arg SMTP_PASS=${{ env.SMTP_PASS }}
+        --build-arg VITE_API_URL=${{ env.VITE_API_URL }}
+        --build-arg VITE_DEV_MODE=${{ env.VITE_APP_DEV_MODE }}
+    deploy:
+    needs: build
+    runs-on: self-hosted
+    environment: 
+        name: production
+    env:
+        MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+        SECRET: ${{ secrets.SECRET }}
+        CLIENT_APP_URL: ${{ vars.CLIENT_APP_URL }}
+        MONGO_DB: ${{ vars.MONGO_DB }}
+        MONGO_URL: ${{ vars.MONGO_URL }}
+        MONGO_USER: ${{ vars.MONGO_USER }}
+        SMTP_HOST: ${{ vars.SMTP_HOST }}
+        SMTP_PORT: ${{ vars.SMTP_PORT }}
+        SMTP_USER: ${{ vars.SMTP_USER }}
+        SMTP_PASS: ${{ secrets.SMTP_PASS }}
+    steps:
+        - name: Deploy the newest Docker image
+        run: docker compose -f "prototype/docker-compose.ci.yml" up -d
+        - name: Delete all old and unused Images
+        run: docker system prune -af
+\end{lstlisting}
 
 Die Pipeline besteht aus zwei Teilen, sogenannten Jobs: Build und Deploy.
 Build erzeugt aus dem geupdateten Quellcode ein neues Docker-Image nach den konkreten Anweisungen die in dem Dockerfile im root-Verzeichnis des Prototypen definiert sind. Bei dem Dockerfile handelt es sich um ein multi-stage Dockerfile, welches in drei Schritten ein Image erzeugt. Diese drei Schritte sind:
 frontend-build, backend-build, und production.
 
-\vspace{20pt}
-\begin{center}
-    \begin{minipage}{1\linewidth}
-        \includegraphics[width=\linewidth]{DockerFile}
-        \captionof{figure}{Dockerfile zum Bauen des Images}
-    \end{minipage}
-\end{center}
-\vspace{20pt}
+\begin{lstlisting}[caption=Dockerfile zum Bauen des Images]
+# build stage
+# frontend
+FROM node:16-alpine as fe-build-stage
+WORKDIR /app
+ARG VITE_API_URL
+ARG VITE_DEV_MODE
+COPY ./frontend/package*.json .
+RUN npm ci
+COPY ./frontend/ .
+RUN npm run build:ci
+
+# backend
+FROM node:16-alpine as be-build-stage
+WORKDIR /app
+COPY ./backend/package*.json .
+RUN npm ci
+COPY ./backend .
+RUN npm run build
+RUN mkdir ./build/views
+RUN mkdir ./build/views/frontend
+COPY --from=fe-build-stage /app/dist ./build/views/frontend
+
+
+# production stage
+FROM node:16-alpine as production-stage
+WORKDIR /app
+COPY ./backend/package*.json ./
+RUN npm ci
+COPY --from=be-build-stage /app/build /app
+EXPOSE 3000
+CMD [ "node", "./main.js"]
+\end{lstlisting}
 
 Im ersten Schritt wird der Frontend-Code kompiliert. Im zweiten Schritt wird der Backend-Code kompiliert und das kompilierte Frontend aus dem ersten Schritt zur statischen Auslieferung in einen bestimmten Ordner kopiert. Im dritten Schritt wird ein Node-Image für die Produktivumgebung erzeugt, welches das kompilierte Backend inklusive des Frontends enthält und mit einem Start-Befehl der Webserver gestartet wird.
 Das resultierende Image, welches nun eine lauffähige Version der Anwendung enthält, wird anschließend als neueste Version des Images getagt.

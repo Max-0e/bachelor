@@ -28,15 +28,23 @@
 				class="dark:bg-dark-500 flex flex-col justify-center gap-2 whitespace-nowrap rounded-l-md bg-gray-200 p-5 text-left">
 				<span> total Tasks: </span>
 				<span> total open Tasks: </span>
-				<span class="text-blue-800"> total in Progress Tasks: </span>
-				<span class="text-successGreen"> total done Tasks: </span>
+				<span class="text-blue-400 dark:text-blue-800">
+					total in Progress Tasks:
+				</span>
+				<span class="text-successGreen dark:text-successGreenDark">
+					total done Tasks:
+				</span>
 			</div>
 			<div
 				class="dark:bg-dark-500 flex flex-col justify-center gap-2 rounded-r-md bg-gray-200 p-5 pl-10 text-left">
 				<span> {{ metrics.totalLength }} </span>
 				<span> {{ metrics.openLength }} </span>
-				<span class="text-blue-800"> {{ metrics.inProgressLength }} </span>
-				<span class="text-successGreen"> {{ metrics.doneLength }} </span>
+				<span class="text-blue-400 dark:text-blue-800">
+					{{ metrics.inProgressLength }}
+				</span>
+				<span class="text-successGreen dark:text-successGreenDark">
+					{{ metrics.doneLength }}
+				</span>
 			</div>
 		</div>
 	</div>

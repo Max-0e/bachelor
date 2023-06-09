@@ -1,6 +1,6 @@
 <template>
 	<div v-if="!!currentProject">
-		<div class="m-5 flex justify-between">
+		<div class="flex justify-between">
 			<div class="w-1/2 text-2xl">
 				<AppInlineInputField
 					class="mb-5 mr-5 mt-2"
@@ -18,7 +18,7 @@
 				<AppIcon button @click="deleteProjectModal?.open()">delete</AppIcon>
 			</AppToolTip>
 		</div>
-		<div class="h-100 flex gap-20">
+		<div class="h-100 flex gap-20 p-5">
 			<AppInlineTextArea
 				v-model="currentProject.description"
 				placeholder="Description"
@@ -30,15 +30,21 @@
 					class="dark:bg-dark-500 flex flex-col justify-center gap-2 whitespace-nowrap rounded-l-md bg-gray-200 p-5 text-left">
 					<span> total Tasks: </span>
 					<span> total open Tasks: </span>
-					<span class="text-blue-800"> total in Progress Tasks: </span>
-					<span class="text-successGreen"> total done Tasks: </span>
+					<span class="text-blue-400 dark:text-blue-800">
+						total in Progress Tasks:
+					</span>
+					<span class="text-successGreen dark:text-successGreenDark">
+						total done Tasks:
+					</span>
 				</div>
 				<div
 					class="dark:bg-dark-500 flex flex-col justify-center gap-2 rounded-r-md bg-gray-200 p-5 pl-10 text-left">
 					<span> {{ metrics.totalLength }} </span>
 					<span> {{ metrics.openLength }} </span>
-					<span class="text-blue-800"> {{ metrics.inProgressLength }} </span>
-					<span class="text-successGreen">
+					<span class="text-blue-400 dark:text-blue-800">
+						{{ metrics.inProgressLength }}
+					</span>
+					<span class="text-successGreen dark:text-successGreenDark">
 						{{ metrics.doneLength }}
 					</span>
 				</div>

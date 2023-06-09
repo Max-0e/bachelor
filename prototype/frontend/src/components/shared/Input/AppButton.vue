@@ -15,8 +15,8 @@
 				} 
 				${
 					color == 'red'
-						? 'hover:(!bg-red-800) bg-red-400 dark:bg-red-600'
-						: 'hover:(!bg-blue-800) bg-blue-400 dark:bg-blue-600'
+						? 'hover:(bg-red-800) bg-red-400 dark:bg-red-600'
+						: 'hover:(bg-blue-800) bg-blue-400 dark:bg-blue-600'
 				} 
 				`">
 			<slot v-if="!iconButton"></slot>

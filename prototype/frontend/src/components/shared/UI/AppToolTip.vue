@@ -6,7 +6,7 @@
 			</div>
 			<div
 				v-if="!!text"
-				class="toolTip dark:bg-dark-800 origin absolute z-50 mx-auto h-10 w-40 rounded-md bg-gray-200 p-2 text-center transition-all"
+				class="toolTip text-dark-600 dark:text-white dark:bg-dark-800 origin absolute z-50 mx-auto w-40 rounded-md bg-gray-200 p-2 text-center transition-all shadow-md"
 				:class="
 					position === 'bottom'
 						? 'top-4/3 center-vertical origin-top'

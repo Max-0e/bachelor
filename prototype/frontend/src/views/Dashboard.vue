@@ -12,7 +12,7 @@
 					v-if="showLink && linkingEnabled"
 					ref="path"
 					:d="`M ${startPosition.x} ${startPosition.y}, ${currentMousePosition.x} ${currentMousePosition.y}`"
-					:stroke="appStore.darkMode ? 'white' : 'black'"
+					:stroke="appStore.darkMode ? 'white' : 'gray'"
 					stroke-width="5"
 					stroke-linecap="round"
 					fill="transparent" />
@@ -33,7 +33,7 @@
 							? 'rgb(59, 130, 246)'
 							: appStore.darkMode
 							? 'white'
-							: 'black'
+							: 'gray'
 					"
 					@mouseenter="hoveredLink = [group.id, linkedGroupId]"
 					@mousemove="mouseMoveOnLink($event)"

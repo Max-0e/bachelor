@@ -15,7 +15,7 @@ import { makeRouter } from './router';
 
 import { middlewares } from './middlewares';
 import { swaggerOptions } from './swagger/swagger-options';
-import { swaggerDark } from './swagger/SwaggerDark';
+// import { swaggerDark } from './swagger/SwaggerDark';
 
 export function makeApp(): Application {
 	require('express-async-errors');
@@ -28,7 +28,8 @@ export function makeApp(): Application {
 		'/api-docs',
 		swaggerUi.serve,
 		swaggerUi.setup(swaggerJsdoc(swaggerOptions), {
-			customCss: swaggerDark,
+			// this would enable DarkMode for Swagger-UI
+			// customCss: swaggerDark,
 		})
 	);
 

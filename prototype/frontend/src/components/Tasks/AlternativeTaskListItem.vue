@@ -3,10 +3,10 @@
 		class="m-1 flex w-full cursor-move items-center justify-between rounded-md p-1 text-white"
 		:class="
 			task.status === 'done'
-				? 'bg-successGreen dark:bg-successGreen'
+				? 'bg-successGreen dark:bg-successGreenDark'
 				: task.status === 'inProgress'
-				? 'bg-blue-800 dark:bg-blue-800'
-				: 'bg-dark-200 dark:bg-dark-200'
+				? 'bg-blue-400 dark:bg-blue-800'
+				: '!text-gray-600 bg-gray-100 dark:bg-dark-200'
 		">
 		<div class="w-1/2 truncate p-3 text-left">
 			{{ task.name }}

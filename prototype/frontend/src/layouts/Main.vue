@@ -69,9 +69,9 @@
 					selectText="select progress type"
 					:bgColor="
 						appStore.progressType === 'storyPoints'
-							? 'bg-blue-800 text-white'
+							? 'bg-blue-400 dark:bg-blue-800 text-white'
 							: appStore.progressType === 'value'
-							? 'bg-successGreen text-white'
+							? 'bg-successGreen dark:bg-successGreenDark text-white'
 							: undefined
 					"
 					@update:model-value="appStore.setProgressType($event)"
@@ -91,12 +91,12 @@
 				<div
 					class="contextMenu top-15 w-25 absolute right-3 z-50 transition-all">
 					<div
-						class="dark:bg-dark-400 dark:hover:bg-dark-100 w-full cursor-pointer rounded-t-lg bg-gray-300 px-3 py-1 hover:bg-gray-400"
+						class="dark:bg-dark-400 dark:hover:bg-dark-100 w-full cursor-pointer rounded-t-lg bg-gray-200 px-3 py-1 hover:bg-gray-300"
 						@click="router.push({ name: 'Profile' })">
 						Profile
 					</div>
 					<div
-						class="dark:bg-dark-400 dark:hover:bg-dark-100 w-full cursor-pointer bg-gray-300 px-3 py-1 hover:bg-gray-400"
+						class="dark:bg-dark-400 dark:hover:bg-dark-100 w-full cursor-pointer bg-gray-200 px-3 py-1 hover:bg-gray-300"
 						@click="router.push({ name: 'Settings' })">
 						Settings
 					</div>
@@ -121,7 +121,9 @@
 		</div>
 		<span v-if="authStore.user?.jiraApiToken" class="flex items-center">
 			Jira connected with {{ authStore.user?.jiraApiDomain }}.attlasian.net
-			<AppIcon class="text-successGreen">check</AppIcon>
+			<AppIcon class="text-successGreen dark:text-successGreenDark"
+				>check</AppIcon
+			>
 		</span>
 		<span v-else class="flex items-center gap-5">
 			<div class="flex items-center">
@@ -129,7 +131,7 @@
 				<AppIcon class="text-red-500">close</AppIcon>
 			</div>
 			<div
-				class="flex items-center cursor-pointer"
+				class="flex items-center cursor-pointer font-black"
 				@click="$router.push({ name: 'Profile' })">
 				connect now
 				<AppIcon class="text-blue-500">link</AppIcon>

@@ -5,10 +5,12 @@ export default defineConfig({
 	theme: {
 		extend: {
 			colors: {
-				successGreen: '#339933',
+				successGreen: '#55BB55',
+				successGreenDark: '#339933',
 			},
 			backgroundColor: {
-				successGreen: '#339933',
+				successGreen: '#55BB55',
+				successGreenDark: '#339933',
 			},
 		},
 	},

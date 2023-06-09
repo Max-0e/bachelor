@@ -15,7 +15,7 @@
 				$emit('update:modelValue', ($event.target as HTMLInputElement).value);
 				changeShowSaveAndCancel(true);
 			"
-			class="gridArea bg-dark-50 focus-visible:(border-b outline-transparent border-gray-600) hover:(bg-opacity-40) block w-full resize-none overflow-hidden rounded-md bg-opacity-0 p-3 pr-12 outline-none transition-all dark:hover:bg-opacity-40"
+			class="gridArea bg-gray-400 dark:bg-dark-50 focus-visible:(border-b outline-transparent border-gray-600) hover:(bg-opacity-40) block w-full resize-none overflow-hidden rounded-md bg-opacity-0 p-3 pr-12 outline-none transition-all dark:hover:bg-opacity-40"
 			:value="modelValue"
 			ref="textArea"
 			:name="name"

@@ -3,12 +3,12 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"setup": "concurrently \"cd ./backend; npm i; npm run start\" \"cd ./frontend; npm i; npm run dev\"",
+		"setup": "concurrently \"cd ./backend; npm i; \" \"cd ./frontend; npm i\"",
 		"start": "concurrently \"cd ./backend; npm run start\" \"cd ./frontend; npm run dev\"",
 		"fmt": "prettier --write ."
 	},
 	"dependencies": {
-		"concurrently": "^7.3.0",
-		"prettier": "^2.7.1"
+		"concurrently": "^8.2.0",
+		"prettier": "^2.8.8"
 	}
 }
