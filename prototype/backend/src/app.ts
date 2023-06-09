@@ -1,25 +1,19 @@
 import cors from 'cors';
 import express, { Application } from 'express';
-
+import passport from 'passport';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-
-import passport from 'passport';
-
+import { middlewares } from './middlewares';
 import { connectDb } from './mongodbcontext/connect';
 import { makeSessionStore } from './mongodbcontext/sessionStore';
 import { makeDeserializeUser } from './passport/deserializeUser';
 import { localStrategy } from './passport/localStrategy';
 import { makeSerializeUser } from './passport/serializeUser';
 import { makeRouter } from './router';
-
-import { DEV_MODE } from './config';
-import { middlewares } from './middlewares';
-import { createTestUser } from './seed';
 import { swaggerOptions } from './swagger/swagger-options';
 // import { swaggerDark } from './swagger/SwaggerDark';
 
-export async function makeApp(): Promise<Application> {
+export function makeApp(): Application {
 	require('express-async-errors');
 
 	const db = connectDb();
@@ -66,10 +60,6 @@ export async function makeApp(): Promise<Application> {
 
 	app.use(middlewares.notFoundMiddleware);
 	app.use(middlewares.errorMiddleware);
-
-	if (DEV_MODE) {
-		await createTestUser();
-	}
 
 	return app;
 }

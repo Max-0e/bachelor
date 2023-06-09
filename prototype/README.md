@@ -16,11 +16,7 @@
 > Die Zugangsdaten müssen dann in einer erstellten `.env`-Datei im `backend`-Ordner eingetragen werden.
 > Um die Emails zu empfangen, muss die URL aus der Konsole in einem Browser geöffnet werden oder der Login auf der Website verwendet werden.
 
-> Build des images:
-
-    docker build . -t bachelor:latest
-
-> Zum Starten aller Services:
+> Zum Bauen und Starten aller Services:
 
     docker compose up -d
 

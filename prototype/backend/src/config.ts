@@ -17,5 +17,6 @@ export const SMTP_PASS: string = process.env.SMTP_PASS || '';
 export const MONGO_URL: string = process.env.MONGO_URL || '';
 export const MONGO_USER: string = process.env.MONGO_USER || '';
 export const MONGO_PASSWORD: string = process.env.MONGO_PASSWORD || '';
-export const MONGO_LOCAL_URL: string = process.env.MONGO_LOCAL_URL || 'mongodb';
+export const MONGO_LOCAL_URL: string =
+	process.env.MONGO_LOCAL_URL || 'localhost';
 export const MONGO_DB: string = process.env.MONGO_DB || 'prototype';

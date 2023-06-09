@@ -18,7 +18,6 @@ COPY ./backend .
 RUN npm run build
 RUN mkdir ./build/views
 RUN mkdir ./build/views/frontend
-COPY ./backend/.env ./build
 COPY --from=fe-build-stage /app/dist ./build/views/frontend
 
 

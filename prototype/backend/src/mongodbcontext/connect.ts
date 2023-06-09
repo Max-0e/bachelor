@@ -1,13 +1,14 @@
 import mongoose from 'mongoose';
-import Logger from '../utility/log';
-
 import {
+	DEV_MODE,
 	MONGO_DB,
 	MONGO_LOCAL_URL,
 	MONGO_PASSWORD,
 	MONGO_URL,
 	MONGO_USER,
 } from '../config';
+import { createTestUser } from '../seed';
+import Logger from '../utility/log';
 
 export function connectDb() {
 	const connectionString =
@@ -24,6 +25,9 @@ export function connectDb() {
 	db.on('error', console.error.bind(console, 'connection error:'));
 	db.once('open', () => {
 		Logger.log('Database connection established', '💾');
+		if (DEV_MODE) {
+			createTestUser();
+		}
 	});
 
 	return db;
