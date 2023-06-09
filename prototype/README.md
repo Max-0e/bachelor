@@ -62,6 +62,16 @@
 - frontend: [http://localhost:8080](http://localhost:8080)
 - backend: [http://localhost:3000](http://localhost:3000)
 
+# Nach dem erfolgreichen Starten des Prototypen im lokalen Setup
+
+> Lokal wird automatisch ein TestUser mit den folgenden Zugangsdaten erstellt, mit denen sofort die Anwendung getestet werden kann:
+
+Email: test@user
+
+Password: Test1234
+
+---
+
 ### Beispiel-Umgebungsvariablen für `.env` in `backend`:
 
 > Diese Variablen werden nicht benötigt, außer die sollten explizit angepasst werden wollen.

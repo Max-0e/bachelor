@@ -13,11 +13,13 @@ import { localStrategy } from './passport/localStrategy';
 import { makeSerializeUser } from './passport/serializeUser';
 import { makeRouter } from './router';
 
+import { DEV_MODE } from './config';
 import { middlewares } from './middlewares';
+import { createTestUser } from './seed';
 import { swaggerOptions } from './swagger/swagger-options';
 // import { swaggerDark } from './swagger/SwaggerDark';
 
-export function makeApp(): Application {
+export async function makeApp(): Promise<Application> {
 	require('express-async-errors');
 
 	const db = connectDb();
@@ -64,6 +66,10 @@ export function makeApp(): Application {
 
 	app.use(middlewares.notFoundMiddleware);
 	app.use(middlewares.errorMiddleware);
+
+	if (DEV_MODE) {
+		await createTestUser();
+	}
 
 	return app;
 }
