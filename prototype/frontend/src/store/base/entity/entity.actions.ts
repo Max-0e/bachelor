@@ -1,5 +1,4 @@
 import { Entity, EntityCreate } from '@/interfaces/base/entity.interface';
-import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { PiniaActionTree, PiniaActions } from '../piniaTypes';
 import { EntityState } from './entity.state';
@@ -38,7 +37,7 @@ export const makeEntityActions = <T>() => {
 			});
 		},
 		updateEntityInState(entity: Entity<T>) {
-			this.entities[this.findEntityIndexInState(entity.id)] = ref(entity).value;
+			this.entities[this.findEntityIndexInState(entity.id)] = entity;
 		},
 		deleteEntity(entity: Entity<T>) {
 			this.service.deleteEntity(entity.id).then((_) => {

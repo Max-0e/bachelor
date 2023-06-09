@@ -9,8 +9,6 @@ export interface EntityGetters<T> extends PiniaGetterTree {
 }
 
 export const makeEntityGetters = <T>() => {
-	// TODO: fix types
-	// @ts-ignore
 	const getters: PiniaGetters<EntityStore<T>> = {
 		currentEntity(state) {
 			if (!isState<EntityState<T>>(state)) return;

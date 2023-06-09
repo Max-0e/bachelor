@@ -36,5 +36,5 @@ const tasks = computed(() =>
 
 const metrics = taskStore.computeMetrics(tasks);
 
-defineEmits<{ event: 'deleteEpic' }>();
+defineEmits<{ (event: 'deleteEpic'): void }>();
 </script>

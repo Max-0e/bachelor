@@ -5,7 +5,7 @@ import { SMTP_HOST, SMTP_PASS, SMTP_PORT, SMTP_USER } from '../config';
 import { IMailerConfig } from '../interfaces/mailerConfig.interface';
 
 class MailerService {
-	public sendMail(config: IMailerConfig) {
+	public async sendMail(config: IMailerConfig) {
 		const transporter = nodemailer.createTransport({
 			host: SMTP_HOST,
 			port: SMTP_PORT,
