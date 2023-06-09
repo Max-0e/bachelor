@@ -1,11 +1,13 @@
-# Konzeption und Entwicklung eines Systems zur softwaregestützten Dokumentation von Unternehmensstrukturen für automatisierte Fortschrittsmessung und Werteorientierung
+# **Konzeption und Entwicklung eines Systems zur softwaregestützten Dokumentation von Unternehmensstrukturen für automatisierte Fortschrittsmessung und Werteorientierung**
 
-## Bachelorarbeit
+## **Bachelorarbeit**
 
-### vorgelegt von Maximilian Oedinger
+### _vorgelegt von Maximilian Oedinger_
 
-In diesem Repository befinden sich alle Quelldateien der Bchelorarbeit.
+---
 
-Im Ordner `latex-souce` sind alle LaTeX-Dateien zu finden, die zur Erstellung des Dokuements verwendet wurden.
+> In diesem Repository befinden sich alle Quelldateien der Bchelorarbeit.
 
-Im Ordner `prototype` ist der gesamte Quellcode des Prototypen zu finden.
+> Im Ordner `latex-souce` sind alle LaTeX-Dateien zu finden, die zur Erstellung des Dokuements verwendet wurden.
+
+> Im Ordner `prototype` ist der gesamte Quellcode des Prototypen zu finden.

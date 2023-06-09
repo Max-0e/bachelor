@@ -18,7 +18,6 @@ export interface LinkableEntityGetters<T>
 }
 
 export const makeLinkableEntityGetters = <T>() => {
-	// @ts-ignore
 	const getters: PiniaGetters<LinkableEntityStore<T>> = {
 		getEntitiesLinkedToEntityGroupId(state) {
 			return (entityGroupId: string) => {

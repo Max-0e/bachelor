@@ -10,8 +10,8 @@ on:
 jobs:
   build:
     if: github.event.pull_request.merged == true
-    runs-on: self-hosted 
-    environment: 
+    runs-on: self-hosted
+    environment:
       name: production
     env:
       MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
@@ -26,27 +26,26 @@ jobs:
       VITE_API_URL: ${{ vars.VITE_API_URL }}
       VITE_APP_DEV_MODE: ${{ vars.VITE_APP_DEV_MODE }}
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: 
-        cd prototype && 
-        docker build . --file "Dockerfile" --tag bachelor:latest 
-        --build-arg MONGO_PASSWORD=${{ env.MONGO_PASSWORD }}
-        --build-arg SECRET=${{ env.SECRET }}
-        --build-arg CLIENT_APP_URL=${{ env.CLIENT_APP_URL }}
-        --build-arg MONGO_DB=${{ env.MONGO_DB }}
-        --build-arg MONGO_URL=${{ env.MONGO_URL }}
-        --build-arg MONGO_USER=${{ env.MONGO_USER }}
-        --build-arg SMTP_HOST=${{ env.SMTP_HOST }}
-        --build-arg SMTP_PORT=${{ env.SMTP_PORT }}
-        --build-arg SMTP_USER=${{ env.SMTP_USER }}
-        --build-arg SMTP_PASS=${{ env.SMTP_PASS }}
-        --build-arg VITE_API_URL=${{ env.VITE_API_URL }}
-        --build-arg VITE_DEV_MODE=${{ env.VITE_APP_DEV_MODE }}
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: cd prototype &&
+          docker build . --file "Dockerfile.ci" --tag bachelor:latest
+          --build-arg MONGO_PASSWORD=${{ env.MONGO_PASSWORD }}
+          --build-arg SECRET=${{ env.SECRET }}
+          --build-arg CLIENT_APP_URL=${{ env.CLIENT_APP_URL }}
+          --build-arg MONGO_DB=${{ env.MONGO_DB }}
+          --build-arg MONGO_URL=${{ env.MONGO_URL }}
+          --build-arg MONGO_USER=${{ env.MONGO_USER }}
+          --build-arg SMTP_HOST=${{ env.SMTP_HOST }}
+          --build-arg SMTP_PORT=${{ env.SMTP_PORT }}
+          --build-arg SMTP_USER=${{ env.SMTP_USER }}
+          --build-arg SMTP_PASS=${{ env.SMTP_PASS }}
+          --build-arg VITE_API_URL=${{ env.VITE_API_URL }}
+          --build-arg VITE_DEV_MODE=${{ env.VITE_APP_DEV_MODE }}
   deploy:
     needs: build
     runs-on: self-hosted
-    environment: 
+    environment:
       name: production
     env:
       MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}

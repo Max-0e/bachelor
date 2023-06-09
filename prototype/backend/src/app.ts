@@ -1,19 +1,15 @@
 import cors from 'cors';
 import express, { Application } from 'express';
-
+import passport from 'passport';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-
-import passport from 'passport';
-
+import { middlewares } from './middlewares';
 import { connectDb } from './mongodbcontext/connect';
 import { makeSessionStore } from './mongodbcontext/sessionStore';
 import { makeDeserializeUser } from './passport/deserializeUser';
 import { localStrategy } from './passport/localStrategy';
 import { makeSerializeUser } from './passport/serializeUser';
 import { makeRouter } from './router';
-
-import { middlewares } from './middlewares';
 import { swaggerOptions } from './swagger/swagger-options';
 // import { swaggerDark } from './swagger/SwaggerDark';
 
@@ -34,7 +30,7 @@ export function makeApp(): Application {
 	);
 
 	app.use(express.json({ limit: '50mb' }));
-	app.use(express.urlencoded({ limit: '50mb' }));
+	app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 	app.use(makeSessionStore(db.getClient()));
 

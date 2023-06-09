@@ -5,9 +5,12 @@ volumes:
 
 services:
     app:
-        image: bachelor:latest
+        build: .
         depends_on:
             - mongodb
+        environment:
+            - MONGO_LOCAL_URL=mongodb
+            - DEV_MODE=true
         ports:
             - 3000:3000
     mongodb:

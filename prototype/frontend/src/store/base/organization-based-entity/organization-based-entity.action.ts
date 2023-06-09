@@ -1,7 +1,7 @@
 import { Entity, EntityCreate } from '@/interfaces/base/entity.interface';
 import { OrganizationBasedEntity } from '@/interfaces/base/organization-based-entity.interface';
 import { useOrganizationStore } from '@/store/organization.store';
-import { UnwrapRef, ref } from 'vue';
+import { UnwrapRef } from 'vue';
 import { useToast } from 'vue-toastification';
 import { PiniaActionTree, PiniaActions } from '../piniaTypes';
 import { OrganizationBasedEntityStore } from './organization-based-entity.store';
@@ -49,9 +49,11 @@ export const makeOrganizationBasedEntityActions = <T>() => {
 						state.entities as UnwrapRef<Entity<OrganizationBasedEntity<T>>[]>
 					).filter((x) => x.organizationId !== organizationId);
 				}
-				state.entities = (
-					state.entities as UnwrapRef<Entity<OrganizationBasedEntity<T>>[]>
-				).concat(ref(entities).value);
+				state.entities = state.entities.splice(
+					state.entities.length,
+					0,
+					...entities
+				);
 				state.loadedOrganizations.push(organizationId);
 			});
 		},
@@ -65,7 +67,9 @@ export const makeOrganizationBasedEntityActions = <T>() => {
 				organizationId,
 				entityToCreate
 			);
-			this.$patch((state) => state.entities.push(ref(entity).value));
+			this.$patch((state) =>
+				state.entities.splice(state.entities.length, 0, entity)
+			);
 			useToast().success('successfully created ' + this.$id);
 			return entity;
 		},
@@ -80,7 +84,9 @@ export const makeOrganizationBasedEntityActions = <T>() => {
 				entitiesToCreate
 			);
 			entities.forEach((entity) =>
-				this.$patch((state) => state.entities.push(ref(entity).value))
+				this.$patch((state) =>
+					state.entities.splice(state.entities.length, 0, entity)
+				)
 			);
 			useToast().success('successfully created ' + this.$id);
 			return entities;
@@ -101,8 +107,7 @@ export const makeOrganizationBasedEntityActions = <T>() => {
 		},
 		updateEntityInState(entity: Entity<OrganizationBasedEntity<T>>) {
 			this.$patch((state) => {
-				state.entities[this.findEntityIndexInState(entity.id)] =
-					ref(entity).value;
+				state.entities[this.findEntityIndexInState(entity.id)] = entity;
 			});
 		},
 		deleteEntity(

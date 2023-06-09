@@ -5,10 +5,12 @@
 	"scripts": {
 		"setup": "concurrently \"cd ./backend; npm i; \" \"cd ./frontend; npm i\"",
 		"start": "concurrently \"cd ./backend; npm run start\" \"cd ./frontend; npm run dev\"",
+		"emailGen": "node emailGen.js",
 		"fmt": "prettier --write ."
 	},
 	"dependencies": {
 		"concurrently": "^8.2.0",
-		"prettier": "^2.8.8"
+		"prettier": "^2.8.8",
+		"nodemailer": "^6.9.3"
 	}
 }
