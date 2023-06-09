@@ -49,11 +49,7 @@ export const makeOrganizationBasedEntityActions = <T>() => {
 						state.entities as UnwrapRef<Entity<OrganizationBasedEntity<T>>[]>
 					).filter((x) => x.organizationId !== organizationId);
 				}
-				state.entities = state.entities.splice(
-					state.entities.length,
-					0,
-					...entities
-				);
+				state.entities.splice(state.entities.length, 0, ...entities);
 				state.loadedOrganizations.push(organizationId);
 			});
 		},
