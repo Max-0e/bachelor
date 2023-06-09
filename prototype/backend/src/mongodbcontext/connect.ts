@@ -17,6 +17,7 @@ export function connectDb() {
 
 	Logger.log(`Connecting to ${connectionString}...`);
 
+	mongoose.set('strictQuery', true);
 	mongoose.connect(connectionString);
 	const db = mongoose.connection;
 
