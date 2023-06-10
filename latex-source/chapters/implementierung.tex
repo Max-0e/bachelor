@@ -48,21 +48,9 @@ Eine vollständige Dokumentation der API nach Open-API-Spezifikation-3.0.0 im Sw
 
 \vspace{20pt}
 \begin{center}
-    \begin{minipage}{0.8\linewidth}
-        \includegraphics[width=\linewidth]{Swagger1}
-        \captionof{figure}{API-Dokumentation Teil 1}
-    \end{minipage}
-\end{center}
-\begin{center}
-    \begin{minipage}{0.8\linewidth}
-        \includegraphics[width=\linewidth]{Swagger2}
-        \captionof{figure}{API-Dokumentation Teil 2}
-    \end{minipage}
-\end{center}
-\begin{center}
-    \begin{minipage}{0.8\linewidth}
-        \includegraphics[width=\linewidth]{Swagger3}
-        \captionof{figure}{API-Dokumentation Teil 2}
+    \begin{minipage}{0.95\linewidth}
+        \includegraphics[width=\linewidth]{swagger}
+        \captionof{figure}{API-Dokumentation}
     \end{minipage}
 \end{center}
 \vspace{20pt}
@@ -76,6 +64,16 @@ Für die Implementierung wurde als Frontend-/UI-Framework Vue.js verwendet. Vue.
 Die Anwendung teilt sich zunächst in zwei solcher Layouts: Authentifizierung und eigentliche Anwendung.
 
 Das Layout der Authentifizierung beschreibt nur die Positionierung der relevanten Elemente in der Mitte des Bildschirms, da sich alle Seiten der Authentifizierung diese Eigenschaft teilen.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{0.8\linewidth}
+        \includegraphics[width=\linewidth]{mainLayout}
+        \captionof{figure}{Visualisierung des Layouts}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
 Das Layout der eigentlichen Seite teilt die Seite in drei Teile, den Header, den Inhalt und einen Footer. Der Header beinhaltet die Navigationsleiste, die den Nutzer durch die Anwendung führt und oben rechts ein Aktionsmenü mit dem der Nutzer sich jederzeit ausloggen kann oder in die Einstellungen bzw. sein Profil navigieren kann. Zudem kann der Nutzer links neben dem Aktionsmenü die Daten der Anwendung erneut laden und die Fortschrittsmessung zwischen Absolut, Storypoints und Value auswählen. Der Inhalt ist der Bereich in dem die verschiedenen Views dargestellt werden. Im Footer sind Informationen über den aktuell eingeloggten Nutzer und seine Verbindung zu Jira enthalten.
 
 \subsubsection{Views und Components}
@@ -290,6 +288,10 @@ Zusätzlich zu den Linien kann der Nutzer den Mauszeiger über eine Gruppe beweg
 \vspace{20pt}
 
 Für die Erzeugung der Doughnut-Diagramme wird Chart.js verwendet, da es eine simple und visuell ansprechende Möglichkeit bietet einfache Diagramme zu erstellen. Durch das Plugin Vue-Chartjs gibt es die Möglichkeit die Diagramme in Vue.js direkt als Komponente einzubinden, was die Verwendung weiter erleichtert.
+
+\subsection{lokale Inbetriebnahme}
+Um die Anwendung zu starten werden zwei Möglichkeiten angeboten. Die erste Möglichkeit besteht in der Verwendung von Docker-Compose. Die zweite Möglichkeit besteht in der Verwendung von Node.js, Vite, und Docker für die MongoDB.
+Detailierte Beschreibungen für die konkreten Details der Inbetriebnahme sind in der \verb|README.md|-Datei im \verb|prototype|-Ordner des \href{https://github.com/Max-0e/bachelor/blob/main/prototype/README.md}{Repositories} zu finden.
 
 \subsection{CI/CD}
 Für eine schnelle und einfache Möglichkeit die Anwendung als produktive Anwendung zu testen und Verbesserungen zu deployen wurde eine CI/CD-Pipeline mit GitHub-Actions eingerichtet. Die GitHub-Action definiert, wann die Pipeline ausgeführt werden soll und welche Schritte in der Pipeline ausgeführt werden sollen. Der Trigger für die Pipeline ist hier das Mergen und daraus resultierenden Schließen eines Pullrequests der als Ziel den main-Branch des Repositories hat.
