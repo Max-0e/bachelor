@@ -15,10 +15,31 @@ Der Fortschritt eines Planungselements, welches keine Aufgabe oder Projekt ist, 
 Um die Evaluierung zu erleichtern und mehrere Szenarien testbar zu machen, können mehrere dieser Strukturen innerhalb der Anwendung existieren, weshalb es eine Ebene gibt, die hier Organisation genannt wird. Organisationen können unabhängig voneinander existieren und eine vollständige Datenstruktur beinhalten.
 
 \subsection{UX-Entwurf für die Abbildung des Prozesses}
-Um den Userflow innerhalb des Prototyps darzustellen, wurde ein UX-Entwurf entwickelt, welcher alle Funktionalitäten der Anwendung visuell abbildet und als Grundlage für das Design der Benutzeroberfläche dient. Der Entwurf unterteilt die Anwendung in 7 verschiedene Teile:
+Um den Userflow innerhalb des Prototyps darzustellen, wurde ein UX-Entwurf mit Figma entwickelt, welcher alle Funktionalitäten der Anwendung visuell abbildet und als Grundlage für das Design der Benutzeroberfläche dient. Der Entwurf ist als Klickprototyp \href{https://www.figma.com/proto/6TjaUCKvs4DjwzTDEiWxiO/Prototype?type=design&node-id=0-1&scaling=min-zoom&starting-point-node-id=2%3A61}{hier} verfügbar.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{UX-Prototype}
+        \captionof{figure}{UX-Prototyp für die Anwendung}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+
+Der Entwurf unterteilt die Anwendung in 7 verschiedene Teile:
 
 \subsubsection{Authentifizierung}
 Die Authentifizierung beinhaltet Seiten für den Login und die Registrierung. Außerdem muss der Nutzer sein Passwort zurücksetzen können, indem er einen Reset-Link für seine registrierte E-Mail-Adresse anfordert und über diesen Link ein neues Passwort vergeben kann.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{Auth}
+        \captionof{figure}{UX-Prototyp für die Authentifizierung}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
 
 \subsubsection{Menü}
 Das Menü besteht aus 2 Seiten. Die Profil-Seite stellt den Nutzernamen und E-Mail-Adresse dar und ermöglicht es dem Nutzer ein JIRA-API-Token für einen JIRA-Import zu hinterlegen. Auf der Einstellungsseite kann der Nutzer zwischen Light- und Dark-Mode wechseln.
@@ -26,8 +47,27 @@ Das Menü besteht aus 2 Seiten. Die Profil-Seite stellt den Nutzernamen und E-Ma
 \subsubsection{Organisation}
 Auf der Organisationsseite kann der Nutzer alle Organisationen sehen und neue Organisationen erstellen. Beim Erstellen einer Organisation kann der Nutzer sich entscheiden, ob er Epics verwenden möchte. Wenn die Organisation erstellt wird, wird zusätzlich ein Level für Projekte, also die unterste Ebene erstellt. Verwendet die erstellte Organisation Epics, werden 2 Ebenen standardmäßig erstellt: Project und Epic. Dies hat ebenfalls Auswirkungen auf das Dashboard, da es grundsätzlich alle Levels darstellt. Verwendet eine Organisation allerdings Epics, wird die unterste Ebene, also Epics, nicht mit dargestellt. Außerdem gibt es in den Projekten keine Möglichkeit Epics zu erstellen.
 
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{Organization}
+        \captionof{figure}{UX-Prototyp für die Organisationsseite}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+
 \subsubsection{Dashboard}
 Das Dashboard zeigt alle Planungselemente einer Organisation hierarchisch angeordnet dar und wie diese miteinander verknüpft sind. Der Nutzer kann je Element anhand einer kleinen Grafik den aktuellen Fortschritt des Elements ablesen. Außerdem hat der User die Möglichkeit den Verlinkungsmodus auszuwählen, wodurch er mit Drag-and-drop neue Verknüpfungen erstellen kann. Durch einen Klick auf das Element gelangt der Nutzer zur Detailansicht des Elements.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{Dashboard}
+        \captionof{figure}{UX-Prototyp für das Dashboard}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
 
 \subsubsection{Levels}
 Hier kann der Nutzer Ebenen(Levels) erstellen und löschen. Alle Ebenen werden hierarchisch sortiert dargestellt.
