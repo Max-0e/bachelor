@@ -1,8 +1,34 @@
-Im folgenden Kapitel wird die Implementierung des Konzepts als webbasierte Anwendung beschrieben und dokumentiert.
-Dabei steht vor allem die Architektur der einzelnen Teile, aus denen die Anwendung besteht im Vordergrund.
+
+Im folgenden Kapitel wird die Implementierung auf Basis des zuvor erarbeitet Konzepts als webbasierte Anwendung beschrieben und dokumentiert. Dabei steht vor allem die Architektur der einzelnen Teile, aus denen die Anwendung besteht und die Datenstruktur im Vordergrund.
+
+\subsection{Datenfluss}
+Der Datenfluss der Anwendung ist ein typischer Datenfluss für Webapplikationen und in Abbildung \ref{figure:Datenfluss der Anwendung} dargestellt. Die Anwendung besteht aus drei Teilen: Datenbank, Backend und Frontend.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{Datenfluss}
+        \captionof{figure}{Datenfluss der Anwendung}
+        \label{figure:Datenfluss der Anwendung}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Die Datenbank persistiert die Daten der Anwendung. Sie wird durch das Backend verwaltet und gelesen. Das Frontend kann implizit auf diese Daten zugreifen und diese verändern, in dem sie diese vom Backend über eine REST-API anfragt. Das Frontend selbst stellt die Daten in einer benutzerfreundlichen Art und Weise dar und ermöglicht es dem Benutzer die Daten zu verändern, indem es als Benutzeroberfläche für die REST-API des Backends fungiert.
+
+Hinterlegt der Nutzer ein Jira-Token kommt eine vierte Komponente hinzu. Diese Komponente ist die JIRA-API, welche die Daten aus Jira zur Verfügung stellt. Um damit den Datenfluss einheitlich zu gestalten, wird die JIRA-API durch das Backend angesprochen, als wäre es eine Datenbank abfrage. Somit hat das Frontend nur eine einzige Quelle an Information.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{Datenfluss(inkl Jira)}
+        \captionof{figure}{Datenfluss der Anwendung inkl. Jira}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
 
 \subsection{Datenstruktur}
-Die Datenstruktur der Anwendung besteht grundsätzlich aus drei abstrakten und fünf konkreten Klassen. Die abstrakten Klassen sind Entitäten, organisationsbasierende Entitäten und verlinkbare Entitäten. Die absoluten Klassen sind Nutzer, Organisation, Level, Gruppe und Aufgabe.
+Die Datenstruktur der Anwendung besteht grundsätzlich aus drei abstrakten und fünf konkreten Klassen. Abstrakten Klassen sind: Entitäten, organisationsbasierende Entitäten und verlinkbare Entitäten. Absolute Klassen sind: Nutzer, Organisation, Level, Gruppe und Aufgabe.
 
 \vspace{20pt}
 \begin{center}
@@ -42,7 +68,7 @@ Zudem gibt es fünf absolute Strukturen für jede der fünf absoluten Klassen, w
 \end{center}
 \vspace{20pt}
 
-\emph{hier noch eine detaillierte Beschreibung der Strukturen ????}
+Für die Authentifizierung werden die Node-Packages \verb|express-sessions| und \verb|passport| verwendet. Zusammen mit einer Persistierung in der Datenbank wird hiermit eine Session-Authentifizierung implementiert, die mit Authentication-Cookies funktioniert.
 
 Eine vollständige Dokumentation der API nach Open-API-Spezifikation-3.0.0 im Swagger-Format ist \href{https://116.203.140.167.nip.io/api-docs/}{hier} verfügbar. Dort sind die für den Client zugänglichen Routen inklusive der benötigten Parameter und den zurückgegebenen Daten dokumentiert.
 
