@@ -1,8 +1,34 @@
-Im folgenden Kapitel wird die Implementierung des Konzepts als webbasierte Anwendung beschrieben und dokumentiert.
-Dabei steht vor allem die Architektur der einzelnen Teile, aus denen die Anwendung besteht im Vordergrund.
+
+Im folgenden Kapitel wird die Implementierung auf Basis des zuvor erarbeitet Konzepts als webbasierte Anwendung beschrieben und dokumentiert. Dabei steht vor allem die Architektur der einzelnen Teile, aus denen die Anwendung besteht und die Datenstruktur im Vordergrund.
+
+\subsection{Datenfluss}
+Der Datenfluss der Anwendung ist ein typischer Datenfluss für Webapplikationen und in Abbildung \ref{figure:Datenfluss der Anwendung} dargestellt. Die Anwendung besteht aus drei Teilen: Datenbank, Backend und Frontend.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{Datenfluss}
+        \captionof{figure}{Datenfluss der Anwendung}
+        \label{figure:Datenfluss der Anwendung}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Die Datenbank persistiert die Daten der Anwendung. Sie wird durch das Backend verwaltet und gelesen. Das Frontend kann implizit auf diese Daten zugreifen und diese verändern, in dem sie diese vom Backend über eine REST-API anfragt. Das Frontend selbst stellt die Daten in einer benutzerfreundlichen Art und Weise dar und ermöglicht es dem Benutzer die Daten zu verändern, indem es als Benutzeroberfläche für die REST-API des Backends fungiert.
+
+Hinterlegt der Nutzer ein Jira-Token kommt eine vierte Komponente hinzu. Diese Komponente ist die JIRA-API, welche die Daten aus Jira zur Verfügung stellt. Um damit den Datenfluss einheitlich zu gestalten, wird die JIRA-API durch das Backend angesprochen, als wäre es eine Datenbank abfrage. Somit hat das Frontend nur eine einzige Quelle an Information.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{Datenfluss(inkl Jira)}
+        \captionof{figure}{Datenfluss der Anwendung inkl. Jira}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
 
 \subsection{Datenstruktur}
-Die Datenstruktur der Anwendung besteht grundsätzlich aus drei abstrakten und fünf konkreten Klassen. Die abstrakten Klassen sind Entitäten, organisationsbasierende Entitäten und verlinkbare Entitäten. Die absoluten Klassen sind Nutzer, Organisation, Level, Gruppe und Aufgabe.
+Die Datenstruktur der Anwendung besteht grundsätzlich aus drei abstrakten und fünf konkreten Klassen. Abstrakten Klassen sind: Entitäten, organisationsbasierende Entitäten und verlinkbare Entitäten. Absolute Klassen sind: Nutzer, Organisation, Level, Gruppe und Aufgabe.
 
 \vspace{20pt}
 \begin{center}
@@ -42,27 +68,15 @@ Zudem gibt es fünf absolute Strukturen für jede der fünf absoluten Klassen, w
 \end{center}
 \vspace{20pt}
 
-\emph{hier noch eine detaillierte Beschreibung der Strukturen ????}
+Für die Authentifizierung werden die Node-Packages \verb|express-sessions| und \verb|passport| verwendet. Zusammen mit einer Persistierung in der Datenbank wird hiermit eine Session-Authentifizierung implementiert, die mit Authentication-Cookies funktioniert.
 
 Eine vollständige Dokumentation der API nach Open-API-Spezifikation-3.0.0 im Swagger-Format ist \href{https://116.203.140.167.nip.io/api-docs/}{hier} verfügbar. Dort sind die für den Client zugänglichen Routen inklusive der benötigten Parameter und den zurückgegebenen Daten dokumentiert.
 
 \vspace{20pt}
 \begin{center}
-    \begin{minipage}{0.8\linewidth}
-        \includegraphics[width=\linewidth]{Swagger1}
-        \captionof{figure}{API-Dokumentation Teil 1}
-    \end{minipage}
-\end{center}
-\begin{center}
-    \begin{minipage}{0.8\linewidth}
-        \includegraphics[width=\linewidth]{Swagger2}
-        \captionof{figure}{API-Dokumentation Teil 2}
-    \end{minipage}
-\end{center}
-\begin{center}
-    \begin{minipage}{0.8\linewidth}
-        \includegraphics[width=\linewidth]{Swagger3}
-        \captionof{figure}{API-Dokumentation Teil 2}
+    \begin{minipage}{0.95\linewidth}
+        \includegraphics[width=\linewidth]{swagger}
+        \captionof{figure}{API-Dokumentation}
     \end{minipage}
 \end{center}
 \vspace{20pt}
@@ -76,6 +90,16 @@ Für die Implementierung wurde als Frontend-/UI-Framework Vue.js verwendet. Vue.
 Die Anwendung teilt sich zunächst in zwei solcher Layouts: Authentifizierung und eigentliche Anwendung.
 
 Das Layout der Authentifizierung beschreibt nur die Positionierung der relevanten Elemente in der Mitte des Bildschirms, da sich alle Seiten der Authentifizierung diese Eigenschaft teilen.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{0.8\linewidth}
+        \includegraphics[width=\linewidth]{mainLayout}
+        \captionof{figure}{Visualisierung des Layouts}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
 Das Layout der eigentlichen Seite teilt die Seite in drei Teile, den Header, den Inhalt und einen Footer. Der Header beinhaltet die Navigationsleiste, die den Nutzer durch die Anwendung führt und oben rechts ein Aktionsmenü mit dem der Nutzer sich jederzeit ausloggen kann oder in die Einstellungen bzw. sein Profil navigieren kann. Zudem kann der Nutzer links neben dem Aktionsmenü die Daten der Anwendung erneut laden und die Fortschrittsmessung zwischen Absolut, Storypoints und Value auswählen. Der Inhalt ist der Bereich in dem die verschiedenen Views dargestellt werden. Im Footer sind Informationen über den aktuell eingeloggten Nutzer und seine Verbindung zu Jira enthalten.
 
 \subsubsection{Views und Components}
@@ -290,6 +314,10 @@ Zusätzlich zu den Linien kann der Nutzer den Mauszeiger über eine Gruppe beweg
 \vspace{20pt}
 
 Für die Erzeugung der Doughnut-Diagramme wird Chart.js verwendet, da es eine simple und visuell ansprechende Möglichkeit bietet einfache Diagramme zu erstellen. Durch das Plugin Vue-Chartjs gibt es die Möglichkeit die Diagramme in Vue.js direkt als Komponente einzubinden, was die Verwendung weiter erleichtert.
+
+\subsection{lokale Inbetriebnahme}
+Um die Anwendung zu starten werden zwei Möglichkeiten angeboten. Die erste Möglichkeit besteht in der Verwendung von Docker-Compose. Die zweite Möglichkeit besteht in der Verwendung von Node.js, Vite, und Docker für die MongoDB.
+Detailierte Beschreibungen für die konkreten Details der Inbetriebnahme sind in der \verb|README.md|-Datei im \verb|prototype|-Ordner des \href{https://github.com/Max-0e/bachelor/blob/main/prototype/README.md}{Repositories} zu finden.
 
 \subsection{CI/CD}
 Für eine schnelle und einfache Möglichkeit die Anwendung als produktive Anwendung zu testen und Verbesserungen zu deployen wurde eine CI/CD-Pipeline mit GitHub-Actions eingerichtet. Die GitHub-Action definiert, wann die Pipeline ausgeführt werden soll und welche Schritte in der Pipeline ausgeführt werden sollen. Der Trigger für die Pipeline ist hier das Mergen und daraus resultierenden Schließen eines Pullrequests der als Ziel den main-Branch des Repositories hat.

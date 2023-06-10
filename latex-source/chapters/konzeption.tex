@@ -1,4 +1,6 @@
-Resultierend aus der Analyse soll an dieser Stelle ein Prozess definiert werden, aus denen anschließend ein UX-Konzept und eine prototypische Implementierung entwickelt werden kann.
+In den vorherigen Kapiteln wurde beleuchtet, dass Agilität skaliert auf Unternehmensebene verschiedene Vorteile und  Risiken mit sich bringt und auf regelmäßige ad hoc Entscheidungen in verschiedenen Ebenen des Unternehmens angewiesen ist, um effektive Ergebnisse zu erzielen. Diese Entscheidungen sollten auf Basis von Metriken aus generalisierten Reporting-Prozessen getroffen werden, wobei diese Reporting-Prozesse, wenn möglich, automatisiert werden sollten, um Konsistenz, Regelmäßigkeit, Validität und Aktualität zu gewährleisten. Tool basierendes Reporting hat sich in vielen Unternehmen als eine erfolgreiche Automatisierungsmethode bewiesen.
+Resultierend aus diesen Erkenntnissen wird an dieser Stelle ein Prozess definiert der ein Tool für einen Dokumentations- und Reporting-Prozess abbildet, aus denen anschließend ein UX-Konzept und im nächsten Kapitel eine prototypische Implementierung entwickelt werden kann.
+
 \subsection{Prozessdefinition / Anforderungsformulierung}
 Für Fortschrittsmessung und Werteorientierung müssen Zusammenhänge innerhalb eines Portfolios mit operativen Elementen, deren absoluter Fortschritt tatsächlich gemessen werden kann, dokumentiert werden können. Diese Verknüpfung muss über beliebig viele Ebenen stattfinden können, um möglichst universell und unabhängig von der Unternehmensstruktur und dem verwendeten Framework benutzbar zu sein.
 Operative Elemente, hier genannt Aufgabe, haben einen veränderbaren Status an dem festgestellt werden kann, ob sie fertig sind und somit für den gemessenen Fortschritt einbezogen werden müssen. Aufgaben außerdem besitzen zudem zwei numerische Werte: Storypoints und Value. Storypoints sollen als relativer Wert die Komplexität der Umsetzung, die mit einer Aufgabe verbunden ist darstellen, während Value den Mehrwert widerspiegelt, welcher durch die Erledigung der Aufgabe entsteht. Die Bezeichnung ist in diesem Fall mit Absicht unspezifisch gewählt, um weitere Komplexität zu vermeiden und den Scope dieser Arbeit zu verkleinern, da zwischen verschiedenen Formen von Mehrwert unterschieden werden kann, wie z. B. Business-, Customer-Value oder auch interner Mehrwert. Ziel dieser Werte ist, die Aufgaben vergleichbarer zu machen, da einige Aufgaben mehr Einfluss auf den Fortschritt haben können als andere. Aufgaben im Kontext des Prototyps würden somit die Funktion der User-Stories erfüllen.
@@ -15,10 +17,31 @@ Der Fortschritt eines Planungselements, welches keine Aufgabe oder Projekt ist, 
 Um die Evaluierung zu erleichtern und mehrere Szenarien testbar zu machen, können mehrere dieser Strukturen innerhalb der Anwendung existieren, weshalb es eine Ebene gibt, die hier Organisation genannt wird. Organisationen können unabhängig voneinander existieren und eine vollständige Datenstruktur beinhalten.
 
 \subsection{UX-Entwurf für die Abbildung des Prozesses}
-Um den Userflow innerhalb des Prototyps darzustellen, wurde ein UX-Entwurf entwickelt, welcher alle Funktionalitäten der Anwendung visuell abbildet und als Grundlage für das Design der Benutzeroberfläche dient. Der Entwurf unterteilt die Anwendung in 7 verschiedene Teile:
+Um den Userflow innerhalb des Prototyps darzustellen, wurde ein UX-Entwurf mit Figma entwickelt, welcher alle Funktionalitäten der Anwendung visuell abbildet und als Grundlage für das Design der Benutzeroberfläche dient. Der Entwurf ist als Klickprototyp \href{https://www.figma.com/proto/6TjaUCKvs4DjwzTDEiWxiO/Prototype?type=design&node-id=0-1&scaling=min-zoom&starting-point-node-id=2%3A61}{hier} verfügbar.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{UX-Prototype}
+        \captionof{figure}{UX-Prototyp für die Anwendung}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+
+Der Entwurf unterteilt die Anwendung in 7 verschiedene Teile:
 
 \subsubsection{Authentifizierung}
 Die Authentifizierung beinhaltet Seiten für den Login und die Registrierung. Außerdem muss der Nutzer sein Passwort zurücksetzen können, indem er einen Reset-Link für seine registrierte E-Mail-Adresse anfordert und über diesen Link ein neues Passwort vergeben kann.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{Auth}
+        \captionof{figure}{UX-Prototyp für die Authentifizierung}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
 
 \subsubsection{Menü}
 Das Menü besteht aus 2 Seiten. Die Profil-Seite stellt den Nutzernamen und E-Mail-Adresse dar und ermöglicht es dem Nutzer ein JIRA-API-Token für einen JIRA-Import zu hinterlegen. Auf der Einstellungsseite kann der Nutzer zwischen Light- und Dark-Mode wechseln.
@@ -26,8 +49,27 @@ Das Menü besteht aus 2 Seiten. Die Profil-Seite stellt den Nutzernamen und E-Ma
 \subsubsection{Organisation}
 Auf der Organisationsseite kann der Nutzer alle Organisationen sehen und neue Organisationen erstellen. Beim Erstellen einer Organisation kann der Nutzer sich entscheiden, ob er Epics verwenden möchte. Wenn die Organisation erstellt wird, wird zusätzlich ein Level für Projekte, also die unterste Ebene erstellt. Verwendet die erstellte Organisation Epics, werden 2 Ebenen standardmäßig erstellt: Project und Epic. Dies hat ebenfalls Auswirkungen auf das Dashboard, da es grundsätzlich alle Levels darstellt. Verwendet eine Organisation allerdings Epics, wird die unterste Ebene, also Epics, nicht mit dargestellt. Außerdem gibt es in den Projekten keine Möglichkeit Epics zu erstellen.
 
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{Organization}
+        \captionof{figure}{UX-Prototyp für die Organisationsseite}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+
 \subsubsection{Dashboard}
 Das Dashboard zeigt alle Planungselemente einer Organisation hierarchisch angeordnet dar und wie diese miteinander verknüpft sind. Der Nutzer kann je Element anhand einer kleinen Grafik den aktuellen Fortschritt des Elements ablesen. Außerdem hat der User die Möglichkeit den Verlinkungsmodus auszuwählen, wodurch er mit Drag-and-drop neue Verknüpfungen erstellen kann. Durch einen Klick auf das Element gelangt der Nutzer zur Detailansicht des Elements.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{Dashboard}
+        \captionof{figure}{UX-Prototyp für das Dashboard}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
 
 \subsubsection{Levels}
 Hier kann der Nutzer Ebenen(Levels) erstellen und löschen. Alle Ebenen werden hierarchisch sortiert dargestellt.
