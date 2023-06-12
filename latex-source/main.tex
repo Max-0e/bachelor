@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 \usepackage[ngerman]{babel}
+\addto{\captionsngerman}{\renewcommand{\abstractname}{Abstract}}
 \renewcommand{\baselinestretch}{1.5}
 \usepackage{blindtext}
 \usepackage{tabularx}
@@ -90,20 +91,20 @@ sorting=none
 \begin{document}
 \pagenumbering{gobble}
 \input{not-chapters/cover}
-\newpage
-\input{not-chapters/titlepage}
-
 \fancyhead[C]{\thepage}
-\newpage
 \pagestyle{fancy}
 \pagenumbering{roman}
+\newpage
+\thispagestyle{empty}
+\input{not-chapters/titlepage}
+\newpage
 \input{not-chapters/abstract}
 \newpage
 \tableofcontents
 \newpage
 \input{not-chapters/abkuerzungsverzeichnis}
-\newpage
-\input{not-chapters/symbolverzeichnis}
+% \newpage
+% \input{not-chapters/symbolverzeichnis}
 \newpage
 \input{not-chapters/abbildungsverzeichnis}
 \newpage
@@ -135,8 +136,8 @@ sorting=none
 
 \newpage
 \input{not-chapters/literary}
-\newpage
-\input{not-chapters/anhang}
+% \newpage
+% \input{not-chapters/anhang}
 \newpage
 \input{not-chapters/selbstaendigkeitserklaerung}
 
