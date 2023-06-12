@@ -3,7 +3,7 @@ export const API_URL: string =
 export const DEV_MODE: boolean = import.meta.env.DEV;
 export const SWAGGER_DOCS_URL: string = DEV_MODE
 	? 'http://localhost:3000/api-docs'
-	: 'https://116.203.140.167.nip.io/api-docs';
+	: 'https://bachelor.oedinger.io/api-docs';
 
 export const emailRegex =
 	/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
