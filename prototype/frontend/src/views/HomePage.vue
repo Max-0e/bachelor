@@ -30,38 +30,40 @@
 				Agility plays a big role in managing the complexity of volatile and
 				unpredictable environments, such as project management and project
 				portfolio management, by focussing on the value created for the
-				customer. This leads to the need of scaling agile practices to
-				enterprise level, which can be done by using i.e. the Scaled Agile
-				Framework (SAFe) or Flight Levels.
+				customer. This leads to the need of systematicaly scaling agile
+				practices to enterprise level, which can be done by using i.e. the
+				Scaled Agile Framework (SAFe) or Flight Levels and results in big
+				organizational structures with multiple levels of planning and decision
+				making, which have to be documented.
 				<br />
 				<br />
 				For effective decision making in those environments, decisions should be
 				made with metrics in mind that are relevant for the Level in which the
-				decision must be made. This work presents an all in one customizable
-				software solution to aggregate such metrics to the level required and
-				present it in a meaningful manner, providing insights on progress from
-				levels below the one where the decision must be made and what
-				implications the decision will have on the levels above. Focus of this
-				work is the adaptability of the solution regardless of the framework
-				used to scale agile practices.
+				decision must be made. This work presents a customizable software
+				solution to document the organizational structure in a way that allows
+				automatic aggregation of such metrics to the level required. These
+				Metrics should be presented in a meaningful manner, providing insights
+				on progress from levels below the one where the decision must be made in
+				and what implications the decision will have on the levels above. Focus
+				of this work is the adaptability of the solution regardless of the
+				framework used to scale agile practices.
 				<br />
 				<br />
 				The solution was evaluated in a case study to determine its usefulness
-				of the software. The results show that tha adaptability of the solution
-				is given, but to be useful in a real world scenario, the solution needs
-				to be extended with time-based metrics like velocity, etc. and the
-				ability to not only import data from operational tools like Jira, but
-				also a synchronization of data between the tools, to make the solution
-				usable over time, since the data only represents a snapshot of the
-				current state of the organization, if the data is not updated regularly.
+				as a webbased software. The results show that tha adaptability of the
+				solution is given, but to be useful in a real world scenario, the
+				solution needs to be extended with time-based metrics like velocity,
+				etc. and the ability to not only import data from operational tools like
+				Jira, but also a synchronization of data between the tools, to make the
+				solution usable over time, since the data only represents a snapshot of
+				the current state of the organization.
 				<br />
 				<br />
 				<b>Keywords:</b>
 				<br />
 				agile portfolio management, agile project management, progress tracking,
-				decision making, Flight Levels, Scaled Agile Framework, value based
-				software engineering, data aggregation, visualization, web development,
-				mevn stack
+				decision making, Flight Levels, Scaled Agile Framework, data
+				aggregation, visualization, web development, mevn stack
 			</div>
 			<AppButton
 				:disabled="true"
