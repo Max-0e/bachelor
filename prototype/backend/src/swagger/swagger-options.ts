@@ -12,7 +12,7 @@ export const swaggerOptions: Options = {
 			For Authorization paste existing valid session cookie with the "Authorize" button or use the "Try it out" button in the Login-Route to login once.`,
 			contact: {
 				name: 'Max Oedinger',
-				url: 'https://116.203.140.167.nip.io/#/home',
+				url: 'https://bachelor.oedinger.io/#/home',
 				email: 'maximilian.oedinger@hsrw.org',
 			},
 		},
@@ -20,7 +20,7 @@ export const swaggerOptions: Options = {
 			{
 				url: DEV_MODE
 					? 'http://localhost:3000/api'
-					: 'https://116.203.140.167.nip.io/api',
+					: 'https://bachelor.oedinger.io/api',
 			},
 		],
 	},
