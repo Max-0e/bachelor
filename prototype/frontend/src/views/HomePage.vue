@@ -30,7 +30,7 @@
 				Agility plays a big role in managing the complexity of volatile and
 				unpredictable environments, such as project management and project
 				portfolio management, by focussing on the value created for the
-				customer. This leads to the need of systematicaly scaling agile
+				customer. This leads to the need of systematically scaling agile
 				practices to enterprise level, which can be done by using i.e. the
 				Scaled Agile Framework (SAFe) or Flight Levels and results in big
 				organizational structures with multiple levels of planning and decision
@@ -50,7 +50,7 @@
 				<br />
 				<br />
 				The solution was evaluated in a case study to determine its usefulness
-				as a webbased software. The results show that tha adaptability of the
+				as a webbased software. The results show that the adaptability of the
 				solution is given, but to be useful in a real world scenario, the
 				solution needs to be extended with time-based metrics like velocity,
 				etc. and the ability to not only import data from operational tools like
