@@ -15,11 +15,32 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{xcolor}
+\renewcommand*{\lstlistlistingname}{Codeverzeichnis}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle, language=[Sharp]C}
 
 \lstdefinelanguage{JavaScript}{
   keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
@@ -101,12 +122,14 @@ sorting=none
 \input{not-chapters/abstract}
 \newpage
 \tableofcontents
-\newpage
-\input{not-chapters/abkuerzungsverzeichnis}
+% \newpage
+% \input{not-chapters/abkuerzungsverzeichnis}
 % \newpage
 % \input{not-chapters/symbolverzeichnis}
 \newpage
 \input{not-chapters/abbildungsverzeichnis}
+\addcontentsline{toc}{section}{Codeverzeichnis}
+\lstlistoflistings
 \newpage
 \input{not-chapters/tabellenverzeichnis}
 

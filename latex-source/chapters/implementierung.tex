@@ -16,8 +16,6 @@ Der Datenfluss der Anwendung ist ein typischer Datenfluss für Webapplikationen 
 
 Die Datenbank persistiert die Daten der Anwendung. Sie wird durch das Backend verwaltet und gelesen. Das Frontend kann implizit auf diese Daten zugreifen und diese verändern, in dem sie diese vom Backend über eine REST-API anfragt. Das Frontend selbst stellt die Daten in einer benutzerfreundlichen Art und Weise dar und ermöglicht es dem Benutzer die Daten zu verändern, indem es als Benutzeroberfläche für die REST-API des Backends fungiert.
 
-Hinterlegt der Nutzer ein Jira-Token kommt eine vierte Komponente hinzu. Diese Komponente ist die JIRA-API, welche die Daten aus Jira zur Verfügung stellt. Um damit den Datenfluss einheitlich zu gestalten, wird die JIRA-API durch das Backend angesprochen, als wäre es eine Datenbank abfrage. Somit hat das Frontend nur eine einzige Quelle an Information.
-
 \vspace{20pt}
 \begin{center}
     \begin{minipage}{1\linewidth}
@@ -27,12 +25,14 @@ Hinterlegt der Nutzer ein Jira-Token kommt eine vierte Komponente hinzu. Diese K
 \end{center}
 \vspace{20pt}
 
+Hinterlegt der Nutzer ein Jira-Token kommt eine vierte Komponente hinzu. Diese Komponente ist die Jira-API, welche die Daten aus Jira zur Verfügung stellt. Um damit den Datenfluss einheitlich zu gestalten, wird die JIRA-API durch das Backend angesprochen, als wäre es eine Datenbankabfrage. Somit hat das Frontend nur eine einzige Quelle an Information.
+
 \subsection{Datenstruktur}
 Die Datenstruktur der Anwendung besteht grundsätzlich aus drei abstrakten und fünf konkreten Klassen. Abstrakten Klassen sind: Entitäten, organisationsbasierende Entitäten und verlinkbare Entitäten. Absolute Klassen sind: Nutzer, Organisation, Level, Gruppe und Aufgabe.
 
 \vspace{20pt}
 \begin{center}
-    \begin{minipage}{1\linewidth}
+    \begin{minipage}{0.8\linewidth}
         \includegraphics[width=\linewidth]{classDiagramm}
         \captionof{figure}{UML-Diagramm der Datenstruktur}
     \end{minipage}
@@ -68,9 +68,7 @@ Zudem gibt es fünf absolute Strukturen für jede der fünf absoluten Klassen, w
 \end{center}
 \vspace{20pt}
 
-Für die Authentifizierung werden die Node-Packages \verb|express-sessions| und \verb|passport| verwendet. Zusammen mit einer Persistierung in der Datenbank wird hiermit eine Session-Authentifizierung implementiert, die mit Authentication-Cookies funktioniert.
-
-Eine vollständige Dokumentation der API nach Open-API-Spezifikation-3.0.0 im Swagger-Format ist \href{https://bachelor.oedinger.io/api-docs/}{hier} verfügbar. Dort sind die für den Client zugänglichen Routen inklusive der benötigten Parameter und den zurückgegebenen Daten dokumentiert.
+Eine vollständige Dokumentation der API nach Open-API-Spezifikation-3.0.0 im Swagger-Format ist \href{https://bachelor.oedinger.io/api-docs/}{https://bachelor.oedinger.io/api-docs/} verfügbar. Dort sind die für den Client zugänglichen Routen inklusive der benötigten Parameter und den zurückgegebenen Daten dokumentiert.
 
 \vspace{20pt}
 \begin{center}
@@ -81,10 +79,12 @@ Eine vollständige Dokumentation der API nach Open-API-Spezifikation-3.0.0 im Sw
 \end{center}
 \vspace{20pt}
 
-\subsection{Benutzeroberfläche}
-Zur initialen Planung wurde zunächst der UX-Entwurf verwendet, um die grobe Struktur der Benutzeroberfläche zu entwickeln. Durch die spezifische Entwicklung verschiedener Features sind immer wieder Lücken im Entwurf aufgefallen und wurden durch weitere UI-Elemente erweitert, um Funktionalitäten abzudecken, die zuvor nicht innerhalb des Prototyps bedacht wurden. Bis zum fertigen Prototyp haben sich viele der konkreten UI-Elemente verändert, allerdings blieb die Seitenstruktur also welche Informationen auf, welches Seite dargestellt wurden identisch.
+Für die Authentifizierung werden die Node-Packages \verb|express-sessions| und \verb|passport| verwendet. Zusammen mit einer Persistierung in der Datenbank wird hiermit eine Session-Authentifizierung implementiert, die mit Authentication-Cookies funktioniert.
 
-Für die Implementierung wurde als Frontend-/UI-Framework Vue.js verwendet. Vue.js ist eine Framework für die Entwicklung von Single-Page-Webanwendungen. Es ist ein JavaScript-Framework, welches auf dem Model-View-ViewModel (MVVM) basiert. Die UI wurde also in verschiedene Komponenten zerteilt. Die Komponenten werden in zwei Kategorien unterteilt: Views und Components. Views sind logisch voneinander getrennte Seiten der Anwendung, während Components kleinere Bestandteile der Views zur Vereinfachung der in der View benötigten Logik oder wiederverwendbare UI-Elemente sind. Zur weiteren Strukturierung werden hier noch sogenannte Layouts verwendet. Layouts stellen die Grundstruktur der Anwendung dar, welche von mehreren Views verwendet wird. Für das Styling der Anwendung wurde das CSS-Framework Tailwind-CSS verwendet. Dabei handelt es sich aber um kein Design-Framework, sondern lediglich um eine alternative Art natives CSS zu verwenden. Dementsprechend hat das Frontend sein eigenes Design, welches sich an keine Festen Design-Vorgaben eines anderen Systems hält.
+\subsection{Benutzeroberfläche}
+Zur initialen Planung wurde zunächst der UX-Entwurf verwendet, um die grobe Struktur der Benutzeroberfläche zu entwickeln. Durch die spezifische Entwicklung verschiedener Features sind immer wieder Lücken im Entwurf aufgefallen und wurden durch weitere UI-Elemente erweitert, um Funktionalitäten abzudecken, die zuvor nicht innerhalb des Prototyps bedacht wurden. Bis zum fertigen Prototyp haben sich viele der konkreten UI-Elemente verändert, allerdings blieb die Seitenstruktur, also welche Informationen auf welcher Seite dargestellt wurden, identisch.
+
+Für die Implementierung wurde als Frontend-/UI-Framework Vue.js verwendet. Vue.js ist eine Framework für die Entwicklung von Single-Page-Webanwendungen. Es ist ein JavaScript-Framework, welches auf dem Model-View-ViewModel (MVVM) basiert. Die UI wurde also in verschiedene Komponenten zerteilt. Die Komponenten werden in zwei Kategorien unterteilt: Views und Components. Views sind logisch voneinander getrennte Seiten der Anwendung, während Components kleinere Bestandteile der Views zur Vereinfachung der in der View benötigten Logik oder wiederverwendbare UI-Elemente sind. Zur weiteren Strukturierung werden hier noch sogenannte Layouts verwendet. Layouts stellen die Grundstruktur der Anwendung dar, welche von mehreren Views verwendet wird. Für das Styling der Anwendung wurde das CSS-Framework Tailwind-CSS verwendet. Dabei handelt es sich aber um kein Design-Framework, sondern lediglich um eine alternative Art natives CSS zu verwenden. Dementsprechend hat das Frontend sein eigenes Design, welches sich an keine festen Design-Vorgaben eines anderen Systems hält.
 
 \subsubsection{Layouts}
 Die Anwendung teilt sich zunächst in zwei solcher Layouts: Authentifizierung und eigentliche Anwendung.
@@ -109,9 +109,9 @@ Die Components enthalten mehrfach verwendetet UI-Elemente, wie z. B. Buttons, I
 
 
 \subsubsection{Datenverwaltung}
-Für die anwendungsübergreifende Datenverwaltung wird das Framework Pinia als Store verwendet. Der Store dient dazu die Daten nicht Kontextspezifisch zu speichern, sondern in der gesamten Anwendung verfügbar zu machen. Somit müssen die Daten nicht nach jeden Seitenwechsel neu geladen werden, sondern können aus dem Store abgerufen werden. Dies verbessert die Performance der Anwendung. Außerdem werden alle Kommunikationen mit dem Backend über den Store abgewickelt und durch die Ergebnisse der Kommunikationen werden die Daten im Store aktualisiert. Daten, die aus dem Store abgerufen werden, sind reactive, das bedeutet, dass Änderungen der Daten ebenfalls in den Komponenten, welche die Daten verwenden, reflektiert werden. Ein Store besteht aus drei verschiedenen Teilen: State, Getters und Actions. Der State beschreibt den Zustand der Daten. Getters sind Funktionen, die Daten aus dem State für verschiedene Anwendungsfälle transformiert oder gefiltert zurückgeben. Actions sind Funktionen, welche die Kommunikation mit dem Backend abwickeln und mit den zurückgegebenen Daten den State mutieren.
+Für die anwendungsübergreifende Datenverwaltung wird das Framework Pinia als Store verwendet. Der Store dient dazu die Daten nicht kontextspezifisch zu speichern, sondern in der gesamten Anwendung verfügbar zu machen. Somit müssen die Daten nicht nach jeden Seitenwechsel neu geladen werden, sondern können aus dem Store abgerufen werden. Dies verbessert die Performance der Anwendung. Außerdem werden alle Kommunikationen mit dem Backend über den Store abgewickelt und durch die Ergebnisse der Kommunikationen werden die Daten im Store aktualisiert. Daten, die aus dem Store abgerufen werden, sind reactive, das bedeutet, dass Änderungen der Daten ebenfalls in den Komponenten, welche die Daten verwenden, reflektiert werden. Ein Store besteht aus drei verschiedenen Teilen: State, Getters und Actions. Der State beschreibt den Zustand der Daten. Getters sind Funktionen, die Daten aus dem State für verschiedene Anwendungsfälle transformiert oder gefiltert zurückgeben. Actions sind Funktionen, welche die Kommunikation mit dem Backend abwickeln und mit den zurückgegebenen Daten den State mutieren.
 
-Es gibt mehrere Stores, die verschiedene Daten speichern. Für allgemeine Informationen gibt es den AppStore, welcher speichert welche Fortschrittsmessung ausgewählt wurde und ob der Light- oder Darkmode ausgewählt wurde. Der AppStore wird zusätzlich im Local-Storage des Browsers persistiert, was dafür sorgt, dass diese Informationen auch bei einem Neuladen der Seite erhalten bleiben.
+Es gibt mehrere Stores, die verschiedene Daten speichern. Für allgemeine Informationen gibt es den AppStore. Diese speichert welche Fortschrittsmessung ausgewählt wurde und ob der Light- oder Darkmode ausgewählt wurde. Der AppStore wird zusätzlich im Local-Storage des Browsers persistiert, was dafür sorgt, dass diese Informationen auch bei einem Neuladen der Seite erhalten bleiben.
 
 Im AuthStore wird der eingeloggte Nutzer gespeichert und ob der Nutzer eingeloggt ist und Login und Logout definiert.
 Für Daten, die in der Backend- und Datenstruktur als Entitäten bezeichnet werden gibt es auch hier eine Abstraktion der Stores für die Verwaltung dieser Entitäten. Es gibt also auch hier eine Abstraktion in EntityStore, OrganizationBasedEntity und LinkableEntity, von welchen die tatsächlich verwendeten Stores für die verschiedenen Datentypen erben. Anders als die Backendstruktur funktioniert die Vererbung hier aber nicht über Klassen, da Pinia einem funktionalen Implementierungsschema folgt. Also gibt es MakeFunktionen für jedes der drei verschiedenen Teile des Stores, welche mit Generischen-Type-Parametern State, Getter und Actions mit den richtigen Typen erzeugt. Für simple Stores wie z. B. den OrganizationStore beschränkt sich die absolute Implementierung dann wie folgt:
@@ -197,7 +197,7 @@ Stores für Entitäten, haben in ihrem State zusätzlich ein Loaded Attribut in 
 Der Jira-Store speichert alle den Nutzer zugänglichen Projekte und bietet mit seinen Actions die Möglichkeit die relevanten Daten zu diesem Projekt zu holen, wenn der Nutzer den Import-Prozess für ein Jira-Projekt startet.
 
 \subsection{Projekt-Import}
-Um die Verwendung der Anwendung insbesondere für Projekte, welche eine große Menge an Daten beinhalten können und meißt in externen Tools dokumentiert und verwaltet werden, zu vereinfachen, wurde ein Import-Prozess sowohl für Projektdaten in Excel-Dateien, als auch für Jira-Projekte implementiert. Dieser Import Prozess erlaubt ein individuelles Mapping der Daten aus den externen Tools auf die Datenstruktur der Anwendung. Das Mapping bei einer Excel-Tabelle erwartet eine Excel-Tabelle, welche alle Aufgaben eines Projekts enthält. Hierbei kann der Nutzer  die Felder aus der Anwendung mit Drag-and-Drop Spalten in der Tabelle zuordnen. Sollten Spalten bereits genauso wie Felder innerhalb der Anwendung heißen, werden diese Felder automatisch gemapped, können vom Nutzer aber auch wieder abgeändert werden.
+Um die Verwendung der Anwendung zu vereinfachen, wurde ein Import-Prozess sowohl für Projektdaten in Excel-Dateien, als auch für Jira-Projekte implementiert. Projekte, welche eine große Menge an Daten beinhalten und in meist in externen Tools dokumentiert und verwaltet werden, können somit ohne größeren Aufwand in der Anwendung verwendet werden. Dieser Import Prozess erlaubt ein individuelles Mapping der Daten aus den externen Tools auf die Datenstruktur der Anwendung. Das Mapping bei einer Excel-Tabelle erwartet eine Excel-Tabelle, welche alle Aufgaben eines Projekts enthält. Hierbei kann der Nutzer  die Felder aus der Anwendung mit Drag-and-Drop Spalten in der Tabelle zuordnen. Sollten Spalten die gleiche Bezeichnung wie Felder innerhalb der Anwendung haben, werden diese Felder automatisch zugeordnet. Diese automatischen Zuordnungen können vom Nutzer wieder abgeändert werden.
 
 \vspace{20pt}
 \begin{center}
@@ -208,7 +208,18 @@ Um die Verwendung der Anwendung insbesondere für Projekte, welche eine große M
 \end{center}
 \vspace{20pt}
 
-Anschließend wird für das Feld welches den Status der Aufgabe enthält einem Status innerhalb der Anwendung zuordnen, enthält das Feld für eine Aufgabe den gleichen Wert wie der Zugeordnete Status, wird dieser verwendet.
+Anschließend wird für das Feld, welches den Status der Aufgabe enthält, einem Status innerhalb der Anwendung zuordnen. Enthält das Feld für eine Aufgabe den gleichen Wert wie der zugeordnete Status, wird dieser verwendet.
+
+\vspace{20pt}
+\begin{center}
+    \begin{minipage}{1\linewidth}
+        \includegraphics[width=\linewidth]{ImportStatusMapping}
+        \captionof{figure}{Import Status Mapping}
+    \end{minipage}
+\end{center}
+\vspace{20pt}
+
+Importiert der Nutzer von Jira kann er zunächst ein Projekt auswählen.
 
 \vspace{20pt}
 \begin{center}
@@ -218,8 +229,6 @@ Anschließend wird für das Feld welches den Status der Aufgabe enthält einem S
     \end{minipage}
 \end{center}
 \vspace{20pt}
-
-Importiert der Nutzer von Jira kann er zunächst ein Projekt auswählen.
 
 \vspace{20pt}
 \begin{center}
@@ -242,15 +251,6 @@ Für Jira-Projekte kann das Mapping der Felder größtenteils automatisch durchg
 \vspace{20pt}
 
 Außerdem kann der Nutzer an dieser Stelle Custom-Fields für Issues aus Jira, welche Zahlenwerte enthalten auf Value und/oder Storypoints mappen.
-
-\vspace{20pt}
-\begin{center}
-    \begin{minipage}{1\linewidth}
-        \includegraphics[width=\linewidth]{ImportStatusMapping}
-        \captionof{figure}{Import Status Mapping}
-    \end{minipage}
-\end{center}
-\vspace{20pt}
 
 Zuletzt erhält der Nutzer nocheinmal eine Übersicht über die importierten Daten und kann den Import-Prozess starten.
 
@@ -275,7 +275,7 @@ Zuletzt erhält der Nutzer nocheinmal eine Übersicht über die importierten Dat
 \subsection{Visualisierung/Datendarstellung}
 Für die generelle Visualisierung der gesamten Daten einer Organisation dient das Dashboard, welches den komplexesten Teil der Anwendung darstellt.
 
-Hier werden alle Gruppen der Organisation Hierarchisch sortiert dargestellt und ihre Verknüpfungen untereinander visualisiert.
+Hier werden alle Gruppen der Organisation hierarchisch sortiert dargestellt und ihre Verknüpfungen untereinander visualisiert.
 Um die Übersicht bei vielen Gruppen beizubehalten werden die Gruppen innerhalb einer hierarchischen Ebene nach ihren Verbindungen zu den darüberliegenden Gruppen sortiert, sodass Gruppen, die mit der gleichen Gruppe in der Ebene darüber verknüpft sind, nebeneinander dargestellt werden. Die Verbindungslinien werden somit möglichst kurz und übersichtlich dargestellt.
 
 \vspace{20pt}
@@ -287,7 +287,7 @@ Um die Übersicht bei vielen Gruppen beizubehalten werden die Gruppen innerhalb 
 \end{center}
 \vspace{20pt}
 
-Um die Verbindungslinien darzustellen wurde ein SVG-Element im Hintergrund der Seite verwendet, welches die Verbindungslinien unabhängig von anderen Elementen auf der Seite darstellen kann. Die Start- und Endkoordinaten der Linien werden durch Positionen der Gruppen innerhalb der Seite berechnet. Dabei muss zusätzlich beachtet werden, wenn ein Level so viele Gruppen beinhaltet, dass sich einige Gruppen außerhalb des sichtbaren Bereichs befinden und durch einen Scroll in den sichtbaren Bereich bewegt werden können. In diesem Fall müssen die Koordinaten der Linien entsprechend der Scroll-Position der verschobenen Gruppen neu berechnet werden.
+Um die Verbindungslinien darzustellen wurde ein SVG-Element im Hintergrund der Seite verwendet, welches die Verbindungslinien unabhängig von anderen Elementen auf der Seite darstellen kann. Die Start- und Endkoordinaten der Linien werden durch Positionen der Gruppen innerhalb der Seite berechnet. Dabei muss zusätzlich beachtet werden, wenn ein Level so viele Gruppen beinhaltet, dass sich einige Gruppen außerhalb des sichtbaren Bereichs befinden können. Durch Scrollen können sie in den sichtbaren Bereich bewegt werden. In diesem Fall müssen die Koordinaten der Linien entsprechend der Scroll-Position der verschobenen Gruppen neu berechnet werden.
 
 \vspace{20pt}
 \begin{center}
@@ -299,7 +299,7 @@ Um die Verbindungslinien darzustellen wurde ein SVG-Element im Hintergrund der S
 \vspace{20pt}
 
 Der Nutzer hat die Möglichkeit Verlinkung über ein Toggle zu aktivieren, wodurch über jeder Gruppe, die verlinkt werden kann, ein Punkt erscheint, den der Nutzer mit Drag-and-Drop verwenden kann, um die Gruppe mit einer anderen Gruppe zu verbinden.
-Anhand der Start-Position und aktuellen Position des Mauszeigers wird währenddessen eine neue Linie dargestellt, die dem Nutzer zeigt, wie die Verbindung aussieht die er erzeugt. Anschließend werden die Verbindungslinien anhand der neuen Positionen der Gruppen erneut berechnet.
+Anhand der Start-Position und aktuellen Position des Mauszeigers wird währenddessen eine neue Linie dargestellt, die dem Nutzer zeigt, wie die Verbindung aussieht, die er erzeugt. Anschließend werden die Verbindungslinien anhand der neuen Positionen der Gruppen erneut berechnet.
 
 Zusätzlich zu den Linien kann der Nutzer den Mauszeiger über eine Gruppe bewegen, wodurch die Gruppe und die Gruppen, die mit dieser Gruppe verknüpft sind, inklusive aller relevanten Verbindungslinien, blau hervorgehoben werden.
 
@@ -431,4 +431,6 @@ CMD [ "node", "./main.js"]
 Im ersten Schritt wird der Frontend-Code kompiliert. Im zweiten Schritt wird der Backend-Code kompiliert und das kompilierte Frontend aus dem ersten Schritt zur statischen Auslieferung in einen bestimmten Ordner kopiert. Im dritten Schritt wird ein Node-Image für die Produktivumgebung erzeugt, welches das kompilierte Backend inklusive des Frontends enthält und mit einem Start-Befehl der Webserver gestartet wird.
 Das resultierende Image, welches nun eine lauffähige Version der Anwendung enthält, wird anschließend als neueste Version des Images getagt.
 Deploy führt ein Update der konkreten Produktivumgebung durch. Dazu wird das Image, welches im Build-Job erzeugt wurde, und das laufende Image ersetzt. Hierzu wird die Docker-Compose-Datei verwendet, welche die Konfiguration der Docker-Services der Produktivumgebung beschreibt. Diese Datei referenziert immer die neueste Version des gebauten Images und einen Reverse-Proxy-Service von "Traefik", welcher dazu dient das Portmapping auf dem Server zu übernehmen und mithilfe von Letsencrypt ein SSL-Zertifikat für die angegebene Domain auszustellen.
-Zuletzt werden alle alten und unbenutzt Images gelöscht.
+Zuletzt werden alle alten und unbenutzten Images gelöscht.
+
+Die Datenbank für den Produktiv-Server ist eine konstenlose Version einer Cloud-Instanz von Mongo-Atlas.

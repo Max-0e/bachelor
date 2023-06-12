@@ -3,7 +3,7 @@ Resultierend aus diesen Erkenntnissen wird an dieser Stelle ein Prozess definier
 
 \subsection{Prozessdefinition / Anforderungsformulierung}
 Für Fortschrittsmessung und Werteorientierung müssen Zusammenhänge innerhalb eines Portfolios mit operativen Elementen, deren absoluter Fortschritt tatsächlich gemessen werden kann, dokumentiert werden können. Diese Verknüpfung muss über beliebig viele Ebenen stattfinden können, um möglichst universell und unabhängig von der Unternehmensstruktur und dem verwendeten Framework benutzbar zu sein.
-Operative Elemente, hier genannt Aufgabe, haben einen veränderbaren Status an dem festgestellt werden kann, ob sie fertig sind und somit für den gemessenen Fortschritt einbezogen werden müssen. Aufgaben besitzen zudem zwei numerische Werte: Storypoints und Value. Storypoints sollen als relativer Wert die Komplexität der Umsetzung, die mit einer Aufgabe verbunden ist darstellen, während Value den Mehrwert widerspiegelt, welcher durch die Erledigung der Aufgabe entsteht. Die Bezeichnung ist in diesem Fall mit Absicht unspezifisch gewählt, um weitere Komplexität zu vermeiden und den Scope dieser Arbeit zu verkleinern, da zwischen verschiedenen Formen von Mehrwert unterschieden werden kann, wie z. B. Business-, Customer-Value oder auch interner Mehrwert. Ziel dieser Werte ist, die Aufgaben vergleichbarer zu machen, da einige Aufgaben mehr Einfluss auf den Fortschritt haben können als andere. Aufgaben im Kontext des Prototyps würden somit die Funktion der User-Stories erfüllen.
+Operative Elemente, hier genannt Aufgabe, haben einen veränderbaren Status an dem festgestellt werden kann, ob sie fertig sind und somit für den gemessenen Fortschritt einbezogen werden müssen. Aufgaben besitzen zudem zwei numerische Werte: Storypoints und Value. Storypoints sollen als relativer Wert die Komplexität der Umsetzung, die mit einer Aufgabe verbunden ist darstellen. Value dagegen spiegelt den Mehrwert wider, welcher durch die Erledigung der Aufgabe entsteht. Die Bezeichnung ist in diesem Fall mit Absicht unspezifisch gewählt, um weitere Komplexität zu vermeiden und den Scope dieser Arbeit zu verkleinern, da zwischen verschiedenen Formen von Mehrwert, wie z. B. Business-, Customer-Value oder auch internem Mehrwert, unterschieden werden kann. Ziel dieser Werte ist, die Aufgaben vergleichbarer zu machen, da einige Aufgaben mehr Einfluss auf den Fortschritt haben können als andere. Aufgaben im Kontext des Prototyps würden somit die Funktion der User-Stories erfüllen.
 
 Die zuvor bereits beschriebene weitere Unterteilung in Tasks spielt für die Fortschrittsmessung oder Werteorientierung und dementsprechend auch für ein Refinement keine Rolle, da Mehrwert und Fortschritt nur entsteht, wenn eine User-Story vollständig umgesetzt wurde und wird deshalb vernachlässigt.
 
@@ -31,7 +31,7 @@ Das Ziel des Prototyps einen zentralen Ort für alle relevanten Informationen f�
 \end{center}
 \vspace{20pt}
 
-Um den Userflow innerhalb des Prototyps darzustellen, wurde ein UX-Entwurf mit Figma entwickelt, welcher alle Funktionalitäten der Anwendung visuell abbildet und als Grundlage für das Design der Benutzeroberfläche dient. Der Entwurf ist als Klickprototyp \href{https://www.figma.com/proto/6TjaUCKvs4DjwzTDEiWxiO/Prototype?type=design&node-id=0-1&scaling=min-zoom&starting-point-node-id=2%3A61}{hier} verfügbar.
+Um den Userflow innerhalb des Prototyps darzustellen, wurde ein UX-Entwurf mit Figma entwickelt, welcher alle Funktionalitäten der Anwendung visuell abbildet und als Grundlage für das Design der Benutzeroberfläche dient. Der Entwurf ist als Klickprototyp unter \href{https://www.figma.com/proto/6TjaUCKvs4DjwzTDEiWxiO/Prototype?type=design&node-id=0-1&scaling=min-zoom&starting-point-node-id=2%3A61}{https://shorturl.at/quA02} verfügbar.
 
 Der Entwurf unterteilt die Anwendung in 7 verschiedene Teile:
 
@@ -51,7 +51,7 @@ Die Authentifizierung beinhaltet Seiten für den Login und die Registrierung. Au
 Das Menü besteht aus 2 Seiten. Die Profil-Seite stellt den Nutzernamen und E-Mail-Adresse dar und ermöglicht es dem Nutzer ein JIRA-API-Token für einen JIRA-Import zu hinterlegen. Auf der Einstellungsseite kann der Nutzer zwischen Light- und Dark-Mode wechseln.
 
 \subsubsection{Organisation}
-Auf der Organisationsseite kann der Nutzer alle Organisationen sehen und neue Organisationen erstellen. Beim Erstellen einer Organisation kann der Nutzer sich entscheiden, ob er Epics verwenden möchte. Wenn die Organisation erstellt wird, wird zusätzlich ein Level für Projekte, also die unterste Ebene erstellt. Verwendet die erstellte Organisation Epics, werden 2 Ebenen standardmäßig erstellt: Project und Epic. Dies hat ebenfalls Auswirkungen auf das Dashboard, da es grundsätzlich alle Levels darstellt. Verwendet eine Organisation allerdings Epics, wird die unterste Ebene, also Epics, nicht mit dargestellt. Außerdem gibt es in den Projekten keine Möglichkeit Epics zu erstellen.
+Auf der Organisationsseite kann der Nutzer alle Organisationen sehen und neue Organisationen erstellen. Beim Erstellen einer Organisation kann der Nutzer sich entscheiden, ob er Epics verwenden möchte. Wenn die Organisation erstellt wird, wird zusätzlich ein Level für Projekte, also die unterste Ebene erstellt. Verwendet die erstellte Organisation Epics, werden 2 Ebenen standardmäßig erstellt: Project und Epic. Dies hat ebenfalls Auswirkungen auf das Dashboard, da es grundsätzlich alle Levels darstellt. Verwendet eine Organisation allerdings Epics, wird die unterste Ebene, also Epics, nicht mit dargestellt, um die Übersichtlichkeit zu erhöhen.
 
 \vspace{20pt}
 \begin{center}
@@ -89,7 +89,7 @@ Hier kann der Nutzer Ebenen(Levels) erstellen und löschen. Alle Ebenen werden h
 
 \subsubsection{Gruppen}
 Je Ebene gibt es eine Gruppenansicht, die alle Elemente(Gruppen) je Level in mit einer kurzen Übersicht über den Fortschritt enthält. Der Nutzer kann neue Gruppen erstellen und auf bestehende Gruppen klicken um zu deren Detailansicht zu gelangen.
-In der Gruppendetailansicht gibt es eine detaillierte Übersicht über den Fortschritt des Elements. Der Nutzer kann das Element umbenennen und löschen. Außerdem werden alle verknüpften Elemente aus der darunterliegenden Ebene dargestellt. Mit einem Klick auf eines dieser Elemente kann der Nutzer auch deren Detailansicht aufrufen.
+In der Gruppendetailansicht gibt es eine detaillierte Übersicht über den Fortschritt des Elements. Der Nutzer kann das Element hier umbenennen oder löschen. Außerdem werden alle verknüpften Elemente aus der darunterliegenden Ebene dargestellt. Mit einem Klick auf eines dieser Elemente kann der Nutzer auch deren Detailansicht aufrufen.
 
 \vspace{20pt}
 \begin{center}
@@ -126,7 +126,7 @@ Im Aufgaben-Backlog kann der Nutzer alle Aufgaben des Projekts als Listenansicht
 \end{center}
 \vspace{20pt}
 
-Befindet sich das Projekt in einer Organisation die Epics verwendet, gibt es ebenfalls die Epic-Übersicht. Hier werden alle Epics in dem Projekt dargestellt und ihr Fortschritt mit einer Grafik visualisiert. Der Nutzer kann neue Epics erstellen und bestehende Löschen. Klickt er auf ein Epic öffnet sich die Epic-Detailansicht in einem Pop-up-Fenster, in dem das Epic umbenannt oder gelöscht werden kann. Außerdem wird eine Liste aller Aufgaben ähnlich wie im Backlog angezeigt, die sich in dem Epic befinden. Hier kann der Nutzer zudem Aufgaben, die noch keinem Epic zugeordnet wurden, auswählen und zu diesem Epic hinzufügen. Aufgaben die sich bereits in dem Epic befinden können gelöscht oder nur aus dem Epic entfernt werden. Erstellt der Nutzer an dieser Stelle eine Aufgabe wird diese automatisch dem Epic hinzugefügt.
+Befindet sich das Projekt in einer Organisation die Epics verwendet, gibt es ebenfalls die Epic-Übersicht. Hier werden alle Epics in dem Projekt dargestellt und ihr Fortschritt mit einer Grafik visualisiert. Der Nutzer kann neue Epics erstellen und bestehende löschen. Klickt er auf ein Epic öffnet sich die Epic-Detailansicht in einem Pop-up-Fenster, in dem das Epic umbenannt oder gelöscht werden kann. Außerdem wird eine Liste aller Aufgaben ähnlich wie im Backlog angezeigt, die sich in dem Epic befinden. Hier kann der Nutzer zudem Aufgaben, die noch keinem Epic zugeordnet wurden, auswählen und zu diesem Epic hinzufügen. Aufgaben die sich bereits in dem Epic befinden können gelöscht oder nur aus dem Epic entfernt werden. Erstellt der Nutzer an dieser Stelle eine Aufgabe wird diese automatisch dem Epic hinzugefügt.
 
 \vspace{20pt}
 \begin{center}
@@ -140,7 +140,6 @@ Befindet sich das Projekt in einer Organisation die Epics verwendet, gibt es ebe
 Das Projekt-Dashboard vereint eine Zusammenfassung des Projekt-Fortschritts mit dem Aufgaben-Board und dem Backlog.
 
 \subsection{Datenaggregation}
-Für die Fortschrittsaggregation müssen rekursiv Verknüpfungen zu Elementen der Ebene darunter zusammengefasst werden, bis die Elemente Aufgaben sind, deren Status feststeht. Hierzu beinhalten alle verknüpfbaren Elemente eine Liste mit Referenzen auf verknüpfte Elemente aus der darüber liegenden Ebene. Somit kann überprüft werden welche Elemente der darunterliegenden Ebene mit dem Element, dessen Fortschritt aggregiert werden soll, verknüpft sind. Daraus resultiert eine Liste an Elementen, bei der für jeden Eintrag der Liste genauso wie das für eigentliche Element geprüft werden kann, welche Elemente der darunter liegenden Ebene eine Referenz auf das Element haben. Dies wird so oft wiederholt, bis die verknüpften Elemente Aufgaben sind.
 
 \vspace{20pt}
 \begin{center}
@@ -150,5 +149,7 @@ Für die Fortschrittsaggregation müssen rekursiv Verknüpfungen zu Elementen de
     \end{minipage}
 \end{center}
 \vspace{20pt}
+
+Für die Fortschrittsaggregation müssen rekursiv Verknüpfungen zu Elementen der Ebene darunter zusammengefasst werden, bis die Elemente Aufgaben sind, deren Status feststeht. Hierzu beinhalten alle verknüpfbaren Elemente eine Liste mit Referenzen auf verknüpfte Elemente aus der darüber liegenden Ebene. Somit kann überprüft werden welche Elemente der darunterliegenden Ebene mit dem Element, dessen Fortschritt aggregiert werden soll, verknüpft sind. Daraus resultiert eine Liste an Elementen, bei der für jeden Eintrag der Liste, genauso wie das für eigentliche Element, geprüft werden kann, welche Elemente der darunter liegenden Ebene eine Referenz auf das Element haben. Dies wird so oft wiederholt, bis die verknüpften Elemente Aufgaben sind.
 
 Die Liste an Aufgaben, die sich am Ende des Prozesses ergibt, kann anschließend nach Aufgaben in den verschiedenen Stati sortiert werden. Aus diesen Listen können nun 3 verschiedene Fortschrittsvarianten berechnet werden. Die Anzahl an fertigen Aufgaben geteilt durch die Gesamtmenge an Aufgaben ergibt einen absoluten Fortschritt. Für einen relativen Fortschritt kann die Summe der Storypoints oder des Values aller fertigen Aufgaben durch die Gesamtmenge an Storypoints oder des Values aller Aufgaben geteilt werden, um den relativen Fortschritt zu bestimmen.
