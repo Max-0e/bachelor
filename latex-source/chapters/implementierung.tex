@@ -238,7 +238,7 @@ Importiert der Nutzer von Jira kann er zunächst ein Projekt auswählen.
 \end{center}
 \vspace{20pt}
 
-Für Jira-Projekte kann das Mapping der Felder größtenteils automatisch durchgeführt werden, das bedeutet, dass Aufgaben und Epics sofort erkannt werden. Die Stati der Aufgaben können anhand der Metadaten von JIRA auch automatisch ausgelesen werden. Der Nutzer kann dennoch für jeden Status aus JIRA ändern, welcher Status im Prototypen zugeordnet wird, falls die tatsächliche Verwendung von den Meta-Daten abweichen sollte.
+Für Jira-Projekte kann das Mapping der Felder größtenteils automatisch durchgeführt werden, das bedeutet, dass Aufgaben und Epics sofort erkannt werden. Die Stati der Aufgaben können anhand der Metadaten von JIRA auch automatisch ausgelesen werden. Falls die tatsächliche Verwendung von den Meta-Daten abweichen sollte, hat der Nutzer die Möglichkeit jeden Status aus Jira dem gewünschten Status innerhalb des Prototyps zuzuordnen.
 
 \vspace{20pt}
 \begin{center}
@@ -251,7 +251,7 @@ Für Jira-Projekte kann das Mapping der Felder größtenteils automatisch durchg
 
 Außerdem kann der Nutzer an dieser Stelle Custom-Fields für Issues aus Jira, welche Zahlenwerte enthalten, auf Value und/oder Storypoints mappen.
 
-Zuletzt erhält der Nutzer nocheinmal eine Übersicht über die importierten Daten und kann den Import-Prozess starten.
+Zuletzt erhält der Nutzer noch einmal eine Übersicht über die importierten Daten und kann den Import-Prozess starten.
 
 \vspace{20pt}
 \begin{center}
@@ -286,7 +286,7 @@ Um die Übersicht bei vielen Gruppen beizubehalten werden die Gruppen innerhalb 
 \end{center}
 \vspace{20pt}
 
-Um die Verbindungslinien darzustellen wurde ein SVG-Element im Hintergrund der Seite verwendet, welches die Verbindungslinien unabhängig von anderen Elementen auf der Seite darstellen kann. Die Start- und Endkoordinaten der Linien werden durch Positionen der Gruppen innerhalb der Seite berechnet. Dabei muss zusätzlich beachtet werden, wenn ein Level so viele Gruppen beinhaltet, dass sich einige Gruppen außerhalb des sichtbaren Bereichs befinden können. Durch Scrollen können sie in den sichtbaren Bereich bewegt werden. In diesem Fall müssen die Koordinaten der Linien entsprechend der Scroll-Position der verschobenen Gruppen neu berechnet werden.
+Um die Verbindungslinien darzustellen wurde ein SVG-Element im Hintergrund der Seite verwendet, welches die Verbindungslinien unabhängig von anderen Elementen auf der Seite darstellen kann. Die Start- und Endkoordinaten der Linien werden durch Positionen der Gruppen innerhalb der Seite berechnet. Falls ein Level so viele Gruppen beinhaltet, dass sich einige Gruppen außerhalb des sichtbaren Bereichs befinden, können sie durch Scrollen in den sichtbaren Bereich bewegt werden. In diesem Fall müssen die Koordinaten der Linien entsprechend der Scroll-Position der verschobenen Gruppen neu berechnet werden.
 
 \vspace{20pt}
 \begin{center}
@@ -390,7 +390,7 @@ jobs:
 \end{lstlisting}
 
 Die Pipeline besteht aus zwei Teilen, sogenannten Jobs: Build und Deploy.
-Build erzeugt aus dem geupdateten Quellcode ein neues Docker-Image nach den konkreten Anweisungen die in dem Dockerfile im root-Verzeichnis des Prototypen definiert sind. Bei dem Dockerfile handelt es sich um ein multi-stage Dockerfile, welches in drei Schritten ein Image erzeugt. Diese drei Schritte sind:
+Build erzeugt aus dem geupdateten Quellcode ein neues Docker-Image nach den konkreten Anweisungen, die in dem Dockerfile im root-Verzeichnis des Prototyps definiert sind. Bei dem Dockerfile handelt es sich um ein multi-stage Dockerfile, welches in drei Schritten ein Image erzeugt. Diese drei Schritte sind:
 frontend-build, backend-build, und production.
 
 \begin{lstlisting}[caption=Dockerfile zum Bauen des Images]
@@ -432,4 +432,4 @@ Das resultierende Image, welches nun eine lauffähige Version der Anwendung enth
 Deploy führt ein Update der konkreten Produktivumgebung durch. Dazu wird das laufende Image das Image, welches im Build-Job erzeugt wurde, ersetzt. Hierzu wird die Docker-Compose-Datei verwendet, welche die Konfiguration der Docker-Services der Produktivumgebung beschreibt. Diese Datei referenziert immer die neueste Version des gebauten Images und einen Reverse-Proxy-Service von "Traefik", welcher dazu dient das Portmapping auf dem Server zu übernehmen und mithilfe von Letsencrypt ein SSL-Zertifikat für die angegebene Domain auszustellen.
 Zuletzt werden alle alten und unbenutzten Images gelöscht.
 
-Die Datenbank für den Produktiv-Server ist eine konstenlose Version einer Cloud-Instanz von Mongo-Atlas.
+Die Datenbank für den Produktiv-Server ist eine kostenlose Version einer Cloud-Instanz von Mongo-Atlas.
