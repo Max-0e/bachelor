@@ -6,7 +6,7 @@
 				? 'bg-successGreen dark:bg-successGreenDark'
 				: task.status === 'inProgress'
 				? 'bg-blue-400 dark:bg-blue-800'
-				: '!text-gray-600 bg-gray-100 dark:bg-dark-200'
+				: '!text-gray-600 bg-gray-100 dark:(bg-dark-200 !text-white)'
 		">
 		<div class="w-1/2 truncate p-3 text-left">
 			{{ task.name }}
