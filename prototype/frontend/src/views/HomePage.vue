@@ -31,7 +31,7 @@
 				unpredictable environments, such as project management and project
 				portfolio management, by focussing on the value created for the
 				customer. This leads to the need of systematically scaling agile
-				practices to enterprise level, which can be done by using i.e. the
+				practices to enterprise level, which can be done by using e.g. the
 				Scaled Agile Framework (SAFe) or Flight Levels and results in big
 				organizational structures with multiple levels of planning and decision
 				making, which have to be documented.
